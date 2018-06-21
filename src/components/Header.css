@@ -1,0 +1,11 @@
+.navbarcontainer {
+  position: fixed;
+  height: 30px;
+  width: 100vw;
+
+}
+
+.navbar {
+  height: inherit;
+
+}

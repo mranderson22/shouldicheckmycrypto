@@ -1,0 +1,14 @@
+.Answer {
+  height: 100vh;
+  position: relative;
+  background-color: #3e9c35;
+}
+
+.Answerbox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(4vw + 4vh + 8vmin);
+  color: #073108;
+}
