@@ -1,0 +1,23 @@
+
+.Answeryes {
+  height: 100vh;
+  background-color: #3e9c35;
+
+}
+
+.Answerboxyes {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(4vw + 4vh + 4vmin);
+  color: #052706;
+  font-family: 'Poppins', sans-serif;
+}
+
+.unlockbody {
+  padding-top: 55vh;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}

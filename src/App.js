@@ -1,16 +1,62 @@
 import React, {Component} from 'react';
-import Header from './Components/Header';
-import Answer from './Components/Answer';
+import Header from './Components/Header/Header';
+import Answerisyes from './Components/Answerisyes/Answerisyes';
+import Answerisno from './Components/Answerisno/Answerisno';
+import Yesdashboard from './Components/Yesdashboard/Yesdashboard';
 import style from './App.css';
+import axios from 'axios';
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Header />
-        <Answer />
-      </div>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [
+        {
+          id: "bitcoin",
+          name: "Bitcoin",
+          symbol: "BTC",
+          price_usd: "1",
+          percent_change_1h: "0",
+          percent_change_24h: "0",
+          percent_change_7d: "0",
+        },
+      ]
+    };
+  }
+
+  componentDidMount() {
+      this.fetchCryptocurrencyData();
+  }
+
+  fetchCryptocurrencyData() {
+    axios.get('https://api.coinmarketcap.com/v1/ticker/')
+      .then(response => {
+        const wanted = ["bitcoin"];
+        const result = response.data.filter(currency => wanted.includes(currency.id));
+
+        this.setState({ data: result });
+      })
+      .catch(err => console.log(err));
+  }
+
+  render () {
+    if (Number(this.state.data[0].percent_change_24h) > 5) {
+      return (
+        <div>
+          <Header />
+          <Answerisyes packet={this.state.data} />
+          <Yesdashboard />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Header />
+          <Answerisno packet={this.state.data} />
+        </div>
+      );
+    }
   }
 }
 

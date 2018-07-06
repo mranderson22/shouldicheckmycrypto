@@ -10,6 +10,13 @@ module.exports = {
   module: {
     rules: [
       {
+    test: /\.(jpg|png|svg|ico)$/,
+    loader: 'url-loader',
+    options: {
+      limit: 25000,
+    },
+},
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
