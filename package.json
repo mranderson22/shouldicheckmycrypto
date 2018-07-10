@@ -4,7 +4,7 @@
   "description": "shouldicheckmycrypto react app",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "index_bundle.js",
     "build": "webpack --mode production"
   },
   "author": "Eric Anderson",
@@ -12,10 +12,6 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
   },
   "devDependencies": {
     "axios": "^0.18.0",
