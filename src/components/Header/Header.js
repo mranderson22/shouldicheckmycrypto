@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import style from './Header.css';
+import style from './header.css';
 import { Navbar } from 'reactstrap';
 
 
 
-class Header extends Component {
+class header extends Component {
   render() {
     return (
       <div>
@@ -18,4 +18,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default header;

@@ -4,7 +4,7 @@
   "description": "shouldicheckmycrypto react app",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
   },
   "author": "Eric Anderson",

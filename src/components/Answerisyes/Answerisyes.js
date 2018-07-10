@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import style from './Answerisyes.css';
+import style from './answerisyes.css';
 import lockbody from '../../../images/unlockbody.png';
 
 
 
 
-class Answerisyes extends Component {
+class answerisyes extends Component {
   render() {
     const data = this.props.packet;
 
@@ -30,4 +30,4 @@ class Answerisyes extends Component {
   }
 }
 
-export default Answerisyes;
+export default answerisyes;

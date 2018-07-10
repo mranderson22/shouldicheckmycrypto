@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Header from './Components/Header/Header.js';
-import Answerisyes from './Components/Answerisyes/Answerisyes.js';
-import Answerisno from './Components/Answerisno/Answerisno.js';
-import Yesdashboard from './Components/Yesdashboard/Yesdashboard.js';
+import Header from './Components/Header/Header';
+import Answerisyes from './Components/Answerisyes/Answerisyes';
+import Answerisno from './Components/Answerisno/Answerisno';
+import Yesdashboard from './Components/Yesdashboard/Yesdashboard';
 import style from './App.css';
 import axios from 'axios';
 
