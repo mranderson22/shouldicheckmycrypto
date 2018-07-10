@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   render () {
-    if (Number(this.state.data[0].percent_change_24h) > 5) {
+    if (Number(this.state.data[0].percent_change_24h) > 0) {
       return (
         <div>
           <Header />
