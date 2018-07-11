@@ -5,7 +5,7 @@
   "main": "index.js",
   "engines": { "node": "v8.11.3", "npm": "6.1.0"},
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "node ./dist/index_bundle.js",
     "build": "webpack --mode production"
   },
   "author": "Eric Anderson",
