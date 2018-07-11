@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Header from './Components/Header/Header';
-import Answerisyes from './Components/Answerisyes/Answerisyes';
-import Answerisno from './Components/Answerisno/Answerisno';
-import Yesdashboard from './Components/Yesdashboard/Yesdashboard';
+import Header from './components/header/header';
+import Answerisyes from './components/answerisyes/answerisyes';
+import Answerisno from './components/answerisno/answerisno';
+import Yesdashboard from './components/yesdashboard/yesdashboard';
 import style from './App.css';
 import axios from 'axios';
 
@@ -44,16 +44,16 @@ class App extends Component {
     if (Number(this.state.data[0].percent_change_24h) > 0) {
       return (
         <div>
-          <Header />
-          <Answerisyes packet={this.state.data} />
-          <Yesdashboard />
+          <header />
+          <answerisyes packet={this.state.data} />
+          <yesdashboard />
         </div>
       );
     } else {
       return (
         <div>
-          <Header />
-          <Answerisno packet={this.state.data} />
+          <header />
+          <answerisno packet={this.state.data} />
         </div>
       );
     }
