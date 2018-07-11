@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "shouldicheckmycrypto react app",
   "main": "index.js",
-  "engines": { "node": "v8.11.3", "npm": "6.1.0",
+  "engines": { "node": "v8.11.3", "npm": "6.1.0"},
   "scripts": {
-    "start": "build",
+    "start": "node index.js",
     "build": "webpack --mode production"
   },
   "author": "Eric Anderson",
