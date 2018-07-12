@@ -3,7 +3,7 @@ import Header from './components/header/header';
 import Answerisyes from './components/answerisyes/answerisyes';
 import Answerisno from './components/answerisno/answerisno';
 import Yesdashboard from './components/yesdashboard/yesdashboard';
-import style from './App.css';
+import style from './app.css';
 import axios from 'axios';
 
 
