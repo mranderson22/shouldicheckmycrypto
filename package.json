@@ -5,7 +5,7 @@
   "main": "index.js",
   "target": "web",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open --hot",
+    "start": "webpack-dev-server --port 1234 --host 0.0.0.0",
     "build": "webpack --mode production"
   },
   "author": "Eric Anderson",
