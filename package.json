@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "shouldicheckmycrypto react app",
   "main": "index.js",
+  "target": "web",
   "scripts": {
     "engines": { "node": "v8.11.3", "npm": "v6.1.0"},
     "start": "webpack-dev-server --mode development --open --hot",
