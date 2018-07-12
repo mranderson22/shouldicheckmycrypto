@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Header from './components/header/header';
+import Header from './Components/header/header';
 import Answerisyes from './Components/answerisyes/answerisyes';
 import Answerisno from './Components/answerisno/answerisno';
 import Yesdashboard from './Components/yesdashboard/yesdashboard';
