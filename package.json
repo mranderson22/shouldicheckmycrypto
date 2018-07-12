@@ -10,14 +10,14 @@
       "npm": "v6.1.0"
     },
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode none"
   },
   "author": "Eric Anderson",
   "license": "MIT",
   "dependencies": {
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "window-or-global": "^1.0.1"
+    "react-dom": "^16.4.1"
+
   },
   "devDependencies": {
     "axios": "^0.18.0",

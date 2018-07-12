@@ -5,17 +5,18 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, './dist'),
+    publicPath: '/',
     filename: 'index_bundle.js'
   },
   module: {
     rules: [
       {
-    test: /\.(jpg|png|svg|ico)$/,
-    loader: 'url-loader',
-    options: {
-      limit: 25000,
-    },
-},
+        test: /\.(jpg|png|svg|ico)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 25000,
+        },
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
