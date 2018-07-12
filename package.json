@@ -10,7 +10,7 @@
       "npm": "v6.1.0"
     },
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode none"
+    "build": "webpack --mode production"
   },
   "author": "Eric Anderson",
   "license": "MIT",
