@@ -9,6 +9,7 @@ module.exports = {
     publicPath: '/',
     filename: 'index_bundle.js'
   },
+  target: 'web',
   module: {
     rules: [
       {
