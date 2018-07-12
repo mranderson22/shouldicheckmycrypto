@@ -1,1 +1,1 @@
-web: webpack -d | node dist/index_bundle.js
+web: node ./dist/index_bundle.js
