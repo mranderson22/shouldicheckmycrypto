@@ -7,7 +7,7 @@
 
 .answerboxyes {
   position: absolute;
-  top: 40%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 4vmin);
@@ -16,7 +16,7 @@
 }
 
 .unlockbody {
-  padding-top: 55vh;
+  padding-top: 47vh;
   margin-left: auto;
   margin-right: auto;
   display: block;
