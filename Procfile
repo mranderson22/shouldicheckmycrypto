@@ -1,1 +1,1 @@
-web: node ./dist/index_bundle
+web: node index.js

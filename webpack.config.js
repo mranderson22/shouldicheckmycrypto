@@ -30,7 +30,7 @@ module.exports = {
         test: /\.css$/,
         use: [{
           loader: MiniCssExtractPlugin.loader
-        },{
+        }, {
           loader: "css-loader"
         },
         ]
@@ -43,11 +43,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
-    }),
-    new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify('production')
-    }
-  })
+    })
+
   ]
 };
