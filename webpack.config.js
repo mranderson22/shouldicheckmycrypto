@@ -6,10 +6,11 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, './dist'),
+    globalObject: "this",
     publicPath: '/',
     filename: 'index_bundle.js'
   },
-  target: 'node',
+  target: 'web',
   module: {
     rules: [
       {
