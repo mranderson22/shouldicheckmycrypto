@@ -5,6 +5,7 @@ import Answerisno from './components/answerisno/answerisno';
 import Yesdashboard from './components/yesdashboard/yesdashboard';
 import style from './App.css';
 import axios from 'axios';
+import root from 'window-or-global';
 
 
 class App extends Component {
