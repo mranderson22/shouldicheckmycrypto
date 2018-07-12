@@ -44,16 +44,16 @@ class App extends Component {
     if (Number(this.state.data[0].percent_change_24h) > 0) {
       return (
         <div>
-          <header />
-          <answerisyes packet={this.state.data} />
-          <yesdashboard />
+          <Header />
+          <Answerisyes packet={this.state.data} />
+          <Yesdashboard />
         </div>
       );
     } else {
       return (
         <div>
-          <header />
-          <answerisno packet={this.state.data} />
+          <Header />
+          <Answerisno packet={this.state.data} />
         </div>
       );
     }
