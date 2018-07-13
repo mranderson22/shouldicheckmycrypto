@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import style from './answerisno.css';
+import style from './Answerisno.css';
 import lockbody from '../../../images/lockbody.png';
 
 
 
-class answerisno extends Component {
+class Answerisno extends Component {
   render() {
     const data = this.props.packet;
     let text = '';
@@ -15,8 +15,8 @@ class answerisno extends Component {
       text = 'nope.';
     }
     return (
-        <div className="answerno">
-          <div className="answerboxno">
+        <div className="Answerno">
+          <div className="Answerboxno">
             {text}
           </div>
         <img className="lockbody" src={lockbody} />
@@ -25,4 +25,4 @@ class answerisno extends Component {
   }
 }
 
-export default answerisno;
+export default Answerisno;

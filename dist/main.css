@@ -11,13 +11,13 @@
 }
 
 
-.answeryes {
+.Answeryes {
   height: 100vh;
   background-color: #3e9c35;
 
 }
 
-.answerboxyes {
+.Answerboxyes {
   position: absolute;
   top: 35%;
   left: 50%;
@@ -34,13 +34,13 @@
   display: block;
 }
 
-.answerno {
+.Answerno {
   height: 100vh;
   position: relative;
   background-color: #86101b;
 }
 
-.answerboxno {
+.Answerboxno {
   position: absolute;
   top: 35%;
   left: 50%;
@@ -57,12 +57,12 @@
   display: block;
 }
 
-.yesdashboardcontainer {
+.Yesdashboardcontainer {
   height: 100vh;
   background-color: #3e9c35;
 }
 
-.yesdashboard {
+.Yesdashboard {
 
 }
 

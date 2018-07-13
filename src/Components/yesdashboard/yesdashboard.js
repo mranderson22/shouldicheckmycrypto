@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import style from './yesdashboard.css';
+import style from './Yesdashboard.css';
 
-class yesdashboard extends Component {
+class Yesdashboard extends Component {
   render() {
     return (
-      <div className="yesdashboardcontainer">
-        <div className="yesdashboard">
+      <div className="Yesdashboardcontainer">
+        <div className="Yesdashboard">
         </div>
       </div>
     );
   }
 }
 
-export default yesdashboard;
+export default Yesdashboard;
