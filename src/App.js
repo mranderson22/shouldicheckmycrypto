@@ -5,6 +5,7 @@ import Answerisno from './Components/answerisno/answerisno';
 import Yesdashboard from './Components/yesdashboard/yesdashboard';
 import style from './app.css';
 import axios from 'axios';
+import Loader from 'react-loader-spinner';
 
 
 
@@ -12,6 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       data: [
         {
           id: "bitcoin",
@@ -24,9 +26,14 @@ class App extends Component {
         },
       ]
     };
+    console.log(this.state.loading: '')
   }
 
+
   componentDidMount() {
+    setTimeout(() => {
+      this.setState({loading: false})
+    },2000),
       this.fetchCryptocurrencyData();
   }
 
@@ -37,11 +44,21 @@ class App extends Component {
         const result = response.data.filter(currency => wanted.includes(currency.id));
 
         this.setState({ data: result });
+        console.log(this.state.loading: '')
       })
       .catch(err => console.log(err));
   }
 
   render () {
+    if (this.state.loading) {
+      return (
+        <div className="spinnercontainer">
+        <div className="spinner">
+        <Loader type="Ball-Triangle" color="yellow" height={120} width={120} />
+    </div>
+    </div>
+      )
+    }
     if (Number(this.state.data[0].percent_change_24h) > 0) {
       return (
         <div>
