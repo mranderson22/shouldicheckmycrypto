@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --hot --config webpack.config.js",
     "build": "webpack --mode production --config prod.config.js",
-    "deploy": "npm run build && node server.js"
+    "deploy": "node server.js"
   },
   "author": "Eric Anderson",
   "license": "MIT",
