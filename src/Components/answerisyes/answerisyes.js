@@ -19,8 +19,8 @@ class answerisyes extends Component {
     }
     return (
       <div>
-        <div className="Answeryes">
-          <div className="Answerboxyes">
+        <div className="answeryes">
+          <div className="answerboxyes">
               {text}
           </div>
         <img className="unlockbody" src={lockbody} />
