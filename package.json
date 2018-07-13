@@ -5,7 +5,7 @@
   "main": "index.js",
   "target": "web",
   "scripts": {
-    "start": "webpack-dev-server --open --hot --config webpack.config.js",
+    "start": "webpack-dev-server --mode development --open --hot  --config webpack.config.js",
     "build": "webpack --mode production --config prod.config.js",
     "deploy": "node server.js"
   },
