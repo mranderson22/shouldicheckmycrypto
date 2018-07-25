@@ -6,6 +6,7 @@ import lockbody from '../../../images/lockbody.png';
 
 class Answerisno extends Component {
   render() {
+    document.body.style.overflow = 'hidden';
     const data = this.props.packet;
     let text = '';
 
@@ -14,12 +15,17 @@ class Answerisno extends Component {
     } else {
       text = 'nope.';
     }
+
+    function hideScrollbar() {
+      document.body.style.overflow = 'visible';
+    }
+
     return (
         <div className="Answerno">
           <div className="Answerboxno">
             {text}
           </div>
-        <img className="lockbody" src={lockbody} />
+        <img className="lockbody" src={lockbody} onClick={hideScrollbar} />
       </div>
     );
   }

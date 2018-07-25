@@ -3,6 +3,7 @@ import Header from './Components/header/header';
 import Answerisyes from './Components/answerisyes/answerisyes';
 import Answerisno from './Components/answerisno/answerisno';
 import Yesdashboard from './Components/yesdashboard/yesdashboard';
+import Nodashboard from './Components/nodashboard/nodashboard';
 import style from './app.css';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
@@ -26,7 +27,6 @@ class App extends Component {
         },
       ]
     };
-    console.log(this.state.loading: '')
   }
 
 
@@ -44,13 +44,12 @@ class App extends Component {
         const result = response.data.filter(currency => wanted.includes(currency.id));
 
         this.setState({ data: result });
-        console.log(this.state.loading: '')
       })
       .catch(err => console.log(err));
   }
 
   render () {
-    if (this.state.loading) {
+    if (this.state.loading === true) {
       return (
         <div className="spinnercontainer">
         <div className="spinner">
@@ -72,6 +71,7 @@ class App extends Component {
         <div>
           <Header />
           <Answerisno packet={this.state.data} />
+          <Nodashboard />
         </div>
       );
     }
