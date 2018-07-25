@@ -28,16 +28,17 @@
 }
 
 .unlockbody {
-  padding-top: 47vh;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .Answerno {
   height: 100vh;
   position: relative;
   background-color: #86101b;
+  padding-right: 8px;
 }
 
 .Answerboxno {
@@ -51,10 +52,10 @@
 }
 
 .lockbody {
-  padding-top: 47vh;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .Yesdashboardcontainer {
@@ -63,6 +64,15 @@
 }
 
 .Yesdashboard {
+
+}
+
+.Nodashboardcontainer {
+  height: 100vh;
+  background-color: #86101b;
+}
+
+.Nodashboard {
 
 }
 
