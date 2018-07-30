@@ -1,8 +1,11 @@
 .Nodashboardcontainer {
   height: 100vh;
-  background-color: #86101b;
+  background: black url('../../../images/circles.png') repeat;
+
 }
 
 .Nodashboard {
+  height: 100vh;
 
+  background-color: #880410b5;
 }

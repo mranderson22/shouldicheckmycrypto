@@ -1,9 +1,20 @@
+.Answernobackground {
+  height: 100vh;
+  background: black url('../../../images/circles.png') center;
+
+
+}
+
 .Answerno {
   height: 100vh;
-  position: relative;
-  background-color: #86101b;
-  padding-right: 8px;
+
+  background-color: #880410b5;
+
+
+
 }
+
+
 
 .Answerboxno {
   position: absolute;
@@ -11,8 +22,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 8vmin);
-  color: #2d0609;
+  color: #250507;
   font-family: 'Poppins', sans-serif;
+  text-shadow: 3px 3px 10px #4e11179e;
+
 }
 
 .lockbody {

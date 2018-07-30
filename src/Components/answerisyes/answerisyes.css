@@ -1,7 +1,10 @@
-
+.Answeryesbackground {
+  height: 100vh;
+  background: black url('../../../images/circles.png') center;
+}
 .Answeryes {
   height: 100vh;
-  background-color: #3e9c35;
+  background-color: #2e96249e;
 
 }
 
@@ -11,8 +14,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 4vmin);
-  color: #052706;
+  color: #031904;
   font-family: 'Poppins', sans-serif;
+  text-shadow: 3px 3px 10px #0c3515ad;
+
+
+
+
 }
 
 .unlockbody {

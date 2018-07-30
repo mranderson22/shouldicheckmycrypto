@@ -1,8 +1,9 @@
 .Yesdashboardcontainer {
   height: 100vh;
-  background-color: #3e9c35;
+  background: black url('../../../images/circles.png') center;
 }
 
 .Yesdashboard {
-
+  height: 100vh;
+  background-color: #2e96249e;
 }

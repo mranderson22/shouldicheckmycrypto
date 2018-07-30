@@ -12,8 +12,12 @@
   "author": "Eric Anderson",
   "license": "MIT",
   "dependencies": {
+    "animate.css": "^3.6.1",
+    "popmotion-pose": "^2.1.0",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-animated-css": "^1.0.4",
+    "react-dom": "^16.4.1",
+    "react-pose": "^2.2.0"
   },
   "devDependencies": {
     "axios": "^0.18.0",
