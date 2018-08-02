@@ -22,7 +22,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 8vmin);
-  color: #250507;
+  color: #130304;
   font-family: 'Poppins', sans-serif;
   text-shadow: 3px 3px 10px #4e11179e;
 
@@ -30,7 +30,7 @@
 
 .lockbody {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

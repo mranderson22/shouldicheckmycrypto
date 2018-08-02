@@ -13,11 +13,16 @@
   "license": "MIT",
   "dependencies": {
     "animate.css": "^3.6.1",
+    "chart.js": "^2.7.2",
+    "moment": "^2.22.2",
     "popmotion-pose": "^2.1.0",
     "react": "^16.4.1",
     "react-animated-css": "^1.0.4",
+    "react-chartkick": "^0.2.1",
     "react-dom": "^16.4.1",
-    "react-pose": "^2.2.0"
+    "react-moment": "^0.7.9",
+    "react-pose": "^2.2.0",
+    "react-svg-line-chart": "^2.0.1"
   },
   "devDependencies": {
     "axios": "^0.18.0",
