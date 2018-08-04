@@ -1,16 +1,12 @@
-import React, {Component} from 'react';
-import Header from './Components/header/header';
-import Answerisyes from './Components/answerisyes/answerisyes';
-import Answerisno from './Components/answerisno/answerisno';
-import Yesdashboard from './Components/yesdashboard/yesdashboard';
-import Nodashboard from './Components/nodashboard/nodashboard';
-import style from './app.css';
+import React, { Component } from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
-import Moment from 'react-moment';
-import moment from 'moment';
-
-
+import Header from './Components/header/Header';
+import Answerisyes from './Components/answerisyes/Answerisyes';
+import Answerisno from './Components/answerisno/Answerisno';
+import Yesdashboard from './Components/yesdashboard/Yesdashboard';
+import Nodashboard from './Components/nodashboard/Nodashboard';
+import './app.css';
 
 
 class App extends Component {
@@ -19,82 +15,63 @@ class App extends Component {
     this.state = {
       loading: true,
       data: [],
-      history: [
-
-    ]
+      history: []
     };
   }
 
-
-
   componentDidMount() {
     setTimeout(() => {
-      this.setState({loading: false})
-    },1200),
-      this.fetchCryptocurrencyData();
-      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=10')
-      .then(response => {
+      this.setState({ loading: false });
+    }, 1200);
+    this.fetchCryptocurrencyData();
+    axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=10')
+      .then((response) => {
         const history = response.data.Data;
-
-
-        this.setState({history: history});
-      })
-      .catch(err => console.log(err));
+        this.setState({ history });
+      });
   }
-
-
-
-
-
-
-
 
   fetchCryptocurrencyData() {
     axios.get('https://api.coinmarketcap.com/v1/ticker/')
-      .then(response => {
-        const wanted = ["bitcoin"];
+      .then((response) => {
+        const wanted = ['bitcoin'];
         const result = response.data.filter(currency => wanted.includes(currency.id));
-
-
         this.setState({ data: result });
-
-      })
-      .catch(err => console.log(err));
+      });
   }
 
 
+  render() {
+    // React destructuring assignment
+    const { data } = this.state;
+    const { loading } = this.state;
+    const { history } = this.state;
 
-
-
-  render () {
-
-
-    if (this.state.loading === true) {
+    if ((loading) === true) {
       return (
         <div className="spinnercontainer">
-        <div className="spinner">
-        <Loader type="Ball-Triangle" color="yellow" height={120} width={120} />
-    </div>
-    </div>
-      )
-    }
-    if (Number(this.state.data[0].percent_change_24h) > 0) {
-      return (
-        <div>
-          <Header />
-          <Answerisyes packet={this.state.data} />
-          <Yesdashboard packet ={this.state.history}/>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Header />
-          <Answerisno packet={this.state.data} />
-          <Nodashboard packet ={this.state.history}/>
+          <div className="spinner">
+            <Loader type="Ball-Triangle" color="yellow" height={120} width={120} />
+          </div>
         </div>
       );
     }
+    if (Number((data)[0].percent_change_24h) > -20) {
+      return (
+        <div>
+          <Header />
+          <Answerisyes packet={data} />
+          <Yesdashboard packet={history} />
+        </div>
+      );
+    }
+    return (
+      <div>
+        <Header />
+        <Answerisno packet={data} />
+        <Nodashboard packet={history} />
+      </div>
+    );
   }
 }
 

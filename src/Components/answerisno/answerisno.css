@@ -1,20 +1,12 @@
 .Answernobackground {
   height: 100vh;
   background: black url('../../../images/circles.png') center;
-
-
 }
 
 .Answerno {
   height: 100vh;
-
   background-color: #880410b5;
-
-
-
 }
-
-
 
 .Answerboxno {
   position: absolute;
@@ -25,7 +17,6 @@
   color: #130304;
   font-family: 'Poppins', sans-serif;
   text-shadow: 3px 3px 10px #4e11179e;
-
 }
 
 .lockbody {
