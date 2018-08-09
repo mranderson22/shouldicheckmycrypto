@@ -3,52 +3,70 @@ import './Nodashboard.css';
 import 'react-moment';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { LineChart } from 'react-chartkick';
-import 'chart.js';
+import ReactChartkick, { LineChart } from 'react-chartkick';
+import Chart from 'chart.js';
 
 
-const Nodashboard = ({ packet }) => {
+const Nodashboard = ({ packet, data }) => {
   Nodashboard.propTypes = {
-    packet: PropTypes.string
+    packet: PropTypes.string,
+    data: PropTypes.string
   };
 
   Nodashboard.defaultProps = {
-    packet: 'test'
+    packet: 'test',
+    data: 'test'
   };
 
-  const data = (packet);
+  const history = (packet);
 
-  data.forEach((pos) => {
+  const { name } = data[0];
+
+  const currentPrice = parseFloat(data[0].price_usd).toFixed(2);
+
+  const { rank } = data[0];
+
+  const seven = data[0].percent_change_7d;
+
+  const points = {};
+
+  history.forEach((pos) => {
     const { time } = pos;
     (pos).time = moment.unix(time).format('YYYY-MM-DD');
   });
 
-  /*
-    data.forEach(pos => {
-    const close = pos.close;
-    pos['close'] = Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(close);
-    })
-*/
 
-  const points = {};
+  for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
+    const stringTime = history[historyIndex].time;
 
-  for (let dataIndex = 0; dataIndex < data.length; dataIndex++) {
-    const stringTime = data[dataIndex].time;
-
-    points[stringTime] = data[dataIndex].close;
+    points[stringTime] = history[historyIndex].close;
   }
 
 
   return (
     <div className="Nodashboardcontainer">
       <div className="Nodashboard">
-        <div className="Graph">
-          <LineChart xtitle="Last 10 Days" ytitle="USD" colors={['#880410b5', '#880410b5']} curve={false} width="70vw" height="40vh" min={null} data={points} />
+        <div>
+          <div className="Nochartheader">
+            <h2>
+              { name }
+            </h2>
+            <p>
+              { `Rank: ${rank}` }
+              { ' \u00A0 '}
+              { `Current Price: ${currentPrice}` }
+              { ' \u00A0 ' }
+              { `Last 7 Days: ${seven}` }
+            </p>
+          </div>
+        </div>
+        <div className="NoGraph">
+          <LineChart library={{ scales: { xAxes: [{ ticks: { display: false } }], yAxes: [{ ticks: { display: false } }] } }} dataset={{ borderWidth: 2, pointBackgroundColor: 'grey' }} colors={['black', '#880410b5']} discrete={false} curve={false} width="75vw" height="30vh" min={null} data={points} />
         </div>
       </div>
     </div>
   );
 };
 
-
+ReactChartkick.addAdapter(Chart);
 export default Nodashboard;

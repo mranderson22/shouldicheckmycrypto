@@ -24,7 +24,7 @@ class App extends Component {
       this.setState({ loading: false });
     }, 1200);
     this.fetchCryptocurrencyData();
-    axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=10')
+    axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=30')
       .then((response) => {
         const history = response.data.Data;
         this.setState({ history });
@@ -56,12 +56,12 @@ class App extends Component {
         </div>
       );
     }
-    if (Number((data)[0].percent_change_24h) > -20) {
+    if (Number((data)[0].percent_change_24h) > 0) {
       return (
         <div>
           <Header />
           <Answerisyes packet={data} />
-          <Yesdashboard packet={history} />
+          <Yesdashboard packet={history} data={data} />
         </div>
       );
     }
@@ -69,7 +69,7 @@ class App extends Component {
       <div>
         <Header />
         <Answerisno packet={data} />
-        <Nodashboard packet={history} />
+        <Nodashboard packet={history} data={data} />
       </div>
     );
   }
