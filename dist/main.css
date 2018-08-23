@@ -78,25 +78,43 @@
 
 .YesGraph {
   position: absolute;
-  height: 47vh;
-  top: 150%;
+  height: 60vh;
+  top: 148%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 15px;
+  padding: 60px;
   /*background-color: black;
   box-shadow: 0px 0px 4px black;*/
 }
 
 .Yeschartheader {
   position: absolute;
-  top: 126%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
-  padding-bottom: 50px;
   color: black;
+}
+
+.daysselector {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 20px;
+  font-family: 'Poppins', sans-serif;
+  color: black;
+  padding-top: 50px;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.YesChartActual {
+  padding-top: 40px;
 }
 
 .Nodashboardcontainer {

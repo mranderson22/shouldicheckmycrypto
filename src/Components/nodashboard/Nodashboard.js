@@ -149,12 +149,18 @@ class Nodashboard extends Component {
                     display: false
                   },
                   tooltips: {
-  displayColors: false
-},
+                    displayColors: false
+                  },
                   scales: {
+                    yAxes: [{
+                      ticks: {
+                        fontColor: '#989898'
+                      }
+                    }],
                     xAxes: [{
                       ticks: {
-                        maxTicksLimit: 15
+                        maxTicksLimit: 15,
+                        fontColor: '#989898'
                       }
                     }]
                   }

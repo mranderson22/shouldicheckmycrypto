@@ -71,7 +71,12 @@ class App extends Component {
         <div>
           <Header />
           <Answerisyes packet={data} />
-          <Yesdashboard packet={historythirty} data={data} />
+          <Yesdashboard
+            historythirty={historythirty}
+            historysixty={historysixty}
+            historyninety={historyninety}
+            data={data}
+          />
         </div>
       );
     }
