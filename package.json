@@ -21,13 +21,14 @@
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
         "react-animated-css": "^1.0.4",
+        "react-chartjs-2": "^2.7.4",
         "react-chartkick": "^0.2.1",
         "react-dom": "^16.4.1",
         "react-loader-spinner": "^2.1.0",
         "react-moment": "^0.7.9",
         "react-pose": "^2.2.0",
-        "reactstrap": "^6.2.0",
-        "react-svg-line-chart": "^2.0.1"
+        "react-svg-line-chart": "^2.0.1",
+        "reactstrap": "^6.2.0"
     },
     "devDependencies": {
         "babel-core": "^6.26.3",
@@ -57,9 +58,11 @@
             "browser": true
         },
         "rules": {
-          "no-param-reassign": 0,
-          "no-plusplus": 0,
+            "no-param-reassign": 0,
+            "no-plusplus": 0,
             "linebreak-style": 0,
+            "react/prefer-stateless-function": "off",
+            "react/forbid-prop-types": "off",
             "react/jsx-filename-extension": [
                 1,
                 {

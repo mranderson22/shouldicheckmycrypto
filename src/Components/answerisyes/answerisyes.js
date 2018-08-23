@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import './Answerisyes.css';
-import lockbody from '../../../images/unlockbody.png';
+import arrows from '../../../images/arrows.png';
 
 
 const Answerisyes = ({ packet }) => {
@@ -54,7 +54,7 @@ const Answerisyes = ({ packet }) => {
           </Hidden>
         </div>
         <div onClick={scrollToBottom} onKeyDown={scrollToBottom} role="button" tabIndex={0}>
-          <img alt="" className="unlockbody" src={lockbody} />
+          <img alt="" className="unlockbody" src={arrows} />
         </div>
       </div>
     </div>

@@ -15,20 +15,28 @@ class App extends Component {
     this.state = {
       loading: true,
       data: [],
-      history: []
+      historythirty: [],
+      historysixty: [],
+      historyninety: []
     };
   }
 
   componentDidMount() {
     setTimeout(() => {
       this.setState({ loading: false });
-    }, 1200);
+    }, 2000);
     this.fetchCryptocurrencyData();
-    axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=30')
-      .then((response) => {
-        const history = response.data.Data;
-        this.setState({ history });
-      });
+    axios.all([
+      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=30'),
+      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=60'),
+      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=90')
+    ])
+      .then(axios.spread((responsethirty, responsesixty, responseninety) => {
+        const historythirty = responsethirty.data.Data;
+        const historysixty = responsesixty.data.Data;
+        const historyninety = responseninety.data.Data;
+        this.setState({ historythirty, historysixty, historyninety });
+      }));
   }
 
   fetchCryptocurrencyData() {
@@ -45,7 +53,9 @@ class App extends Component {
     // React destructuring assignment
     const { data } = this.state;
     const { loading } = this.state;
-    const { history } = this.state;
+    const { historythirty } = this.state;
+    const { historysixty } = this.state;
+    const { historyninety } = this.state;
 
     if ((loading) === true) {
       return (
@@ -56,12 +66,12 @@ class App extends Component {
         </div>
       );
     }
-    if (Number((data)[0].percent_change_24h) > 0) {
+    if (Number((data)[0].percent_change_24h) > 20) {
       return (
         <div>
           <Header />
           <Answerisyes packet={data} />
-          <Yesdashboard packet={history} data={data} />
+          <Yesdashboard packet={historythirty} data={data} />
         </div>
       );
     }
@@ -69,7 +79,12 @@ class App extends Component {
       <div>
         <Header />
         <Answerisno packet={data} />
-        <Nodashboard packet={history} data={data} />
+        <Nodashboard
+          historythirty={historythirty}
+          historysixty={historysixty}
+          historyninety={historyninety}
+          data={data}
+        />
       </div>
     );
   }
