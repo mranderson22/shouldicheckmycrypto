@@ -66,11 +66,19 @@
   transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1400px) and (orientation: portrait) {
   .lockbody {
     height: 7vh;
     padding-right: 10px;
     top: 48%;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .lockbody {
+    height: 13vh;
+    padding-right: 10px;
+    top: 60%;
   }
 }
 
@@ -105,17 +113,6 @@
   color: black;
 }
 
-.daysselector {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 20px;
-  font-family: 'Poppins', sans-serif;
-  color: black;
-  padding-top: 50px;
-}
-
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: black !important;
     border-color: black !important;
@@ -138,16 +135,16 @@
 .NoGraph {
   position: absolute;
   height: 70vh;
-  top: 148%;
+  top: 142%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 60px;
-  width: 65vw;
+  width: 80vw;
   /*background-color: black;
   box-shadow: 0px 0px 4px black;*/
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1000px) and (orientation: portrait) {
   .NoGraph {
     position: absolute;
     top: 160%;
@@ -155,6 +152,12 @@
     transform: translate(-50%, -50%);
     padding: 0px;
     width: 95vw;
+  }
+}
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+  .NoGraph {
+
   }
 }
 
@@ -166,10 +169,10 @@
   font-size: 1.2rem;
   font-family: 'Poppins', sans-serif;
   color: #989898;
-  width: 62vw;
+  width: 95vw;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1000px) and (orientation: portrait) {
   .Nochartheader {
     font-size: .8rem;
   }
@@ -187,6 +190,16 @@
   width: 67vw;
 }
 
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+  .daysselector {
+    position: fixed;
+    padding-bottom: 60%;
+    padding-left: 70vw;
+    display: grid;
+  }
+}
+
+
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: black !important;
     border-color: black !important;
@@ -194,6 +207,26 @@
 
 .NoChartActual {
   padding-top: 40px;
+}
+
+.btn {
+
+}
+
+@media screen and (max-width: 1000px) and (orientation: portrait) {
+  .btn {
+    height: 20px;
+    font-size: .7rem !important;
+    padding-top: 1px !important;
+  }
+}
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+  .btn {
+    height: 20px;
+    font-size: .7rem !important;
+    padding-top: 1px !important;
+  }
 }
 
 .spinner {

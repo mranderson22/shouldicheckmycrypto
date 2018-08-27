@@ -26,10 +26,18 @@
   transform: translate(-50%, -50%);
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1400px) and (orientation: portrait) {
   .lockbody {
     height: 7vh;
     padding-right: 10px;
     top: 48%;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .lockbody {
+    height: 13vh;
+    padding-right: 10px;
+    top: 60%;
   }
 }

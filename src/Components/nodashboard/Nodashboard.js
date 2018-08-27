@@ -143,7 +143,6 @@ class Nodashboard extends Component {
                 data={graphData}
                 height={600}
                 width={1200}
-                redraw
                 options={{
                   legend: {
                     display: false
