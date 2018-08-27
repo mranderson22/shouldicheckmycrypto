@@ -169,6 +169,7 @@ class Nodashboard extends Component {
             </div>
             <div className="daysselector">
               <Button
+                className="btn"
                 color="primary"
                 onClick={() => {
                   this.onHistoryChange(30);
@@ -180,6 +181,7 @@ class Nodashboard extends Component {
               { ' \u00A0 '}
               { ' \u00A0 '}
               <Button
+                className="btn"
                 color="primary"
                 onClick={() => {
                   this.onHistoryChange(60);
@@ -191,6 +193,7 @@ class Nodashboard extends Component {
               { ' \u00A0 '}
               { ' \u00A0 '}
               <Button
+                className="btn"
                 color="primary"
                 onClick={() => {
                   this.onHistoryChange(90);
