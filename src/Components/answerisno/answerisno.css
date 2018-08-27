@@ -25,3 +25,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+@media screen and (max-width: 1000px) {
+  .lockbody {
+    height: 7vh;
+    padding-right: 10px;
+    top: 48%;
+  }
+}

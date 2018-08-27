@@ -20,6 +20,17 @@
   box-shadow: 0px 0px 4px black;*/
 }
 
+@media screen and (max-width: 1024px) {
+  .NoGraph {
+    position: absolute;
+    top: 160%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0px;
+    width: 95vw;
+  }
+}
+
 .Nochartheader {
   position: absolute;
   left: 50%;
@@ -28,7 +39,13 @@
   font-size: 1.2rem;
   font-family: 'Poppins', sans-serif;
   color: #989898;
-  width: 52vw;
+  width: 62vw;
+}
+
+@media screen and (max-width: 1024px) {
+  .Nochartheader {
+    font-size: .8rem;
+  }
 }
 
 .daysselector {
@@ -40,6 +57,7 @@
   font-family: 'Poppins', sans-serif;
   color: black;
   padding-top: 50px;
+  width: 67vw;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
@@ -49,33 +67,4 @@
 
 .NoChartActual {
   padding-top: 40px;
-}
-
-@media screen and (max-width: 768px) {
-  .btn {
-    padding:2px 4px;
-    font-size:80%;
-    line-height: 1;
-    border-radius:3px;
-  }
-  .Nochartheader {
-    font-size: .8rem;
-  }
-  .NoGraph {
-    position: absolute;
-    height: 70vh;
-    top: 148%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 60px;
-    width: 95vw;
-  }
-}
-
-@media screen and (min-width: 769px) and (max-width: 992px) {
-  .btn {
-    padding:4px 9px;
-    font-size:90%;
-    line-height: 1.2;
-  }
 }
