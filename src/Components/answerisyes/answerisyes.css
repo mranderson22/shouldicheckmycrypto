@@ -1,11 +1,15 @@
 .Answeryesbackground {
-  height: 100vh;
+  height: 101vh;
   background: black url('../../../images/circles.png') center;
 }
-.Answeryes {
-  height: 100vh;
-  background-color: #2e96249e;
 
+.Answeryes {
+  height: 101vh;
+  background-color: #2e96249e;
+  padding: 0;
+  justify-content: stretch;
+  align-items: center;
+  display: flex;
 }
 
 .Answerboxyes {
@@ -20,8 +24,21 @@
 }
 
 .unlockbody {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  padding: 0;
+  margin: auto;
+  margin-top: 48vh;
 }
+
+@media screen and (max-width: 1000px) and (orientation: portrait) {
+  .lockbody {
+
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .lockbody {
+
+  }
+}
+
+*:focus {outline:none}

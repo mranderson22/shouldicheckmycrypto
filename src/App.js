@@ -4,8 +4,6 @@ import Loader from 'react-loader-spinner';
 import Header from './Components/header/Header';
 import Answerisyes from './Components/answerisyes/Answerisyes';
 import Answerisno from './Components/answerisno/Answerisno';
-import Yesdashboard from './Components/yesdashboard/Yesdashboard';
-import Nodashboard from './Components/nodashboard/Nodashboard';
 import './app.css';
 
 
@@ -66,16 +64,15 @@ class App extends Component {
         </div>
       );
     }
-    if (Number((data)[0].percent_change_24h) > 20) {
+    if (Number((data)[0].percent_change_24h) > 0) {
       return (
         <div>
           <Header />
-          <Answerisyes packet={data} />
-          <Yesdashboard
+          <Answerisyes
+            data={data}
             historythirty={historythirty}
             historysixty={historysixty}
             historyninety={historyninety}
-            data={data}
           />
         </div>
       );
@@ -83,12 +80,11 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <Answerisno packet={data} />
-        <Nodashboard
+        <Answerisno
+          data={data}
           historythirty={historythirty}
           historysixty={historysixty}
           historyninety={historyninety}
-          data={data}
         />
       </div>
     );

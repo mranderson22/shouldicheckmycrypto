@@ -2,6 +2,8 @@
   position: fixed;
   height: 30px;
   width: 100vw;
+  background: black;
+  display: none;
 
 }
 

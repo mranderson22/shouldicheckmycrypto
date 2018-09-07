@@ -26,7 +26,7 @@
         "react-dom": "^16.4.1",
         "react-loader-spinner": "^2.1.0",
         "react-moment": "^0.7.9",
-        "react-pose": "^2.2.0",
+        "react-pose": "^2.3.0",
         "react-svg-line-chart": "^2.0.1",
         "reactstrap": "^6.2.0"
     },
@@ -63,6 +63,7 @@
             "linebreak-style": 0,
             "react/prefer-stateless-function": "off",
             "react/forbid-prop-types": "off",
+            "class-methods-use-this": "off",
             "react/jsx-filename-extension": [
                 1,
                 {

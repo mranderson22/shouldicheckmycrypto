@@ -1,16 +1,29 @@
 import React, { Component } from 'react';
 import './Yesdashboard.css';
 import 'react-moment';
-import { Button } from 'reactstrap';
+import axios from 'axios';
+import posed from 'react-pose';
+import { Button, Container, Row } from 'reactstrap';
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+
+const Reveal = posed.div({
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 500 },
+    delay: 400
+  }
+});
 
 class Yesdashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      isGraphVisible: false,
+      cryptoImage: [],
       history: [],
       graphData: {
         labels: [],
@@ -23,11 +36,16 @@ class Yesdashboard extends Component {
     };
   }
 
+  componentWillMount() {
+    this.fetchCryptocurrencyImage();
+  }
+
   componentDidMount() {
     const { historythirty } = this.props;
     this.setState({ history: historythirty }, () => {
       this.formatDate();
       this.getPoints();
+      this.setState({ isGraphVisible: 'true' });
     });
   }
 
@@ -95,6 +113,14 @@ class Yesdashboard extends Component {
     this.setState({ graphData: newGraphData });
   }
 
+  fetchCryptocurrencyImage() {
+    axios.get('https://min-api.cryptocompare.com/data/all/coinlist')
+      .then((response) => {
+        const cryptoImage = response.data.Data.BTC.ImageUrl;
+        this.setState({ cryptoImage });
+      });
+  }
+
   formatDate() {
     const { historythirty } = this.props;
     const { historysixty } = this.props;
@@ -115,92 +141,103 @@ class Yesdashboard extends Component {
 
 
   render() {
+    const { isGraphVisible } = this.state;
     const { data } = this.props;
     const { graphData } = this.state;
     const { name } = data[0];
     const currentPrice = parseFloat(data[0].price_usd).toFixed(2);
     const { rank } = data[0];
     const seven = data[0].percent_change_7d;
+    const { cryptoImage } = this.state;
+    const Image = `https://www.cryptocompare.com/${cryptoImage}`;
+
 
     return (
-      <div className="Yesdashboardcontainer">
+      <div id="dashboard" className="Yesdashboardcontainer">
         <div className="Yesdashboard">
-          <div className="YesGraph">
-            <div className="Yeschartheader">
-              <h2>
-                { name }
-              </h2>
-              <p>
-                { `Rank: ${rank}` }
-                { ' \u00A0 '}
-                { `Current Price: $${currentPrice}` }
-                { ' \u00A0 ' }
-                { `Last 7 Days: ${seven}%` }
-              </p>
-            </div>
-            <div className="YesChartActual">
-              <Line
-                data={graphData}
-                height={600}
-                width={1200}
-                redraw
-                options={{
-                  legend: {
-                    display: false
-                  },
-                  tooltips: {
-                    displayColors: false
-                  },
-                  scales: {
-                    yAxes: [{
-                      ticks: {
-                        fontColor: 'black'
+          <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
+            <Container>
+              <Row>
+                <div className="YesGraph">
+                  <div className="Yeschartheader">
+                    <img alt="" className="cryptoImage" src={Image} />
+                    <div className="name">
+                      { name }
+                    </div>
+                    <p>
+                      { `Rank: ${rank}` }
+                      { ' \u00A0 '}
+                      { `Current Price: $${currentPrice}` }
+                      { ' \u00A0 ' }
+                      { `Last 7 Days: ${seven}%` }
+                    </p>
+                  </div>
+
+                  <div className="YesChartActual">
+                    <Line
+                      data={graphData}
+                      maintainAspectRatio={false}
+                      options={{
+                        legend: {
+                          display: false
+                        },
+                        tooltips: {
+                          displayColors: false
+                        },
+                        scales: {
+                          yAxes: [{
+                            ticks: {
+                              fontColor: 'black'
+                            }
+                          }],
+                          xAxes: [{
+                            ticks: {
+                              maxTicksLimit: 15,
+                              fontColor: 'black'
+                            }
+                          }]
+                        }
+                      }}
+                    />
+                  </div>
+
+                  <div className="daysselector">
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        this.onHistoryChange(30);
                       }
-                    }],
-                    xAxes: [{
-                      ticks: {
-                        maxTicksLimit: 15,
-                        fontColor: 'black'
+                    }
+                    >
+                      { 30 }
+                    </Button>
+                    { ' \u00A0 '}
+                    { ' \u00A0 '}
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        this.onHistoryChange(60);
                       }
-                    }]
-                  }
-                }}
-              />
-            </div>
-            <div className="daysselector">
-              <Button
-                color="primary"
-                onClick={() => {
-                  this.onHistoryChange(30);
-                }
-              }
-              >
-                { 30 }
-              </Button>
-              { ' \u00A0 '}
-              { ' \u00A0 '}
-              <Button
-                color="primary"
-                onClick={() => {
-                  this.onHistoryChange(60);
-                }
-              }
-              >
-                { 60 }
-              </Button>
-              { ' \u00A0 '}
-              { ' \u00A0 '}
-              <Button
-                color="primary"
-                onClick={() => {
-                  this.onHistoryChange(90);
-                }
-              }
-              >
-                { 90 }
-              </Button>
-            </div>
-          </div>
+                    }
+                    >
+                      { 60 }
+                    </Button>
+                    { ' \u00A0 '}
+                    { ' \u00A0 '}
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        this.onHistoryChange(90);
+                      }
+                    }
+                    >
+                      { 90 }
+                    </Button>
+                  </div>
+                </div>
+              </Row>
+            </Container>
+          </Reveal>
         </div>
       </div>
     );

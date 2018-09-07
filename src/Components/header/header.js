@@ -5,7 +5,7 @@ import { Navbar } from 'reactstrap';
 
 const Header = () => (
   <div>
-    <div className="navbarcontainer">
+    <div id="foo" className="navbarcontainer">
       <Navbar className="navbar navbar-expand-lg" />
     </div>
   </div>

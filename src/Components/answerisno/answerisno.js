@@ -1,70 +1,156 @@
-import React from 'react';
-import posed from 'react-pose';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import posed from 'react-pose';
 import './Answerisno.css';
-import lockbody from '../../../images/lockbody.png';
+import arrows from '../../../images/arrows.png';
+import Nodashboard from '../nodashboard/Nodashboard';
 
-
-const Answerisno = ({ packet }) => {
-  Answerisno.propTypes = {
-    packet: PropTypes.string
-  };
-
-  Answerisno.defaultProps = {
-    packet: 'test'
-  };
-
-
-  document.body.style.overflow = 'hidden';
-
-  const data = (packet);
-
-  let text = '';
-
-  if (Number(data[0].percent_change_24h) > -5) {
-    text = 'meh';
+const Reveal = posed.div({
+  hidden: {
+    opacity: 0,
+    x: 0,
+    y: -10
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1000 },
+    x: 0,
+    y: 0
   }
-  else {
-    text = 'nope.';
+});
+
+const Reveal2 = posed.div({
+  hidden: {
+    opacity: 0,
+    x: 0,
+    y: 10
+  },
+  visible: {
+    opacity: 1,
+    transition: { duration: 1000 },
+    x: 0,
+    y: 0,
+    delay: 200
+  }
+});
+
+const Hover = posed.div({
+  idle: { scale: 1 },
+  hovered: { scale: 1.3 }
+});
+
+class Answerisno extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showComponent: false,
+      isVisible: false,
+      text: '',
+      hovering: false
+    };
+    this.onButtonClick = this.onButtonClick.bind(this);
   }
 
-  const config = {
-    visible: {
-      opacity: 1,
-      transition: { duration: 600 }
-    },
-    hidden: {
-      opacity: 0,
-      transition: { duration: 600 }
+  componentDidMount() {
+    this.setMood();
+    this.setState({ isVisible: 'true' });
+  }
+
+  onButtonClick() {
+    this.setState({ showComponent: true }, () => {
+      this.scrollToBottom();
+    });
+  }
+
+  setMood() {
+    const { data } = this.props;
+
+    if (Number(data[0].percent_change_24h) > 5) {
+      this.setState({ text: 'no.' });
     }
-  };
+    else {
+      this.setState({ text: 'meh' });
+    }
+  }
 
-  const scrollToBottom = () => {
-    window.scroll({
-      top: 2500,
+  scrollToBottom() {
+    window.scrollBy({
       left: 0,
+      top: window.innerHeight,
       behavior: 'smooth'
     });
-    document.body.style.overflow = 'visible';
-  };
+  }
 
-  const Hidden = posed.div(config);
+  render() {
+    const { isVisible } = this.state;
+    const { text } = this.state;
+    const { data } = this.props;
+    const { historythirty } = this.props;
+    const { historysixty } = this.props;
+    const { historyninety } = this.props;
+    const { showComponent } = this.state;
+    const { hovering } = this.state;
 
 
-  return (
-    <div className="Answernobackground">
-      <div className="Answerno">
-        <div className="Answerboxno">
-          <Hidden initialPose="hidden" pose="visible">
-            {text}
-          </Hidden>
+    return (
+      <div className="Answernobackground">
+        <div className="Answerno">
+          <div className="Answerboxno">
+            <Reveal pose={isVisible ? 'visible' : 'hidden'}>
+              {text}
+            </Reveal>
+          </div>
+          <Hover
+            className="unlockbody"
+            pose={hovering ? 'hovered' : 'idle'}
+            onMouseEnter={() => this.setState({ hovering: true })}
+            onMouseLeave={() => this.setState({ hovering: false })}
+          >
+            <div
+              onClick={this.onButtonClick}
+              onKeyDown={this.onButtonClick}
+              role="button"
+              tabIndex={0}
+            >
+              <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
+                <div>
+                  <img alt="" src={arrows} />
+                </div>
+              </Reveal2>
+            </div>
+          </Hover>
         </div>
-        <div onClick={scrollToBottom} onKeyDown={scrollToBottom} role="button" tabIndex={0}>
-          <img alt="" className="lockbody" src={lockbody} />
+        <div>
+          {showComponent ? (
+            <Nodashboard
+              historythirty={historythirty}
+              historysixty={historysixty}
+              historyninety={historyninety}
+              data={data}
+            />
+          )
+            : null
+          }
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+
+Answerisno.propTypes = {
+  historythirty: PropTypes.array,
+  historysixty: PropTypes.array,
+  historyninety: PropTypes.array,
+  data: PropTypes.array
+};
+
+Answerisno.defaultProps = {
+  historythirty: 'historythirty',
+  historysixty: 'historysixty',
+  historyninety: 'historyninety',
+  data: 'data'
 };
 
 

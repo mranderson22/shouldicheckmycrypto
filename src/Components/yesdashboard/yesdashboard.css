@@ -10,13 +10,25 @@
 
 .YesGraph {
   position: absolute;
-  height: 60vh;
+  width: 70vw;
   top: 148%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 60px;
-  /*background-color: black;
-  box-shadow: 0px 0px 4px black;*/
+  background-color: #55bb5085;
+  box-shadow: 0px 8px 38px black;
+}
+
+@media screen and (max-width: 1000px) and (orientation: portrait) {
+  .YesGraph {
+    position: absolute;
+    top: 150%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0px;
+    width: 95vw;
+    padding-top: 70px;
+  }
 }
 
 .Yeschartheader {
@@ -29,6 +41,12 @@
   color: black;
 }
 
+@media screen and (max-width: 1000px) and (orientation: portrait) {
+  .Yeschartheader {
+    font-size: .8rem;
+  }
+}
+
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: black !important;
     border-color: black !important;
@@ -36,4 +54,27 @@
 
 .YesChartActual {
   padding-top: 40px;
+}
+
+.cryptoImage {
+  position: absolute;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 3vw;
+}
+
+@media screen and (max-width: 1000px) and (orientation: portrait) {
+  .cryptoImage {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) and (orientation: landscape) {
+  .cryptoImage {
+    display: none;
+  }
+}
+
+.name {
+  font-size: 2rem;
 }
