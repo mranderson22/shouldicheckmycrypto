@@ -5,7 +5,7 @@
 
 .Answerno {
   height: 101vh;
-  background-color: #880410b5;
+  background-color: #bb0718ad;
   padding: 0;
   justify-content: stretch;
   align-items: center;
@@ -42,3 +42,7 @@
 }
 
 *:focus {outline:none}
+
+body {
+  overflow: hidden;
+}

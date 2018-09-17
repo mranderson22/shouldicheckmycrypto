@@ -115,7 +115,7 @@ class Answerisyes extends Component {
             >
               <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
                 <div>
-                  <img alt="" src={arrows} />
+                  <img className="downArrows" alt="" src={arrows} />
                 </div>
               </Reveal2>
             </div>

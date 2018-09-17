@@ -41,4 +41,14 @@
   }
 }
 
+.downArrows {
+
+}
+
+@media screen and (max-width: 1000px) and (orientation: portrait) {
+  .downArrows {
+    width: 12vw;
+  }
+}
+
 *:focus {outline:none}

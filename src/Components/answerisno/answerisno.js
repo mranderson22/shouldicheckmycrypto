@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import posed from 'react-pose';
 import './Answerisno.css';
-import arrows from '../../../images/arrows.png';
+import lockbody from '../../../images/lockbody.png';
 import Nodashboard from '../nodashboard/Nodashboard';
 
 const Reveal = posed.div({
@@ -115,7 +115,7 @@ class Answerisno extends Component {
             >
               <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
                 <div>
-                  <img alt="" src={arrows} />
+                  <img alt="" src={lockbody} />
                 </div>
               </Reveal2>
             </div>
