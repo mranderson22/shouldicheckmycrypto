@@ -15,7 +15,7 @@
         "animate.css": "^3.6.1",
         "axios": "^0.18.0",
         "chart.js": "^2.7.2",
-        "express": "^4.16.3",
+        "express": "*",
         "moment": "^2.22.2",
         "popmotion-pose": "^2.1.0",
         "prop-types": "^15.6.2",
