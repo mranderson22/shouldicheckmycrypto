@@ -46,3 +46,13 @@
 body {
   overflow: hidden;
 }
+
+.lockImage {
+
+}
+
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .lockImage {
+    width: 12vw;
+  }
+}

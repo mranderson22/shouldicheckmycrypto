@@ -19,7 +19,7 @@
   box-shadow: 0px 8px 38px #0000008f;
 }
 
-@media screen and (max-width: 1000px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) and (orientation: portrait) {
   .NoGraph {
     position: absolute;
     top: 125%;
@@ -27,7 +27,8 @@
     transform: translate(-50%, -50%);
     padding: 0px;
     width: 90vw !important;
-    padding-top: 70px;
+    padding-top: 42px;
+    padding-bottom: 20px;
   }
 }
 
@@ -47,9 +48,10 @@
   width: 40vw;
 }
 
-@media screen and (max-width: 1000px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) and (orientation: portrait) {
   .Nochartheader {
     font-size: .8rem;
+    width: 90vw;
   }
 }
 
@@ -61,11 +63,11 @@
   font-size: 20px;
   font-family: 'Poppins', sans-serif;
   color: black;
-  padding-top: 15px;
+  padding-top: 45px;
   width: 67vw;
 }
 
-@media screen and (max-width: 1000px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) and (orientation: portrait) {
   .daysselector {
         padding-bottom: 50px;
   }
@@ -85,7 +87,7 @@
 
 }
 
-@media screen and (max-width: 1000px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) and (orientation: portrait) {
   .btn {
     height: 20px;
     font-size: .7rem !important;
@@ -93,7 +95,7 @@
   }
 }
 
-@media screen and (max-width: 1000px) and (orientation: landscape) {
+@media screen and (max-width: 1200px) and (orientation: landscape) {
   .btn {
     height: 20px;
     font-size: .7rem !important;
@@ -109,6 +111,12 @@
     margin-top: 87vh;
 }
 
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .plus {
+    margin-top: 70vh;
+  }
+}
+
 .NoGraphNew {
   position: absolute;
   width: 45vw;
@@ -120,14 +128,15 @@
   box-shadow: 0px 8px 38px #0000008f;
 }
 
-@media screen and (max-width: 1000px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) and (orientation: portrait) {
   .NoGraphNew {
     position: absolute;
-    top: 162%;
+    top: 170%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 0px;
     width: 90vw;
-    padding-top: 70px;
+    padding-top: 42px;
+    padding-bottom: 20px;
   }
 }

@@ -115,7 +115,7 @@ class Answerisno extends Component {
             >
               <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
                 <div>
-                  <img alt="" src={lockbody} />
+                  <img className="lockImage" alt="" src={lockbody} />
                 </div>
               </Reveal2>
             </div>
