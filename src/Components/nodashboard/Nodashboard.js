@@ -61,6 +61,11 @@ class Nodashboard extends Component {
     super(props);
 
     this.state = {
+      isEnabled: false,
+      value: 'BTC',
+      historythirty: [],
+      historysixty: [],
+      historyninety: [],
       freshReveal: false,
       hovering: false,
       secondGraphVisible: false,
@@ -76,7 +81,11 @@ class Nodashboard extends Component {
         ]
       }
     };
+    this.findSymbol = this.findSymbol.bind(this);
     this.addGraph = this.addGraph.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.fetchCryptocurrencyHistory();
   }
 
   componentWillMount() {
@@ -84,19 +93,16 @@ class Nodashboard extends Component {
   }
 
   componentDidMount() {
-    const { historythirty } = this.props;
     const { isGraphVisible } = this.state;
-    this.setState({ history: historythirty }, () => {
-      this.formatDate();
-      this.getPoints();
-      this.setState({ isGraphVisible: !isGraphVisible });
-    });
+    this.getPoints();
+    this.setState({ isGraphVisible: !isGraphVisible });
   }
 
+
   onHistoryChange(num) {
-    const { historythirty } = this.props;
-    const { historysixty } = this.props;
-    const { historyninety } = this.props;
+    const { historythirty } = this.state;
+    const { historysixty } = this.state;
+    const { historyninety } = this.state;
     if (num === 30) {
       this.setState({ history: historythirty }, () => {
         this.getPoints();
@@ -157,18 +163,74 @@ class Nodashboard extends Component {
     this.setState({ graphData: newGraphData });
   }
 
+  fetchCryptocurrencyHistory() {
+    const { value } = this.state;
+    axios.all([
+      axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=USD&limit=30`),
+      axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=USD&limit=60`),
+      axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=USD&limit=90`)
+    ])
+      .then(axios.spread((responsethirty, responsesixty, responseninety) => {
+        const historythirty = responsethirty.data.Data;
+        const historysixty = responsesixty.data.Data;
+        const historyninety = responseninety.data.Data;
+        this.setState({ historythirty, historysixty, historyninety });
+        this.formatDate();
+        this.onHistoryChange(30);
+      }));
+  }
+
+
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+    this.setState({ coin: event.target.value });
+    if (event.target.value !== '') {
+      this.setState({ isEnabled: true });
+      return true;
+    }
+    return false;
+  }
+
+  handleSubmit(event) {
+    this.findSymbol();
+    event.preventDefault();
+  }
+
+  findSymbol() {
+    const { sendCoin } = this.props;
+    const { coin } = this.state;
+    const { data } = this.props;
+    const { value } = this.state;
+    let hits = false;
+    data.forEach((coins) => {
+      if (!hits) {
+        if (coins.symbol === value) {
+          sendCoin(coin);
+          this.fetchCryptocurrencyHistory();
+          this.fetchCryptocurrencyImage();
+          this.getPoints();
+          hits = true;
+        }
+        else {
+          return false;
+        }
+      }
+    });
+  }
+
   fetchCryptocurrencyImage() {
-    axios.get('https://min-api.cryptocompare.com/data/all/coinlist')
+    const { value } = this.state;
+    axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
       .then((response) => {
-        const cryptoImage = response.data.Data.BTC.ImageUrl;
+        const cryptoImage = response.data.Data[0].CoinInfo.ImageUrl;
         this.setState({ cryptoImage });
       });
   }
 
   formatDate() {
-    const { historythirty } = this.props;
-    const { historysixty } = this.props;
-    const { historyninety } = this.props;
+    const { historythirty } = this.state;
+    const { historysixty } = this.state;
+    const { historyninety } = this.state;
     historythirty.forEach((pos) => {
       const { time } = pos;
       (pos).time = moment.unix(time).format('MMMM DD');
@@ -191,16 +253,17 @@ class Nodashboard extends Component {
 
 
   render() {
+    const { isEnabled } = this.state;
     const { freshReveal } = this.state;
     const { hovering } = this.state;
     const { secondGraphVisible } = this.state;
     const { isGraphVisible } = this.state;
-    const { data } = this.props;
+    const { dataNew } = this.props;
     const { graphData } = this.state;
-    const { name } = data[0];
-    const currentPrice = parseFloat(data[0].price_usd).toFixed(2);
-    const { rank } = data[0];
-    const seven = data[0].percent_change_7d;
+    const { name } = dataNew[0];
+    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
+    const { rank } = dataNew[0];
+    const seven = dataNew[0].percent_change_7d;
     const { cryptoImage } = this.state;
     const Image = `https://www.cryptocompare.com/${cryptoImage}`;
 
@@ -391,6 +454,13 @@ class Nodashboard extends Component {
                       </Hover>
                     </div>
                   </Reveal3>
+                  <form onSubmit={this.handleSubmit}>
+                    <label htmlFor="Name">
+                      { 'Symbol:' }
+                      <input type="text" onChange={this.handleChange} />
+                    </label>
+                    <input disabled={!isEnabled} type="submit" value="Submit" />
+                  </form>
                 </Reveal2>
               </div>
             </Row>
@@ -403,17 +473,17 @@ class Nodashboard extends Component {
 
 
 Nodashboard.propTypes = {
-  historythirty: PropTypes.array,
-  historysixty: PropTypes.array,
-  historyninety: PropTypes.array,
-  data: PropTypes.array
+  data: PropTypes.array,
+  sendCoin: PropTypes.func,
+  dataNew: PropTypes.array
+
 };
 
 Nodashboard.defaultProps = {
-  historythirty: 'historythirty',
-  historysixty: 'historysixty',
-  historyninety: 'historyninety',
-  data: 'data'
+  data: 'data',
+  sendCoin: 'sendCoin',
+  dataNew: 'dataNew'
+
 };
 
 export default Nodashboard;

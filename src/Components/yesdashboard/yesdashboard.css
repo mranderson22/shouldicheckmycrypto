@@ -61,9 +61,12 @@
 
 .cryptoImage {
   position: absolute;
-  left: 37%;
+  left: 34%;
   transform: translate(-50%, -50%);
   width: 3vw;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  box-shadow: 1px 1px 21px #00000085;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {

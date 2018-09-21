@@ -12,10 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       loading: true,
-      data: [],
-      historythirty: [],
-      historysixty: [],
-      historyninety: []
+      data: []
     };
   }
 
@@ -24,24 +21,12 @@ class App extends Component {
       this.setState({ loading: false });
     }, 2000);
     this.fetchCryptocurrencyData();
-    axios.all([
-      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=30'),
-      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=60'),
-      axios.get('https://min-api.cryptocompare.com/data/histoday?fsym=BTC&tsym=USD&limit=90')
-    ])
-      .then(axios.spread((responsethirty, responsesixty, responseninety) => {
-        const historythirty = responsethirty.data.Data;
-        const historysixty = responsesixty.data.Data;
-        const historyninety = responseninety.data.Data;
-        this.setState({ historythirty, historysixty, historyninety });
-      }));
   }
 
   fetchCryptocurrencyData() {
     axios.get('https://api.coinmarketcap.com/v1/ticker/')
       .then((response) => {
-        const wanted = ['bitcoin'];
-        const result = response.data.filter(currency => wanted.includes(currency.id));
+        const result = response.data;
         this.setState({ data: result });
       });
   }
@@ -51,9 +36,7 @@ class App extends Component {
     // React destructuring assignment
     const { data } = this.state;
     const { loading } = this.state;
-    const { historythirty } = this.state;
-    const { historysixty } = this.state;
-    const { historyninety } = this.state;
+
 
     if ((loading) === true) {
       return (
@@ -70,9 +53,7 @@ class App extends Component {
           <Header />
           <Answerisyes
             data={data}
-            historythirty={historythirty}
-            historysixty={historysixty}
-            historyninety={historyninety}
+
           />
         </div>
       );
@@ -82,9 +63,7 @@ class App extends Component {
         <Header />
         <Answerisno
           data={data}
-          historythirty={historythirty}
-          historysixty={historysixty}
-          historyninety={historyninety}
+
         />
       </div>
     );

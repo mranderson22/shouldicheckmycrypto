@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import posed from 'react-pose';
+import axios from 'axios';
 import './Answerisno.css';
 import lockbody from '../../../images/lockbody.png';
 import Nodashboard from '../nodashboard/Nodashboard';
@@ -44,15 +45,20 @@ class Answerisno extends Component {
     super(props);
 
     this.state = {
+      coin: 'BTC',
+      dataNew: [],
       showComponent: false,
       isVisible: false,
       text: '',
       hovering: false
     };
+    this.getCoin = this.getCoin.bind(this);
+    this.fetchCryptocurrencyData = this.fetchCryptocurrencyData.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
   }
 
   componentDidMount() {
+    this.fetchCryptocurrencyData();
     this.setMood();
     this.setState({ isVisible: 'true' });
   }
@@ -74,6 +80,12 @@ class Answerisno extends Component {
     }
   }
 
+  getCoin(coinNew) {
+    this.setState({ coin: coinNew }, () => {
+      this.fetchCryptocurrencyData();
+    });
+  }
+
   scrollToBottom() {
     window.scrollBy({
       left: 0,
@@ -82,13 +94,22 @@ class Answerisno extends Component {
     });
   }
 
+  fetchCryptocurrencyData() {
+    const { coin } = this.state;
+
+    axios.get('https://api.coinmarketcap.com/v1/ticker/')
+      .then((response) => {
+        const wanted = [`${coin}`];
+        const result = response.data.filter(currency => wanted.includes(currency.symbol));
+        this.setState({ dataNew: result });
+      });
+  }
+
   render() {
+    const { data } = this.props;
     const { isVisible } = this.state;
     const { text } = this.state;
-    const { data } = this.props;
-    const { historythirty } = this.props;
-    const { historysixty } = this.props;
-    const { historyninety } = this.props;
+    const { dataNew } = this.state;
     const { showComponent } = this.state;
     const { hovering } = this.state;
 
@@ -124,10 +145,10 @@ class Answerisno extends Component {
         <div>
           {showComponent ? (
             <Nodashboard
-              historythirty={historythirty}
-              historysixty={historysixty}
-              historyninety={historyninety}
+              fetchCryptocurrencyData={this.fetchCryptocurrencyData}
+              dataNew={dataNew}
               data={data}
+              sendCoin={this.getCoin}
             />
           )
             : null
@@ -140,16 +161,10 @@ class Answerisno extends Component {
 
 
 Answerisno.propTypes = {
-  historythirty: PropTypes.array,
-  historysixty: PropTypes.array,
-  historyninety: PropTypes.array,
   data: PropTypes.array
 };
 
 Answerisno.defaultProps = {
-  historythirty: 'historythirty',
-  historysixty: 'historysixty',
-  historyninety: 'historyninety',
   data: 'data'
 };
 
