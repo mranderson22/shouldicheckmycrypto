@@ -3,10 +3,14 @@ import './Nodashboard.css';
 import 'react-moment';
 import axios from 'axios';
 import posed from 'react-pose';
-import { Button, Container, Row } from 'reactstrap';
-import { Line } from 'react-chartjs-2';
+import {
+  Container, Row
+}
+  from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Graph from '../graph/Graph';
+import GraphNew from '../graphNew/GraphNew';
 import plus from '../../../images/plus-button.png';
 
 const Hover = posed.div({
@@ -14,22 +18,11 @@ const Hover = posed.div({
   hovered: { scale: 1.3 }
 });
 
-const Reveal = posed.div({
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 500 },
-    delay: 400
-  }
-});
-
 const Reveal2 = posed.div({
   hidden: {
-    opacity: 0,
-    scale: 0
+    opacity: 0
   },
   visible: {
-    scale: 1,
     opacity: 1,
     transition: { duration: 500 },
     delay: 600
@@ -45,16 +38,6 @@ const Reveal3 = posed.div({
   }
 });
 
-const Resize = posed.div({
-  initial: {
-    width: '75vw',
-    left: '50%'
-  },
-  resized: {
-    width: '45vw',
-    left: '26%'
-  }
-});
 
 class Nodashboard extends Component {
   constructor(props) {
@@ -81,6 +64,7 @@ class Nodashboard extends Component {
         ]
       }
     };
+    this.onHistoryChange = this.onHistoryChange.bind(this);
     this.findSymbol = this.findSymbol.bind(this);
     this.addGraph = this.addGraph.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -132,16 +116,16 @@ class Nodashboard extends Component {
           responsive: true,
           fill: false,
           lineTension: 0,
-          backgroundColor: 'black',
-          borderColor: 'black',
+          backgroundColor: '#dad7d7',
+          borderColor: '#dad7d7',
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: 'miter',
-          pointBorderColor: 'black',
-          pointBackgroundColor: 'black',
+          pointBorderColor: '#dad7d7',
+          pointBackgroundColor: '#dad7d7',
           pointBorderWidth: 1,
-          pointHoverRadius: 5,
+          pointHoverRadius: 4,
           pointHoverBackgroundColor: 'black',
           pointHoverBorderColor: 'black',
           pointHoverBorderWidth: 3,
@@ -233,15 +217,15 @@ class Nodashboard extends Component {
     const { historyninety } = this.state;
     historythirty.forEach((pos) => {
       const { time } = pos;
-      (pos).time = moment.unix(time).format('MMMM DD');
+      (pos).time = moment.unix(time).format('MMM DD');
     });
     historysixty.forEach((pos) => {
       const { time } = pos;
-      (pos).time = moment.unix(time).format('MMMM DD');
+      (pos).time = moment.unix(time).format('MMM DD');
     });
     historyninety.forEach((pos) => {
       const { time } = pos;
-      (pos).time = moment.unix(time).format('MMMM DD');
+      (pos).time = moment.unix(time).format('MMM DD');
     });
   }
 
@@ -253,6 +237,7 @@ class Nodashboard extends Component {
 
 
   render() {
+    const { answer } = this.props;
     const { isEnabled } = this.state;
     const { freshReveal } = this.state;
     const { hovering } = this.state;
@@ -260,177 +245,42 @@ class Nodashboard extends Component {
     const { isGraphVisible } = this.state;
     const { dataNew } = this.props;
     const { graphData } = this.state;
-    const { name } = dataNew[0];
-    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
-    const { rank } = dataNew[0];
-    const seven = dataNew[0].percent_change_7d;
     const { cryptoImage } = this.state;
-    const Image = `https://www.cryptocompare.com/${cryptoImage}`;
 
 
     return (
       <div id="dashboard" className="Nodashboardcontainer">
-        <div className="Nodashboard">
+        <div className={`${answer ? 'Yes' : 'No'}dashboard`}>
           <Container>
             <Row>
-              <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
-                <Resize className="NoGraph" pose={freshReveal ? 'resized' : 'initial'}>
-                  <div className="Nochartheader">
-                    <img alt="" className="cryptoImage" src={Image} />
-                    <div className="name">
-                      { name }
-                    </div>
-                    <p>
-                      { `Rank: ${rank}` }
-                      { ' \u00A0 '}
-                      { `Current Price: $${currentPrice}` }
-                      { ' \u00A0 ' }
-                      { `Last 7 Days: ${seven}%` }
-                    </p>
-                  </div>
-                  <div className="NoChartActual">
-                    <Line
-                      data={graphData}
-                      maintainAspectRatio={false}
-                      options={{
-                        legend: {
-                          display: false
-                        },
-                        tooltips: {
-                          displayColors: false
-                        },
-                        scales: {
-                          yAxes: [{
-                            ticks: {
-                              fontColor: 'black'
-                            }
-                          }],
-                          xAxes: [{
-                            ticks: {
-                              maxTicksLimit: 15,
-                              fontColor: 'black'
-                            }
-                          }]
-                        }
-                      }}
-                    />
-                  </div>
+              <Graph
+                dataNew={dataNew}
+                graphData={graphData}
+                isGraphVisible={isGraphVisible}
+                isEnabled={isEnabled}
+                freshReveal={freshReveal}
+                cryptoImage={cryptoImage}
+                onHistoryChange={this.onHistoryChange}
+                handleSubmit={this.handleSubmit}
+                handleChange={this.handleChange}
+                answer={answer}
+              />
 
-                  <div className="daysselector">
-                    <Button
-                      color="primary"
-                      onClick={() => {
-                        this.onHistoryChange(30);
-                      }
-                    }
-                    >
-                      { 30 }
-                    </Button>
-                    { ' \u00A0 '}
-                    { ' \u00A0 '}
-                    <Button
-                      color="primary"
-                      onClick={() => {
-                        this.onHistoryChange(60);
-                      }
-                    }
-                    >
-                      { 60 }
-                    </Button>
-                    { ' \u00A0 '}
-                    { ' \u00A0 '}
-                    <Button
-                      color="primary"
-                      onClick={() => {
-                        this.onHistoryChange(90);
-                      }
-                    }
-                    >
-                      { 90 }
-                    </Button>
-                  </div>
-                </Resize>
-              </Reveal>
               <div>
                 {freshReveal ? (
-                  <Reveal3 className="NoGraphNew" pose={secondGraphVisible ? 'visible' : 'hidden'}>
-                    <div className="Nochartheader">
-                      <img alt="" className="cryptoImage" src={Image} />
-                      <div className="name">
-                        { name }
-                      </div>
-                      <p>
-                        { `Rank: ${rank}` }
-                        { ' \u00A0 '}
-                        { `Current Price: $${currentPrice}` }
-                        { ' \u00A0 ' }
-                        { `Last 7 Days: ${seven}%` }
-                      </p>
-                    </div>
-
-                    <div className="NoChartActual">
-                      <Line
-                        data={graphData}
-                        responsive="false"
-                        maintainAspectRatio="false"
-                        options={{
-                          legend: {
-                            display: false
-                          },
-                          tooltips: {
-                            displayColors: false
-                          },
-                          scales: {
-                            yAxes: [{
-                              ticks: {
-                                fontColor: 'black'
-                              }
-                            }],
-                            xAxes: [{
-                              ticks: {
-                                maxTicksLimit: 15,
-                                fontColor: 'black'
-                              }
-                            }]
-                          }
-                        }}
-                      />
-                    </div>
-
-                    <div className="daysselector">
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.onHistoryChange(30);
-                        }
-                      }
-                      >
-                        { 30 }
-                      </Button>
-                      { ' \u00A0 '}
-                      { ' \u00A0 '}
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.onHistoryChange(60);
-                        }
-                      }
-                      >
-                        { 60 }
-                      </Button>
-                      { ' \u00A0 '}
-                      { ' \u00A0 '}
-                      <Button
-                        color="primary"
-                        onClick={() => {
-                          this.onHistoryChange(90);
-                        }
-                      }
-                      >
-                        { 90 }
-                      </Button>
-                    </div>
-                  </Reveal3>
+                  <GraphNew
+                    isEnabled={isEnabled}
+                    dataNew={dataNew}
+                    graphData={graphData}
+                    isGraphVisible={isGraphVisible}
+                    freshReveal={freshReveal}
+                    cryptoImage={cryptoImage}
+                    secondGraphVisible={secondGraphVisible}
+                    onHistoryChange={this.onHistoryChange}
+                    handleSubmit={this.handleSubmit}
+                    handleChange={this.handleChange}
+                    answer={answer}
+                  />
                 ) : null
               }
               </div>
@@ -454,13 +304,6 @@ class Nodashboard extends Component {
                       </Hover>
                     </div>
                   </Reveal3>
-                  <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="Name">
-                      { 'Symbol:' }
-                      <input type="text" onChange={this.handleChange} />
-                    </label>
-                    <input disabled={!isEnabled} type="submit" value="Submit" />
-                  </form>
                 </Reveal2>
               </div>
             </Row>
@@ -475,14 +318,16 @@ class Nodashboard extends Component {
 Nodashboard.propTypes = {
   data: PropTypes.array,
   sendCoin: PropTypes.func,
-  dataNew: PropTypes.array
+  dataNew: PropTypes.array,
+  answer: PropTypes.bool
 
 };
 
 Nodashboard.defaultProps = {
   data: 'data',
   sendCoin: 'sendCoin',
-  dataNew: 'dataNew'
+  dataNew: 'dataNew',
+  answer: 'answer'
 
 };
 

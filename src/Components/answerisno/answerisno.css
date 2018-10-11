@@ -3,9 +3,18 @@
   background: black url('../../../images/circles.png') center;
 }
 
-.Answerno {
+.Answernono {
   height: 101vh;
   background-color: #bb0718ad;
+  padding: 0;
+  justify-content: stretch;
+  align-items: center;
+  display: flex;
+}
+
+.Answernoyes {
+  height: 101vh;
+  background-color: #2e96249e;
   padding: 0;
   justify-content: stretch;
   align-items: center;

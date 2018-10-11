@@ -5,8 +5,14 @@
 
 .Nodashboard {
   height: 100vh;
-  background-color: #bb0718ad;
+  background-image: linear-gradient(#bb0718ad, #00000085);
 }
+
+.Yesdashboard {
+  height: 100vh;
+  background-image: linear-gradient(#2e96249e, #000000b3);
+}
+
 
 .NoGraph {
   position: absolute;
@@ -14,9 +20,9 @@
   top: 145%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 60px;
-  background-color: #c12031;
-  box-shadow: 0px 8px 38px #0000008f;
+  background-color: #ffffff;
+  box-shadow: 6px 25px 38px #0000008f;
+  padding: 1px;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
@@ -25,11 +31,37 @@
     top: 125%;
     left: 50% !important;
     transform: translate(-50%, -50%);
-    padding: 0px;
+    padding: 1px;
     width: 90vw !important;
-    padding-top: 42px;
-    padding-bottom: 20px;
   }
+}
+
+.NoGraphChild {
+  position: relative;
+  background: white;
+  padding: 25px;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  background: #82373fe0;
+  border: solid .1px white;
+}
+
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .NoGraphChild {
+    padding-top: 75px;
+    padding-bottom: 30px;
+    padding-left: 0px;
+  }
+}
+
+.YesGraphChild {
+  position: relative;
+  background: white;
+  padding: 25px;
+  padding-top: 80px;
+  padding-bottom: 50px;
+  background: #2b6528eb;
+  border: solid .1px white;
 }
 
 .toggled {
@@ -46,6 +78,7 @@
   font-family: 'Poppins', sans-serif;
   color: black;
   width: 40vw;
+  top: 6vh;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
@@ -54,6 +87,7 @@
     width: 90vw;
   }
 }
+
 
 .daysselector {
   position: absolute;
@@ -65,55 +99,36 @@
   color: black;
   padding-top: 45px;
   width: 67vw;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .daysselector {
-        padding-bottom: 50px;
+        padding-bottom: 25px;
   }
 }
 
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: black !important;
-    border-color: black !important;
+    background-color: #1d1a1a !important;
+    border-color: #1d1a1a !important;
 }
 
-.NoChartActual {
+.NoChartActual::after {
   padding-top: 40px;
 }
 
-.btn {
-
-}
-
-@media screen and (max-width: 1200px) and (orientation: portrait) {
-  .btn {
-    height: 20px;
-    font-size: .7rem !important;
-    padding-top: 1px !important;
-  }
-}
-
-@media screen and (max-width: 1200px) and (orientation: landscape) {
-  .btn {
-    height: 20px;
-    font-size: .7rem !important;
-    padding-top: 1px !important;
-  }
-}
-
-.imageContainer {
-  margin: auto;
-}
-
 .plus {
-    margin-top: 87vh;
+    margin-top: 42vh;
+    position: absolute;
+    left: 94%;
+    transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .plus {
     margin-top: 70vh;
+    left: 50%;
   }
 }
 
@@ -123,9 +138,9 @@
   top: 145%;
   left: 74%;
   transform: translate(-50%, -50%);
-  padding: 60px;
-  background-color: #c12031;
-  box-shadow: 0px 8px 38px #0000008f;
+  background-color: #ffffff;
+  box-shadow: 6px 25px 38px #0000008f;
+  padding: 1px;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
@@ -136,7 +151,6 @@
     transform: translate(-50%, -50%);
     padding: 0px;
     width: 90vw;
-    padding-top: 42px;
-    padding-bottom: 20px;
+    padding: 1px;
   }
 }

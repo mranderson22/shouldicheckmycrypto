@@ -1,0 +1,96 @@
+.cryptoImageContainer {
+  position: absolute;
+left: -1px;
+width: 220px;
+background-color: white;
+padding: 5px 5px 5px 5px;
+bottom: -4vh;
+height: 4vh;
+box-shadow: 6px 20px 38px #0000008f;
+z-index: -1;
+}
+
+.cryptoInput {
+  margin-top: 2px;
+  margin-left: 50px;
+}
+
+.cryptoImage {
+  position: absolute;
+  left: 1%;
+  width: 50px;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  top: -.02%;
+}
+
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .cryptoImage {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1200px) and (orientation: landscape) {
+  .cryptoImage {
+    display: none;
+  }
+}
+
+.cryptoImageBackground {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 45%;
+  z-index: -1;
+  width: inherit;
+  background-color: white;
+  filter: grayscale(100%);
+}
+
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .cryptoImageBackground {
+    display: none;
+  }
+}
+
+.form-control {
+  width: 100px !important;
+}
+
+.btn {
+
+}
+
+@media screen and (max-width: 1200px) and (orientation: portrait) {
+  .btn {
+
+  }
+}
+
+@media screen and (max-width: 1200px) and (orientation: landscape) {
+  .btn {
+
+  }
+}
+
+.imageContainer {
+  margin: auto;
+}
+
+.selectorButtons {
+  height: 33px;
+  font-size: .8rem !important;
+}
+
+.cryptoSubmit {
+  background-color: #373d42 !important;
+}
+
+.name {
+  font-size: 32px;
+  margin-top: -50px;
+}
+
+.coinInfo {
+  margin-top: -5px;
+}

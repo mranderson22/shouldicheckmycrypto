@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Loader from 'react-loader-spinner';
-import Header from './Components/header/Header';
-import Answerisyes from './Components/answerisyes/Answerisyes';
 import Answerisno from './Components/answerisno/Answerisno';
 import './app.css';
 
@@ -12,7 +10,8 @@ class App extends Component {
     super(props);
     this.state = {
       loading: true,
-      data: []
+      data: [],
+      answer: false
     };
   }
 
@@ -23,19 +22,29 @@ class App extends Component {
     this.fetchCryptocurrencyData();
   }
 
+
   fetchCryptocurrencyData() {
     axios.get('https://api.coinmarketcap.com/v1/ticker/')
       .then((response) => {
         const result = response.data;
-        this.setState({ data: result });
+        this.setState({ data: result }, () => {
+          this.answer();
+        });
       });
   }
 
+  answer() {
+    const { data } = this.state;
+    if (Number((data)[0].percent_change_24h) > 0) {
+      this.setState({ answer: true });
+    }
+  }
 
   render() {
     // React destructuring assignment
     const { data } = this.state;
     const { loading } = this.state;
+    const { answer } = this.state;
 
 
     if ((loading) === true) {
@@ -47,27 +56,17 @@ class App extends Component {
         </div>
       );
     }
-    if (Number((data)[0].percent_change_24h) > 0) {
-      return (
-        <div>
-          <Header />
-          <Answerisyes
-            data={data}
 
-          />
-        </div>
-      );
-    }
     return (
       <div>
-        <Header />
         <Answerisno
           data={data}
-
+          answer={answer}
         />
       </div>
     );
   }
 }
+
 
 export default App;

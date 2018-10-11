@@ -4,6 +4,7 @@ import posed from 'react-pose';
 import axios from 'axios';
 import './Answerisno.css';
 import lockbody from '../../../images/lockbody.png';
+import arrows from '../../../images/arrows.png';
 import Nodashboard from '../nodashboard/Nodashboard';
 
 const Reveal = posed.div({
@@ -72,10 +73,16 @@ class Answerisno extends Component {
   setMood() {
     const { data } = this.props;
 
-    if (Number(data[0].percent_change_24h) > 5) {
+    if (parseInt(data[0].percent_change_24h) < -5) {
       this.setState({ text: 'no.' });
     }
-    else {
+    else if (parseInt(data[0].percent_change_24h) > 5) {
+      this.setState({ text: 'yes.' });
+    }
+    else if (parseInt(data[0].percent_change_24h) > 0) {
+      this.setState({ text: 'probably' });
+    }
+    else if (parseInt(data[0].percent_change_24h) < 0) {
       this.setState({ text: 'meh' });
     }
   }
@@ -106,6 +113,7 @@ class Answerisno extends Component {
   }
 
   render() {
+    const { answer } = this.props;
     const { data } = this.props;
     const { isVisible } = this.state;
     const { text } = this.state;
@@ -116,14 +124,14 @@ class Answerisno extends Component {
 
     return (
       <div className="Answernobackground">
-        <div className="Answerno">
+        <div className={`Answerno${answer ? 'yes' : 'no'}`}>
           <div className="Answerboxno">
             <Reveal pose={isVisible ? 'visible' : 'hidden'}>
               {text}
             </Reveal>
           </div>
           <Hover
-            className="unlockbody"
+            className="lockbody"
             pose={hovering ? 'hovered' : 'idle'}
             onMouseEnter={() => this.setState({ hovering: true })}
             onMouseLeave={() => this.setState({ hovering: false })}
@@ -136,7 +144,7 @@ class Answerisno extends Component {
             >
               <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
                 <div>
-                  <img className="lockImage" alt="" src={lockbody} />
+                  {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
                 </div>
               </Reveal2>
             </div>
@@ -149,6 +157,7 @@ class Answerisno extends Component {
               dataNew={dataNew}
               data={data}
               sendCoin={this.getCoin}
+              answer={answer}
             />
           )
             : null
@@ -161,11 +170,13 @@ class Answerisno extends Component {
 
 
 Answerisno.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  answer: PropTypes.bool
 };
 
 Answerisno.defaultProps = {
-  data: 'data'
+  data: 'data',
+  answer: 'answer'
 };
 
 
