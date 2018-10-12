@@ -32,6 +32,17 @@
   text-shadow: 3px 3px 10px #4e11179e;
 }
 
+.Answerboxyes {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(4vw + 4vh + 4vmin);
+  color: black;
+  font-family: 'Poppins', sans-serif;
+  text-shadow: 3px 3px 10px #0c3515ad;
+}
+
 .lockbody {
   padding: 0;
   margin: auto;

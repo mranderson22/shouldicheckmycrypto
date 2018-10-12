@@ -73,16 +73,16 @@ class Answerisno extends Component {
   setMood() {
     const { data } = this.props;
 
-    if (parseInt(data[0].percent_change_24h) < -5) {
+    if (parseFloat(data[0].percent_change_24h) < -5) {
       this.setState({ text: 'no.' });
     }
-    else if (parseInt(data[0].percent_change_24h) > 5) {
+    else if (parseFloat(data[0].percent_change_24h) > 5) {
       this.setState({ text: 'yes.' });
     }
-    else if (parseInt(data[0].percent_change_24h) > 0) {
+    else if (parseFloat(data[0].percent_change_24h) > 0) {
       this.setState({ text: 'probably' });
     }
-    else if (parseInt(data[0].percent_change_24h) < 0) {
+    else if (parseFloat(data[0].percent_change_24h) < 0) {
       this.setState({ text: 'meh' });
     }
   }
@@ -125,7 +125,7 @@ class Answerisno extends Component {
     return (
       <div className="Answernobackground">
         <div className={`Answerno${answer ? 'yes' : 'no'}`}>
-          <div className="Answerboxno">
+          <div className={`Answerbox${answer ? 'yes' : 'no'}`}>
             <Reveal pose={isVisible ? 'visible' : 'hidden'}>
               {text}
             </Reveal>

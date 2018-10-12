@@ -35,7 +35,7 @@ class App extends Component {
 
   answer() {
     const { data } = this.state;
-    if (Number((data)[0].percent_change_24h) > 0) {
+    if (parseFloat((data)[0].percent_change_24h) > 0) {
       this.setState({ answer: true });
     }
   }
