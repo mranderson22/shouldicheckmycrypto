@@ -8,15 +8,6 @@ import {
 import { Line } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
-const Reveal3 = posed.div({
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 500 },
-    delay: 200
-  }
-});
-
 const Resize2 = posed.div({
   initial: {
     width: '30vw'
@@ -52,7 +43,7 @@ class GraphNew extends Component {
     const Image = `https://www.cryptocompare.com/${cryptoImage}`;
 
     return (
-      <Reveal3 className="NoGraphNew" pose={secondGraphVisible ? 'visible' : 'hidden'}>
+      
         <div className={`${answer ? 'Yes' : 'No'}GraphChild`}>
           <div className="cryptoImageContainer">
             <img alt="" className="cryptoImage" src={Image} />
@@ -151,7 +142,6 @@ class GraphNew extends Component {
             </Button>
           </div>
         </div>
-      </Reveal3>
     );
   }
 }
