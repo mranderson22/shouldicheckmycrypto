@@ -63,6 +63,10 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      days: 30,
+      days2: 30,
+      curr: 'USD',
+      curr2: 'USD',
       isEnabled: false,
       isEnabled2: false,
       value: 'BTC',
@@ -98,6 +102,8 @@ class Dashboard extends Component {
         ]
       }
     };
+    this.changeCurrency1 = this.changeCurrency1.bind(this);
+    this.changeCurrency2 = this.changeCurrency2.bind(this);
     this.onHistoryChange = this.onHistoryChange.bind(this);
     this.onHistoryChange2 = this.onHistoryChange2.bind(this);
     this.findSymbol = this.findSymbol.bind(this);
@@ -126,19 +132,25 @@ class Dashboard extends Component {
     const { historyninety } = this.state;
 
     if (num === 30) {
-      this.setState({ history: historythirty }, () => {
-        this.getPoints(1);
-      });
+      this.setState({ days: 30 }, () => {
+        this.setState({ history: historythirty }, () => {
+          this.getPoints(1);
+        });
+      })
     }
     else if (num === 60) {
-      this.setState({ history: historysixty }, () => {
-        this.getPoints(1);
-      });
+      this.setState({ days: 60 }, () => {
+        this.setState({ history: historysixty }, () => {
+          this.getPoints(1);
+        });
+      })
     }
     else if (num === 90) {
-      this.setState({ history: historyninety }, () => {
-        this.getPoints(1);
-      });
+      this.setState({ days: 90 }, () => {
+        this.setState({ history: historyninety }, () => {
+          this.getPoints(1);
+        });
+      })
     }
   }
 
@@ -147,128 +159,157 @@ class Dashboard extends Component {
     const { historysixty2 } = this.state;
     const { historyninety2 } = this.state;
     if (num === 30) {
-      this.setState({ history2: historythirty2 }, () => {
-        this.getPoints(2);
-      });
+      this.setState({ days2: 30 }, () => {
+        this.setState({ history2: historythirty2 }, () => {
+          this.getPoints(2);
+        });
+      })
     }
     else if (num === 60) {
-      this.setState({ history2: historysixty2 }, () => {
-        this.getPoints(2);
-      });
+      this.setState({ days2: 60 }, () => {
+        this.setState({ history2: historysixty2 }, () => {
+          this.getPoints(2);
+        });
+      })
     }
     else if (num === 90) {
-      this.setState({ history2: historyninety2 }, () => {
-        this.getPoints(2);
-      });
+      this.setState({ days2: 90 }, () => {
+        this.setState({ history2: historyninety2 }, () => {
+          this.getPoints(2);
+        });
+      })
     }
   }
 
   getPoints(num = 1) {
     if (num === 1) {
-    const newGraphData = {
-      history: [],
-      labels: [],
-      datasets: [
-        {
-          data: [],
-          label: 'Closing Price',
-          responsive: true,
-          fill: false,
-          lineTension: 0,
-          backgroundColor: '#dad7d7',
-          borderColor: '#dad7d7',
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: '#dad7d7',
-          pointBackgroundColor: '#dad7d7',
-          pointBorderWidth: 1,
-          pointHoverRadius: 4,
-          pointHoverBackgroundColor: 'black',
-          pointHoverBorderColor: 'black',
-          pointHoverBorderWidth: 3,
-          pointRadius: 2,
-          pointHitRadius: 10
-        }
-      ]
-    };
+      const newGraphData = {
+        history: [],
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            label: 'Closing Price',
+            responsive: true,
+            fill: false,
+            lineTension: 0,
+            backgroundColor: '#dad7d7',
+            borderColor: '#dad7d7',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: '#dad7d7',
+            pointBackgroundColor: '#dad7d7',
+            pointBorderWidth: 1,
+            pointHoverRadius: 4,
+            pointHoverBackgroundColor: 'black',
+            pointHoverBorderColor: 'black',
+            pointHoverBorderWidth: 3,
+            pointRadius: 2,
+            pointHitRadius: 10
+          }
+        ]
+      };
 
-    const { history } = this.state;
+      const { history } = this.state;
 
-    for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
-      const label = history[historyIndex].time;
-      const labeldata = history[historyIndex].close;
+      for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
+        const label = history[historyIndex].time;
+        const labeldata = history[historyIndex].close;
 
-      newGraphData.labels.push(label);
-      newGraphData.datasets[0].data.push(labeldata);
-    }
-    this.setState({ graphData: newGraphData });
-} else if (num === 2) {
-  const newGraphData2 = {
-    history: [],
-    labels: [],
-    datasets: [
-      {
-        data: [],
-        label: 'Closing Price',
-        responsive: true,
-        fill: false,
-        lineTension: 0,
-        backgroundColor: '#dad7d7',
-        borderColor: '#dad7d7',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: '#dad7d7',
-        pointBackgroundColor: '#dad7d7',
-        pointBorderWidth: 1,
-        pointHoverRadius: 4,
-        pointHoverBackgroundColor: 'black',
-        pointHoverBorderColor: 'black',
-        pointHoverBorderWidth: 3,
-        pointRadius: 2,
-        pointHitRadius: 10
+        newGraphData.labels.push(label);
+        newGraphData.datasets[0].data.push(labeldata);
       }
-    ]
-  };
+      this.setState({ graphData: newGraphData });
+    }
+    else if (num === 2) {
+      const newGraphData2 = {
+        history: [],
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            label: 'Closing Price',
+            responsive: true,
+            fill: false,
+            lineTension: 0,
+            backgroundColor: '#dad7d7',
+            borderColor: '#dad7d7',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: '#dad7d7',
+            pointBackgroundColor: '#dad7d7',
+            pointBorderWidth: 1,
+            pointHoverRadius: 4,
+            pointHoverBackgroundColor: 'black',
+            pointHoverBorderColor: 'black',
+            pointHoverBorderWidth: 3,
+            pointRadius: 2,
+            pointHitRadius: 10
+          }
+        ]
+      };
 
-  const { history2 } = this.state;
+      const { history2 } = this.state;
 
-  for (let historyIndex = 0; historyIndex < history2.length; historyIndex++) {
-    const label = history2[historyIndex].time;
-    const labeldata = history2[historyIndex].close;
+      for (let historyIndex = 0; historyIndex < history2.length; historyIndex++) {
+        const label = history2[historyIndex].time;
+        const labeldata = history2[historyIndex].close;
 
-    newGraphData2.labels.push(label);
-    newGraphData2.datasets[0].data.push(labeldata);
+        newGraphData2.labels.push(label);
+        newGraphData2.datasets[0].data.push(labeldata);
+      }
+      this.setState({ graphData2: newGraphData2 });
+    }
   }
-  this.setState({ graphData2: newGraphData2 });
-}
-}
 
   fetchCryptocurrencyHistory(num = 1) {
     const { value } = this.state;
     const { value2 } = this.state;
-    if (num === 1) {
-    axios.all([
-      axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=USD&limit=30`),
-      axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=USD&limit=60`),
-      axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=USD&limit=90`)
-    ])
-      .then(axios.spread((responsethirty, responsesixty, responseninety) => {
-        const historythirty = responsethirty.data.Data;
-        const historysixty = responsesixty.data.Data;
-        const historyninety = responseninety.data.Data;
-        this.setState({ historythirty, historysixty, historyninety });
-        this.formatDate(1);
-        this.onHistoryChange(30);
-      }));
-    } else if (num === 2) {
+    const { curr } = this.state;
+    const { curr2 } = this.state;
+    const { days } = this.state;
+    const { days2 } = this.state;
+    if (num === 1 && curr === 'USD') {
+      const currency = 'USD'
       axios.all([
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=USD&limit=30`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=USD&limit=60`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=USD&limit=90`)
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`)
+      ])
+        .then(axios.spread((responsethirty, responsesixty, responseninety) => {
+          const historythirty = responsethirty.data.Data;
+          const historysixty = responsesixty.data.Data;
+          const historyninety = responseninety.data.Data;
+          this.setState({ historythirty, historysixty, historyninety });
+          this.formatDate(1);
+          this.onHistoryChange(days);
+        }));
+    } else if (num === 1 && curr === 'BTC') {
+      const currency = 'BTC'
+      axios.all([
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`)
+      ])
+        .then(axios.spread((responsethirty, responsesixty, responseninety) => {
+          const historythirty = responsethirty.data.Data;
+          const historysixty = responsesixty.data.Data;
+          const historyninety = responseninety.data.Data;
+          this.setState({ historythirty, historysixty, historyninety });
+          this.formatDate(1);
+          this.onHistoryChange(days);
+        }));
+    }
+    else if (num === 2 && curr2 === 'USD') {
+      const currency = 'USD'
+      axios.all([
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=30`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=60`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=90`)
       ])
         .then(axios.spread((responsethirty, responsesixty, responseninety) => {
           const historythirty2 = responsethirty.data.Data;
@@ -276,10 +317,25 @@ class Dashboard extends Component {
           const historyninety2 = responseninety.data.Data;
           this.setState({ historythirty2, historysixty2, historyninety2 });
           this.formatDate(2);
-          this.onHistoryChange2(30);
+          this.onHistoryChange2(days2);
         }));
-    }
+    } else if (num === 2 && curr2 === 'BTC') {
+      const currency = 'BTC'
+      axios.all([
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=30`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=60`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=90`)
+      ])
+        .then(axios.spread((responsethirty, responsesixty, responseninety) => {
+          const historythirty2 = responsethirty.data.Data;
+          const historysixty2 = responsesixty.data.Data;
+          const historyninety2 = responseninety.data.Data;
+          this.setState({ historythirty2, historysixty2, historyninety2 });
+          this.formatDate(2);
+          this.onHistoryChange2(days2);
+        }));
   }
+}
 
 
   handleChange1(event) {
@@ -308,9 +364,7 @@ class Dashboard extends Component {
   }
 
   handleSubmit2(e) {
-    this.setState({ graph2: 'active' }, () => {
-      this.findSymbol(2);
-    })
+    this.findSymbol(2);
     e.preventDefault();
   }
 
@@ -325,48 +379,50 @@ class Dashboard extends Component {
 
     let hits = false;
     if (num === 1) {
-    data.forEach((coins) => {
-      if (!hits) {
-        if (coins.symbol === value) {
-          sendCoin(coin);
-          this.fetchCryptocurrencyHistory(1);
-          this.fetchCryptocurrencyImage(1);
-          this.getPoints(1);
-          hits = true;
+      data.forEach((coins) => {
+        if (!hits) {
+          if (coins.symbol === value) {
+            sendCoin(coin);
+            this.fetchCryptocurrencyHistory(1);
+            this.fetchCryptocurrencyImage(1);
+            this.getPoints(1);
+            hits = true;
+          }
+          else {
+            return false;
+          }
         }
-        else {
-          return false;
+      });
+    }
+    else if (num === 2) {
+      data.forEach((coins) => {
+        if (!hits) {
+          if (coins.symbol === value2) {
+            sendCoin2(coin2);
+            this.fetchCryptocurrencyHistory(2);
+            this.fetchCryptocurrencyImage(2);
+            this.getPoints(2);
+            hits = true;
+          }
+          else {
+            return false;
+          }
         }
-      }
-    });
-  } else if (num === 2) {
-    data.forEach((coins) => {
-      if (!hits) {
-        if (coins.symbol === value2) {
-          sendCoin2(coin2);
-          this.fetchCryptocurrencyHistory(2);
-          this.fetchCryptocurrencyImage(2);
-          this.getPoints(2);
-          hits = true;
-        }
-        else {
-          return false;
-        }
-      }
-    });
-  }
+      });
+    }
   }
 
   fetchCryptocurrencyImage(num = 1) {
     const { value } = this.state;
     const { value2 } = this.state;
     if (num === 1) {
-    axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
-      .then((response) => {
-        const cryptoImage = response.data.Data[0].CoinInfo.ImageUrl;
-        this.setState({ cryptoImage });
-      });
-    } else if (num === 2) {
+      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
+        .then((response) => {
+          const cryptoImage = response.data.Data[0].CoinInfo.ImageUrl;
+          this.setState({ cryptoImage });
+        });
+    }
+    else if (num === 2) {
       axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value2}&tsym=USD`)
         .then((response) => {
           const cryptoImage2 = response.data.Data[0].CoinInfo.ImageUrl;
@@ -376,50 +432,71 @@ class Dashboard extends Component {
   }
 
   formatDate(num = 1) {
-    if (num === 1) {
     const { historythirty } = this.state;
     const { historysixty } = this.state;
     const { historyninety } = this.state;
-    historythirty.forEach((pos) => {
-      const { time } = pos;
-      (pos).time = moment.unix(time).format('MMM DD');
-    });
-    historysixty.forEach((pos) => {
-      const { time } = pos;
-      (pos).time = moment.unix(time).format('MMM DD');
-    });
-    historyninety.forEach((pos) => {
-      const { time } = pos;
-      (pos).time = moment.unix(time).format('MMM DD');
-    });
-  } else if (num === 2) {
     const { historythirty2 } = this.state;
     const { historysixty2 } = this.state;
     const { historyninety2 } = this.state;
-    historythirty2.forEach((pos) => {
-      const { time } = pos;
-      (pos).time = moment.unix(time).format('MMM DD');
-    });
-    historysixty2.forEach((pos) => {
-      const { time } = pos;
-      (pos).time = moment.unix(time).format('MMM DD');
-    });
-    historyninety2.forEach((pos) => {
-      const { time } = pos;
-      (pos).time = moment.unix(time).format('MMM DD');
-    });
+    const historyAll1 = [...historythirty, ...historysixty, ...historyninety];
+    const historyAll2 = [...historythirty2, ...historysixty2, ...historyninety2];
+    if (num === 1) {
+      historyAll1.forEach((pos) => {
+        const { time } = pos;
+        (pos).time = moment.unix(time).format('MMM DD');
+      });
+    }
+    else if (num === 2) {
+      historyAll2.forEach((pos) => {
+        const { time } = pos;
+        (pos).time = moment.unix(time).format('MMM DD');
+      });
+    }
   }
-}
 
   addGraph() {
+    this.setState({ freshReveal: true }, () => {
+      this.setState({ secondGraphVisible: true });
+    });
+  }
 
-      this.setState({ freshReveal: true }, () => {
-        this.setState({ secondGraphVisible: true });
+  changeCurrency1(curr) {
+    const { value } = this.state;
+    if (curr === 'USD' && value !== 'BTC') {
+      this.setState({ curr: 'USD' }, () => {
+        this.fetchCryptocurrencyHistory(1);
+        this.getPoints(1);
       });
+    }
+    else if (curr === 'BTC' && value !== 'BTC') {
+      this.setState({ curr: 'BTC' }, () => {
+        this.fetchCryptocurrencyHistory(1);
+        this.getPoints(1);
+      });
+    }
+  }
+
+  changeCurrency2(curr2) {
+    const { value2 } = this.state;
+    if (curr2 === 'USD' && value2 !== 'BTC') {
+      this.setState({ curr2: 'USD' }, () => {
+        this.fetchCryptocurrencyHistory(2);
+        this.getPoints(2);
+      });
+    }
+    else if (curr2 === 'BTC' && value2 !== 'BTC') {
+      this.setState({ curr2: 'BTC' }, () => {
+        this.fetchCryptocurrencyHistory(2);
+        this.getPoints(2);
+      });
+    }
   }
 
 
   render() {
+    const { curr } = this.state;
+    const { curr2 } = this.state;
+    const { value } = this.state;
     const { answer } = this.props;
     const { isEnabled } = this.state;
     const { isEnabled2 } = this.state;
@@ -453,6 +530,9 @@ class Dashboard extends Component {
                     handleSubmit={this.handleSubmit1}
                     handleChange={this.handleChange1}
                     answer={answer}
+                    changeCurrency={this.changeCurrency1}
+                    value={value}
+                    curr={curr}
                   />
                 </Resize>
               </Reveal>
@@ -472,6 +552,9 @@ class Dashboard extends Component {
                       handleSubmit={this.handleSubmit2}
                       handleChange={this.handleChange2}
                       answer={answer}
+                      changeCurrency={this.changeCurrency2}
+                      value={value}
+                      curr={curr2}
                     />
                   </Reveal3>
                 ) : null
@@ -511,7 +594,9 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   data: PropTypes.array,
   sendCoin: PropTypes.func,
+  sendCoin2: PropTypes.func,
   dataNew: PropTypes.array,
+  dataNew2: PropTypes.array,
   answer: PropTypes.bool
 
 };
@@ -520,7 +605,9 @@ Dashboard.defaultProps = {
   data: 'data',
   sendCoin: 'sendCoin',
   dataNew: 'dataNew',
-  answer: 'answer'
+  answer: 'answer',
+  sendCoin2: PropTypes.func,
+  dataNew2: PropTypes.array
 
 };
 

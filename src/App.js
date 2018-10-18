@@ -124,25 +124,23 @@ class App extends Component {
   fetchCryptocurrencyData(num = 1) {
     const { coin } = this.state;
     const { coin2 } = this.state;
-    if (num === 1) {
     axios.get('https://api.coinmarketcap.com/v1/ticker/')
       .then((response) => {
-        const wanted = [`${coin}`];
-        const result = response.data.filter(currency => wanted.includes(currency.symbol));
-        const result2 = response.data;
-        this.setState({ dataNew: result });
-        this.setState({ data: result2 });
-      });
-    } else if (num === 2) {
-      axios.get('https://api.coinmarketcap.com/v1/ticker/')
-        .then((response) => {
+        if (num === 1) {
+          const wanted = [`${coin}`];
+          const result = response.data.filter(currency => wanted.includes(currency.symbol));
+          const result2 = response.data;
+          this.setState({ dataNew: result });
+          this.setState({ data: result2 });
+        }
+        else if (num === 2) {
           const wanted = [`${coin2}`];
           const result = response.data.filter(currency => wanted.includes(currency.symbol));
           const result2 = response.data;
           this.setState({ dataNew2: result });
           this.setState({ data: result2 });
-        });
-    }
+        }
+      });
   }
 
   render() {
@@ -162,7 +160,7 @@ class App extends Component {
       return (
         <div className="spinnercontainer">
           <div className="spinner">
-            <Loader type="Ball-Triangle" color="yellow" height={120} width={120} />
+            <Loader type="Ball-Triangle" color="white" height={120} width={120} />
           </div>
         </div>
       );

@@ -94,3 +94,16 @@ z-index: -1;
 .coinInfo {
   margin-top: -5px;
 }
+
+.currSelector {
+  position: absolute;
+  transform: translate(-13%, -178%);
+  right: 0;
+  z-index: 2;
+}
+
+.currButton {
+  color: #e2e2e2 !important;
+  background-color: #1d1a1a !important;
+  border-color: #1d1a1a !important;
+}
