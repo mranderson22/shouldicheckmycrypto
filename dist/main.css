@@ -109,9 +109,9 @@
 }
 
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #1d1a1a !important;
-    border-color: #1d1a1a !important;
+.btn-primary {
+    /* background-color: #1d1a1a !important;
+    border-color: #1d1a1a !important; */
 }
 
 .NoChartActual::after {
@@ -237,6 +237,18 @@ z-index: -1;
 .selectorButtons {
   height: 33px;
   font-size: .8rem !important;
+  color: #bfbebe !important;
+  background-color: #1d1a1a !important;
+  border-color: #1d1a1a !important;
+  box-shadow: none !important;
+}
+
+.selectorButtons.active, .selectorButtons.focus {
+  color: white !important;
+  background-color: #404040 !important;
+  border-color: #1d1a1a !important;
+  /* box-shadow: none !important;
+  border: none !important; */
 }
 
 .cryptoSubmit {
@@ -260,9 +272,19 @@ z-index: -1;
 }
 
 .currButton {
-  color: #e2e2e2 !important;
+  color: #bfbebe !important;
   background-color: #1d1a1a !important;
   border-color: #1d1a1a !important;
+  box-shadow: none !important;
+  /* border: none !important; */
+}
+
+.currButton.active, .currButton.focus {
+  color: white !important;
+  background-color: #404040 !important;
+  border-color: #1d1a1a !important;
+  /* box-shadow: none !important;
+  border: none !important; */
 }
 
 .spinner {

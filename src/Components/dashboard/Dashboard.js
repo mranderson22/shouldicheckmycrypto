@@ -462,6 +462,7 @@ class Dashboard extends Component {
 
   changeCurrency1(curr) {
     const { value } = this.state;
+    const { fetchCryptocurrencyData2} = this.props;
     if (curr === 'USD' && value !== 'BTC') {
       this.setState({ curr: 'USD' }, () => {
         this.fetchCryptocurrencyHistory(1);
@@ -494,23 +495,11 @@ class Dashboard extends Component {
 
 
   render() {
-    const { curr } = this.state;
-    const { curr2 } = this.state;
-    const { value } = this.state;
-    const { answer } = this.props;
-    const { isEnabled } = this.state;
-    const { isEnabled2 } = this.state;
-    const { freshReveal } = this.state;
-    const { hovering } = this.state;
-    const { secondGraphVisible } = this.state;
-    const { isGraphVisible } = this.state;
-    const { dataNew } = this.props;
-    const { dataNew2 } = this.props;
-    const { graphData } = this.state;
-    const { graphData2 } = this.state;
-    const { cryptoImage } = this.state;
-    const { cryptoImage2 } = this.state;
-
+    const {
+      curr, curr2, value, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
+      isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2
+    } = this.state;
+    const { answer, dataNew, dataNew2, dataToBTC, dataToBTC2 } = this.props;
 
     return (
       <div id="dashboard" className="Nodashboardcontainer">
@@ -533,6 +522,7 @@ class Dashboard extends Component {
                     changeCurrency={this.changeCurrency1}
                     value={value}
                     curr={curr}
+                    dataToBTC={dataToBTC}
                   />
                 </Resize>
               </Reveal>
@@ -555,6 +545,7 @@ class Dashboard extends Component {
                       changeCurrency={this.changeCurrency2}
                       value={value}
                       curr={curr2}
+                      dataToBTC={dataToBTC2}
                     />
                   </Reveal3>
                 ) : null

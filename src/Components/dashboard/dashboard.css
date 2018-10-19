@@ -109,9 +109,9 @@
 }
 
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
-    background-color: #1d1a1a !important;
-    border-color: #1d1a1a !important;
+.btn-primary {
+    /* background-color: #1d1a1a !important;
+    border-color: #1d1a1a !important; */
 }
 
 .NoChartActual::after {

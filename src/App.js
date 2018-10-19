@@ -53,6 +53,10 @@ class App extends Component {
       coin2: 'ETH',
       dataNew: [],
       dataNew2: [],
+      dataToBTCid: [],
+      dataToBTCid2: [],
+      dataToBTC: [],
+      dataToBTC2: [],
       showComponent: false,
       isVisible: false,
       text: '',
@@ -61,6 +65,7 @@ class App extends Component {
     this.getCoin = this.getCoin.bind(this);
     this.getCoin2 = this.getCoin2.bind(this);
     this.fetchCryptocurrencyData = this.fetchCryptocurrencyData.bind(this);
+    this.fetchCryptocurrencyData2 = this.fetchCryptocurrencyData2.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
   }
 
@@ -79,6 +84,7 @@ class App extends Component {
   onButtonClick() {
     this.setState({ showComponent: true }, () => {
       this.scrollToBottom();
+      this.fetchCryptocurrencyData2();
     });
   }
 
@@ -130,30 +136,73 @@ class App extends Component {
           const wanted = [`${coin}`];
           const result = response.data.filter(currency => wanted.includes(currency.symbol));
           const result2 = response.data;
-          this.setState({ dataNew: result });
+          this.setState({ dataNew: result }, () => {
+            this.fetchCryptocurrencyData2(1);
+          });
           this.setState({ data: result2 });
         }
         else if (num === 2) {
           const wanted = [`${coin2}`];
           const result = response.data.filter(currency => wanted.includes(currency.symbol));
           const result2 = response.data;
-          this.setState({ dataNew2: result });
+
+          this.setState({ dataNew2: result }, () => {
+            this.fetchCryptocurrencyData2(2);
+          });
           this.setState({ data: result2 });
         }
       });
   }
 
+  fetchCryptocurrencyData2(num = 1) {
+    const { coin } = this.state;
+    const { coin2 } = this.state;
+    axios.get('https://api.coinmarketcap.com/v2/listings/')
+      .then((response) => {
+        if (num === 1) {
+          const wanted = [`${coin}`];
+          const result1 = response.data.data.filter(currency => wanted.includes(currency.symbol));
+          this.setState({ dataToBTCid: result1 }, () => {
+            this.fetchCryptocurrencyData3(1);
+          });
+        }
+        else if (num === 2) {
+          const wanted = [`${coin2}`];
+          const result1 = response.data.data.filter(currency => wanted.includes(currency.symbol));
+          this.setState({ dataToBTCid2: result1 }, () => {
+            this.fetchCryptocurrencyData3(2);
+          });
+        }
+      });
+  }
+
+  fetchCryptocurrencyData3(num = 1) {
+    const { dataToBTCid } = this.state;
+    const { id } = dataToBTCid[0];
+    if (num === 1) {
+      axios.get(`https://api.coinmarketcap.com/v2/ticker/${id}/?convert=BTC`)
+        .then((response => {
+          const result = response.data.data.quotes.BTC;
+          this.setState({ dataToBTC: result })
+        }));
+    }
+    else if (num === 2) {
+      const { dataToBTCid2 } = this.state;
+      const id2 = dataToBTCid2[0].id;
+      axios.get(`https://api.coinmarketcap.com/v2/ticker/${id2}/?convert=BTC`)
+        .then((response => {
+          const result = response.data.data.quotes.BTC;
+          this.setState({ dataToBTC2: result })
+        }));
+    }
+  }
+
   render() {
     // React destructuring assignment
-    const { data } = this.state;
-    const { loading } = this.state;
-    const { answer } = this.state;
-    const { isVisible } = this.state;
-    const { text } = this.state;
-    const { dataNew } = this.state;
-    const { dataNew2 } = this.state;
-    const { showComponent } = this.state;
-    const { hovering } = this.state;
+    const {
+      data, loading, answer, isVisible, text,
+      dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2
+    } = this.state;
 
 
     if ((loading) === true) {
@@ -199,8 +248,11 @@ class App extends Component {
             {showComponent ? (
               <Dashboard
                 fetchCryptocurrencyData={this.fetchCryptocurrencyData}
+                fetchCryptocurrencyData2={this.fetchCryptocurrencyData2}
                 dataNew={dataNew}
                 dataNew2={dataNew2}
+                dataToBTC={dataToBTC}
+                dataToBTC2={dataToBTC2}
                 data={data}
                 sendCoin={this.getCoin}
                 sendCoin2={this.getCoin2}
