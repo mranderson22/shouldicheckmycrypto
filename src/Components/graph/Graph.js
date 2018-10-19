@@ -38,7 +38,7 @@ class Graph extends Component {
   render() {
     const {
       answer, handleChange, handleSubmit, isEnabled, onHistoryChange, freshReveal,
-      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC
+      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr
     } = this.props;
     const { rSelected, rSelected2 } = this.state;
     const { name } = dataNew[0];
@@ -48,6 +48,41 @@ class Graph extends Component {
     const seven = dataNew[0].percent_change_7d;
     const seven2 = dataToBTC.percent_change_7d;
     const Image = `https://www.cryptocompare.com/${cryptoImage}`;
+    let button;
+
+
+    if (value === 'BTC' && toggleCurr === false) {
+      button = null;
+    }
+    else if (toggleCurr === true) {
+      button = (
+        <ButtonGroup>
+          <Button
+            className="currButton"
+            onClick={() => {
+              this.onRadioBtnClick(1);
+              changeCurrency('USD');
+            }
+         }
+            active={rSelected === 1}
+          >
+          USD
+          </Button>
+          <Button
+            className="currButton"
+            onClick={() => {
+              this.onRadioBtnClick(2);
+              changeCurrency('BTC');
+            }
+         }
+            active={rSelected === 2}
+          >
+          BTC
+          </Button>
+        </ButtonGroup>
+      );
+    }
+
 
     return (
       <div className={`${answer ? 'Yes' : 'No'}GraphChild`}>
@@ -70,50 +105,31 @@ class Graph extends Component {
           <img alt="" className="cryptoImageBackground" src={Image} />
         </Resize2>
         <div className="currSelector">
-          <ButtonGroup>
-            <Button
-              className="currButton"
-              onClick={() => {
-                this.onRadioBtnClick(1)
-                changeCurrency('USD');
-              }
-             }
-              active={rSelected === 1}
-            >
-              USD
-            </Button>
-            <Button
-              className="currButton"
-              onClick={() => {
-                this.onRadioBtnClick(2)
-                changeCurrency('BTC');
-              }
-             }
-              active={rSelected === 2}
-            >
-              BTC
-            </Button>
-          </ButtonGroup>
+          <div>
+            {button}
+          </div>
         </div>
         <div className="Nochartheader">
           <div className="name">
             { `${name} / ${curr}`}
           </div>
           <div>
-            {curr === 'USD' ? (<p className="coinInfo">
-              { `Rank: ${rank}` }
-              { ' \u00A0 '}
-              { `Current Price: $${currentPrice}` }
-              { ' \u00A0 ' }
-              { `Last 7 Days: ${seven}%` }
-            </p>) : (<p className="coinInfo">
-              { `Rank: ${rank}` }
-              { ' \u00A0 '}
-              { `Current Price: $${currentPrice2}` }
-              { ' \u00A0 ' }
-              { `Last 7 Days: ${seven2}%` }
-            </p>)}
-            </div>
+            {curr === 'USD' ? (
+              <p className="coinInfo">
+                { `Rank: ${rank}` }
+                { ' \u00A0 '}
+                { `Current Price: $${currentPrice}` }
+                { ' \u00A0 ' }
+                { `Last 7 Days: ${seven}%` }
+              </p>) : (
+                <p className="coinInfo">
+                  { `Rank: ${rank}` }
+                  { ' \u00A0 '}
+                  { `Current Price: ${currentPrice2}` }
+                  { ' \u00A0 ' }
+                  { `Last 7 Days: ${seven2}%` }
+                </p>)}
+          </div>
         </div>
         <div className="NoChartActual">
           <Line
@@ -148,7 +164,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(3)
+              this.onRadioBtnClick2(3);
               onHistoryChange(30);
             }
           }
@@ -162,7 +178,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(4)
+              this.onRadioBtnClick2(4);
               onHistoryChange(60);
             }
           }
@@ -176,7 +192,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(5)
+              this.onRadioBtnClick2(5);
               onHistoryChange(90);
             }
           }
@@ -187,8 +203,8 @@ class Graph extends Component {
         </div>
       </div>
     );
+  }
 }
-};
 
 
 Graph.propTypes = {
@@ -201,8 +217,10 @@ Graph.propTypes = {
   handleSubmit: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
-  value: PropTypes.string,
-  curr: PropTypes.string
+  curr: PropTypes.string,
+  dataToBTC: PropTypes.object,
+  toggleCurr: PropTypes.bool,
+  value: PropTypes.string
 };
 
 Graph.defaultProps = {
@@ -215,8 +233,10 @@ Graph.defaultProps = {
   handleSubmit: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
-  value: PropTypes.string,
-  curr: PropTypes.string
+  curr: PropTypes.string,
+  dataToBTC: PropTypes.object,
+  toggleCurr: PropTypes.bool,
+  value: PropTypes.string
 };
 
 

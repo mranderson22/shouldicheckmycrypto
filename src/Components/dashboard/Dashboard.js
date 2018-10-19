@@ -67,6 +67,8 @@ class Dashboard extends Component {
       days2: 30,
       curr: 'USD',
       curr2: 'USD',
+      toggleCurr: false,
+      toggleCurr2: true,
       isEnabled: false,
       isEnabled2: false,
       value: 'BTC',
@@ -136,21 +138,21 @@ class Dashboard extends Component {
         this.setState({ history: historythirty }, () => {
           this.getPoints(1);
         });
-      })
+      });
     }
     else if (num === 60) {
       this.setState({ days: 60 }, () => {
         this.setState({ history: historysixty }, () => {
           this.getPoints(1);
         });
-      })
+      });
     }
     else if (num === 90) {
       this.setState({ days: 90 }, () => {
         this.setState({ history: historyninety }, () => {
           this.getPoints(1);
         });
-      })
+      });
     }
   }
 
@@ -163,21 +165,21 @@ class Dashboard extends Component {
         this.setState({ history2: historythirty2 }, () => {
           this.getPoints(2);
         });
-      })
+      });
     }
     else if (num === 60) {
       this.setState({ days2: 60 }, () => {
         this.setState({ history2: historysixty2 }, () => {
           this.getPoints(2);
         });
-      })
+      });
     }
     else if (num === 90) {
       this.setState({ days2: 90 }, () => {
         this.setState({ history2: historyninety2 }, () => {
           this.getPoints(2);
         });
-      })
+      });
     }
   }
 
@@ -274,22 +276,7 @@ class Dashboard extends Component {
     const { days } = this.state;
     const { days2 } = this.state;
     if (num === 1 && curr === 'USD') {
-      const currency = 'USD'
-      axios.all([
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`)
-      ])
-        .then(axios.spread((responsethirty, responsesixty, responseninety) => {
-          const historythirty = responsethirty.data.Data;
-          const historysixty = responsesixty.data.Data;
-          const historyninety = responseninety.data.Data;
-          this.setState({ historythirty, historysixty, historyninety });
-          this.formatDate(1);
-          this.onHistoryChange(days);
-        }));
-    } else if (num === 1 && curr === 'BTC') {
-      const currency = 'BTC'
+      const currency = 'USD';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
@@ -304,8 +291,25 @@ class Dashboard extends Component {
           this.onHistoryChange(days);
         }));
     }
-    else if (num === 2 && curr2 === 'USD') {
-      const currency = 'USD'
+    else if (num === 1 && curr === 'BTC') {
+      const currency = 'BTC';
+      axios.all([
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`)
+      ])
+        .then(axios.spread((responsethirty, responsesixty, responseninety) => {
+          const historythirty = responsethirty.data.Data;
+          const historysixty = responsesixty.data.Data;
+          const historyninety = responseninety.data.Data;
+          this.setState({ historythirty, historysixty, historyninety });
+          this.formatDate(1);
+          this.onHistoryChange(days);
+        }));
+    }
+    else if
+    (num === 2 && curr2 === 'USD') {
+      const currency = 'USD';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=30`),
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=60`),
@@ -319,8 +323,9 @@ class Dashboard extends Component {
           this.formatDate(2);
           this.onHistoryChange2(days2);
         }));
-    } else if (num === 2 && curr2 === 'BTC') {
-      const currency = 'BTC'
+    }
+    else if (num === 2 && curr2 === 'BTC') {
+      const currency = 'BTC';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=30`),
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=60`),
@@ -334,8 +339,8 @@ class Dashboard extends Component {
           this.formatDate(2);
           this.onHistoryChange2(days2);
         }));
+    }
   }
-}
 
 
   handleChange1(event) {
@@ -359,13 +364,37 @@ class Dashboard extends Component {
   }
 
   handleSubmit1(e) {
+    const { toggleCurr } = this.state;
+    const { value } = this.state;
     this.findSymbol(1);
-    e.preventDefault();
+    if (value !== 'BTC' && toggleCurr === false) {
+      this.setState({ toggleCurr: true });
+      e.preventDefault();
+    }
+    else if (value === 'BTC' && toggleCurr === true) {
+      this.setState({ toggleCurr: false });
+      e.preventDefault();
+    }
+    else {
+      e.preventDefault();
+    }
   }
 
   handleSubmit2(e) {
+    const { toggleCurr2 } = this.state;
+    const { value2 } = this.state;
     this.findSymbol(2);
-    e.preventDefault();
+    if (value2 !== 'BTC' && toggleCurr2 === false) {
+      this.setState({ toggleCurr2: true });
+      e.preventDefault();
+    }
+    else if (value2 === 'BTC' && toggleCurr2 === true) {
+      this.setState({ toggleCurr2: false });
+      e.preventDefault();
+    }
+    else {
+      e.preventDefault();
+    }
   }
 
   findSymbol(num) {
@@ -462,7 +491,6 @@ class Dashboard extends Component {
 
   changeCurrency1(curr) {
     const { value } = this.state;
-    const { fetchCryptocurrencyData2} = this.props;
     if (curr === 'USD' && value !== 'BTC') {
       this.setState({ curr: 'USD' }, () => {
         this.fetchCryptocurrencyHistory(1);
@@ -496,10 +524,12 @@ class Dashboard extends Component {
 
   render() {
     const {
-      curr, curr2, value, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
-      isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2
+      curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
+      isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr, toggleCurr2
     } = this.state;
-    const { answer, dataNew, dataNew2, dataToBTC, dataToBTC2 } = this.props;
+    const {
+      answer, dataNew, dataNew2, dataToBTC, dataToBTC2
+    } = this.props;
 
     return (
       <div id="dashboard" className="Nodashboardcontainer">
@@ -523,6 +553,7 @@ class Dashboard extends Component {
                     value={value}
                     curr={curr}
                     dataToBTC={dataToBTC}
+                    toggleCurr={toggleCurr}
                   />
                 </Resize>
               </Reveal>
@@ -543,9 +574,10 @@ class Dashboard extends Component {
                       handleChange={this.handleChange2}
                       answer={answer}
                       changeCurrency={this.changeCurrency2}
-                      value={value}
+                      value={value2}
                       curr={curr2}
                       dataToBTC={dataToBTC2}
+                      toggleCurr={toggleCurr2}
                     />
                   </Reveal3>
                 ) : null
@@ -588,7 +620,9 @@ Dashboard.propTypes = {
   sendCoin2: PropTypes.func,
   dataNew: PropTypes.array,
   dataNew2: PropTypes.array,
-  answer: PropTypes.bool
+  answer: PropTypes.bool,
+  dataToBTC: PropTypes.object,
+  dataToBTC2: PropTypes.object
 
 };
 
@@ -598,7 +632,9 @@ Dashboard.defaultProps = {
   dataNew: 'dataNew',
   answer: 'answer',
   sendCoin2: PropTypes.func,
-  dataNew2: PropTypes.array
+  dataNew2: PropTypes.array,
+  dataToBTC: PropTypes.object,
+  dataToBTC2: PropTypes.object
 
 };
 
