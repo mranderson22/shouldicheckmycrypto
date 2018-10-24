@@ -235,7 +235,6 @@ class Dashboard extends Component {
 
       }
       this.setState({ graphData: newGraphData });
-      console.log(newGraphData.datasets[0].data);
     }
     else if (num === 2) {
       const newGraphData2 = {
@@ -243,6 +242,7 @@ class Dashboard extends Component {
         labels: [],
         datasets: [
           {
+            type: 'line',
             data: [],
             label: 'Closing Price',
             responsive: true,
@@ -263,7 +263,14 @@ class Dashboard extends Component {
             pointHoverBorderColor: 'black',
             pointHoverBorderWidth: 3,
             pointRadius: 1,
-            pointHitRadius: 10
+            pointHitRadius: 10,
+            yAxisID: 'y-axis-2'
+          },
+          {
+            data: [],
+            label: 'Volume',
+            type: 'bar',
+            yAxisID: 'y-axis-1'
           }
         ]
       };
@@ -273,9 +280,11 @@ class Dashboard extends Component {
       for (let historyIndex = 0; historyIndex < history2.length; historyIndex++) {
         const label = history2[historyIndex].time;
         const labeldata = history2[historyIndex].close;
+        const volumedata = history2[historyIndex].volumeto;
 
         newGraphData2.labels.push(label);
         newGraphData2.datasets[0].data.push(labeldata);
+        newGraphData2.datasets[1].data.push(volumedata);
       }
       this.setState({ graphData2: newGraphData2 });
     }
