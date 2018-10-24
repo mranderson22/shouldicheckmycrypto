@@ -65,10 +65,13 @@ class Graph extends Component {
             min: 0
           }
         }, {
-          type: 'linear',
-          display: true,
+          type: 'logarithmic',
+          display: false,
           id: 'y-axis-2',
-          position: 'right'
+          ticks: {
+            fontColor: 'black',
+            min: 0
+          }
         }
         ],
         xAxes: [{
