@@ -190,6 +190,7 @@ class Dashboard extends Component {
         labels: [],
         datasets: [
           {
+            type: 'line',
             data: [],
             label: 'Closing Price',
             fill: false,
@@ -209,7 +210,14 @@ class Dashboard extends Component {
             pointHoverBorderColor: 'black',
             pointHoverBorderWidth: 3,
             pointRadius: 1,
-            pointHitRadius: 10
+            pointHitRadius: 10,
+            yAxisID: 'y-axis-2'
+          },
+          {
+            data: [],
+            label: 'Volume',
+            type: 'bar',
+            yAxisID: 'y-axis-1'
           }
         ]
       };
@@ -219,11 +227,15 @@ class Dashboard extends Component {
       for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
         const label = history[historyIndex].time;
         const labeldata = history[historyIndex].close;
+        const volumedata = history[historyIndex].volumeto;
 
         newGraphData.labels.push(label);
         newGraphData.datasets[0].data.push(labeldata);
+        newGraphData.datasets[1].data.push(volumedata);
+
       }
       this.setState({ graphData: newGraphData });
+      console.log(newGraphData.datasets[0].data);
     }
     else if (num === 2) {
       const newGraphData2 = {

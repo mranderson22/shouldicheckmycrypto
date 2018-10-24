@@ -5,7 +5,7 @@ import posed from 'react-pose';
 import {
   Button, ButtonGroup, Form, Label, Input, FormGroup
 } from 'reactstrap';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 
 const Resize2 = posed.div({
@@ -48,6 +48,38 @@ class Graph extends Component {
     const seven = dataNew[0].percent_change_7d;
     const seven2 = dataToBTC.percent_change_7d;
     const Image = `https://www.cryptocompare.com/${cryptoImage}`;
+    const options = {
+      legend: {
+        display: false
+      },
+      tooltips: {
+        displayColors: false
+      },
+      scales: {
+        yAxes: [{
+          display: false,
+          type: 'logarithmic',
+          id: 'y-axis-1',
+          ticks: {
+            fontColor: 'black',
+            min: 0
+          }
+        }, {
+          type: 'linear',
+          display: true,
+          id: 'y-axis-2',
+          position: 'right'
+        }
+        ],
+        xAxes: [{
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 15,
+            fontColor: 'black'
+          }
+        }]
+      }
+    };
     let button;
 
 
@@ -115,52 +147,27 @@ class Graph extends Component {
           </div>
           <div>
             {curr === 'USD' ? (
-              <p className="coinInfo">
+              <div className="coinInfo">
                 { `Rank: ${rank}` }
                 { ' \u00A0 '}
                 { `Current Price: $${currentPrice}` }
                 { ' \u00A0 ' }
                 { `Last 7 Days: ${seven}%` }
-              </p>) : (
-                <p className="coinInfo">
+              </div>) : (
+                <div className="coinInfo">
                   { `Rank: ${rank}` }
                   { ' \u00A0 '}
                   { `Current Price: ${currentPrice2}` }
                   { ' \u00A0 ' }
                   { `Last 7 Days: ${seven2}%` }
-                </p>)}
+                </div>)}
           </div>
         </div>
         <div className="NoChartActual">
-          <Line
+          <Bar
             data={graphData}
             maintainAspectRatio={false}
-            options={{
-              legend: {
-                display: false
-              },
-              tooltips: {
-                displayColors: false
-              },
-              scales: {
-                yAxes: [{
-                  display: false,
-                  type: 'logarithmic',
-                  ticks: {
-                    fontColor: 'black',
-                    min: 0
-
-                  }
-                }],
-                xAxes: [{
-                  ticks: {
-                    autoSkip: true,
-                    maxTicksLimit: 15,
-                    fontColor: 'black'
-                  }
-                }]
-              }
-            }}
+            options={options}
           />
         </div>
 
