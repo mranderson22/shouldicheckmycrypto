@@ -78,10 +78,9 @@
   font-family: 'Poppins', sans-serif;
   color: black;
   width: 40vw;
-  top: 6vh;
 }
 
-@media screen and (max-width: 1200px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) {
   .Nochartheader {
     font-size: .8rem;
     width: 90vw;
@@ -175,9 +174,10 @@ width: 220px;
 background-color: white;
 padding: 5px 5px 5px 5px;
 bottom: -4vh;
-height: 4vh;
 box-shadow: 6px 20px 38px #00000061;
 z-index: -1;
+height: 53px;
+top: 100%;
 }
 
 .cryptoInput {
@@ -196,13 +196,13 @@ z-index: -1;
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .cryptoImage {
-    display: none;
+
   }
 }
 
 @media screen and (max-width: 1200px) and (orientation: landscape) {
   .cryptoImage {
-    display: none;
+
   }
 }
 
@@ -219,7 +219,7 @@ z-index: -1;
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .cryptoImageBackground {
-    display: none;
+
   }
 }
 

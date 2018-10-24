@@ -78,10 +78,9 @@
   font-family: 'Poppins', sans-serif;
   color: black;
   width: 40vw;
-  top: 6vh;
 }
 
-@media screen and (max-width: 1200px) and (orientation: portrait) {
+@media screen and (max-width: 1200px) {
   .Nochartheader {
     font-size: .8rem;
     width: 90vw;
