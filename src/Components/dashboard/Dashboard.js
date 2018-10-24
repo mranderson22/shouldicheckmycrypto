@@ -4,7 +4,7 @@ import 'react-moment';
 import axios from 'axios';
 import posed from 'react-pose';
 import {
-  Container, Row
+  Container, Row, ListGroup, ListGroupItem
 }
   from 'reactstrap';
 import PropTypes from 'prop-types';
@@ -192,23 +192,23 @@ class Dashboard extends Component {
           {
             data: [],
             label: 'Closing Price',
-            responsive: true,
             fill: false,
             lineTension: 0,
             backgroundColor: '#dad7d7',
             borderColor: '#dad7d7',
+            borderWidth: 2,
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
             pointBorderColor: '#dad7d7',
             pointBackgroundColor: '#dad7d7',
-            pointBorderWidth: 1,
+            pointBorderWidth: 0,
             pointHoverRadius: 4,
             pointHoverBackgroundColor: 'black',
             pointHoverBorderColor: 'black',
             pointHoverBorderWidth: 3,
-            pointRadius: 2,
+            pointRadius: 1,
             pointHitRadius: 10
           }
         ]
@@ -238,18 +238,19 @@ class Dashboard extends Component {
             lineTension: 0,
             backgroundColor: '#dad7d7',
             borderColor: '#dad7d7',
+            borderWidth: 2,
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
             pointBorderColor: '#dad7d7',
             pointBackgroundColor: '#dad7d7',
-            pointBorderWidth: 1,
+            pointBorderWidth: 0,
             pointHoverRadius: 4,
             pointHoverBackgroundColor: 'black',
             pointHoverBorderColor: 'black',
             pointHoverBorderWidth: 3,
-            pointRadius: 2,
+            pointRadius: 1,
             pointHitRadius: 10
           }
         ]
@@ -279,8 +280,8 @@ class Dashboard extends Component {
       const currency = 'USD';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`)
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=365`)
       ])
         .then(axios.spread((responsethirty, responsesixty, responseninety) => {
           const historythirty = responsethirty.data.Data;
@@ -295,8 +296,8 @@ class Dashboard extends Component {
       const currency = 'BTC';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=30`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=60`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`)
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=90`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value}&tsym=${currency}&limit=365`)
       ])
         .then(axios.spread((responsethirty, responsesixty, responseninety) => {
           const historythirty = responsethirty.data.Data;
@@ -312,8 +313,8 @@ class Dashboard extends Component {
       const currency = 'USD';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=30`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=60`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=90`)
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=90`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=365`)
       ])
         .then(axios.spread((responsethirty, responsesixty, responseninety) => {
           const historythirty2 = responsethirty.data.Data;
@@ -328,8 +329,8 @@ class Dashboard extends Component {
       const currency = 'BTC';
       axios.all([
         axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=30`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=60`),
-        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=90`)
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=90`),
+        axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${value2}&tsym=${currency}&limit=365`)
       ])
         .then(axios.spread((responsethirty, responsesixty, responseninety) => {
           const historythirty2 = responsethirty.data.Data;
@@ -344,8 +345,8 @@ class Dashboard extends Component {
 
 
   handleChange1(event) {
-    this.setState({ value: event.target.value });
-    this.setState({ coin: event.target.value });
+    this.setState({ value: event.target.value.toUpperCase() });
+    this.setState({ coin: event.target.value.toUpperCase() });
     if (event.target.value !== '') {
       this.setState({ isEnabled: true });
       return true;
@@ -354,8 +355,8 @@ class Dashboard extends Component {
   }
 
   handleChange2(event) {
-    this.setState({ value2: event.target.value });
-    this.setState({ coin2: event.target.value });
+    this.setState({ value2: event.target.value.toUpperCase() });
+    this.setState({ coin2: event.target.value.toUpperCase() });
     if (event.target.value !== '') {
       this.setState({ isEnabled2: true });
       return true;

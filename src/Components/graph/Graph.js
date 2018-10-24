@@ -43,7 +43,7 @@ class Graph extends Component {
     const { rSelected, rSelected2 } = this.state;
     const { name } = dataNew[0];
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
-    const currentPrice2 = dataToBTC.price;
+    const currentPrice2 = Number(dataToBTC.price).toFixed(10);
     const { rank } = dataNew[0];
     const seven = dataNew[0].percent_change_7d;
     const seven2 = dataToBTC.percent_change_7d;
@@ -92,7 +92,7 @@ class Graph extends Component {
             <Form inline onSubmit={handleSubmit}>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                 <Label for="Name">
-                  <Input type="text" onChange={handleChange} placeholder="ex. ETH" />
+                  <Input className="textField" type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
                 </Label>
               </FormGroup>
               <Button className="cryptoSubmit" disabled={!isEnabled}>
@@ -144,12 +144,17 @@ class Graph extends Component {
               },
               scales: {
                 yAxes: [{
+                  display: false,
+                  type: 'logarithmic',
                   ticks: {
-                    fontColor: 'black'
+                    fontColor: 'black',
+                    min: 0
+
                   }
                 }],
                 xAxes: [{
                   ticks: {
+                    autoSkip: true,
                     maxTicksLimit: 15,
                     fontColor: 'black'
                   }
@@ -170,7 +175,7 @@ class Graph extends Component {
           }
             active={rSelected2 === 3}
           >
-            { 30 }
+            { '1m' }
           </Button>
           { ' \u00A0 '}
           { ' \u00A0 '}
@@ -184,7 +189,7 @@ class Graph extends Component {
           }
             active={rSelected2 === 4}
           >
-            { 60 }
+            { '3m' }
           </Button>
           { ' \u00A0 '}
           { ' \u00A0 '}
@@ -198,7 +203,7 @@ class Graph extends Component {
           }
             active={rSelected2 === 5}
           >
-            { 90 }
+            { 'YTD' }
           </Button>
         </div>
       </div>

@@ -13,6 +13,7 @@
     "license": "MIT",
     "dependencies": {
         "animate.css": "^3.6.1",
+        "apexcharts": "^2.1.5",
         "axios": "^0.18.0",
         "chart.js": "^2.7.2",
         "express": "*",
@@ -22,6 +23,7 @@
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
         "react-animated-css": "^1.0.4",
+        "react-apexcharts": "^1.0.9",
         "react-chartjs-2": "^2.7.4",
         "react-chartkick": "^0.2.1",
         "react-dom": "^16.4.1",
