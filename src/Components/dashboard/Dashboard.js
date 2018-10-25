@@ -205,19 +205,21 @@ class Dashboard extends Component {
             pointBorderColor: '#dad7d7',
             pointBackgroundColor: '#dad7d7',
             pointBorderWidth: 0,
-            pointHoverRadius: 4,
+            pointHoverRadius: 2,
             pointHoverBackgroundColor: 'black',
             pointHoverBorderColor: 'black',
-            pointHoverBorderWidth: 3,
+            pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
             yAxisID: 'y-axis-2'
+
           },
           {
             data: [],
             label: 'Volume',
             type: 'bar',
             yAxisID: 'y-axis-1'
+
           }
         ]
       };
@@ -258,10 +260,10 @@ class Dashboard extends Component {
             pointBorderColor: '#dad7d7',
             pointBackgroundColor: '#dad7d7',
             pointBorderWidth: 0,
-            pointHoverRadius: 4,
+            pointHoverRadius: 2,
             pointHoverBackgroundColor: 'black',
             pointHoverBorderColor: 'black',
-            pointHoverBorderWidth: 3,
+            pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
             yAxisID: 'y-axis-2'

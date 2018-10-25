@@ -53,7 +53,8 @@ class Graph extends Component {
         display: false
       },
       tooltips: {
-        displayColors: false
+        displayColors: false,
+        mode: 'index'
       },
       scales: {
         yAxes: [{
@@ -62,7 +63,8 @@ class Graph extends Component {
           id: 'y-axis-1',
           ticks: {
             fontColor: 'black',
-            min: 0
+            min: 0,
+            max: 1000000000000
           }
         }, {
           type: 'logarithmic',
@@ -75,6 +77,10 @@ class Graph extends Component {
         }
         ],
         xAxes: [{
+          barPercentage: 1.0,
+          categoryPercentage: 1.0,
+          maxBarThickness: 10,
+          barThickness: 'flex',
           ticks: {
             autoSkip: true,
             maxTicksLimit: 15,
@@ -169,7 +175,6 @@ class Graph extends Component {
         <div className="NoChartActual">
           <Bar
             data={graphData}
-            maintainAspectRatio={false}
             options={options}
           />
         </div>
