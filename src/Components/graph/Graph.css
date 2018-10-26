@@ -18,6 +18,16 @@ top: 100%;
 
 .cryptoImage {
   position: absolute;
+  left: 90%;
+  width: 50px;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  top: 100%;
+  box-shadow: 6px 20px 38px #00000061;
+}
+
+.cryptoImage2 {
+  position: absolute;
   left: 1%;
   width: 50px;
   background-color: white;

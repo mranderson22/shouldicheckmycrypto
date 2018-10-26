@@ -73,6 +73,8 @@ class Dashboard extends Component {
       isEnabled2: false,
       value: 'BTC',
       value2: 'ETH',
+      coinLog: [],
+      coinLog2: [],
       historythirty: [],
       historysixty: [],
       historyninety: [],
@@ -114,10 +116,13 @@ class Dashboard extends Component {
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleSubmit3 = this.handleSubmit3.bind(this);
   }
 
   componentDidMount() {
     const { isGraphVisible } = this.state;
+    const { coinLog } = this.state;
+    const { value } = this.state;
     this.fetchCryptocurrencyHistory(1);
     this.fetchCryptocurrencyHistory(2);
     this.fetchCryptocurrencyImage(1);
@@ -125,6 +130,7 @@ class Dashboard extends Component {
     this.getPoints(1);
     this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
+    coinLog.unshift(value);
   }
 
 
@@ -390,6 +396,8 @@ class Dashboard extends Component {
   handleSubmit1(e) {
     const { toggleCurr } = this.state;
     const { value } = this.state;
+    const { coinLog } = this.state;
+    coinLog.unshift(value);
     this.findSymbol(1);
     if (value !== 'BTC' && toggleCurr === false) {
       this.setState({ toggleCurr: true });
@@ -419,6 +427,14 @@ class Dashboard extends Component {
     else {
       e.preventDefault();
     }
+  }
+
+  handleSubmit3(e) {
+    const { coinLog } = this.state;
+    e.persist();
+    this.setState({ value: coinLog[1], coin: coinLog[1] }, () => {
+      this.handleSubmit1(e);
+    });
   }
 
   findSymbol(num) {
@@ -468,19 +484,23 @@ class Dashboard extends Component {
   fetchCryptocurrencyImage(num = 1) {
     const { value } = this.state;
     const { value2 } = this.state;
+    const { cryptoImage } = this.state;
+    const { cryptoImage2 } = this.state;
     if (num === 1) {
       axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
         .then((response) => {
-          const cryptoImage = response.data.Data[0].CoinInfo.ImageUrl;
-          this.setState({ cryptoImage });
+          const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
+          cryptoImage.unshift(cryptoImageData);
         });
+      this.setState({ cryptoImage });
     }
     else if (num === 2) {
       axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value2}&tsym=USD`)
         .then((response) => {
-          const cryptoImage2 = response.data.Data[0].CoinInfo.ImageUrl;
-          this.setState({ cryptoImage2 });
+          const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
+          cryptoImage2.unshift(cryptoImage2Data);
         });
+      this.setState({ cryptoImage2 });
     }
   }
 
@@ -571,6 +591,7 @@ class Dashboard extends Component {
                     cryptoImage={cryptoImage}
                     onHistoryChange={this.onHistoryChange}
                     handleSubmit={this.handleSubmit1}
+                    handleSubmit3={this.handleSubmit3}
                     handleChange={this.handleChange1}
                     answer={answer}
                     changeCurrency={this.changeCurrency1}

@@ -91,14 +91,14 @@ class App extends Component {
   setMood() {
     const { dataNew } = this.state;
 
-    if (parseFloat(dataNew[0].percent_change_24h) < -5) {
+    if (parseFloat(dataNew[0].percent_change_24h) <= -5) {
       this.setState({ text: 'no.' });
     }
-    else if (parseFloat(dataNew[0].percent_change_24h) > 5) {
+    else if (parseFloat(dataNew[0].percent_change_24h) >= 5) {
       this.setState({ text: 'yes.' });
       this.setState({ answer: true });
     }
-    else if (parseFloat(dataNew[0].percent_change_24h) > 0) {
+    else if (parseFloat(dataNew[0].percent_change_24h) >= 0) {
       this.setState({ text: 'probably' });
       this.setState({ answer: true });
     }

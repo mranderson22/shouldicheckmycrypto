@@ -37,7 +37,7 @@ class Graph extends Component {
 
   render() {
     const {
-      answer, handleChange, handleSubmit, isEnabled, onHistoryChange, freshReveal,
+      answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
       dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr
     } = this.props;
     const { rSelected, rSelected2 } = this.state;
@@ -47,7 +47,8 @@ class Graph extends Component {
     const { rank } = dataNew[0];
     const seven = dataNew[0].percent_change_7d;
     const seven2 = dataToBTC.percent_change_7d;
-    const Image = `https://www.cryptocompare.com/${cryptoImage}`;
+    const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
+    const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
     const options = {
       legend: {
         display: false
@@ -128,7 +129,7 @@ class Graph extends Component {
     return (
       <div className={`${answer ? 'Yes' : 'No'}GraphChild`}>
         <div className="cryptoImageContainer">
-          <img alt="" className="cryptoImage" src={Image} />
+          <img alt="" className="cryptoImage2" src={Image2} />
           <div className="cryptoInput">
             <Form inline onSubmit={handleSubmit}>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -143,7 +144,7 @@ class Graph extends Component {
           </div>
         </div>
         <Resize2 pose={freshReveal ? 'resized' : 'initial'}>
-          <img alt="" className="cryptoImageBackground" src={Image} />
+          <img alt="" className="cryptoImageBackground" src={Image2} />
         </Resize2>
         <div className="currSelector">
           <div>
@@ -178,7 +179,7 @@ class Graph extends Component {
             options={options}
           />
         </div>
-
+        <img alt="" className="cryptoImage" src={Image} onClick={handleSubmit3}/>
         <div className="daysselector">
           <Button
             className="selectorButtons"
