@@ -123,6 +123,7 @@ class Dashboard extends Component {
     const { isGraphVisible } = this.state;
     const { coinLog } = this.state;
     const { value } = this.state;
+    coinLog.unshift(value);
     this.fetchCryptocurrencyHistory(1);
     this.fetchCryptocurrencyHistory(2);
     this.fetchCryptocurrencyImage(1);
@@ -130,7 +131,6 @@ class Dashboard extends Component {
     this.getPoints(1);
     this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
-    coinLog.unshift(value);
   }
 
 
@@ -397,17 +397,30 @@ class Dashboard extends Component {
     const { toggleCurr } = this.state;
     const { value } = this.state;
     const { coinLog } = this.state;
-    coinLog.unshift(value);
-    this.findSymbol(1);
+    const { curr } = this.state;
     if (value !== 'BTC' && toggleCurr === false) {
       this.setState({ toggleCurr: true });
+      this.addToCoinlog();
+      this.findSymbol(1);
       e.preventDefault();
     }
     else if (value === 'BTC' && toggleCurr === true) {
       this.setState({ toggleCurr: false });
       e.preventDefault();
+      this.setState({ curr: 'USD' }, () => {
+        this.addToCoinlog();
+        this.findSymbol(1);
+      });
+    } else if (curr === 'BTC' && value === 'BTC') {
+      this.setState({ curr: 'USD' }, () => {
+        this.addToCoinlog();
+        this.findSymbol(1);
+        e.preventDefault();
+      })
     }
     else {
+      this.addToCoinlog();
+      this.findSymbol(1);
       e.preventDefault();
     }
   }
@@ -429,13 +442,14 @@ class Dashboard extends Component {
     }
   }
 
-  handleSubmit3(e) {
+  handleSubmit3(e, pos) {
     const { coinLog } = this.state;
     e.persist();
-    this.setState({ value: coinLog[1], coin: coinLog[1] }, () => {
+    this.setState({ value: coinLog[pos], coin: coinLog[pos] }, () => {
       this.handleSubmit1(e);
     });
   }
+
 
   findSymbol(num) {
     const { sendCoin } = this.props;
@@ -490,7 +504,11 @@ class Dashboard extends Component {
       axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
         .then((response) => {
           const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
+          if (cryptoImage.includes(cryptoImageData) === false) {
           cryptoImage.unshift(cryptoImageData);
+        } else {
+
+        }
         });
       this.setState({ cryptoImage });
     }
@@ -563,6 +581,18 @@ class Dashboard extends Component {
         this.getPoints(2);
       });
     }
+  }
+
+  addToCoinlog() {
+    const { coinLog } = this.state;
+    const { value } = this.state;
+    if (coinLog.includes(value) === false ) {
+      coinLog.unshift(value);
+    } else {
+
+    }
+
+
   }
 
 

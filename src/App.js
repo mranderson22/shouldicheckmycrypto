@@ -46,6 +46,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      value: 'BTC',
+      value2: 'ETH',
       loading: true,
       data: [],
       answer: false,
@@ -194,6 +196,29 @@ class App extends Component {
           const result = response.data.data.quotes.BTC;
           this.setState({ dataToBTC2: result })
         }));
+    }
+  }
+
+  fetchCryptocurrencyImage(num = 1) {
+    const { value } = this.state;
+    const { value2 } = this.state;
+    const { cryptoImage } = this.state;
+    const { cryptoImage2 } = this.state;
+    if (num === 1) {
+      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
+        .then((response) => {
+          const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
+          cryptoImage.unshift(cryptoImageData);
+        });
+      this.setState({ cryptoImage });
+    }
+    else if (num === 2) {
+      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value2}&tsym=USD`)
+        .then((response) => {
+          const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
+          cryptoImage2.unshift(cryptoImage2Data);
+        });
+      this.setState({ cryptoImage2 });
     }
   }
 

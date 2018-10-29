@@ -49,6 +49,9 @@ class Graph extends Component {
     const seven2 = dataToBTC.percent_change_7d;
     const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
     const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
+    const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
+    const Image4 = `https://www.cryptocompare.com/${cryptoImage[3]}`;
+    const Image5 = `https://www.cryptocompare.com/${cryptoImage[4]}`;
     const options = {
       legend: {
         display: false
@@ -179,7 +182,10 @@ class Graph extends Component {
             options={options}
           />
         </div>
-        <img alt="" className="cryptoImage" src={Image} onClick={handleSubmit3}/>
+        <img alt="" className="cryptoImage" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+        <img alt="" className="cryptoImage3" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
+        <img alt="" className="cryptoImage4" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
+        <img alt="" className="cryptoImage5" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
         <div className="daysselector">
           <Button
             className="selectorButtons"

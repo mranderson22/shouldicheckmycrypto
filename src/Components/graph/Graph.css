@@ -35,6 +35,46 @@ top: 100%;
   top: -.02%;
 }
 
+.cryptoImage {
+  position: absolute;
+  left: 90%;
+  width: 50px;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  top: 100%;
+  box-shadow: 6px 20px 38px #00000061;
+}
+
+.cryptoImage3 {
+  position: absolute;
+  left: 80%;
+  width: 50px;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  top: 100%;
+  box-shadow: 6px 20px 38px #00000061;
+}
+
+.cryptoImage4 {
+  position: absolute;
+  left: 70%;
+  width: 50px;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  top: 100%;
+  box-shadow: 6px 20px 38px #00000061;
+}
+
+.cryptoImage5 {
+  position: absolute;
+  left: 60%;
+  width: 50px;
+  background-color: white;
+  padding: 5px 5px 5px 5px;
+  top: 100%;
+  box-shadow: 6px 20px 38px #00000061;
+}
+
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .cryptoImage {
 
