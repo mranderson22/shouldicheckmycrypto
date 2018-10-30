@@ -130,11 +130,26 @@ class Dashboard extends Component {
     coinLog2.unshift(value2);
     this.fetchCryptocurrencyHistory(1);
     this.fetchCryptocurrencyHistory(2);
-    this.fetchCryptocurrencyImage(1);
-    this.fetchCryptocurrencyImage(2);
     this.getPoints(1);
     this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
+    if (localStorage.getItem('savedCoins') === null) {
+      if (localStorage.getItem('savedCoins2') === null) {
+        this.fetchCryptocurrencyImage(2);
+      }
+      else {
+        this.getLocalStorageData(2);
+      }
+      this.fetchCryptocurrencyImage(1);
+    }
+    else if (localStorage.getItem('savedCoins2') === null) {
+      this.fetchCryptocurrencyImage(2);
+      this.getLocalStorageData(1);
+    }
+    else {
+      this.getLocalStorageData(1);
+      this.getLocalStorageData(2);
+    }
   }
 
 
@@ -299,6 +314,43 @@ class Dashboard extends Component {
         newGraphData2.datasets[1].data.push(volumedata);
       }
       this.setState({ graphData2: newGraphData2 });
+    }
+  }
+
+  getLocalStorageData(num) {
+    const BTC = '/media/19633/btc.png';
+    const ETH = '/media/20646/eth_logo.png';
+    const retrievedCoins = localStorage.getItem('savedCoins');
+    const retrievedCoinImages = localStorage.getItem('savedCoinImages');
+    const savedCoinsNew = JSON.parse(retrievedCoins);
+    const savedCoinImagesNew = JSON.parse(retrievedCoinImages);
+    const retrievedCoins2 = localStorage.getItem('savedCoins2');
+    const retrievedCoinImages2 = localStorage.getItem('savedCoinImages2');
+    const savedCoinsNew2 = JSON.parse(retrievedCoins2);
+    const savedCoinImagesNew2 = JSON.parse(retrievedCoinImages2);
+    if (num === 1) {
+      if (savedCoinImagesNew.indexOf(BTC) > 0) {
+        savedCoinImagesNew.splice(savedCoinImagesNew.indexOf(BTC), 1);
+        savedCoinImagesNew.unshift(BTC);
+      }
+      if (savedCoinsNew.indexOf('BTC') > 0) {
+        savedCoinsNew.splice(savedCoinsNew.indexOf('BTC'), 1);
+        savedCoinsNew.unshift('BTC');
+      }
+      this.setState({ coinLog: savedCoinsNew });
+      this.setState({ cryptoImage: savedCoinImagesNew });
+    }
+    else if (num === 2) {
+      if (savedCoinImagesNew2.indexOf(ETH) > 0) {
+        savedCoinImagesNew2.splice(savedCoinImagesNew2.indexOf(ETH), 1);
+        savedCoinImagesNew2.unshift(ETH);
+      }
+      if (savedCoinsNew2.indexOf('ETH') > 0) {
+        savedCoinsNew2.splice(savedCoinsNew2.indexOf('ETH'), 1);
+        savedCoinsNew2.unshift('ETH');
+      }
+      this.setState({ coinLog2: savedCoinsNew2 });
+      this.setState({ cryptoImage2: savedCoinImagesNew2 });
     }
   }
 
@@ -534,6 +586,7 @@ class Dashboard extends Component {
           cryptoImage.unshift(cryptoImageData);
           const unique = Array.from(new Set(cryptoImage));
           this.setState({ cryptoImage: unique });
+          localStorage.setItem('savedCoinImages', JSON.stringify(cryptoImage));
         });
     }
     else if (num === 2) {
@@ -543,6 +596,7 @@ class Dashboard extends Component {
           cryptoImage2.unshift(cryptoImage2Data);
           const unique = Array.from(new Set(cryptoImage2));
           this.setState({ cryptoImage2: unique });
+          localStorage.setItem('savedCoinImages2', JSON.stringify(cryptoImage2));
         });
     }
   }
@@ -615,22 +669,25 @@ class Dashboard extends Component {
     const { coinLog2 } = this.state;
     const { value2 } = this.state;
     if (num === 1) {
-    data.forEach((coins) => {
-      if (coins.symbol === value) {
-        coinLog.unshift(value);
-        const unique = Array.from(new Set(coinLog));
-        this.setState({ coinLog: unique });
-      }
-    })
-  } else if (num === 2) {
-    data.forEach((coins) => {
-      if (coins.symbol === value2) {
-        coinLog2.unshift(value2);
-        const unique = Array.from(new Set(coinLog2));
-        this.setState({ coinLog2: unique });
-      }
-    })
-  }
+      data.forEach((coins) => {
+        if (coins.symbol === value) {
+          coinLog.unshift(value);
+          const unique = Array.from(new Set(coinLog));
+          this.setState({ coinLog: unique });
+          localStorage.setItem('savedCoins', JSON.stringify(coinLog));
+        }
+      });
+    }
+    else if (num === 2) {
+      data.forEach((coins) => {
+        if (coins.symbol === value2) {
+          coinLog2.unshift(value2);
+          const unique = Array.from(new Set(coinLog2));
+          this.setState({ coinLog2: unique });
+          localStorage.setItem('savedCoins2', JSON.stringify(coinLog2));
+        }
+      });
+    }
   }
 
 
