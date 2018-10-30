@@ -41,8 +41,8 @@ const Reveal = posed.div({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 500 },
-    delay: 600
+    transition: { duration: 900 },
+    delay: 700
   }
 });
 
@@ -117,13 +117,17 @@ class Dashboard extends Component {
     this.handleSubmit1 = this.handleSubmit1.bind(this);
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.handleSubmit3 = this.handleSubmit3.bind(this);
+    this.handleSubmit4 = this.handleSubmit4.bind(this);
   }
 
   componentDidMount() {
     const { isGraphVisible } = this.state;
     const { coinLog } = this.state;
+    const { coinLog2 } = this.state;
     const { value } = this.state;
+    const { value2 } = this.state;
     coinLog.unshift(value);
+    coinLog2.unshift(value2);
     this.fetchCryptocurrencyHistory(1);
     this.fetchCryptocurrencyHistory(2);
     this.fetchCryptocurrencyImage(1);
@@ -400,7 +404,7 @@ class Dashboard extends Component {
     const { curr } = this.state;
     if (value !== 'BTC' && toggleCurr === false) {
       this.setState({ toggleCurr: true });
-      this.addToCoinlog();
+      this.addToCoinlog(1);
       this.findSymbol(1);
       e.preventDefault();
     }
@@ -408,18 +412,18 @@ class Dashboard extends Component {
       this.setState({ toggleCurr: false });
       e.preventDefault();
       this.setState({ curr: 'USD' }, () => {
-        this.addToCoinlog();
+        this.addToCoinlog(1);
         this.findSymbol(1);
       });
     } else if (curr === 'BTC' && value === 'BTC') {
       this.setState({ curr: 'USD' }, () => {
-        this.addToCoinlog();
+        this.addToCoinlog(1);
         this.findSymbol(1);
         e.preventDefault();
       })
     }
     else {
-      this.addToCoinlog();
+      this.addToCoinlog(1);
       this.findSymbol(1);
       e.preventDefault();
     }
@@ -428,16 +432,31 @@ class Dashboard extends Component {
   handleSubmit2(e) {
     const { toggleCurr2 } = this.state;
     const { value2 } = this.state;
-    this.findSymbol(2);
+    const { coinLog2 } = this.state;
+    const { curr2 } = this.state;
     if (value2 !== 'BTC' && toggleCurr2 === false) {
       this.setState({ toggleCurr2: true });
+      this.addToCoinlog(2);
+      this.findSymbol(2);
       e.preventDefault();
     }
     else if (value2 === 'BTC' && toggleCurr2 === true) {
       this.setState({ toggleCurr2: false });
       e.preventDefault();
+      this.setState({ curr2: 'USD' }, () => {
+        this.addToCoinlog(2);
+        this.findSymbol(2);
+      });
+    } else if (curr2 === 'BTC' && value2 === 'BTC') {
+      this.setState({ curr2: 'USD' }, () => {
+        this.addToCoinlog(2);
+        this.findSymbol(2);
+        e.preventDefault();
+      })
     }
     else {
+      this.addToCoinlog(2);
+      this.findSymbol(2);
       e.preventDefault();
     }
   }
@@ -447,6 +466,14 @@ class Dashboard extends Component {
     e.persist();
     this.setState({ value: coinLog[pos], coin: coinLog[pos] }, () => {
       this.handleSubmit1(e);
+    });
+  }
+
+  handleSubmit4(e, pos) {
+    const { coinLog2 } = this.state;
+    e.persist();
+    this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos] }, () => {
+      this.handleSubmit2(e);
     });
   }
 
@@ -504,21 +531,19 @@ class Dashboard extends Component {
       axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
         .then((response) => {
           const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
-          if (cryptoImage.includes(cryptoImageData) === false) {
           cryptoImage.unshift(cryptoImageData);
-        } else {
-
-        }
+          const unique = Array.from(new Set(cryptoImage));
+          this.setState({ cryptoImage: unique });
         });
-      this.setState({ cryptoImage });
     }
     else if (num === 2) {
       axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value2}&tsym=USD`)
         .then((response) => {
           const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage2.unshift(cryptoImage2Data);
+          const unique = Array.from(new Set(cryptoImage2));
+          this.setState({ cryptoImage2: unique });
         });
-      this.setState({ cryptoImage2 });
     }
   }
 
@@ -583,16 +608,29 @@ class Dashboard extends Component {
     }
   }
 
-  addToCoinlog() {
+  addToCoinlog(num) {
     const { coinLog } = this.state;
     const { value } = this.state;
-    if (coinLog.includes(value) === false ) {
-      coinLog.unshift(value);
-    } else {
-
-    }
-
-
+    const { data } = this.props;
+    const { coinLog2 } = this.state;
+    const { value2 } = this.state;
+    if (num === 1) {
+    data.forEach((coins) => {
+      if (coins.symbol === value) {
+        coinLog.unshift(value);
+        const unique = Array.from(new Set(coinLog));
+        this.setState({ coinLog: unique });
+      }
+    })
+  } else if (num === 2) {
+    data.forEach((coins) => {
+      if (coins.symbol === value2) {
+        coinLog2.unshift(value2);
+        const unique = Array.from(new Set(coinLog2));
+        this.setState({ coinLog2: unique });
+      }
+    })
+  }
   }
 
 
@@ -646,6 +684,7 @@ class Dashboard extends Component {
                       secondGraphVisible={secondGraphVisible}
                       onHistoryChange={this.onHistoryChange2}
                       handleSubmit={this.handleSubmit2}
+                      handleSubmit3={this.handleSubmit4}
                       handleChange={this.handleChange2}
                       answer={answer}
                       changeCurrency={this.changeCurrency2}
