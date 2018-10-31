@@ -149,15 +149,15 @@ class Graph extends Component {
         <Resize2 pose={freshReveal ? 'resized' : 'initial'}>
           <img alt="" className="cryptoImageBackground" src={Image2} />
         </Resize2>
-        <div className="currSelector">
-          <div>
-            {button}
+        <div className={`${answer ? 'Yes' : 'No'}Name`}>
+          { `${name} / ${curr}`}
+          <div className="currSelector">
+            <div>
+              {button}
+            </div>
           </div>
         </div>
         <div className="Nochartheader">
-          <div className="name">
-            { `${name} / ${curr}`}
-          </div>
           <div>
             {curr === 'USD' ? (
               <div className="coinInfo">
@@ -182,7 +182,7 @@ class Graph extends Component {
             options={options}
           />
         </div>
-        <img alt="" className="cryptoImage" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+        <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
         <img alt="" className="cryptoImage3" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
         <img alt="" className="cryptoImage4" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
         <img alt="" className="cryptoImage5" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>

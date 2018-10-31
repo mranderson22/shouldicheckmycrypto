@@ -243,7 +243,8 @@ class Dashboard extends Component {
             data: [],
             label: 'Volume',
             type: 'bar',
-            yAxisID: 'y-axis-1'
+            yAxisID: 'y-axis-1',
+            hoverBackgroundColor: '#00000091'
 
           }
         ]
@@ -297,7 +298,8 @@ class Dashboard extends Component {
             data: [],
             label: 'Volume',
             type: 'bar',
-            yAxisID: 'y-axis-1'
+            yAxisID: 'y-axis-1',
+            hoverBackgroundColor: '#00000091'
           }
         ]
       };
@@ -452,7 +454,6 @@ class Dashboard extends Component {
   handleSubmit1(e) {
     const { toggleCurr } = this.state;
     const { value } = this.state;
-    const { coinLog } = this.state;
     const { curr } = this.state;
     if (value !== 'BTC' && toggleCurr === false) {
       this.setState({ toggleCurr: true });
@@ -467,12 +468,13 @@ class Dashboard extends Component {
         this.addToCoinlog(1);
         this.findSymbol(1);
       });
-    } else if (curr === 'BTC' && value === 'BTC') {
+    }
+    else if (curr === 'BTC' && value === 'BTC') {
       this.setState({ curr: 'USD' }, () => {
         this.addToCoinlog(1);
         this.findSymbol(1);
         e.preventDefault();
-      })
+      });
     }
     else {
       this.addToCoinlog(1);
@@ -585,8 +587,9 @@ class Dashboard extends Component {
           const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage.unshift(cryptoImageData);
           const unique = Array.from(new Set(cryptoImage));
-          this.setState({ cryptoImage: unique });
-          localStorage.setItem('savedCoinImages', JSON.stringify(cryptoImage));
+          this.setState({ cryptoImage: unique }, () => {
+            localStorage.setItem('savedCoinImages', JSON.stringify(unique));
+          });
         });
     }
     else if (num === 2) {
@@ -595,8 +598,9 @@ class Dashboard extends Component {
           const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage2.unshift(cryptoImage2Data);
           const unique = Array.from(new Set(cryptoImage2));
-          this.setState({ cryptoImage2: unique });
-          localStorage.setItem('savedCoinImages2', JSON.stringify(cryptoImage2));
+          this.setState({ cryptoImage2: unique }, () => {
+            localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
+          });
         });
     }
   }
@@ -673,8 +677,9 @@ class Dashboard extends Component {
         if (coins.symbol === value) {
           coinLog.unshift(value);
           const unique = Array.from(new Set(coinLog));
-          this.setState({ coinLog: unique });
-          localStorage.setItem('savedCoins', JSON.stringify(coinLog));
+          this.setState({ coinLog: unique }, () => {
+            localStorage.setItem('savedCoins', JSON.stringify(unique));
+          });
         }
       });
     }
@@ -683,8 +688,9 @@ class Dashboard extends Component {
         if (coins.symbol === value2) {
           coinLog2.unshift(value2);
           const unique = Array.from(new Set(coinLog2));
-          this.setState({ coinLog2: unique });
-          localStorage.setItem('savedCoins2', JSON.stringify(coinLog2));
+          this.setState({ coinLog2: unique }, () => {
+            localStorage.setItem('savedCoins2', JSON.stringify(unique));
+          });
         }
       });
     }

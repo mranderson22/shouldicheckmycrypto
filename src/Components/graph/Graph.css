@@ -8,7 +8,7 @@ bottom: -4vh;
 box-shadow: 6px 20px 38px #00000061;
 z-index: -1;
 height: 53px;
-top: 100%;
+top: 102%;
 }
 
 .cryptoInput {
@@ -18,12 +18,17 @@ top: 100%;
 
 .cryptoImage {
   position: absolute;
-  left: 90%;
+  border-radius: 50%;
+  left: 92%;
   width: 50px;
   background-color: white;
-  padding: 5px 5px 5px 5px;
-  top: 100%;
+  top: 102%;
   box-shadow: 6px 20px 38px #00000061;
+      border: 2px solid white;
+}
+
+.cryptoImage:hover {
+  cursor: pointer;
 }
 
 .cryptoImage2 {
@@ -35,44 +40,49 @@ top: 100%;
   top: -.02%;
 }
 
-.cryptoImage {
-  position: absolute;
-  left: 90%;
-  width: 50px;
-  background-color: white;
-  padding: 5px 5px 5px 5px;
-  top: 100%;
-  box-shadow: 6px 20px 38px #00000061;
-}
-
 .cryptoImage3 {
   position: absolute;
-  left: 80%;
+  left: 82%;
   width: 50px;
   background-color: white;
-  padding: 5px 5px 5px 5px;
-  top: 100%;
+    border-radius: 50%;
+  top: 102%;
   box-shadow: 6px 20px 38px #00000061;
+      border: 2px solid white;
+}
+
+.cryptoImage3:hover {
+  cursor: pointer;
 }
 
 .cryptoImage4 {
   position: absolute;
-  left: 70%;
+  left: 72%;
   width: 50px;
   background-color: white;
-  padding: 5px 5px 5px 5px;
-  top: 100%;
+    border-radius: 50%;
+  top: 102%;
   box-shadow: 6px 20px 38px #00000061;
+      border: 2px solid white;
+}
+
+.cryptoImage4:hover {
+  cursor: pointer;
 }
 
 .cryptoImage5 {
   position: absolute;
-  left: 60%;
+  left: 62%;
   width: 50px;
   background-color: white;
-  padding: 5px 5px 5px 5px;
-  top: 100%;
+    border-radius: 50%;
+  top: 102%;
   box-shadow: 6px 20px 38px #00000061;
+      border: 2px solid white;
+}
+
+.cryptoImage5:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
@@ -128,6 +138,10 @@ top: 100%;
   margin: auto;
 }
 
+.imageContainer:hover {
+  cursor: pointer;
+}
+
 .selectorButtons {
   height: 33px;
   font-size: .8rem !important;
@@ -149,9 +163,32 @@ top: 100%;
   background-color: #373d42 !important;
 }
 
-.name {
-  font-size: 32px;
-  margin-top: -50px;
+.NoName {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -304%);
+  text-align: center;
+  font-size: 31px;
+  font-family: 'Poppins', sans-serif;
+  color: #b1626a;
+  width: 45vw;
+  background: #1d1a1a;
+  height: 47px;
+  box-shadow: 6px 3px 20px #00000061;
+}
+
+.YesName {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -304%);
+  text-align: center;
+  font-size: 31px;
+  font-family: 'Poppins', sans-serif;
+  color: #52b54d;
+  width: 45vw;
+  background: #1d1a1a;
+  height: 47px;
+  box-shadow: 6px 3px 20px #00000061;
 }
 
 .coinInfo {
@@ -160,9 +197,11 @@ top: 100%;
 
 .currSelector {
   position: absolute;
-  transform: translate(-13%, -178%);
+  transform: translate(-7%, -96%);
   right: 0;
   z-index: 2;
+  padding: 4px;
+
 }
 
 .currButton {
@@ -183,4 +222,26 @@ top: 100%;
 
 .textField {
   text-transform:uppercase
+}
+
+.bar1 {
+  height: 28px;
+background: white;
+width: 2px;
+position: absolute;
+/* left: 93.5%; */
+top: 100%;
+z-index: -2;
+right: 20%;
+
+}
+
+.lineWrapper {
+  position: absolute;
+
+  left: 92%;
+
+  background-color: white;
+  top: 102%;
+
 }
