@@ -7,6 +7,22 @@ import {
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
+import ChartInfo from '../chartInfo/ChartInfo';
+
+const Resize1 = posed.div({
+  initial: {
+    width: '270px',
+    fontSize: '15px',
+    height: '215px',
+    transform: 'translate(-9%, -36%)'
+  },
+  resized: {
+    width: '223px',
+    fontSize: '12px',
+    height: '177px',
+    transform: 'translate(-11%, -44%)'
+  }
+});
 
 const Resize2 = posed.div({
   initial: {
@@ -45,8 +61,22 @@ class Graph extends Component {
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
     const currentPrice2 = Number(dataToBTC.price).toFixed(10);
     const { rank } = dataNew[0];
-    const seven = dataNew[0].percent_change_7d;
-    const seven2 = dataToBTC.percent_change_7d;
+    const oneHour = parseFloat(dataNew[0].percent_change_1h);
+    const oneHour2 = parseFloat(dataToBTC.percent_change_1h);
+    const oneDay = parseFloat(dataNew[0].percent_change_24h);
+    const oneDay2 = parseFloat(dataToBTC.percent_change_24h);
+    const seven = parseFloat(dataNew[0].percent_change_7d);
+    const seven2 = parseFloat(dataToBTC.percent_change_7d);
+    const maxSupply = dataNew[0].max_supply;
+    const availableSupply = dataNew[0].available_supply;
+    const marketCap = dataNew[0].market_cap_usd;
+    let oneDayVolume;
+    const oneDayVolumeKeys = Object.keys(dataNew[0]).map((key) => {
+      const tempdata = dataNew[0];
+      if (key === '24h_volume_usd') {
+        oneDayVolume = tempdata[key];
+      }
+    });
     const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
     const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
     const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
@@ -157,25 +187,24 @@ class Graph extends Component {
             </div>
           </div>
         </div>
-        <div className="Nochartheader">
-          <div>
-            {curr === 'USD' ? (
-              <div className="coinInfo">
-                { `Rank: ${rank}` }
-                { ' \u00A0 '}
-                { `Current Price: $${currentPrice}` }
-                { ' \u00A0 ' }
-                { `Last 7 Days: ${seven}%` }
-              </div>) : (
-                <div className="coinInfo">
-                  { `Rank: ${rank}` }
-                  { ' \u00A0 '}
-                  { `Current Price: ${currentPrice2}` }
-                  { ' \u00A0 ' }
-                  { `Last 7 Days: ${seven2}%` }
-                </div>)}
-          </div>
-        </div>
+        <Resize1 pose={freshReveal ? 'resized' : 'initial'} className="Nochartheader">
+          <ChartInfo
+            rank={rank}
+            currentPrice={currentPrice}
+            currentPrice2={currentPrice2}
+            maxSupply={maxSupply}
+            availableSupply={availableSupply}
+            marketCap={marketCap}
+            oneDayVolume={oneDayVolume}
+            oneHour={oneHour}
+            oneHour2={oneHour2}
+            seven={seven}
+            seven2={seven2}
+            oneDay={oneDay}
+            oneDay2={oneDay2}
+            curr={curr}
+          />
+        </Resize1>
         <div className="NoChartActual">
           <Bar
             data={graphData}

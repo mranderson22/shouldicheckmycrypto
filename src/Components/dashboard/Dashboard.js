@@ -4,13 +4,15 @@ import 'react-moment';
 import axios from 'axios';
 import posed from 'react-pose';
 import {
-  Container, Row, ListGroup, ListGroupItem
+  Container, Row
 }
   from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Graph from '../graph/Graph';
+import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
+import burgerMenu from '../../../images/burgerMenu.png';
 
 const Hover = posed.div({
   idle: { scale: 1 },
@@ -244,8 +246,8 @@ class Dashboard extends Component {
             label: 'Volume',
             type: 'bar',
             yAxisID: 'y-axis-1',
-            hoverBackgroundColor: '#00000091'
-
+            hoverBackgroundColor: '#1d1a1a',
+            backgroundColor: '#1d1a1a42'
           }
         ]
       };
@@ -260,7 +262,6 @@ class Dashboard extends Component {
         newGraphData.labels.push(label);
         newGraphData.datasets[0].data.push(labeldata);
         newGraphData.datasets[1].data.push(volumedata);
-
       }
       this.setState({ graphData: newGraphData });
     }
@@ -299,7 +300,8 @@ class Dashboard extends Component {
             label: 'Volume',
             type: 'bar',
             yAxisID: 'y-axis-1',
-            hoverBackgroundColor: '#00000091'
+            hoverBackgroundColor: '#1d1a1a',
+            backgroundColor: '#1d1a1a42'
           }
         ]
       };
@@ -546,7 +548,7 @@ class Dashboard extends Component {
       data.forEach((coins) => {
         if (!hits) {
           if (coins.symbol === value) {
-            sendCoin(coin);
+            sendCoin(1, coin);
             this.fetchCryptocurrencyHistory(1);
             this.fetchCryptocurrencyImage(1);
             this.getPoints(1);
@@ -562,7 +564,7 @@ class Dashboard extends Component {
       data.forEach((coins) => {
         if (!hits) {
           if (coins.symbol === value2) {
-            sendCoin2(coin2);
+            sendCoin(2, coin2);
             this.fetchCryptocurrencyHistory(2);
             this.fetchCryptocurrencyImage(2);
             this.getPoints(2);
@@ -760,6 +762,11 @@ class Dashboard extends Component {
                 ) : null
               }
               </div>
+              <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
+                <div className="burgerMenuContainer">
+                  <img className="burgerMenu" alt="" src={burgerMenu} />
+                </div>
+              </Reveal2>
               <div className="imageContainer">
                 <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
                   <Reveal3 pose={secondGraphVisible ? 'hidden' : 'visible'}>
@@ -784,6 +791,7 @@ class Dashboard extends Component {
               </div>
             </Row>
           </Container>
+          <Sidebar />
         </div>
       </div>
     );

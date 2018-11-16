@@ -7,6 +7,7 @@ import arrows from '../images/arrows.png';
 import Dashboard from './Components/dashboard/Dashboard';
 import './app.css';
 
+// Reveal "yes" or "no" animation
 const Reveal = posed.div({
   hidden: {
     opacity: 0,
@@ -21,6 +22,7 @@ const Reveal = posed.div({
   }
 });
 
+// Reveal lock or arrows on main page animation
 const Reveal2 = posed.div({
   hidden: {
     opacity: 0,
@@ -36,6 +38,7 @@ const Reveal2 = posed.div({
   }
 });
 
+// hover animation for lock or arrows
 const Hover = posed.div({
   idle: { scale: 1 },
   hovered: { scale: 1.3 }
@@ -48,29 +51,21 @@ class App extends Component {
     this.state = {
       value: 'BTC',
       value2: 'ETH',
-      loading: true,
-      data: [],
-      answer: false,
       coin: 'BTC',
       coin2: 'ETH',
-      dataNew: [],
-      dataNew2: [],
-      dataToBTCid: [],
-      dataToBTCid2: [],
-      dataToBTC: [],
-      dataToBTC2: [],
+      loading: true,
+      answer: false,
       showComponent: false,
       isVisible: false,
-      text: '',
       hovering: false
     };
     this.getCoin = this.getCoin.bind(this);
-    this.getCoin2 = this.getCoin2.bind(this);
     this.fetchCryptocurrencyData = this.fetchCryptocurrencyData.bind(this);
-    this.fetchCryptocurrencyData2 = this.fetchCryptocurrencyData2.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
   }
 
+  // Initial timeOut for loading screen on mount, while fetching crypto data to
+  // determine if answer is "yes" or "no", then sets accordingly.
   componentDidMount() {
     setTimeout(() => {
       this.setState({ loading: false }, () => {
@@ -82,43 +77,49 @@ class App extends Component {
     this.fetchCryptocurrencyData(2);
   }
 
-
+  // click function for lock or arrow on main screen. First loads dashboard component
+  // with "showComponent" then scrolls to said component.
   onButtonClick() {
     this.setState({ showComponent: true }, () => {
       this.scrollToBottom();
-      this.fetchCryptocurrencyData2();
     });
   }
 
+  // determines what main page text displays as "yes" or "no" depending on current %
+  // change of Bitcoin. (data was gathered on mount with fetchCryptocurrencyData)
   setMood() {
     const { dataNew } = this.state;
+    const data = dataNew[0].percent_change_24h;
 
-    if (parseFloat(dataNew[0].percent_change_24h) <= -5) {
+    if (parseFloat(data) <= -5) {
       this.setState({ text: 'no.' });
     }
-    else if (parseFloat(dataNew[0].percent_change_24h) >= 5) {
+    else if (parseFloat(data) >= 5) {
       this.setState({ text: 'yes.' });
       this.setState({ answer: true });
     }
-    else if (parseFloat(dataNew[0].percent_change_24h) >= 0) {
+    else if (parseFloat(data) >= 0) {
       this.setState({ text: 'probably' });
       this.setState({ answer: true });
     }
-    else if (parseFloat(dataNew[0].percent_change_24h) < 0) {
+    else if (parseFloat(data) < 0) {
       this.setState({ text: 'meh' });
     }
   }
 
-  getCoin(coinNew) {
-    this.setState({ coin: coinNew }, () => {
-      this.fetchCryptocurrencyData(1);
-    });
-  }
-
-  getCoin2(coinNew) {
-    this.setState({ coin2: coinNew }, () => {
-      this.fetchCryptocurrencyData(2);
-    });
+  // receiving data from dashboard component and sets the state accordingly in order
+  // for the fetchCryptocurrencyData function to grab the correct data.
+  getCoin(num, coinNew) {
+    if (num === 1) {
+      this.setState({ coin: coinNew }, () => {
+        this.fetchCryptocurrencyData(1);
+      });
+    }
+    else if (num === 2) {
+      this.setState({ coin2: coinNew }, () => {
+        this.fetchCryptocurrencyData(2);
+      });
+    }
   }
 
   scrollToBottom() {
@@ -132,71 +133,42 @@ class App extends Component {
   fetchCryptocurrencyData(num = 1) {
     const { coin } = this.state;
     const { coin2 } = this.state;
-    axios.get('https://api.coinmarketcap.com/v1/ticker/')
-      .then((response) => {
+    axios.all([
+      axios.get('https://api.coinmarketcap.com/v1/ticker/'),
+      axios.get('https://api.coinmarketcap.com/v2/listings/')
+    ])
+      .then(axios.spread((response, response2) => {
         if (num === 1) {
           const wanted = [`${coin}`];
           const result = response.data.filter(currency => wanted.includes(currency.symbol));
+          const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
           const result2 = response.data;
-          this.setState({ dataNew: result }, () => {
-            this.fetchCryptocurrencyData2(1);
+          this.setState({ dataToBTCid: result1, data: result2, dataNew: result }, () => {
+            const { dataToBTCid } = this.state;
+            const { id } = dataToBTCid[0];
+            axios.get(`https://api.coinmarketcap.com/v2/ticker/${id}/?convert=BTC`)
+              .then(((response3) => {
+                const result3 = response3.data.data.quotes.BTC;
+                this.setState({ dataToBTC: result3 });
+              }));
           });
-          this.setState({ data: result2 });
         }
         else if (num === 2) {
           const wanted = [`${coin2}`];
           const result = response.data.filter(currency => wanted.includes(currency.symbol));
+          const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
           const result2 = response.data;
-
-          this.setState({ dataNew2: result }, () => {
-            this.fetchCryptocurrencyData2(2);
-          });
-          this.setState({ data: result2 });
-        }
-      });
-  }
-
-  fetchCryptocurrencyData2(num = 1) {
-    const { coin } = this.state;
-    const { coin2 } = this.state;
-    axios.get('https://api.coinmarketcap.com/v2/listings/')
-      .then((response) => {
-        if (num === 1) {
-          const wanted = [`${coin}`];
-          const result1 = response.data.data.filter(currency => wanted.includes(currency.symbol));
-          this.setState({ dataToBTCid: result1 }, () => {
-            this.fetchCryptocurrencyData3(1);
+          this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
+            const { dataToBTCid2 } = this.state;
+            const id2 = dataToBTCid2[0].id;
+            axios.get(`https://api.coinmarketcap.com/v2/ticker/${id2}/?convert=BTC`)
+              .then(((response3) => {
+                const result3 = response3.data.data.quotes.BTC;
+                this.setState({ dataToBTC2: result3 });
+              }));
           });
         }
-        else if (num === 2) {
-          const wanted = [`${coin2}`];
-          const result1 = response.data.data.filter(currency => wanted.includes(currency.symbol));
-          this.setState({ dataToBTCid2: result1 }, () => {
-            this.fetchCryptocurrencyData3(2);
-          });
-        }
-      });
-  }
-
-  fetchCryptocurrencyData3(num = 1) {
-    const { dataToBTCid } = this.state;
-    const { id } = dataToBTCid[0];
-    if (num === 1) {
-      axios.get(`https://api.coinmarketcap.com/v2/ticker/${id}/?convert=BTC`)
-        .then((response => {
-          const result = response.data.data.quotes.BTC;
-          this.setState({ dataToBTC: result })
-        }));
-    }
-    else if (num === 2) {
-      const { dataToBTCid2 } = this.state;
-      const id2 = dataToBTCid2[0].id;
-      axios.get(`https://api.coinmarketcap.com/v2/ticker/${id2}/?convert=BTC`)
-        .then((response => {
-          const result = response.data.data.quotes.BTC;
-          this.setState({ dataToBTC2: result })
-        }));
-    }
+      }));
   }
 
   fetchCryptocurrencyImage(num = 1) {
@@ -223,7 +195,6 @@ class App extends Component {
   }
 
   render() {
-    // React destructuring assignment
     const {
       data, loading, answer, isVisible, text,
       dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2
@@ -273,7 +244,6 @@ class App extends Component {
             {showComponent ? (
               <Dashboard
                 fetchCryptocurrencyData={this.fetchCryptocurrencyData}
-                fetchCryptocurrencyData2={this.fetchCryptocurrencyData2}
                 dataNew={dataNew}
                 dataNew2={dataNew2}
                 dataToBTC={dataToBTC}

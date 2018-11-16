@@ -1,0 +1,13 @@
+.off-canvas {
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #333;
+  transform: translateX(-100%);
+  transition: .4s ease-in-out;
+  z-index: 1060;
+}
