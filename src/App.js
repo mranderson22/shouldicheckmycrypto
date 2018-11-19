@@ -130,68 +130,88 @@ class App extends Component {
     });
   }
 
+  // Fetches main data for all coins, as well as specific coin that the user inputs.
+  // Then retrieves id from api so it can convert all info to BTC via converToBTC().
   fetchCryptocurrencyData(num = 1) {
     const { coin } = this.state;
     const { coin2 } = this.state;
+    let wanted;
+    if (num === 1) {
+      wanted = coin;
+    }
+    else {
+      wanted = coin2;
+    }
     axios.all([
       axios.get('https://api.coinmarketcap.com/v1/ticker/'),
       axios.get('https://api.coinmarketcap.com/v2/listings/')
     ])
       .then(axios.spread((response, response2) => {
+        const result = response.data.filter(currency => wanted.includes(currency.symbol));
+        const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
+        const result2 = response.data;
         if (num === 1) {
-          const wanted = [`${coin}`];
-          const result = response.data.filter(currency => wanted.includes(currency.symbol));
-          const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
-          const result2 = response.data;
-          this.setState({ dataToBTCid: result1, data: result2, dataNew: result }, () => {
-            const { dataToBTCid } = this.state;
-            const { id } = dataToBTCid[0];
-            axios.get(`https://api.coinmarketcap.com/v2/ticker/${id}/?convert=BTC`)
-              .then(((response3) => {
-                const result3 = response3.data.data.quotes.BTC;
-                this.setState({ dataToBTC: result3 });
-              }));
+          this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
+            this.convertToBTC(1);
           });
         }
         else if (num === 2) {
-          const wanted = [`${coin2}`];
-          const result = response.data.filter(currency => wanted.includes(currency.symbol));
-          const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
-          const result2 = response.data;
           this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
-            const { dataToBTCid2 } = this.state;
-            const id2 = dataToBTCid2[0].id;
-            axios.get(`https://api.coinmarketcap.com/v2/ticker/${id2}/?convert=BTC`)
-              .then(((response3) => {
-                const result3 = response3.data.data.quotes.BTC;
-                this.setState({ dataToBTC2: result3 });
-              }));
+            this.convertToBTC(2);
           });
         }
       }));
   }
 
+  // Separate api call to retrieve all information converted from USD to BTC for
+  // USD/BTC toggle button on graph.
+  convertToBTC(num = 1) {
+    const { dataToBTCid } = this.state;
+    const { dataToBTCid2 } = this.state;
+    let wanted;
+    if (num === 1) {
+      wanted = dataToBTCid[0].id;
+    }
+    else {
+      wanted = dataToBTCid2[0].id;
+    }
+    axios.get(`https://api.coinmarketcap.com/v2/ticker/${wanted}/?convert=BTC`)
+      .then(((response3) => {
+        const result3 = response3.data.data.quotes.BTC;
+        if (num === 1) {
+          this.setState({ dataToBTC: result3 });
+        }
+        else {
+          this.setState({ dataToBTC2: result3 });
+        }
+      }));
+  }
+
+  // Grabs the image URL data for specific coin
   fetchCryptocurrencyImage(num = 1) {
     const { value } = this.state;
     const { value2 } = this.state;
     const { cryptoImage } = this.state;
     const { cryptoImage2 } = this.state;
+    let wanted;
     if (num === 1) {
-      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
-        .then((response) => {
+      wanted = value;
+    }
+    else {
+      wanted = value2;
+    }
+    axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wanted}&tsym=USD`)
+      .then((response) => {
+        if (num === 1) {
           const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage.unshift(cryptoImageData);
-        });
-      this.setState({ cryptoImage });
-    }
-    else if (num === 2) {
-      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value2}&tsym=USD`)
-        .then((response) => {
+        }
+        else if (num === 2) {
           const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage2.unshift(cryptoImage2Data);
-        });
-      this.setState({ cryptoImage2 });
-    }
+        }
+      });
+    this.setState({ cryptoImage });
   }
 
   render() {
