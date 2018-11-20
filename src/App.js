@@ -92,10 +92,10 @@ class App extends Component {
     const data = dataNew[0].percent_change_24h;
 
     if (parseFloat(data) <= -5) {
-      this.setState({ text: 'no.' });
+      this.setState({ text: 'absolutely not.' });
     }
     else if (parseFloat(data) >= 5) {
-      this.setState({ text: 'yes.' });
+      this.setState({ text: 'rejoice!' });
       this.setState({ answer: true });
     }
     else if (parseFloat(data) >= 0) {
@@ -103,7 +103,7 @@ class App extends Component {
       this.setState({ answer: true });
     }
     else if (parseFloat(data) < 0) {
-      this.setState({ text: 'meh' });
+      this.setState({ text: 'if you must' });
     }
   }
 

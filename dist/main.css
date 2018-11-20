@@ -545,6 +545,8 @@ top: 102%;
   color: #130304;
   font-family: 'Poppins', sans-serif;
   text-shadow: 3px 3px 10px #4e11179e;
+  width: 90vw;
+  text-align: center;
 }
 
 .Answerboxyes {

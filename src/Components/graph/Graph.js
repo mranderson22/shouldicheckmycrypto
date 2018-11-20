@@ -56,7 +56,8 @@ class Graph extends Component {
       answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
       dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr
     } = this.props;
-    const { rSelected, rSelected2 } = this.state;
+    let { rSelected } = this.state;
+    const { rSelected2 } = this.state;
     const { name } = dataNew[0];
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
     const currentPrice2 = Number(dataToBTC.price).toFixed(10);
