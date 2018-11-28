@@ -13,14 +13,14 @@ const Resize1 = posed.div({
   initial: {
     width: '270px',
     fontSize: '15px',
-    height: '215px',
-    transform: 'translate(-9%, -36%)'
+    height: '233px',
+    transform: 'translate(-9%, -34%)'
   },
   resized: {
     width: '223px',
     fontSize: '12px',
-    height: '177px',
-    transform: 'translate(-11%, -44%)'
+    height: '191px',
+    transform: 'translate(-11%, -42%)'
   }
 });
 
@@ -38,7 +38,7 @@ class Graph extends Component {
     super(props);
     this.state = {
       rSelected: 1,
-      rSelected2: 3
+      rSelected2: 5
     };
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
   }
@@ -53,8 +53,8 @@ class Graph extends Component {
 
   render() {
     const {
-      answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
-      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr
+      dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
+      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2
     } = this.props;
     let { rSelected } = this.state;
     const { rSelected2 } = this.state;
@@ -204,6 +204,10 @@ class Graph extends Component {
             oneDay={oneDay}
             oneDay2={oneDay2}
             curr={curr}
+            dateRangeChange={dateRangeChange}
+            dateRangeChange2={dateRangeChange2}
+            days={days}
+            days2={days2}
           />
         </Resize1>
         <div className="NoChartActual">
@@ -250,12 +254,40 @@ class Graph extends Component {
             color="primary"
             onClick={() => {
               this.onRadioBtnClick2(5);
-              onHistoryChange(90);
+              onHistoryChange(180);
             }
           }
             active={rSelected2 === 5}
           >
+            { '6m' }
+          </Button>
+          { ' \u00A0 '}
+          { ' \u00A0 '}
+          <Button
+            className="selectorButtons"
+            color="primary"
+            onClick={() => {
+              this.onRadioBtnClick2(6);
+              onHistoryChange(365);
+            }
+          }
+            active={rSelected2 === 6}
+          >
             { 'YTD' }
+          </Button>
+          { ' \u00A0 '}
+          { ' \u00A0 '}
+          <Button
+            className="selectorButtons"
+            color="primary"
+            onClick={() => {
+              this.onRadioBtnClick2(7);
+              onHistoryChange(1000);
+            }
+          }
+            active={rSelected2 === 7}
+          >
+            { 'All' }
           </Button>
         </div>
       </div>

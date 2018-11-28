@@ -151,10 +151,16 @@ class Dashboard extends Component {
       this.fetchCryptocurrencyHistory(1, 31);
     }
     else if (num === 60) {
-      this.fetchCryptocurrencyHistory(1, 61);
+      this.fetchCryptocurrencyHistory(1, 90);
     }
-    else if (num === 90) {
-      this.fetchCryptocurrencyHistory(1, 366);
+    else if (num === 180) {
+      this.fetchCryptocurrencyHistory(1, 180);
+    }
+    else if (num === 365) {
+      this.fetchCryptocurrencyHistory(1, 365);
+    }
+    else if (num === 1000) {
+      this.fetchCryptocurrencyHistory(1, 1500);
     }
   }
 
@@ -163,10 +169,16 @@ class Dashboard extends Component {
       this.fetchCryptocurrencyHistory(2, 31);
     }
     else if (num === 60) {
-      this.fetchCryptocurrencyHistory(2, 61);
+      this.fetchCryptocurrencyHistory(2, 90);
     }
-    else if (num === 90) {
-      this.fetchCryptocurrencyHistory(2, 366);
+    else if (num === 180) {
+      this.fetchCryptocurrencyHistory(2, 180);
+    }
+    else if (num === 365) {
+      this.fetchCryptocurrencyHistory(2, 365);
+    }
+    else if (num === 1000) {
+      this.fetchCryptocurrencyHistory(2, 1500);
     }
   }
 
@@ -279,7 +291,26 @@ class Dashboard extends Component {
     }
   }
 
-  fetchCryptocurrencyHistory(num = 1, dayNum = 31) {
+  getHistoryChange(num = 1) {
+    if (num === 1) {
+      const history = this.state;
+      const dateRangeChange =
+      Number.parseFloat((history.history[history.history.length - 1].close - history.history[0].close)
+      / history.history[0].close * 100).toFixed(2);
+      this.setState({ dateRangeChange });
+    }
+    else if (num === 2) {
+      const history2 = this.state;
+      const dateRangeChange2 =
+      Number.parseFloat((history2.history2[history2.history2.length - 1].close - history2.history2[0].close)
+      / history2.history2[0].close * 100).toFixed(2);
+      this.setState({ dateRangeChange2 }, () => {
+        console.log(dateRangeChange2)
+      });
+    }
+  }
+
+  fetchCryptocurrencyHistory(num = 1, dayNum = 180) {
     const { value } = this.state;
     const { value2 } = this.state;
     const { curr } = this.state;
@@ -313,6 +344,8 @@ class Dashboard extends Component {
             this.getPoints(2);
           });
         }
+        this.getHistoryChange(1);
+        this.getHistoryChange(2);
       });
   }
 
@@ -399,7 +432,7 @@ class Dashboard extends Component {
   handleSubmit3(e, pos) {
     const { coinLog } = this.state;
     e.persist();
-    this.setState({ value: coinLog[pos], coin: coinLog[pos] }, () => {
+    this.setState({ value: coinLog[pos], coin: coinLog[pos], curr: 'USD' }, () => {
       this.handleSubmit1(e);
     });
   }
@@ -407,7 +440,7 @@ class Dashboard extends Component {
   handleSubmit4(e, pos) {
     const { coinLog2 } = this.state;
     e.persist();
-    this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos] }, () => {
+    this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos], curr: 'USD' }, () => {
       this.handleSubmit2(e);
     });
   }
@@ -487,13 +520,13 @@ class Dashboard extends Component {
     if (num === 1) {
       history.forEach((pos) => {
         const { time } = pos;
-        (pos).time = moment.unix(time).format('MMM DD');
+        (pos).time = moment.unix(time).format('MMM DD YYYY');
       });
     }
     else if (num === 2) {
       history2.forEach((pos) => {
         const { time } = pos;
-        (pos).time = moment.unix(time).format('MMM DD');
+        (pos).time = moment.unix(time).format('MMM DD YYYY');
       });
     }
   }
@@ -568,12 +601,12 @@ class Dashboard extends Component {
   render() {
     const {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
-      isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr, toggleCurr2
+      isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
+      toggleCurr2, days, days2, dateRangeChange, dateRangeChange2
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2
     } = this.props;
-
     return (
       <div id="dashboard" className="Nodashboardcontainer">
         <div className={`${answer ? 'Yes' : 'No'}dashboard`}>
@@ -598,6 +631,8 @@ class Dashboard extends Component {
                     curr={curr}
                     dataToBTC={dataToBTC}
                     toggleCurr={toggleCurr}
+                    days={days}
+                    dateRangeChange={dateRangeChange}
                   />
                 </Resize>
               </Reveal>
@@ -623,6 +658,8 @@ class Dashboard extends Component {
                       curr={curr2}
                       dataToBTC={dataToBTC2}
                       toggleCurr={toggleCurr2}
+                      days={days2}
+                      dateRangeChange={dateRangeChange2}
                     />
                   </Reveal3>
                 ) : null

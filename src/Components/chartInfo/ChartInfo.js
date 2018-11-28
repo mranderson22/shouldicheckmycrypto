@@ -1,7 +1,8 @@
 import React from 'react';
 
 const ChartInfo = ({rank, currentPrice, currentPrice2, maxSupply, availableSupply, marketCap,
-oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr}) => {
+oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr,
+dateRangeChange, dateRangeChange2, days, days2 }) => {
   return (
     <div>
       {curr === 'USD' ? (
@@ -64,6 +65,13 @@ oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr}) => {
               %
               </span>
             </li>
+            <li>
+            {` ${days} Day Change: `}
+              <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
+                {` ${dateRangeChange}`}
+              %
+              </span>
+            </li>
           </div>
         </div>) : (
           <div className="coinInfo">
@@ -122,6 +130,13 @@ oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr}) => {
               7 Day Change:
                 <span className={seven <= 0 ? 'redText' : 'greenText'}>
                   {` ${seven2}`}
+                %
+                </span>
+              </li>
+              <li>
+              {` ${days} Day Change: `}
+                <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
+                  {` ${dateRangeChange}`}
                 %
                 </span>
               </li>

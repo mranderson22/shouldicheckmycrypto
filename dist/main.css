@@ -38,7 +38,7 @@
 
 .Nochartheader {
   position: absolute;
-  transform: translate(1%, -30%);
+  transform: translate(1%, -34%);
   text-align: center;
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
@@ -46,7 +46,7 @@
   width: 267px;
   background-color: #1d1a1a8a;
   padding: 5px;
-  height: 215px;
+  height: 233px;
   list-style: none;
   text-align: left;
   padding-top: 12px;
