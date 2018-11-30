@@ -11,16 +11,27 @@ import ChartInfo from '../chartInfo/ChartInfo';
 
 const Resize1 = posed.div({
   initial: {
-    width: '270px',
+    width: '276px',
     fontSize: '15px',
-    height: '233px',
-    transform: 'translate(-9%, -34%)'
+    height: '142px',
+    transform: 'translate(0%, -78%)'
   },
   resized: {
-    width: '223px',
-    fontSize: '12px',
-    height: '191px',
-    transform: 'translate(-11%, -42%)'
+    width: '248px',
+    fontSize: '13px',
+    height: '124px',
+    transform: 'translate(0%, -89%)'
+  }
+});
+
+const Resize3 = posed.div({
+  initial: {
+    fontSize: '4vw',
+    transform: 'translate(0%, 9%)'
+  },
+  resized: {
+    fontSize: '2vw',
+    transform: 'translate(-34%, 21%)'
   }
 });
 
@@ -181,7 +192,9 @@ class Graph extends Component {
           <img alt="" className="cryptoImageBackground" src={Image2} />
         </Resize2>
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
-          { `${name} / ${curr}`}
+          <Resize3 pose={freshReveal ? 'resized' : 'initial'}>
+            { `${name} / ${curr}`}
+          </Resize3>
           <div className="currSelector">
             <div>
               {button}

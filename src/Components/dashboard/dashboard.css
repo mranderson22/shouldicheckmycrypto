@@ -42,14 +42,14 @@
   text-align: center;
   font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  color: #c7b6b6;
+  color: #1d1a1a;
+  font-weight: bold;
   width: 267px;
-  background-color: #1d1a1a8a;
   padding: 5px;
   height: 233px;
   list-style: none;
   text-align: left;
-  padding-top: 12px;
+  padding-top: 9px;
   padding-left: 12px;
 }
 

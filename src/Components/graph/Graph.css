@@ -13,10 +13,11 @@
   position: relative;
   background: white;
   padding: 25px;
-  padding-top: 80px;
+  padding-top: 115px;
   background: #79252eeb;
   border: solid .1px white;
   padding-bottom: 40px;
+  padding-left: 2px;
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
@@ -222,6 +223,13 @@ top: 102%;
   background-color: #1d1a1a !important;
   border-color: #1d1a1a !important;
   box-shadow: none !important;
+  width: 80px !important;
+}
+
+@media screen and (max-width: 900px) {
+  .selectorButtons {
+        width: 50px !important;
+  }
 }
 
 .selectorButtons.active, .selectorButtons.focus {
@@ -239,29 +247,25 @@ top: 102%;
 .NoName {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -304%);
-  text-align: center;
-  font-size: 31px;
+  transform: translate(-20%, -79%);
+  text-align: right;
+  font-size: 5vw;
   font-family: 'Poppins', sans-serif;
-  color: #b1626a;
+  color: #501b23;
   width: 45vw;
-  background: #1d1a1a;
-  height: 47px;
-  box-shadow: 6px 3px 20px #00000061;
+  height: 144px;
 }
 
 .YesName {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -304%);
-  text-align: center;
-  font-size: 31px;
+  transform: translate(-20%, -79%);
+  text-align: right;
+  font-size: 90px;
   font-family: 'Poppins', sans-serif;
   color: #52b54d;
   width: 45vw;
-  background: #1d1a1a;
-  height: 47px;
-  box-shadow: 6px 3px 20px #00000061;
+  height: 144px;
 }
 
 .coinInfo {
@@ -270,7 +274,7 @@ top: 102%;
 
 .currSelector {
   position: absolute;
-  transform: translate(-7%, -96%);
+  transform: translate(-19%, -50%);
   right: 0;
   z-index: 2;
   padding: 4px;

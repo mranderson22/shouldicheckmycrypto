@@ -292,21 +292,25 @@ class Dashboard extends Component {
   }
 
   getHistoryChange(num = 1) {
+    const history = this.state;
+    const history2 = this.state;
+    let historyExt;
+    num === 1 ? historyExt = history.history : historyExt = history2.history2;
+    // let historyExt;
+    // if (num === 1) {
+    //   historyExt = history.history;
+    // }
+    // else if (num === 2) {
+    //   historyExt = history2.history2;
+    // }
+    const dateRangeChange = Number.parseFloat((historyExt[historyExt.length - 1].close
+        - historyExt[0].close)
+      / historyExt[0].close * 100).toFixed(2);
     if (num === 1) {
-      const history = this.state;
-      const dateRangeChange =
-      Number.parseFloat((history.history[history.history.length - 1].close - history.history[0].close)
-      / history.history[0].close * 100).toFixed(2);
       this.setState({ dateRangeChange });
     }
-    else if (num === 2) {
-      const history2 = this.state;
-      const dateRangeChange2 =
-      Number.parseFloat((history2.history2[history2.history2.length - 1].close - history2.history2[0].close)
-      / history2.history2[0].close * 100).toFixed(2);
-      this.setState({ dateRangeChange2 }, () => {
-        console.log(dateRangeChange2)
-      });
+    else {
+      this.setState({ dateRangeChange2: dateRangeChange });
     }
   }
 
@@ -334,6 +338,7 @@ class Dashboard extends Component {
           this.setState({ history: historyNew }, () => {
             this.formatDate(1);
             this.getPoints(1);
+            this.getHistoryChange(1);
           });
         }
         else if (num === 2) {
@@ -342,10 +347,10 @@ class Dashboard extends Component {
           this.setState({ history2: historyNew2 }, () => {
             this.formatDate(2);
             this.getPoints(2);
+            this.getHistoryChange(2);
           });
         }
-        this.getHistoryChange(1);
-        this.getHistoryChange(2);
+
       });
   }
 

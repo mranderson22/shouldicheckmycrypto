@@ -15,34 +15,6 @@ dateRangeChange, dateRangeChange2, days, days2 }) => {
             { `Current Price: $${currentPrice}` }
             { ' \u00A0 ' }
           </li>
-          {maxSupply
-            ?
-            (
-              <li>
-                { `Max Supply: ${maxSupply}` }
-                { ' \u00A0 ' }
-              </li>
-            )
-            :
-            (
-              <li>
-                { 'Max Supply: Not Available' }
-                { ' \u00A0 ' }
-              </li>
-            )
-        }
-          <li>
-            { `Available Supply: ${availableSupply}` }
-            { ' \u00A0 ' }
-          </li>
-          <li>
-            { `Market Cap: $${marketCap}` }
-            { ' \u00A0 ' }
-          </li>
-          <li>
-            { `24 Hour Volume: ${oneDayVolume}` }
-            { ' \u00A0 ' }
-          </li>
           <div className="percentageWrapper">
             <li>
             1 Hour Change:
@@ -81,34 +53,6 @@ dateRangeChange, dateRangeChange2, days, days2 }) => {
             </li>
             <li>
               { `Current Price: ${currentPrice2} BTC` }
-              { ' \u00A0 ' }
-            </li>
-            {maxSupply
-              ?
-              (
-                <li>
-                  { `Max Supply: ${maxSupply}` }
-                  { ' \u00A0 ' }
-                </li>
-              )
-              :
-              (
-                <li>
-                  { 'Max Supply: Not Available' }
-                  { ' \u00A0 ' }
-                </li>
-              )
-          }
-            <li>
-              { `Available Supply: ${availableSupply}` }
-              { ' \u00A0 ' }
-            </li>
-            <li>
-              { `Market Cap: ${marketCap}` }
-              { ' \u00A0 ' }
-            </li>
-            <li>
-              { `24 Hour Volume: $${oneDayVolume}` }
               { ' \u00A0 ' }
             </li>
             <div className="percentageWrapper">
