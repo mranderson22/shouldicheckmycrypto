@@ -31,11 +31,15 @@ const Reveal2 = posed.div({
 });
 
 const Reveal3 = posed.div({
-  hidden: { opacity: 0 },
+  hidden: {
+    opacity: 0,
+    transition: { duration: 500 },
+    delay: 200
+  },
   visible: {
     opacity: 1,
     transition: { duration: 500 },
-    delay: 200
+    delay: 500
   }
 });
 
@@ -46,6 +50,11 @@ const Reveal = posed.div({
     transition: { duration: 900 },
     delay: 700
   }
+});
+
+const Reveal5 = posed.div({
+  hidden: { transform: 'translate(-100%, 0%)' },
+  visible: { transform: 'translate(0%, 0%)' }
 });
 
 const Resize = posed.div({
@@ -59,11 +68,17 @@ const Resize = posed.div({
   }
 });
 
+const MoveOver = posed.div({
+  hidden2: { transform: 'translate(-50%, -50%)', delay: 400 },
+  visible2: { transform: 'translate(-40%, -50%)', delay: 400 }
+});
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      sideBarOpener: false,
       curr: 'USD',
       curr2: 'USD',
       toggleCurr: false,
@@ -105,6 +120,7 @@ class Dashboard extends Component {
     this.onHistoryChange2 = this.onHistoryChange2.bind(this);
     this.findSymbol = this.findSymbol.bind(this);
     this.addGraph = this.addGraph.bind(this);
+    this.addSidebar = this.addSidebar.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -296,13 +312,6 @@ class Dashboard extends Component {
     const history2 = this.state;
     let historyExt;
     num === 1 ? historyExt = history.history : historyExt = history2.history2;
-    // let historyExt;
-    // if (num === 1) {
-    //   historyExt = history.history;
-    // }
-    // else if (num === 2) {
-    //   historyExt = history2.history2;
-    // }
     const dateRangeChange = Number.parseFloat((historyExt[historyExt.length - 1].close
         - historyExt[0].close)
       / historyExt[0].close * 100).toFixed(2);
@@ -350,7 +359,6 @@ class Dashboard extends Component {
             this.getHistoryChange(2);
           });
         }
-
       });
   }
 
@@ -371,6 +379,7 @@ class Dashboard extends Component {
   }
 
   handleSubmit1(e) {
+    const { sideBarOpener } = this.state;
     const { toggleCurr } = this.state;
     const { value } = this.state;
     const { curr } = this.state;
@@ -399,6 +408,9 @@ class Dashboard extends Component {
       this.addToCoinlog(1);
       this.findSymbol(1);
       e.preventDefault();
+    }
+    if (sideBarOpener === true) {
+      this.addSidebar();
     }
   }
 
@@ -495,28 +507,27 @@ class Dashboard extends Component {
     const { value2 } = this.state;
     const { cryptoImage } = this.state;
     const { cryptoImage2 } = this.state;
-    if (num === 1) {
-      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value}&tsym=USD`)
-        .then((response) => {
+    let wantedVal;
+    num === 1 ? wantedVal = value : wantedVal = value2;
+    axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wantedVal}&tsym=USD`)
+      .then((response) => {
+        if (num === 1) {
           const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage.unshift(cryptoImageData);
           const unique = Array.from(new Set(cryptoImage));
           this.setState({ cryptoImage: unique }, () => {
             localStorage.setItem('savedCoinImages', JSON.stringify(unique));
           });
-        });
-    }
-    else if (num === 2) {
-      axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${value2}&tsym=USD`)
-        .then((response) => {
+        }
+        else if (num === 2) {
           const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
           cryptoImage2.unshift(cryptoImage2Data);
           const unique = Array.from(new Set(cryptoImage2));
           this.setState({ cryptoImage2: unique }, () => {
             localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
           });
-        });
-    }
+        }
+      });
   }
 
   formatDate(num = 1) {
@@ -541,6 +552,14 @@ class Dashboard extends Component {
       this.setState({ secondGraphVisible: true });
     });
   }
+
+  addSidebar() {
+    const { secondGraphVisible } = this.state;
+    const { sideBarOpener } = this.state;
+    this.setState({ sideBarOpener: !sideBarOpener });
+    this.setState({ secondGraphVisible: !secondGraphVisible });
+  }
+
 
   changeCurrency1(curr) {
     const { value } = this.state;
@@ -602,12 +621,11 @@ class Dashboard extends Component {
     }
   }
 
-
   render() {
     const {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
-      toggleCurr2, days, days2, dateRangeChange, dateRangeChange2
+      toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2
@@ -618,7 +636,8 @@ class Dashboard extends Component {
           <Container>
             <Row>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
-                <Resize className="NoGraph" pose={freshReveal ? 'resized' : 'initial'}>
+                <MoveOver className="NoGraph" pose={sideBarOpener ? 'visible2' : 'hidden2'}>
+                <Resize className="NoGraph" refs="test" pose={freshReveal ? 'resized' : 'initial'}>
                   <Graph
                     dataNew={dataNew}
                     graphData={graphData}
@@ -638,10 +657,12 @@ class Dashboard extends Component {
                     toggleCurr={toggleCurr}
                     days={days}
                     dateRangeChange={dateRangeChange}
+                    addSidebar={this.addSidebar}
+                    sideBarOpener={sideBarOpener}
                   />
                 </Resize>
+                </MoveOver>
               </Reveal>
-
               <div>
                 {freshReveal ? (
                   <Reveal3 className="NoGraphNew" pose={secondGraphVisible ? 'visible' : 'hidden'}>
@@ -670,11 +691,6 @@ class Dashboard extends Component {
                 ) : null
               }
               </div>
-              <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
-                <div className="burgerMenuContainer">
-                  <img className="burgerMenu" alt="" src={burgerMenu} />
-                </div>
-              </Reveal2>
               <div className="imageContainer">
                 <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
                   <Reveal3 pose={secondGraphVisible ? 'hidden' : 'visible'}>
@@ -699,7 +715,21 @@ class Dashboard extends Component {
               </div>
             </Row>
           </Container>
-          <Sidebar />
+          <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
+            <div
+              className="burgerMenuContainer"
+              onClick={this.addSidebar}
+              onKeyDown={this.addSidebar}
+              role="button"
+              tabIndex={-1}
+            >
+              <img className="burgerMenu" alt="" src={burgerMenu} />
+            </div>
+          </Reveal2>
+          <Reveal5 className="off-canvas" pose={sideBarOpener ? 'visible' : 'hidden'}>
+            <Sidebar />
+          </Reveal5>
+          <div className="backgroundClick" onClick={sideBarOpener ? this.addSidebar: null}></div>
         </div>
       </div>
     );

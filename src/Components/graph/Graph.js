@@ -11,27 +11,25 @@ import ChartInfo from '../chartInfo/ChartInfo';
 
 const Resize1 = posed.div({
   initial: {
-    width: '276px',
     fontSize: '15px',
     height: '142px',
-    transform: 'translate(0%, -78%)'
+    transform: 'translate(-0.5%, -80.7%)'
   },
   resized: {
-    width: '248px',
     fontSize: '13px',
     height: '124px',
-    transform: 'translate(0%, -89%)'
+    transform: 'translate(-0.0%, -91.5%)'
   }
 });
 
 const Resize3 = posed.div({
   initial: {
     fontSize: '4vw',
-    transform: 'translate(0%, 9%)'
+    transform: 'translate(-21%, -70%)'
   },
   resized: {
-    fontSize: '2vw',
-    transform: 'translate(-34%, 21%)'
+    fontSize: '3vw',
+    transform: 'translate(-52%, -79%)'
   }
 });
 
@@ -65,7 +63,7 @@ class Graph extends Component {
   render() {
     const {
       dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
-      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2
+      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2, addSidebar, sideBarOpener
     } = this.props;
     let { rSelected } = this.state;
     const { rSelected2 } = this.state;
@@ -179,7 +177,7 @@ class Graph extends Component {
             <Form inline onSubmit={handleSubmit}>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                 <Label for="Name">
-                  <Input className="textField" type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                  <Input className="textField" onFocus={sideBarOpener ? null : addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
                 </Label>
               </FormGroup>
               <Button className="cryptoSubmit" disabled={!isEnabled}>
@@ -191,16 +189,9 @@ class Graph extends Component {
         <Resize2 pose={freshReveal ? 'resized' : 'initial'}>
           <img alt="" className="cryptoImageBackground" src={Image2} />
         </Resize2>
-        <div className={`${answer ? 'Yes' : 'No'}Name`}>
-          <Resize3 pose={freshReveal ? 'resized' : 'initial'}>
-            { `${name} / ${curr}`}
-          </Resize3>
-          <div className="currSelector">
-            <div>
-              {button}
-            </div>
-          </div>
-        </div>
+        <Resize3 className={`${answer ? 'Yes' : 'No'}Name`} pose={freshReveal ? 'resized' : 'initial'}>
+          { `${name} / ${curr}`}
+        </Resize3>
         <Resize1 pose={freshReveal ? 'resized' : 'initial'} className="Nochartheader">
           <ChartInfo
             rank={rank}
@@ -302,6 +293,11 @@ class Graph extends Component {
           >
             { 'All' }
           </Button>
+        </div>
+        <div className="currSelector">
+          <div>
+            {button}
+          </div>
         </div>
       </div>
     );

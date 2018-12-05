@@ -9,7 +9,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="off-canvas">
+      <div>
         <div>
           <p>Can you spot the item that doesnt belong?</p>
           <ul>
