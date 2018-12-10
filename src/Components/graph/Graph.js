@@ -29,7 +29,7 @@ const Resize3 = posed.div({
   },
   resized: {
     fontSize: '3vw',
-    transform: 'translate(-52%, -79%)'
+    transform: 'translate(-54%, -66%)'
   }
 });
 

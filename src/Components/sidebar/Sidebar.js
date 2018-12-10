@@ -8,22 +8,14 @@ class Sidebar extends Component {
   }
 
   render() {
+    const { topList } = this.props;
     return (
       <div>
-        <div>
-          <p>Can you spot the item that doesnt belong?</p>
-          <ul>
-            <li>Lorem</li>
-            <li>Ipsum</li>
-            <li>Dolor</li>
-            <li>Sit</li>
-            <li>Bumblebees</li>
-            <li>Aenean</li>
-            <li>Consectetur</li>
-          </ul>
+        <div className="list-group">
+          {topList}
         </div>
       </div>
-    )
+    );
   }
 }
 

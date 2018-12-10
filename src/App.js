@@ -49,6 +49,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      topList: [],
       value: 'BTC',
       value2: 'ETH',
       coin: 'BTC',
@@ -147,9 +148,21 @@ class App extends Component {
       axios.get('https://api.coinmarketcap.com/v2/listings/')
     ])
       .then(axios.spread((response, response2) => {
+        const { topList } = this.state;
         const result = response.data.filter(currency => wanted.includes(currency.symbol));
         const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
         const result2 = response.data;
+        if (topList === undefined || topList.length == 0) {
+        for (let thetopList = 0; thetopList < result2.length; thetopList++) {
+          const theList = result2[thetopList];
+
+            topList.push(theList);
+          }
+        }
+
+
+
+
         if (num === 1) {
           this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
             this.convertToBTC(1);
@@ -217,7 +230,7 @@ class App extends Component {
   render() {
     const {
       data, loading, answer, isVisible, text,
-      dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2
+      dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2, topList
     } = this.state;
 
 
@@ -230,6 +243,7 @@ class App extends Component {
         </div>
       );
     }
+
 
     return (
       <div>
@@ -272,6 +286,7 @@ class App extends Component {
                 sendCoin={this.getCoin}
                 sendCoin2={this.getCoin2}
                 answer={answer}
+                topList={topList}
               />
             )
               : null

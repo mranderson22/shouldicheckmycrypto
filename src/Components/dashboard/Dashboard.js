@@ -20,10 +20,10 @@ const Hover = posed.div({
 });
 
 const Reveal2 = posed.div({
-  hidden: {
+  hidden2: {
     opacity: 0
   },
-  visible: {
+  visible2: {
     opacity: 1,
     transition: { duration: 500 },
     delay: 600
@@ -66,11 +66,7 @@ const Resize = posed.div({
     width: '45vw',
     left: '26%'
   }
-});
 
-const MoveOver = posed.div({
-  hidden2: { transform: 'translate(-50%, -50%)', delay: 400 },
-  visible2: { transform: 'translate(-40%, -50%)', delay: 400 }
 });
 
 class Dashboard extends Component {
@@ -78,7 +74,10 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      pose: 'initial',
+      secondWasThere: false,
       sideBarOpener: false,
+      sideBarOpener2: false,
       curr: 'USD',
       curr2: 'USD',
       toggleCurr: false,
@@ -121,6 +120,7 @@ class Dashboard extends Component {
     this.findSymbol = this.findSymbol.bind(this);
     this.addGraph = this.addGraph.bind(this);
     this.addSidebar = this.addSidebar.bind(this);
+    this.addSidebar2 = this.addSidebar2.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -415,6 +415,7 @@ class Dashboard extends Component {
   }
 
   handleSubmit2(e) {
+    const { sideBarOpener } = this.state;
     const { toggleCurr2 } = this.state;
     const { value2 } = this.state;
     const { curr2 } = this.state;
@@ -444,6 +445,9 @@ class Dashboard extends Component {
       this.findSymbol(2);
       e.preventDefault();
     }
+    if (sideBarOpener === true) {
+      this.addSidebar();
+    }
   }
 
   handleSubmit3(e, pos) {
@@ -460,6 +464,21 @@ class Dashboard extends Component {
     this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos], curr: 'USD' }, () => {
       this.handleSubmit2(e);
     });
+  }
+
+  handleSubmit5(e, sym) {
+    const { graphFocus } = this.state;
+    e.persist();
+    if (graphFocus === 1) {
+      this.setState({ value: sym, coin: sym, curr: 'USD' }, () => {
+        this.handleSubmit1(e);
+      });
+    }
+    else if (graphFocus === 2) {
+      this.setState({ value2: sym, coin2: sym, curr: 'USD' }, () => {
+        this.handleSubmit2(e);
+      });
+    }
   }
 
 
@@ -548,18 +567,35 @@ class Dashboard extends Component {
   }
 
   addGraph() {
+    const pose = this.state;
     this.setState({ freshReveal: true }, () => {
+      this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
       this.setState({ secondGraphVisible: true });
+      this.setState({ secondWasThere: true });
     });
   }
 
   addSidebar() {
-    const { secondGraphVisible } = this.state;
     const { sideBarOpener } = this.state;
-    this.setState({ sideBarOpener: !sideBarOpener });
-    this.setState({ secondGraphVisible: !secondGraphVisible });
+    if (sideBarOpener) {
+      this.setState({ sideBarOpener: false });
+    }
+    else {
+      this.setState({ sideBarOpener: true });
+    }
+    this.setState({ graphFocus: 1 });
   }
 
+  addSidebar2() {
+    const { sideBarOpener } = this.state;
+    if (sideBarOpener) {
+      this.setState({ sideBarOpener: false });
+    }
+    else {
+      this.setState({ sideBarOpener: true });
+    }
+    this.setState({ graphFocus: 2 });
+  }
 
   changeCurrency1(curr) {
     const { value } = this.state;
@@ -625,10 +661,11 @@ class Dashboard extends Component {
     const {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
-      toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener
+      toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
+      pose, sideBarOpener2
     } = this.state;
     const {
-      answer, dataNew, dataNew2, dataToBTC, dataToBTC2
+      answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList
     } = this.props;
     return (
       <div id="dashboard" className="Nodashboardcontainer">
@@ -636,8 +673,7 @@ class Dashboard extends Component {
           <Container>
             <Row>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
-                <MoveOver className="NoGraph" pose={sideBarOpener ? 'visible2' : 'hidden2'}>
-                <Resize className="NoGraph" refs="test" pose={freshReveal ? 'resized' : 'initial'}>
+                <Resize className="NoGraph" pose={pose}>
                   <Graph
                     dataNew={dataNew}
                     graphData={graphData}
@@ -661,7 +697,6 @@ class Dashboard extends Component {
                     sideBarOpener={sideBarOpener}
                   />
                 </Resize>
-                </MoveOver>
               </Reveal>
               <div>
                 {freshReveal ? (
@@ -686,13 +721,15 @@ class Dashboard extends Component {
                       toggleCurr={toggleCurr2}
                       days={days2}
                       dateRangeChange={dateRangeChange2}
+                      addSidebar={this.addSidebar2}
+                      sideBarOpener={sideBarOpener}
                     />
                   </Reveal3>
                 ) : null
               }
               </div>
               <div className="imageContainer">
-                <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
+                <Reveal2 pose={isGraphVisible ? 'visible2' : 'hidden2'}>
                   <Reveal3 pose={secondGraphVisible ? 'hidden' : 'visible'}>
                     <div className="plus">
                       <Hover
@@ -727,6 +764,11 @@ class Dashboard extends Component {
             </div>
           </Reveal2>
           <Reveal5 className="off-canvas" pose={sideBarOpener ? 'visible' : 'hidden'}>
+            <Sidebar
+              topList={topList.map((x, y) => <button key={y} onClick={(e) => {this.handleSubmit5(e, x.symbol)}}>{x.id}</button>)}
+            />
+          </Reveal5>
+          <Reveal5 className="off-canvas" pose={sideBarOpener2 ? 'visible' : 'hidden'}>
             <Sidebar />
           </Reveal5>
           <div className="backgroundClick" onClick={sideBarOpener ? this.addSidebar: null}></div>
