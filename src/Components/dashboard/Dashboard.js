@@ -53,8 +53,18 @@ const Reveal = posed.div({
 });
 
 const Reveal5 = posed.div({
-  hidden: { transform: 'translate(-100%, 0%)' },
-  visible: { transform: 'translate(0%, 0%)' }
+  hidden: {
+    transform: 'translate(-100%, 0%)',
+    transition: {
+      transform: { ease: 'linear', duration: 5 }
+    }
+  },
+  visible: {
+    transform: 'translate(0%, 0%)',
+    transition: {
+      transform: { ease: 'linear', duration: 25 }
+    }
+  }
 });
 
 const Resize = posed.div({
@@ -212,7 +222,7 @@ class Dashboard extends Component {
           lineTension: 0,
           backgroundColor: '#dad7d7',
           borderColor: '#dad7d7',
-          borderWidth: 2,
+          borderWidth: 2.5,
           borderCapStyle: 'butt',
           borderDash: [],
           borderDashOffset: 0.0,
@@ -234,7 +244,7 @@ class Dashboard extends Component {
           type: 'bar',
           yAxisID: 'y-axis-1',
           hoverBackgroundColor: '#1d1a1a',
-          backgroundColor: '#1d1a1a42'
+          backgroundColor: '#1d1a1a61'
         }
       ]
     };
@@ -752,7 +762,7 @@ class Dashboard extends Component {
               </div>
             </Row>
           </Container>
-          <Reveal2 pose={isGraphVisible ? 'visible' : 'hidden'}>
+          <Reveal2 pose={isGraphVisible ? 'visible2' : 'hidden2'}>
             <div
               className="burgerMenuContainer"
               onClick={this.addSidebar}
@@ -765,7 +775,14 @@ class Dashboard extends Component {
           </Reveal2>
           <Reveal5 className="off-canvas" pose={sideBarOpener ? 'visible' : 'hidden'}>
             <Sidebar
-              topList={topList.map((x, y) => <button key={y} onClick={(e) => {this.handleSubmit5(e, x.symbol)}}>{x.id}</button>)}
+              topList={topList.map((x, y) =>
+                <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
+                  {this.handleSubmit5(e, x.symbol)}}>
+                  <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
+                  <span className="sidebarCoin">{x.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                  <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
+                  {x.percent_change_24h + '%'}</span>
+                  </button>)}
             />
           </Reveal5>
           <Reveal5 className="off-canvas" pose={sideBarOpener2 ? 'visible' : 'hidden'}>

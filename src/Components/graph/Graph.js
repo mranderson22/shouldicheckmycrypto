@@ -13,12 +13,12 @@ const Resize1 = posed.div({
   initial: {
     fontSize: '15px',
     height: '142px',
-    transform: 'translate(-0.5%, -80.7%)'
+    transform: 'translate(-11.5%, -98.7%)'
   },
   resized: {
     fontSize: '13px',
     height: '124px',
-    transform: 'translate(-0.0%, -91.5%)'
+    transform: 'translate(-14.0%, -113.5%)'
   }
 });
 
@@ -29,7 +29,7 @@ const Resize3 = posed.div({
   },
   resized: {
     fontSize: '3vw',
-    transform: 'translate(-54%, -66%)'
+    transform: 'translate(-54%, -74%)'
   }
 });
 

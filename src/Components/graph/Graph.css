@@ -4,10 +4,13 @@
   background: white;
   padding: 25px;
   padding-top: 115px;
-  background: #79252eeb;
+  background: #ffffffa6;
   border: solid .1px white;
   padding-bottom: 40px;
   padding-left: 2px;
+  background-image: linear-gradient(#0000006b, #671f26);
+
+
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {

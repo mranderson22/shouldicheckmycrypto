@@ -25,18 +25,6 @@
   padding: 1px;
 }
 
-.NoGraph2 {
-  position: absolute;
-
-  top: 148%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  box-shadow: 6px 25px 38px #00000061;
-  padding: 1px;
-}
-
-
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .NoGraph {
     position: absolute;
@@ -64,7 +52,8 @@
   padding-top: 9px;
   padding-left: 12px;
   padding-right: 11px;
-  background: #1d1a1ad6;
+  background: #1d1a1a;
+  box-shadow: 1px 1px 11px #0e0e0eb3;
 }
 
 @media screen and (max-width: 1200px) {
@@ -117,38 +106,6 @@
     width: 90vw;
     padding: 1px;
   }
-}
-
-
-
-.burgerMenuContainer {
-  width: 40px;
-  position: absolute;
-  left: 50px;
-  top: 102%;
-  cursor: pointer;
-}
-
-.burgerMenu {
-  width: inherit;
-}
-
-.off-canvas {
-  width: 250px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: #333;
-  transform: translateX(-100%);
-  transition: .4s ease-in-out;
-  z-index: 1060;
-}
-
-.sidebarContainer {
-  width: 50vw;
 }
 
 .backgroundClick {

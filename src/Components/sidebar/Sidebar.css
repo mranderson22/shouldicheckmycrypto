@@ -1,5 +1,5 @@
 .off-canvas {
-  width: 250px;
+  width: auto;
   position: fixed;
   left: 0;
   top: 0;
@@ -10,4 +10,66 @@
   transform: translateX(-100%);
   transition: .4s ease-in-out;
   z-index: 1060;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebarCoin {
+  font-size: 17px;
+
+
+}
+
+.redText {
+  color: #ff3333;
+}
+
+.greenText {
+  color: #24cc24;
+}
+
+.right {
+  text-align: right;
+  font-size: 15px;
+  float: right;
+}
+
+.sidebarButtonContainer {
+  text-align: left;
+  font-size: 15px;
+
+}
+
+.burgerMenuContainer {
+    width: 40px;
+    position: absolute;
+    left: 66px;
+    top: 104%;
+    cursor: pointer;
+  }
+
+  .burgerMenu {
+    width: inherit;
+  }
+
+  .sidebarContainer {
+    width: 50vw;
+  }
+
+  .listAddOn .list-group-item {
+
+    color: #c7c7c7;
+    padding: 1rem;
+    cursor: pointer;
+    background-color: #1d1a1a;
+
+}
+
+.listAddOn .list-group-item:hover {
+  background-color: #100b0b;
+  color: white;
+}
+
+.sidebarRank {
+  color: #757575;
+  font-size: 14px;
 }

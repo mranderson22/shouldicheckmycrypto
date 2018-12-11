@@ -11,7 +11,7 @@ class Sidebar extends Component {
     const { topList } = this.props;
     return (
       <div>
-        <div className="list-group">
+        <div className="list-group listAddOn">
           {topList}
         </div>
       </div>
