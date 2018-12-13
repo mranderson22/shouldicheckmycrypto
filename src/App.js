@@ -149,20 +149,15 @@ class App extends Component {
     ])
       .then(axios.spread((response, response2) => {
         const { topList } = this.state;
-        const result = response.data.filter(currency => wanted.includes(currency.symbol));
+        const result = response.data.filter(currency => currency.symbol === wanted);
         const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
         const result2 = response.data;
-        if (topList === undefined || topList.length == 0) {
-        for (let thetopList = 0; thetopList < result2.length; thetopList++) {
-          const theList = result2[thetopList];
-
+        if (topList === undefined || topList.length === 0) {
+          for (let thetopList = 0; thetopList < result2.length; thetopList++) {
+            const theList = result2[thetopList];
             topList.push(theList);
           }
         }
-
-
-
-
         if (num === 1) {
           this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
             this.convertToBTC(1);

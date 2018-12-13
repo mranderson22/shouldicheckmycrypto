@@ -67,7 +67,7 @@ class Graph extends Component {
     } = this.props;
     let { rSelected } = this.state;
     const { rSelected2 } = this.state;
-    const { name } = dataNew[0];
+    const name = dataNew[0].name;
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
     const currentPrice2 = Number(dataToBTC.price).toFixed(10);
     const { rank } = dataNew[0];

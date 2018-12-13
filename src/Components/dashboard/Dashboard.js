@@ -334,10 +334,13 @@ class Dashboard extends Component {
   }
 
   fetchCryptocurrencyHistory(num = 1, dayNum = 180) {
-    const { value } = this.state;
+    let { value } = this.state;
     const { value2 } = this.state;
     const { curr } = this.state;
     const { curr2 } = this.state;
+    if (value === 'MIOTA') {
+      value = 'IOTA'
+    }
     const dayTarget = dayNum;
     let wanted;
     let currency;
@@ -373,18 +376,28 @@ class Dashboard extends Component {
   }
 
   handleChange1(event) {
-    this.setState({ value: event.target.value.toUpperCase() });
-    this.setState({ coin: event.target.value.toUpperCase() });
-    if (event.target.value !== '') {
-      this.setState({ isEnabled: true });
+    if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
+      console.log('error, IOTA is corrupt!');
+    }
+    else {
+      this.setState({ value: event.target.value.toUpperCase() });
+      this.setState({ coin: event.target.value.toUpperCase() });
+      if (event.target.value !== '') {
+        this.setState({ isEnabled: true });
+      }
     }
   }
 
   handleChange2(event) {
-    this.setState({ value2: event.target.value.toUpperCase() });
-    this.setState({ coin2: event.target.value.toUpperCase() });
-    if (event.target.value !== '') {
-      this.setState({ isEnabled2: true });
+    if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
+      console.log('error, IOTA is corrupt!');
+    }
+    else {
+      this.setState({ value2: event.target.value.toUpperCase() });
+      this.setState({ coin2: event.target.value.toUpperCase() });
+      if (event.target.value !== '') {
+        this.setState({ isEnabled2: true });
+      }
     }
   }
 
@@ -479,7 +492,10 @@ class Dashboard extends Component {
   handleSubmit5(e, sym) {
     const { graphFocus } = this.state;
     e.persist();
-    if (graphFocus === 1) {
+    if (sym === 'MIOTA') {
+      alert('error! IOTA data currently corrupt');
+    }
+    else if (graphFocus === 1) {
       this.setState({ value: sym, coin: sym, curr: 'USD' }, () => {
         this.handleSubmit1(e);
       });
@@ -491,7 +507,6 @@ class Dashboard extends Component {
     }
   }
 
-
   findSymbol(num) {
     const { sendCoin } = this.props;
     const { coin } = this.state;
@@ -502,30 +517,24 @@ class Dashboard extends Component {
     const { days } = this.state;
     const { days2 } = this.state;
 
-    let hits = false;
+
     if (num === 1) {
       data.forEach((coins) => {
-        if (!hits) {
-          if (coins.symbol === value) {
-            sendCoin(1, coin);
-            this.fetchCryptocurrencyHistory(1, days);
-            this.fetchCryptocurrencyImage(1);
-            this.getPoints(1);
-            hits = true;
-          }
+        if (coins.symbol === value) {
+          sendCoin(1, value);
+          this.fetchCryptocurrencyHistory(1, days);
+          this.fetchCryptocurrencyImage(1);
+          this.getPoints(1);
         }
       });
     }
     else if (num === 2) {
       data.forEach((coins) => {
-        if (!hits) {
-          if (coins.symbol === value2) {
-            sendCoin(2, coin2);
-            this.fetchCryptocurrencyHistory(2, days2);
-            this.fetchCryptocurrencyImage(2);
-            this.getPoints(2);
-            hits = true;
-          }
+        if (coins.symbol === value2) {
+          sendCoin(2, value2);
+          this.fetchCryptocurrencyHistory(2, days2);
+          this.fetchCryptocurrencyImage(2);
+          this.getPoints(2);
         }
       });
     }

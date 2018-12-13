@@ -60,13 +60,21 @@
     color: #c7c7c7;
     padding: 1rem;
     cursor: pointer;
-    background-color: #1d1a1a;
+    background-color: #1d1a1a !important;
 
 }
 
 .listAddOn .list-group-item:hover {
-  background-color: #100b0b;
+  background-color: #100b0b !important;
   color: white;
+}
+
+.listAddOn .list-group-item:active {
+  background-color: #100b0b !important;
+}
+
+.listAddOn .list-group-item:visited {
+  background-color: #100b0b !important;
 }
 
 .sidebarRank {
