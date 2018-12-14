@@ -84,6 +84,8 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      inputValue: '',
+      inputValue2: '',
       pose: 'initial',
       secondWasThere: false,
       sideBarOpener: false,
@@ -380,6 +382,7 @@ class Dashboard extends Component {
       console.log('error, IOTA is corrupt!');
     }
     else {
+      this.setState({ inputValue: event.target.value.toUpperCase() });
       this.setState({ value: event.target.value.toUpperCase() });
       this.setState({ coin: event.target.value.toUpperCase() });
       if (event.target.value !== '') {
@@ -393,6 +396,7 @@ class Dashboard extends Component {
       console.log('error, IOTA is corrupt!');
     }
     else {
+      this.setState({ inputValue2: event.target.value.toUpperCase() });
       this.setState({ value2: event.target.value.toUpperCase() });
       this.setState({ coin2: event.target.value.toUpperCase() });
       if (event.target.value !== '') {
@@ -403,34 +407,14 @@ class Dashboard extends Component {
 
   handleSubmit1(e) {
     const { sideBarOpener } = this.state;
-    const { toggleCurr } = this.state;
     const { value } = this.state;
     const { curr } = this.state;
-    if (value !== 'BTC' && toggleCurr === false) {
-      this.setState({ toggleCurr: true });
-      this.addToCoinlog(1);
-      this.findSymbol(1);
-      e.preventDefault();
-    }
-    else if (value === 'BTC' && toggleCurr === true) {
-      this.setState({ toggleCurr: false });
-      e.preventDefault();
-      this.setState({ curr: 'USD' }, () => {
-        this.addToCoinlog(1);
-        this.findSymbol(1);
-      });
-    }
-    else if (curr === 'BTC' && value === 'BTC') {
-      this.setState({ curr: 'USD' }, () => {
-        this.addToCoinlog(1);
-        this.findSymbol(1);
-        e.preventDefault();
-      });
-    }
-    else {
-      this.addToCoinlog(1);
-      this.findSymbol(1);
-      e.preventDefault();
+
+    this.addToCoinlog(1);
+    this.findSymbol(1);
+    e.preventDefault();
+    if (value === 'BTC') {
+      this.setState({ curr: 'USD' });
     }
     if (sideBarOpener === true) {
       this.addSidebar();
@@ -476,7 +460,10 @@ class Dashboard extends Component {
   handleSubmit3(e, pos) {
     const { coinLog } = this.state;
     e.persist();
-    this.setState({ value: coinLog[pos], coin: coinLog[pos], curr: 'USD' }, () => {
+    if (coinLog[pos] === 'BTC') {
+      this.setState({ curr: 'USD' });
+    }
+    this.setState({ value: coinLog[pos], coin: coinLog[pos] }, () => {
       this.handleSubmit1(e);
     });
   }
@@ -484,7 +471,10 @@ class Dashboard extends Component {
   handleSubmit4(e, pos) {
     const { coinLog2 } = this.state;
     e.persist();
-    this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos], curr: 'USD' }, () => {
+    if (coinLog2[pos] === 'BTC') {
+      this.setState({ curr2: 'USD' });
+    }
+    this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos] }, () => {
       this.handleSubmit2(e);
     });
   }
@@ -496,12 +486,12 @@ class Dashboard extends Component {
       alert('error! IOTA data currently corrupt');
     }
     else if (graphFocus === 1) {
-      this.setState({ value: sym, coin: sym, curr: 'USD' }, () => {
+      this.setState({ value: sym, coin: sym }, () => {
         this.handleSubmit1(e);
       });
     }
     else if (graphFocus === 2) {
-      this.setState({ value2: sym, coin2: sym, curr: 'USD' }, () => {
+      this.setState({ value2: sym, coin2: sym }, () => {
         this.handleSubmit2(e);
       });
     }
@@ -516,25 +506,40 @@ class Dashboard extends Component {
     const { coin2 } = this.state;
     const { days } = this.state;
     const { days2 } = this.state;
-
+    const { toggleCurr } = this.state;
+    const { toggleCurr2 } = this.state;
 
     if (num === 1) {
       data.forEach((coins) => {
         if (coins.symbol === value) {
-          sendCoin(1, value);
+          if (value !== 'BTC' && toggleCurr === false) {
+            this.setState({ toggleCurr: true });
+          }
+          else if (value === 'BTC' && toggleCurr === true) {
+            this.setState({ toggleCurr: false });
+          }
+          sendCoin(1, coin);
           this.fetchCryptocurrencyHistory(1, days);
           this.fetchCryptocurrencyImage(1);
           this.getPoints(1);
+          this.setState({ inputValue: '' });
         }
       });
     }
     else if (num === 2) {
       data.forEach((coins) => {
         if (coins.symbol === value2) {
-          sendCoin(2, value2);
+          if (value2 !== 'BTC' && toggleCurr2 === false) {
+            this.setState({ toggleCurr2: true });
+          }
+          else if (value2 === 'BTC' && toggleCurr2 === true) {
+            this.setState({ toggleCurr2: false });
+          }
+          sendCoin(2, coin2);
           this.fetchCryptocurrencyHistory(2, days2);
           this.fetchCryptocurrencyImage(2);
           this.getPoints(2);
+          this.setState({ inputValue2: '' });
         }
       });
     }
@@ -602,7 +607,6 @@ class Dashboard extends Component {
     else {
       this.setState({ sideBarOpener: true });
     }
-    this.setState({ graphFocus: 1 });
   }
 
   addSidebar2() {
@@ -613,7 +617,6 @@ class Dashboard extends Component {
     else {
       this.setState({ sideBarOpener: true });
     }
-    this.setState({ graphFocus: 2 });
   }
 
   changeCurrency1(curr) {
@@ -676,12 +679,21 @@ class Dashboard extends Component {
     }
   }
 
+  setGraphFocus(num) {
+    if (num === 1) {
+      this.setState({ graphFocus: 1 });
+    }
+    else if (num === 2) {
+      this.setState({ graphFocus: 2 });
+    }
+  }
+
   render() {
     const {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, sideBarOpener2
+      pose, sideBarOpener2, inputValue, inputValue2
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList
@@ -692,7 +704,7 @@ class Dashboard extends Component {
           <Container>
             <Row>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
-                <Resize className="NoGraph" pose={pose}>
+                <Resize className="NoGraph" onClick={() => { this.setGraphFocus(1) }} pose={pose}>
                   <Graph
                     dataNew={dataNew}
                     graphData={graphData}
@@ -714,12 +726,13 @@ class Dashboard extends Component {
                     dateRangeChange={dateRangeChange}
                     addSidebar={this.addSidebar}
                     sideBarOpener={sideBarOpener}
+                    inputValue={inputValue}
                   />
                 </Resize>
               </Reveal>
               <div>
                 {freshReveal ? (
-                  <Reveal3 className="NoGraphNew" pose={secondGraphVisible ? 'visible' : 'hidden'}>
+                  <Reveal3 className="NoGraphNew" onClick={() => { this.setGraphFocus(2) }} pose={secondGraphVisible ? 'visible' : 'hidden'}>
                     <Graph
                       isEnabled={isEnabled2}
                       dataNew={dataNew2}
@@ -742,6 +755,7 @@ class Dashboard extends Component {
                       dateRangeChange={dateRangeChange2}
                       addSidebar={this.addSidebar2}
                       sideBarOpener={sideBarOpener}
+                      inputValue={inputValue2}
                     />
                   </Reveal3>
                 ) : null

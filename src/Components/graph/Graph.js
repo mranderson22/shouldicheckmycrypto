@@ -46,14 +46,8 @@ class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rSelected: 1,
       rSelected2: 5
     };
-    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-  }
-
-  onRadioBtnClick(rSelected) {
-    this.setState({ rSelected });
   }
 
   onRadioBtnClick2(rSelected2) {
@@ -63,11 +57,11 @@ class Graph extends Component {
   render() {
     const {
       dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
-      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2, addSidebar, sideBarOpener
+      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2, addSidebar, sideBarOpener, inputValue
     } = this.props;
-    let { rSelected } = this.state;
+    const rSelected = curr === 'USD' ? 1 : 2;
     const { rSelected2 } = this.state;
-    const name = dataNew[0].name;
+    const { name } = dataNew[0];
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
     const currentPrice2 = Number(dataToBTC.price).toFixed(10);
     const { rank } = dataNew[0];
@@ -145,7 +139,6 @@ class Graph extends Component {
           <Button
             className="currButton"
             onClick={() => {
-              this.onRadioBtnClick(1);
               changeCurrency('USD');
             }
          }
@@ -156,7 +149,6 @@ class Graph extends Component {
           <Button
             className="currButton"
             onClick={() => {
-              this.onRadioBtnClick(2);
               changeCurrency('BTC');
             }
          }
@@ -177,7 +169,7 @@ class Graph extends Component {
             <Form inline onSubmit={handleSubmit}>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                 <Label for="Name">
-                  <Input className="textField" onFocus={sideBarOpener ? null : addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                  <Input className="textField" value={inputValue} onFocus={sideBarOpener ? null : addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
                 </Label>
               </FormGroup>
               <Button className="cryptoSubmit" disabled={!isEnabled}>
