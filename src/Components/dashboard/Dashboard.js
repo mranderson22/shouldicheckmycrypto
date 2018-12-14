@@ -84,6 +84,7 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      graphFocus: 1,
       inputValue: '',
       inputValue2: '',
       pose: 'initial',
