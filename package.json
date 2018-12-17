@@ -16,6 +16,7 @@
         "apexcharts": "^2.1.5",
         "axios": "^0.18.0",
         "chart.js": "^2.7.2",
+        "cors": "^2.8.5",
         "express": "*",
         "image-palette-core": "^0.2.2",
         "moment": "^2.22.2",
