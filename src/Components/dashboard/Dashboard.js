@@ -12,6 +12,7 @@ import moment from 'moment';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
+import exit from '../../../images/XCircle.png';
 import burgerMenu from '../../../images/burgerMenu.png';
 
 const Hover = posed.div({
@@ -39,7 +40,7 @@ const Reveal3 = posed.div({
   visible: {
     opacity: 1,
     transition: { duration: 500 },
-    delay: 500
+    delay: 200
   }
 });
 
@@ -593,9 +594,17 @@ class Dashboard extends Component {
 
   addGraph() {
     const pose = this.state;
-    this.setState({ freshReveal: true }, () => {
-      this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
-      this.setState({ secondGraphVisible: true });
+    const { freshReveal } = this.state;
+    const { secondGraphVisible } = this.state;
+    this.setState({ freshReveal: !freshReveal }, () => {
+      if (freshReveal === false) {
+        this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
+      }
+      else {
+        this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
+        this.setState({ graphFocus: 1 });
+      }
+      this.setState({ secondGraphVisible: !secondGraphVisible });
       this.setState({ secondWasThere: true });
     });
   }
@@ -758,6 +767,15 @@ class Dashboard extends Component {
                       sideBarOpener={sideBarOpener}
                       inputValue={inputValue2}
                     />
+                    <div
+                      className="exitButton"
+                      onClick={this.addGraph}
+                      onKeyDown={this.addGraph}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <img className="exitImage" alt="" src={exit} />
+                    </div>
                   </Reveal3>
                 ) : null
               }

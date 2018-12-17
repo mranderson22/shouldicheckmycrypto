@@ -114,6 +114,17 @@
   z-index: -1;
 }
 
+.exitButton {
+  position: absolute;
+  top: -3.5vh;
+  right: 0%;
+  cursor: pointer;
+}
+
+.exitImage {
+  width: 35px;
+}
+
 
 .NoGraphChild {
   position: relative;
