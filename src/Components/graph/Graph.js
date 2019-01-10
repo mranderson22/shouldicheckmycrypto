@@ -50,17 +50,12 @@ class Graph extends Component {
     };
   }
 
-  onRadioBtnClick2(rSelected2) {
-    this.setState({ rSelected2 });
-  }
-
   render() {
     const {
       dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
       dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2, addSidebar, sideBarOpener, inputValue
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
-    const { rSelected2 } = this.state;
     const { name } = dataNew[0];
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
     const currentPrice2 = Number(dataToBTC.price).toFixed(10);
@@ -159,6 +154,22 @@ class Graph extends Component {
         </ButtonGroup>
       );
     }
+    let rSelected2;
+    if (days === 31) {
+      rSelected2 = 3;
+    }
+    else if (days === 90) {
+      rSelected2 = 4;
+    }
+    else if (days === 180) {
+      rSelected2 = 5;
+    }
+    else if (days === 365) {
+      rSelected2 = 6;
+    }
+    else if (days === 1500) {
+      rSelected2 = 7;
+    }
 
 
     return (
@@ -169,7 +180,7 @@ class Graph extends Component {
             <Form inline onSubmit={handleSubmit}>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                 <Label for="Name">
-                  <Input className="textField" value={inputValue} onFocus={sideBarOpener ? null : addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                  <Input className="textField" value={inputValue} onFocus={addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
                 </Label>
               </FormGroup>
               <Button className="cryptoSubmit" disabled={!isEnabled}>
@@ -221,7 +232,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(3);
+
               onHistoryChange(30);
             }
           }
@@ -235,7 +246,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(4);
+
               onHistoryChange(60);
             }
           }
@@ -249,7 +260,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(5);
+
               onHistoryChange(180);
             }
           }
@@ -263,7 +274,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(6);
+
               onHistoryChange(365);
             }
           }
@@ -277,7 +288,7 @@ class Graph extends Component {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-              this.onRadioBtnClick2(7);
+
               onHistoryChange(1000);
             }
           }

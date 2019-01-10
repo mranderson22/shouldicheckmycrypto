@@ -34,13 +34,38 @@ const Reveal2 = posed.div({
 const Reveal3 = posed.div({
   hidden: {
     opacity: 0,
-    transition: { duration: 500 },
-    delay: 200
+    width: '45vw',
+    left: '74%',
+    transition: { ease: 'linear', duration: 200 },
+    delay: 0
   },
   visible: {
     opacity: 1,
-    transition: { duration: 500 },
-    delay: 200
+    width: '45vw',
+    left: '74%',
+    transition: { ease: 'linear', duration: 400 },
+    delay: 300
+  },
+  secondary: {
+    opacity: 1,
+    width: '45vw',
+    left: '74%',
+    transition: { ease: 'linear', duration: 400 },
+    delay: 0
+  },
+  movedOver: {
+    opacity: 1,
+    width: '60vw',
+    left: '60%',
+    transition: { ease: 'easeOut', duration: 400 },
+    delay: 0
+  },
+  fullSize: {
+    opacity: 1,
+    width: '75vw',
+    left: '50%',
+    transition: { ease: 'easeOut', duration: 400 },
+    delay: 0
   }
 });
 
@@ -49,7 +74,7 @@ const Reveal = posed.div({
   visible: {
     opacity: 1,
     transition: { duration: 900 },
-    delay: 700
+    delay: 400
   }
 });
 
@@ -71,11 +96,36 @@ const Reveal5 = posed.div({
 const Resize = posed.div({
   initial: {
     width: '75vw',
-    left: '50%'
+    left: '50%',
+    transition: { ease: 'easeOut', duration: 400 }
   },
   resized: {
     width: '45vw',
-    left: '26%'
+    left: '26%',
+    transition: { ease: 'linear', duration: 400 },
+    delay: 0
+  },
+  movedOver: {
+    width: '60vw',
+    left: '60%',
+    transition: { ease: 'easeOut', duration: 400 },
+    delay: 0
+  }
+
+});
+
+const Resize2ndGraph = posed.div({
+  resized: {
+    width: '75vw',
+    left: '50%'
+  },
+  initial: {
+    width: '45vw',
+    left: '75%'
+  },
+  movedOver: {
+    width: '60vw',
+    left: '60%'
   }
 
 });
@@ -89,6 +139,7 @@ class Dashboard extends Component {
       inputValue: '',
       inputValue2: '',
       pose: 'initial',
+      pose2: 'hidden',
       secondWasThere: false,
       sideBarOpener: false,
       sideBarOpener2: false,
@@ -134,7 +185,6 @@ class Dashboard extends Component {
     this.findSymbol = this.findSymbol.bind(this);
     this.addGraph = this.addGraph.bind(this);
     this.addSidebar = this.addSidebar.bind(this);
-    this.addSidebar2 = this.addSidebar2.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -592,40 +642,100 @@ class Dashboard extends Component {
     }
   }
 
-  addGraph() {
+  addGraph(num) {
     const pose = this.state;
     const { freshReveal } = this.state;
     const { secondGraphVisible } = this.state;
-    this.setState({ freshReveal: !freshReveal }, () => {
-      if (freshReveal === false) {
-        this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
-      }
-      else {
-        this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
-        this.setState({ graphFocus: 1 });
-      }
-      this.setState({ secondGraphVisible: !secondGraphVisible });
-      this.setState({ secondWasThere: true });
-    });
+    const { isGraphVisible } = this.state;
+    const { secondWasThere } = this.state;
+    const { sideBarOpener } = this.state;
+    if (num === 1) {
+      // Plus Button from 1st Graph
+      this.setState({ freshReveal: !freshReveal }, () => {
+        if (freshReveal === false) {
+          this.setState({ pose: 'resized' }, () => {
+            this.setState({ pose2: 'visible' });
+            this.setState({ secondWasThere: true });
+          });
+        }
+        // Exit Button for 2nd Graph
+        else {
+          this.setState({ pose2: 'hidden' }, () => {
+            this.setState({ pose: 'initial' });
+            this.setState({ graphFocus: 1 });
+            if (sideBarOpener === true) {
+              this.setState({ secondWasThere: !secondWasThere });
+            }
+          });
+        }
+        this.setState({ pose2: pose === 'hidden' ? 'secondary' : 'hidden' }, () => {
+          this.setState({ secondGraphVisible: !secondGraphVisible });
+        });
+        this.setState({ secondWasThere: !secondWasThere });
+      });
+    }
+    // Exit button for 1st Graph
+    else {
+      this.setState({ isGraphVisible: !isGraphVisible }, () => {
+        if (isGraphVisible) {
+          this.setState({ pose2: 'fullSize' });
+        }
+        else {
+          this.setState({ pose2: pose === 'secondary' ? 'hidden' : 'secondary' });
+        }
+        this.setState({ graphFocus: 2 });
+        if (sideBarOpener === false) {
+          this.setState({ secondWasThere: !secondWasThere });
+        }
+      });
+    }
   }
 
   addSidebar() {
     const { sideBarOpener } = this.state;
+    const { graphFocus } = this.state;
+    const { secondWasThere } = this.state;
+    const { pose } = this.state;
     if (sideBarOpener) {
       this.setState({ sideBarOpener: false });
+      if (secondWasThere) {
+        if (graphFocus === 1) {
+          this.setState({ freshReveal: true });
+          this.setState({ secondGraphVisible: true });
+          this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' }, () => {
+            this.setState({ pose2: 'secondary' });
+          });
+        }
+        else {
+          this.setState({ pose2: 'secondary' });
+          this.setState({ isGraphVisible: true });
+          this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
+        }
+      }
+      else if (graphFocus === 1) {
+        this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
+      }
+      else {
+        this.setState({ pose: 'resized' });
+        this.setState({ pose2: 'fullSize' });
+      }
     }
     else {
       this.setState({ sideBarOpener: true });
-    }
-  }
-
-  addSidebar2() {
-    const { sideBarOpener } = this.state;
-    if (sideBarOpener) {
-      this.setState({ sideBarOpener: false });
-    }
-    else {
-      this.setState({ sideBarOpener: true });
+      if (graphFocus === 1 && secondWasThere) {
+        this.setState({ pose2: 'hidden' }, () => {
+          this.setState({ pose: 'movedOver' });
+        });
+      }
+      else if (graphFocus === 1) {
+        this.setState({ pose: 'movedOver' });
+      }
+      else if (graphFocus === 2) {
+        this.setState({ secondGraphVisible: true });
+        this.setState({ freshReveal: true });
+        this.setState({ isGraphVisible: false });
+        this.setState({ pose2: 'movedOver' });
+      }
     }
   }
 
@@ -689,21 +799,12 @@ class Dashboard extends Component {
     }
   }
 
-  setGraphFocus(num) {
-    if (num === 1) {
-      this.setState({ graphFocus: 1 });
-    }
-    else if (num === 2) {
-      this.setState({ graphFocus: 2 });
-    }
-  }
-
   render() {
     const {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, sideBarOpener2, inputValue, inputValue2
+      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList
@@ -714,7 +815,10 @@ class Dashboard extends Component {
           <Container>
             <Row>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
-                <Resize className="NoGraph" onClick={() => { this.setGraphFocus(1) }} pose={pose}>
+                <Resize
+                  className="NoGraph"
+                  pose={pose}
+                  onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1 }) : null}>
                   <Graph
                     dataNew={dataNew}
                     graphData={graphData}
@@ -738,11 +842,29 @@ class Dashboard extends Component {
                     sideBarOpener={sideBarOpener}
                     inputValue={inputValue}
                   />
+                  { freshReveal ? (
+                    <div
+                      className="exitButton"
+                      onClick={() => {
+                        this.addGraph(2) }
+                      }
+                      onKeyDown={() => {
+                        this.addGraph(2) }
+                      }
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <img className="exitImage" alt="" src={exit} />
+                    </div>
+                  ) : null}
                 </Resize>
               </Reveal>
               <div>
                 {freshReveal ? (
-                  <Reveal3 className="NoGraphNew" onClick={() => { this.setGraphFocus(2) }} pose={secondGraphVisible ? 'visible' : 'hidden'}>
+                  <Reveal3
+                    className="NoGraphNew"
+                    pose={pose2}
+                    onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 2 }) : null}>
                     <Graph
                       isEnabled={isEnabled2}
                       dataNew={dataNew2}
@@ -763,26 +885,31 @@ class Dashboard extends Component {
                       toggleCurr={toggleCurr2}
                       days={days2}
                       dateRangeChange={dateRangeChange2}
-                      addSidebar={this.addSidebar2}
+                      addSidebar={this.addSidebar}
                       sideBarOpener={sideBarOpener}
                       inputValue={inputValue2}
                     />
-                    <div
-                      className="exitButton"
-                      onClick={this.addGraph}
-                      onKeyDown={this.addGraph}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <img className="exitImage" alt="" src={exit} />
-                    </div>
+                    {isGraphVisible ? (
+                      <div
+                        className="exitButton"
+                        onClick={() => {
+                          this.addGraph(1) }
+                        }
+                        onKeyDown={() => {
+                          this.addGraph(1) }
+                        }
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <img className="exitImage" alt="" src={exit} />
+                      </div>) : null }
                   </Reveal3>
                 ) : null
               }
               </div>
               <div className="imageContainer">
-                <Reveal2 pose={isGraphVisible ? 'visible2' : 'hidden2'}>
-                  <Reveal3 pose={secondGraphVisible ? 'hidden' : 'visible'}>
+
+                  <Reveal3 pose={secondGraphVisible && isGraphVisible || sideBarOpener ? 'hidden' : 'visible'}>
                     <div className="plus">
                       <Hover
                         pose={hovering ? 'hovered' : 'idle'}
@@ -790,8 +917,12 @@ class Dashboard extends Component {
                         onMouseLeave={() => this.setState({ hovering: false })}
                       >
                         <div
-                          onClick={this.addGraph}
-                          onKeyDown={this.addGraph}
+                          onClick={() => {
+                            isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
+                                  }
+                          onKeyDown={() => {
+                            isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
+                                  }
                           role="button"
                           tabIndex={0}
                         >
@@ -800,11 +931,11 @@ class Dashboard extends Component {
                       </Hover>
                     </div>
                   </Reveal3>
-                </Reveal2>
+
               </div>
             </Row>
           </Container>
-          <Reveal2 pose={isGraphVisible ? 'visible2' : 'hidden2'}>
+          <Reveal2 pose={isGraphVisible || secondGraphVisible ? 'visible2' : 'hidden2'}>
             <div
               className="burgerMenuContainer"
               onClick={this.addSidebar}

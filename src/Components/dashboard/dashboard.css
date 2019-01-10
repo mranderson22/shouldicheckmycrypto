@@ -108,6 +108,11 @@
   }
 }
 
+.fullView {
+  width: 75vw;
+  left: 50%;
+}
+
 .backgroundClick {
   width: 100%;
   height: 100%;
