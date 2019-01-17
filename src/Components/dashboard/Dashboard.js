@@ -9,6 +9,7 @@ import {
   from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import 'babel-polyfill';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
@@ -74,7 +75,7 @@ const Reveal = posed.div({
   visible: {
     opacity: 1,
     transition: { duration: 900 },
-    delay: 400
+    delay: 600
   }
 });
 
@@ -193,35 +194,35 @@ class Dashboard extends Component {
     this.handleSubmit4 = this.handleSubmit4.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { isGraphVisible } = this.state;
     const { coinLog } = this.state;
     const { coinLog2 } = this.state;
     const { value } = this.state;
     const { value2 } = this.state;
-    coinLog.unshift(value);
-    coinLog2.unshift(value2);
-    this.fetchCryptocurrencyHistory(1);
-    this.fetchCryptocurrencyHistory(2);
-    this.getPoints(1);
-    this.getPoints(2);
+    await coinLog.unshift(value);
+    await coinLog2.unshift(value2);
+    await this.fetchCryptocurrencyHistory(1);
+    await this.fetchCryptocurrencyHistory(2);
+    await this.getPoints(1);
+    await this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
     if (localStorage.getItem('savedCoins') === null) {
       if (localStorage.getItem('savedCoins2') === null) {
-        this.fetchCryptocurrencyImage(2);
+        await this.fetchCryptocurrencyImage(2);
       }
       else {
-        this.getLocalStorageData(2);
+        await this.getLocalStorageData(2);
       }
-      this.fetchCryptocurrencyImage(1);
+      await this.fetchCryptocurrencyImage(1);
     }
     else if (localStorage.getItem('savedCoins2') === null) {
-      this.fetchCryptocurrencyImage(2);
-      this.getLocalStorageData(1);
+      await this.fetchCryptocurrencyImage(2);
+      await this.getLocalStorageData(1);
     }
     else {
-      this.getLocalStorageData(1);
-      this.getLocalStorageData(2);
+      await this.getLocalStorageData(1);
+      await this.getLocalStorageData(2);
     }
   }
 
@@ -387,7 +388,7 @@ class Dashboard extends Component {
     }
   }
 
-  fetchCryptocurrencyHistory(num = 1, dayNum = 180) {
+  async fetchCryptocurrencyHistory(num = 1, dayNum = 180) {
     let { value } = this.state;
     const { value2 } = this.state;
     const { curr } = this.state;
@@ -406,27 +407,30 @@ class Dashboard extends Component {
       wanted = value2;
       currency = curr2;
     }
-    axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${wanted}&tsym=${currency}&limit=${dayTarget}`)
-      .then((response) => {
-        if (num === 1) {
-          const historyNew = response.data.Data;
-          this.setState({ days: dayNum });
-          this.setState({ history: historyNew }, () => {
-            this.formatDate(1);
-            this.getPoints(1);
-            this.getHistoryChange(1);
-          });
-        }
-        else if (num === 2) {
-          const historyNew2 = response.data.Data;
-          this.setState({ days2: dayNum });
-          this.setState({ history2: historyNew2 }, () => {
-            this.formatDate(2);
-            this.getPoints(2);
-            this.getHistoryChange(2);
-          });
-        }
-      });
+    try {
+      const response = await axios.get(`https://min-api.cryptocompare.com/data/histoday?fsym=${wanted}&tsym=${currency}&limit=${dayTarget}`)
+      if (num === 1) {
+        const historyNew = response.data.Data;
+        this.setState({ days: dayNum });
+        this.setState({ history: historyNew }, async () => {
+          await this.formatDate(1);
+          await this.getPoints(1);
+          await this.getHistoryChange(1);
+        });
+      }
+      else if (num === 2) {
+        const historyNew2 = response.data.Data;
+        this.setState({ days2: dayNum });
+        this.setState({ history2: historyNew2 }, async () => {
+          await this.formatDate(2);
+          await this.getPoints(2);
+          await this.getHistoryChange(2);
+        });
+      }
+    }
+    catch (error) {
+      console.log('chart Data failed!');
+    }
   }
 
   handleChange1(event) {
@@ -597,32 +601,35 @@ class Dashboard extends Component {
     }
   }
 
-  fetchCryptocurrencyImage(num = 1) {
+  async fetchCryptocurrencyImage(num = 1) {
     const { value } = this.state;
     const { value2 } = this.state;
     const { cryptoImage } = this.state;
     const { cryptoImage2 } = this.state;
     let wantedVal;
     num === 1 ? wantedVal = value : wantedVal = value2;
-    axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wantedVal}&tsym=USD`)
-      .then((response) => {
-        if (num === 1) {
-          const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
-          cryptoImage.unshift(cryptoImageData);
-          const unique = Array.from(new Set(cryptoImage));
-          this.setState({ cryptoImage: unique }, () => {
-            localStorage.setItem('savedCoinImages', JSON.stringify(unique));
-          });
-        }
-        else if (num === 2) {
-          const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
-          cryptoImage2.unshift(cryptoImage2Data);
-          const unique = Array.from(new Set(cryptoImage2));
-          this.setState({ cryptoImage2: unique }, () => {
-            localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
-          });
-        }
-      });
+    try {
+      const response = await axios(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wantedVal}&tsym=USD`)
+      if (num === 1) {
+        const cryptoImageData = await response.data.Data[0].CoinInfo.ImageUrl;
+        cryptoImage.unshift(cryptoImageData);
+        const unique = Array.from(new Set(cryptoImage));
+        this.setState({ cryptoImage: unique }, () => {
+          localStorage.setItem('savedCoinImages', JSON.stringify(unique));
+        });
+      }
+      else if (num === 2) {
+        const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
+        cryptoImage2.unshift(cryptoImage2Data);
+        const unique = Array.from(new Set(cryptoImage2));
+        this.setState({ cryptoImage2: unique }, () => {
+          localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
+        });
+      }
+    }
+    catch (error) {
+      console.log('Image not received!');
+    }
   }
 
   formatDate(num = 1) {
@@ -697,28 +704,30 @@ class Dashboard extends Component {
     const { secondWasThere } = this.state;
     const { pose } = this.state;
     if (sideBarOpener) {
-      this.setState({ sideBarOpener: false });
-      if (secondWasThere) {
-        if (graphFocus === 1) {
-          this.setState({ freshReveal: true });
-          this.setState({ secondGraphVisible: true });
-          this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' }, () => {
+      setTimeout(() => {
+        this.setState({ sideBarOpener: false });
+        if (secondWasThere) {
+          if (graphFocus === 1) {
+            this.setState({ freshReveal: true });
+            this.setState({ secondGraphVisible: true });
+            this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' }, () => {
+              this.setState({ pose2: 'secondary' });
+            });
+          }
+          else {
             this.setState({ pose2: 'secondary' });
-          });
+            this.setState({ isGraphVisible: true });
+            this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
+          }
+        }
+        else if (graphFocus === 1) {
+          this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
         }
         else {
-          this.setState({ pose2: 'secondary' });
-          this.setState({ isGraphVisible: true });
-          this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
+          this.setState({ pose: 'resized' });
+          this.setState({ pose2: 'fullSize' });
         }
-      }
-      else if (graphFocus === 1) {
-        this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
-      }
-      else {
-        this.setState({ pose: 'resized' });
-        this.setState({ pose2: 'fullSize' });
-      }
+      }, 500);
     }
     else {
       this.setState({ sideBarOpener: true });

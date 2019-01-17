@@ -6,6 +6,7 @@ import lockbody from '../images/lockbody.png';
 import arrows from '../images/arrows.png';
 import Dashboard from './Components/dashboard/Dashboard';
 import './app.css';
+import 'babel-polyfill';
 
 // Reveal "yes" or "no" animation
 const Reveal = posed.div({
@@ -67,15 +68,15 @@ class App extends Component {
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
   // determine if answer is "yes" or "no", then sets accordingly.
-  componentDidMount() {
+  async componentDidMount() {
     setTimeout(() => {
       this.setState({ loading: false }, () => {
         this.setMood();
         this.setState({ isVisible: 'true' });
       });
     }, 2000);
-    this.fetchCryptocurrencyData(1);
-    this.fetchCryptocurrencyData(2);
+    await this.fetchCryptocurrencyData(1);
+    await this.fetchCryptocurrencyData(2);
   }
 
   // click function for lock or arrow on main screen. First loads dashboard component
@@ -133,9 +134,10 @@ class App extends Component {
 
   // Fetches main data for all coins, as well as specific coin that the user inputs.
   // Then retrieves id from api so it can convert all info to BTC via converToBTC().
-  fetchCryptocurrencyData(num = 1) {
+  async fetchCryptocurrencyData(num = 1) {
     const { coin } = this.state;
     const { coin2 } = this.state;
+    const { topList } = this.state;
     let wanted;
     if (num === 1) {
       wanted = coin;
@@ -143,37 +145,37 @@ class App extends Component {
     else {
       wanted = coin2;
     }
-    axios.all([
-      axios.get('https://api.coinmarketcap.com/v1/ticker/'),
-      axios.get('https://api.coinmarketcap.com/v2/listings/')
-    ])
-      .then(axios.spread((response, response2) => {
-        const { topList } = this.state;
-        const result = response.data.filter(currency => currency.symbol === wanted);
-        const result1 = response2.data.data.filter(currency => wanted.includes(currency.symbol));
-        const result2 = response.data;
-        if (topList === undefined || topList.length === 0) {
-          for (let thetopList = 0; thetopList < result2.length; thetopList++) {
-            const theList = result2[thetopList];
-            topList.push(theList);
-          }
+    try {
+      const response = await axios('https://api.coinmarketcap.com/v1/ticker/');
+      const response2 = await axios('https://api.coinmarketcap.com/v2/listings/');
+      const result = await response.data.filter(currency => currency.symbol === wanted);
+      const result1 = await response2.data.data.filter(currency => wanted.includes(currency.symbol));
+      const result2 = await response.data;
+      if (topList === undefined || topList.length === 0) {
+        for (let thetopList = 0; thetopList < result2.length; thetopList++) {
+          const theList = result2[thetopList];
+          topList.push(theList);
         }
-        if (num === 1) {
-          this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
-            this.convertToBTC(1);
-          });
-        }
-        else if (num === 2) {
-          this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
-            this.convertToBTC(2);
-          });
-        }
-      }));
+      }
+      if (num === 1) {
+        this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
+          this.convertToBTC(1);
+        });
+      }
+      else if (num === 2) {
+        this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
+          this.convertToBTC(2);
+        });
+      }
+    }
+    catch (error) {
+      console.log('Data not received!')
+    }
   }
 
   // Separate api call to retrieve all information converted from USD to BTC for
   // USD/BTC toggle button on graph.
-  convertToBTC(num = 1) {
+  async convertToBTC(num = 1) {
     const { dataToBTCid } = this.state;
     const { dataToBTCid2 } = this.state;
     let wanted;
@@ -183,20 +185,25 @@ class App extends Component {
     else {
       wanted = dataToBTCid2[0].id;
     }
-    axios.get(`https://api.coinmarketcap.com/v2/ticker/${wanted}/?convert=BTC`)
-      .then(((response3) => {
-        const result3 = response3.data.data.quotes.BTC;
-        if (num === 1) {
-          this.setState({ dataToBTC: result3 });
-        }
-        else {
-          this.setState({ dataToBTC2: result3 });
-        }
-      }));
+    try {
+      await axios.get(`https://api.coinmarketcap.com/v2/ticker/${wanted}/?convert=BTC`)
+        .then(((response3) => {
+          const result3 = response3.data.data.quotes.BTC;
+          if (num === 1) {
+            this.setState({ dataToBTC: result3 });
+          }
+          else {
+            this.setState({ dataToBTC2: result3 });
+          }
+        }));
+    }
+    catch (error) {
+      console.log('conversion to BTC failed!')
+    }
   }
 
   // Grabs the image URL data for specific coin
-  fetchCryptocurrencyImage(num = 1) {
+  async fetchCryptocurrencyImage(num = 1) {
     const { value } = this.state;
     const { value2 } = this.state;
     const { cryptoImage } = this.state;
@@ -208,17 +215,22 @@ class App extends Component {
     else {
       wanted = value2;
     }
-    axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wanted}&tsym=USD`)
-      .then((response) => {
-        if (num === 1) {
-          const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
-          cryptoImage.unshift(cryptoImageData);
-        }
-        else if (num === 2) {
-          const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
-          cryptoImage2.unshift(cryptoImage2Data);
-        }
-      });
+    try {
+      await axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wanted}&tsym=USD`)
+        .then((response) => {
+          if (num === 1) {
+            const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
+            cryptoImage.unshift(cryptoImageData);
+          }
+          else if (num === 2) {
+            const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
+            cryptoImage2.unshift(cryptoImage2Data);
+          }
+        });
+    }
+    catch (error) {
+      console.log('Image not found!');
+    }
     this.setState({ cryptoImage });
   }
 

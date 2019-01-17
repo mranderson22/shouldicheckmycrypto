@@ -96,7 +96,7 @@ class Graph extends Component {
           id: 'y-axis-1',
           ticks: {
             fontColor: 'black',
-            min: 0,
+
             max: 1000000000000
           }
         }, {
@@ -104,8 +104,8 @@ class Graph extends Component {
           display: false,
           id: 'y-axis-2',
           ticks: {
-            fontColor: 'black',
-            min: 0
+            fontColor: 'black'
+
           }
         }
         ],
@@ -117,7 +117,8 @@ class Graph extends Component {
           ticks: {
             autoSkip: true,
             maxTicksLimit: 15,
-            fontColor: 'black'
+            fontColor: 'black',
+            min: 0
           }
         }]
       }
