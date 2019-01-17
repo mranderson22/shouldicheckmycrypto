@@ -104,8 +104,8 @@ class Graph extends Component {
           display: false,
           id: 'y-axis-2',
           ticks: {
-            fontColor: 'black'
-
+            fontColor: 'black',
+            min: 0
           }
         }
         ],

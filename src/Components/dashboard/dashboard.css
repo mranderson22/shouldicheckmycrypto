@@ -129,3 +129,13 @@
 .exitImage {
   width: 35px;
 }
+
+.bitcoinTrackerWrapper {
+  width: 241px;
+  height: 63px;
+  /* position: fixed; */
+  position: absolute;
+  top: 104%;
+  right: -241%;
+  background: #1d1a1a;
+}

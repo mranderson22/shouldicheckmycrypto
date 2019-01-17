@@ -130,6 +130,40 @@
   width: 35px;
 }
 
+.bitcoinTrackerWrapper {
+  width: 241px;
+  height: 63px;
+  /* position: fixed; */
+  position: absolute;
+  top: 104%;
+  right: -241%;
+  background: #1d1a1a;
+}
+
+.bitcoinTrackerWrapper {
+  width: 241px;
+  height: 63px;
+  /* position: fixed; */
+  position: absolute;
+  top: 104%;
+  right: -14%;
+  background: #1d1a1a;
+}
+
+.bitcoinCurrentPrice {
+  color: #a2a0a0;
+  font-size: 40px;
+  text-align: right;
+  margin-right: 11px;
+}
+
+.currentBTCImage {
+  width: 45px;
+  position: absolute;
+  left: 16px;
+  top: 8px;
+}
+
 
 .NoGraphChild {
   position: relative;

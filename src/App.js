@@ -77,6 +77,8 @@ class App extends Component {
     }, 2000);
     await this.fetchCryptocurrencyData(1);
     await this.fetchCryptocurrencyData(2);
+    this.fetchCryptocurrencyData(3)
+    setInterval(() => { this.fetchCryptocurrencyData(3); }, 60000);
   }
 
   // click function for lock or arrow on main screen. First loads dashboard component
@@ -139,37 +141,43 @@ class App extends Component {
     const { coin2 } = this.state;
     const { topList } = this.state;
     let wanted;
-    if (num === 1) {
-      wanted = coin;
-    }
-    else {
-      wanted = coin2;
-    }
-    try {
-      const response = await axios('https://api.coinmarketcap.com/v1/ticker/');
-      const response2 = await axios('https://api.coinmarketcap.com/v2/listings/');
-      const result = await response.data.filter(currency => currency.symbol === wanted);
-      const result1 = await response2.data.data.filter(currency => wanted.includes(currency.symbol));
-      const result2 = await response.data;
-      if (topList === undefined || topList.length === 0) {
-        for (let thetopList = 0; thetopList < result2.length; thetopList++) {
-          const theList = result2[thetopList];
-          topList.push(theList);
-        }
-      }
+    if (num !== 3) {
       if (num === 1) {
-        this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
-          this.convertToBTC(1);
-        });
+        wanted = coin;
       }
       else if (num === 2) {
-        this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
-          this.convertToBTC(2);
-        });
+        wanted = coin2;
       }
-    }
-    catch (error) {
-      console.log('Data not received!')
+      try {
+        const response = await axios('https://api.coinmarketcap.com/v1/ticker/');
+        const response2 = await axios('https://api.coinmarketcap.com/v2/listings/');
+        const result = await response.data.filter(currency => currency.symbol === wanted);
+        const result1 = await response2.data.data.filter(currency => wanted.includes(currency.symbol));
+        const result2 = await response.data;
+        if (topList === undefined || topList.length === 0) {
+          for (let thetopList = 0; thetopList < result2.length; thetopList++) {
+            const theList = result2[thetopList];
+            topList.push(theList);
+          }
+        }
+        if (num === 1) {
+          this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
+            this.convertToBTC(1);
+          });
+        }
+        else if (num === 2) {
+          this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
+            this.convertToBTC(2);
+          });
+        }
+      }
+      catch (error) {
+        console.log('Data not received!')
+      }
+    } else if (num === 3) {
+      const response = await axios('https://api.coinmarketcap.com/v1/ticker/bitcoin/');
+      const result = response.data[0].price_usd;
+      this.setState({ currentBTCPrice: result })
     }
   }
 
@@ -237,7 +245,7 @@ class App extends Component {
   render() {
     const {
       data, loading, answer, isVisible, text,
-      dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2, topList
+      dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2, topList, currentBTCPrice
     } = this.state;
 
 
@@ -294,6 +302,7 @@ class App extends Component {
                 sendCoin2={this.getCoin2}
                 answer={answer}
                 topList={topList}
+                currentBTCPrice={currentBTCPrice}
               />
             )
               : null

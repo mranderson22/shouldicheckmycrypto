@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
+import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
@@ -129,6 +130,19 @@ const Resize2ndGraph = posed.div({
     left: '60%'
   }
 
+});
+
+const BitcoinTrackerSlide = posed.div({
+  hidden: {
+    right: '-241px',
+    transition: { ease: 'easeIn', duration: 400 },
+    delay: 500
+  },
+  slideLeft: {
+    right: '0px',
+    transition: { ease: 'easeIn', duration: 400 },
+    delay: 500
+  }
 });
 
 class Dashboard extends Component {
@@ -816,7 +830,7 @@ class Dashboard extends Component {
       pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus
     } = this.state;
     const {
-      answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList
+      answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice
     } = this.props;
     return (
       <div id="dashboard" className="Nodashboardcontainer">
@@ -955,6 +969,11 @@ class Dashboard extends Component {
               <img className="burgerMenu" alt="" src={burgerMenu} />
             </div>
           </Reveal2>
+          <BitcoinTrackerSlide className="bitcoinTrackerWrapper" pose={isGraphVisible ? 'slideLeft' : null}>
+            <BitcoinTracker
+              currentBTCPrice={currentBTCPrice}
+            />
+        </BitcoinTrackerSlide>
           <Reveal5 className="off-canvas" pose={sideBarOpener ? 'visible' : 'hidden'}>
             <Sidebar
               topList={topList.map((x, y) =>
