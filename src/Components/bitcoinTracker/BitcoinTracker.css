@@ -1,23 +1,31 @@
-.bitcoinTrackerWrapper {
-  width: 241px;
-  height: 63px;
-  /* position: fixed; */
-  position: absolute;
-  top: 104%;
-  right: -14%;
-  background: #1d1a1a;
-}
+
 
 .bitcoinCurrentPrice {
   color: #a2a0a0;
-  font-size: 40px;
-  text-align: right;
-  margin-right: 11px;
+  font-size: 31px;
+  font-family: 'Poppins', sans-serif;
+  padding-top: 7px;
+  text-align: center;
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 1200px) {
+  .bitcoinCurrentPrice {
+    font-size: 1.8rem;
+    margin-left: 0px;
+    text-align: right;
+  }
 }
 
 .currentBTCImage {
-  width: 45px;
+  width: 40px;
   position: absolute;
   left: 16px;
-  top: 8px;
+  top: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  .currentBTCImage {
+    opacity: 0;
+  }
 }

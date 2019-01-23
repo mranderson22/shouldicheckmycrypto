@@ -7,7 +7,6 @@ import {
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
-import ChartInfo from '../chartInfo/ChartInfo';
 
 const Resize1 = posed.div({
   initial: {
@@ -57,31 +56,14 @@ class Graph extends Component {
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
     const { name } = dataNew[0];
-    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
-    const currentPrice2 = Number(dataToBTC.price).toFixed(10);
-    const { rank } = dataNew[0];
-    const oneHour = parseFloat(dataNew[0].percent_change_1h);
-    const oneHour2 = parseFloat(dataToBTC.percent_change_1h);
-    const oneDay = parseFloat(dataNew[0].percent_change_24h);
-    const oneDay2 = parseFloat(dataToBTC.percent_change_24h);
-    const seven = parseFloat(dataNew[0].percent_change_7d);
-    const seven2 = parseFloat(dataToBTC.percent_change_7d);
-    const maxSupply = dataNew[0].max_supply;
-    const availableSupply = dataNew[0].available_supply;
-    const marketCap = dataNew[0].market_cap_usd;
-    let oneDayVolume;
-    const oneDayVolumeKeys = Object.keys(dataNew[0]).map((key) => {
-      const tempdata = dataNew[0];
-      if (key === '24h_volume_usd') {
-        oneDayVolume = tempdata[key];
-      }
-    });
     const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
     const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
     const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
     const Image4 = `https://www.cryptocompare.com/${cryptoImage[3]}`;
     const Image5 = `https://www.cryptocompare.com/${cryptoImage[4]}`;
     const options = {
+      maintainAspectRatio: false,
+      responsive: true,
       legend: {
         display: false
       },
@@ -190,34 +172,12 @@ class Graph extends Component {
             </Form>
           </div>
         </div>
-        <Resize2 pose={freshReveal ? 'resized' : 'initial'}>
+
           <img alt="" className="cryptoImageBackground" src={Image2} />
-        </Resize2>
-        <Resize3 className={`${answer ? 'Yes' : 'No'}Name`} pose={freshReveal ? 'resized' : 'initial'}>
+
+        <Resize3 className={`${answer ? 'Yes' : 'No'}Name`}>
           { `${name} / ${curr}`}
         </Resize3>
-        <Resize1 pose={freshReveal ? 'resized' : 'initial'} className="Nochartheader">
-          <ChartInfo
-            rank={rank}
-            currentPrice={currentPrice}
-            currentPrice2={currentPrice2}
-            maxSupply={maxSupply}
-            availableSupply={availableSupply}
-            marketCap={marketCap}
-            oneDayVolume={oneDayVolume}
-            oneHour={oneHour}
-            oneHour2={oneHour2}
-            seven={seven}
-            seven2={seven2}
-            oneDay={oneDay}
-            oneDay2={oneDay2}
-            curr={curr}
-            dateRangeChange={dateRangeChange}
-            dateRangeChange2={dateRangeChange2}
-            days={days}
-            days2={days2}
-          />
-        </Resize1>
         <div className="NoChartActual">
           <Bar
             data={graphData}

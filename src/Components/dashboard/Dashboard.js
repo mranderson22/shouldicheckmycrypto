@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
+import ChartInfo from '../chartInfo/ChartInfo';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
@@ -832,15 +833,46 @@ class Dashboard extends Component {
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice
     } = this.props;
+    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
+    const currentPrice2 = Number(dataToBTC.price).toFixed(10);
+    const { rank } = dataNew[0];
+    const { name } = dataNew[0];
+    const oneHour = parseFloat(dataNew[0].percent_change_1h);
+    const oneHour2 = parseFloat(dataToBTC.percent_change_1h);
+    const oneDay = parseFloat(dataNew[0].percent_change_24h);
+    const oneDay2 = parseFloat(dataToBTC.percent_change_24h);
+    const seven = parseFloat(dataNew[0].percent_change_7d);
+    const seven2 = parseFloat(dataToBTC.percent_change_7d);
+    const maxSupply = dataNew[0].max_supply;
+    const availableSupply = dataNew[0].available_supply;
+    const marketCap = dataNew[0].market_cap_usd;
+    let oneDayVolume;
+    const oneDayVolumeKeys = Object.keys(dataNew[0]).map((key) => {
+      const tempdata = dataNew[0];
+      if (key === '24h_volume_usd') {
+        oneDayVolume = tempdata[key];
+      }
+    });
     return (
       <div id="dashboard" className="Nodashboardcontainer">
         <div className={`${answer ? 'Yes' : 'No'}dashboard`}>
-          <Container>
-            <Row>
+          <div className="container-fluid">
+            <div className="row">
+              <div className=" col-sm-2 off-canvas">
+                <Sidebar
+                  topList={topList.map((x, y) =>
+                    <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
+                      {this.handleSubmit5(e, x.symbol)}}>
+                      <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
+                      <span className="sidebarCoin">{x.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                      <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
+                      {x.percent_change_24h + '%'}</span>
+                      </button>)}
+                />
+            </div>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
                 <Resize
-                  className="NoGraph"
-                  pose={pose}
+                  className="col-sm-10 NoGraph"
                   onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1 }) : null}>
                   <Graph
                     dataNew={dataNew}
@@ -930,6 +962,7 @@ class Dashboard extends Component {
                 ) : null
               }
               </div>
+              {/*}
               <div className="imageContainer">
 
                   <Reveal3 pose={secondGraphVisible && isGraphVisible || sideBarOpener ? 'hidden' : 'visible'}>
@@ -956,8 +989,6 @@ class Dashboard extends Component {
                   </Reveal3>
 
               </div>
-            </Row>
-          </Container>
           <Reveal2 pose={isGraphVisible || secondGraphVisible ? 'visible2' : 'hidden2'}>
             <div
               className="burgerMenuContainer"
@@ -969,27 +1000,38 @@ class Dashboard extends Component {
               <img className="burgerMenu" alt="" src={burgerMenu} />
             </div>
           </Reveal2>
-          <BitcoinTrackerSlide className="bitcoinTrackerWrapper" pose={isGraphVisible ? 'slideLeft' : null}>
+          */}
+          <div className="col-sm-2 Nochartheader">
+            <ChartInfo
+              rank={rank}
+              currentPrice={currentPrice}
+              currentPrice2={currentPrice2}
+              maxSupply={maxSupply}
+              availableSupply={availableSupply}
+              marketCap={marketCap}
+              oneDayVolume={oneDayVolume}
+              oneHour={oneHour}
+              oneHour2={oneHour2}
+              seven={seven}
+              seven2={seven2}
+              oneDay={oneDay}
+              oneDay2={oneDay2}
+              curr={curr}
+              dateRangeChange={dateRangeChange}
+              dateRangeChange2={dateRangeChange2}
+              days={days}
+              days2={days2}
+              name={name}
+            />
+        </div>
+          <div className="col-sm-2 bitcoinTrackerWrapper">
             <BitcoinTracker
               currentBTCPrice={currentBTCPrice}
             />
-        </BitcoinTrackerSlide>
-          <Reveal5 className="off-canvas" pose={sideBarOpener ? 'visible' : 'hidden'}>
-            <Sidebar
-              topList={topList.map((x, y) =>
-                <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
-                  {this.handleSubmit5(e, x.symbol)}}>
-                  <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
-                  <span className="sidebarCoin">{x.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                  <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
-                  {x.percent_change_24h + '%'}</span>
-                  </button>)}
-            />
-          </Reveal5>
-          <Reveal5 className="off-canvas" pose={sideBarOpener2 ? 'visible' : 'hidden'}>
-            <Sidebar />
-          </Reveal5>
+        </div>
           <div className="backgroundClick" onClick={sideBarOpener ? this.addSidebar: null}></div>
+          </div>
+        </div>
         </div>
       </div>
     );

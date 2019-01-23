@@ -1,12 +1,18 @@
 import React from 'react';
 
-const ChartInfo = ({rank, currentPrice, currentPrice2, maxSupply, availableSupply, marketCap,
+const ChartInfo = ({
+ rank, currentPrice, currentPrice2, maxSupply, availableSupply, marketCap,
 oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr,
-dateRangeChange, dateRangeChange2, days, days2 }) => {
+dateRangeChange, dateRangeChange2, days, days2, name
+}) => {
   return (
     <div>
       {curr === 'USD' ? (
         <div className="coinInfo">
+          <li>
+            { `Coin: ${name}` }
+            { ' \u00A0 '}
+          </li>
           <li>
             { `Rank: ${rank}` }
             { ' \u00A0 '}
@@ -38,7 +44,7 @@ dateRangeChange, dateRangeChange2, days, days2 }) => {
               </span>
             </li>
             <li>
-            {` ${days} Day Change: `}
+              {` ${days} Day Change: `}
               <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
                 {` ${dateRangeChange}`}
               %
@@ -47,6 +53,10 @@ dateRangeChange, dateRangeChange2, days, days2 }) => {
           </div>
         </div>) : (
           <div className="coinInfo">
+            <li>
+              { `Coin: ${name}` }
+              { ' \u00A0 '}
+            </li>
             <li>
               { `Rank: ${rank}` }
               { ' \u00A0 '}
@@ -78,7 +88,7 @@ dateRangeChange, dateRangeChange2, days, days2 }) => {
                 </span>
               </li>
               <li>
-              {` ${days} Day Change: `}
+                {` ${days} Day Change: `}
                 <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
                   {` ${dateRangeChange}`}
                 %
@@ -87,7 +97,7 @@ dateRangeChange, dateRangeChange2, days, days2 }) => {
             </div>
           </div>)}
     </div>
-);
+  );
 };
 
 export default ChartInfo;
