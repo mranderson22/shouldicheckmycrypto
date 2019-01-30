@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
+import ChartInfo from '../chartInfo/ChartInfo';
 
 const Resize1 = posed.div({
   initial: {
@@ -21,14 +22,12 @@ const Resize1 = posed.div({
   }
 });
 
-const Resize3 = posed.div({
+const ResizeNoChartActual = posed.div({
   initial: {
-    fontSize: '4vw',
-    transform: 'translate(-21%, -70%)'
+    height: '55vh'
   },
   resized: {
-    fontSize: '3vw',
-    transform: 'translate(-54%, -74%)'
+    height: '37.5vh'
   }
 });
 
@@ -55,12 +54,31 @@ class Graph extends Component {
       dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2, addSidebar, sideBarOpener, inputValue
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
+    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
+    const currentPrice2 = Number(dataToBTC.price).toFixed(10);
+    const { rank } = dataNew[0];
     const { name } = dataNew[0];
+    const oneHour = parseFloat(dataNew[0].percent_change_1h);
+    const oneHour2 = parseFloat(dataToBTC.percent_change_1h);
+    const oneDay = parseFloat(dataNew[0].percent_change_24h);
+    const oneDay2 = parseFloat(dataToBTC.percent_change_24h);
+    const seven = parseFloat(dataNew[0].percent_change_7d);
+    const seven2 = parseFloat(dataToBTC.percent_change_7d);
+    const maxSupply = dataNew[0].max_supply;
+    const availableSupply = dataNew[0].available_supply;
+    const marketCap = dataNew[0].market_cap_usd;
     const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
     const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
     const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
     const Image4 = `https://www.cryptocompare.com/${cryptoImage[3]}`;
     const Image5 = `https://www.cryptocompare.com/${cryptoImage[4]}`;
+    let oneDayVolume;
+    const oneDayVolumeKeys = Object.keys(dataNew[0]).map((key) => {
+      const tempdata = dataNew[0];
+      if (key === '24h_volume_usd') {
+        oneDayVolume = tempdata[key];
+      }
+    });
     const options = {
       maintainAspectRatio: false,
       responsive: true,
@@ -157,37 +175,20 @@ class Graph extends Component {
 
     return (
       <div className={`${answer ? 'Yes' : 'No'}GraphChild`}>
-        <div className="cryptoImageContainer">
-          <img alt="" className="cryptoImage2" src={Image2} />
-          <div className="cryptoInput">
-            <Form inline onSubmit={handleSubmit}>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                <Label for="Name">
-                  <Input className="textField" value={inputValue} onFocus={addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
-                </Label>
-              </FormGroup>
-              <Button className="cryptoSubmit" disabled={!isEnabled}>
-                GO
-              </Button>
-            </Form>
-          </div>
-        </div>
 
           <img alt="" className="cryptoImageBackground" src={Image2} />
 
-        <Resize3 className={`${answer ? 'Yes' : 'No'}Name`}>
+
+        <div className={`${answer ? 'Yes' : 'No'}Name`}>
           { `${name} / ${curr}`}
-        </Resize3>
-        <div className="NoChartActual">
+        </div>
+
+          <ResizeNoChartActual className="NoChartActual" pose="resized">
           <Bar
             data={graphData}
             options={options}
           />
-        </div>
-        <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
-        <img alt="" className="cryptoImage3" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
-        <img alt="" className="cryptoImage4" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
-        <img alt="" className="cryptoImage5" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
+      </ResizeNoChartActual>
         <div className="daysselector">
           <Button
             className="selectorButtons"
@@ -263,7 +264,52 @@ class Graph extends Component {
             {button}
           </div>
         </div>
-      </div>
+        <div className="col-sm-2 Nochartheader">
+          <ChartInfo
+            rank={rank}
+            currentPrice={currentPrice}
+            currentPrice2={currentPrice2}
+            maxSupply={maxSupply}
+            availableSupply={availableSupply}
+            marketCap={marketCap}
+            oneDayVolume={oneDayVolume}
+            oneHour={oneHour}
+            oneHour2={oneHour2}
+            seven={seven}
+            seven2={seven2}
+            oneDay={oneDay}
+            oneDay2={oneDay2}
+            curr={curr}
+            dateRangeChange={dateRangeChange}
+            dateRangeChange2={dateRangeChange2}
+            days={days}
+            days2={days2}
+            name={name}
+          />
+          </div>
+          <div className="col-sm-2 cryptoImageContainer">
+            <img alt="" className="cryptoImage2" src={Image2} />
+            <div className="cryptoInput">
+              <Form inline onSubmit={handleSubmit}>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                  <Label for="Name">
+                    <Input className="textField" value={inputValue} onFocus={addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                  </Label>
+                </FormGroup>
+                <Button className="cryptoSubmit" disabled={!isEnabled}>
+                  GO
+                </Button>
+              </Form>
+            </div>
+          </div>
+          <div className="col-sm-2 coinButtonBank">
+            <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+            <img alt="" className="cryptoImage3" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
+            <img alt="" className="cryptoImage4" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
+            <img alt="" className="cryptoImage5" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
+            <div className="backgroundClick" onClick={sideBarOpener ? this.addSidebar: null}></div>
+          </div>
+            </div>
     );
   }
 }

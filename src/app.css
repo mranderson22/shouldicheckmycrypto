@@ -11,26 +11,28 @@
 }
 
 .Answernobackground {
-  height: 101vh;
-  background: black url('../images/circles.png') center;
+  height: 100vh;
+  background: #606060;
+  position: static;
 }
 
 .Answernono {
   height: 100vh;
-  background-color: #bb0718ad;
+  /* background-image: linear-gradient(#bb0718ad, #00000085); */
   padding: 0;
   justify-content: stretch;
   align-items: center;
   display: flex;
+  z-index: 1;
 }
 
 .Answernoyes {
   height: 101vh;
-  background-color: #2e96249e;
   padding: 0;
   justify-content: stretch;
   align-items: center;
   display: flex;
+  z-index: 1;
 }
 
 .Answerboxno {

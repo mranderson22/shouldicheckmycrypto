@@ -4,14 +4,13 @@ import 'react-moment';
 import axios from 'axios';
 import posed from 'react-pose';
 import {
-  Container, Row
+  Button, Form, Label, Input, FormGroup
 }
   from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
-import ChartInfo from '../chartInfo/ChartInfo';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
@@ -37,38 +36,22 @@ const Reveal2 = posed.div({
 const Reveal3 = posed.div({
   hidden: {
     opacity: 0,
-    width: '45vw',
-    left: '74%',
-    transition: { ease: 'linear', duration: 200 },
-    delay: 0
+
   },
   visible: {
     opacity: 1,
-    width: '45vw',
-    left: '74%',
-    transition: { ease: 'linear', duration: 400 },
-    delay: 300
+
   },
   secondary: {
     opacity: 1,
-    width: '45vw',
-    left: '74%',
-    transition: { ease: 'linear', duration: 400 },
-    delay: 0
+
   },
   movedOver: {
     opacity: 1,
-    width: '60vw',
-    left: '60%',
-    transition: { ease: 'easeOut', duration: 400 },
-    delay: 0
+
   },
   fullSize: {
-    opacity: 1,
-    width: '75vw',
-    left: '50%',
-    transition: { ease: 'easeOut', duration: 400 },
-    delay: 0
+
   }
 });
 
@@ -98,37 +81,26 @@ const Reveal5 = posed.div({
 
 const Resize = posed.div({
   initial: {
-    width: '75vw',
-    left: '50%',
-    transition: { ease: 'easeOut', duration: 400 }
+
   },
   resized: {
-    width: '45vw',
-    left: '26%',
-    transition: { ease: 'linear', duration: 400 },
-    delay: 0
+
   },
   movedOver: {
-    width: '60vw',
-    left: '60%',
-    transition: { ease: 'easeOut', duration: 400 },
-    delay: 0
+
   }
 
 });
 
 const Resize2ndGraph = posed.div({
   resized: {
-    width: '75vw',
-    left: '50%'
+
   },
   initial: {
-    width: '45vw',
-    left: '75%'
+
   },
   movedOver: {
-    width: '60vw',
-    left: '60%'
+
   }
 
 });
@@ -833,31 +805,16 @@ class Dashboard extends Component {
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice
     } = this.props;
-    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
-    const currentPrice2 = Number(dataToBTC.price).toFixed(10);
-    const { rank } = dataNew[0];
-    const { name } = dataNew[0];
-    const oneHour = parseFloat(dataNew[0].percent_change_1h);
-    const oneHour2 = parseFloat(dataToBTC.percent_change_1h);
-    const oneDay = parseFloat(dataNew[0].percent_change_24h);
-    const oneDay2 = parseFloat(dataToBTC.percent_change_24h);
-    const seven = parseFloat(dataNew[0].percent_change_7d);
-    const seven2 = parseFloat(dataToBTC.percent_change_7d);
-    const maxSupply = dataNew[0].max_supply;
-    const availableSupply = dataNew[0].available_supply;
-    const marketCap = dataNew[0].market_cap_usd;
-    let oneDayVolume;
-    const oneDayVolumeKeys = Object.keys(dataNew[0]).map((key) => {
-      const tempdata = dataNew[0];
-      if (key === '24h_volume_usd') {
-        oneDayVolume = tempdata[key];
-      }
-    });
     return (
       <div id="dashboard" className="Nodashboardcontainer">
         <div className={`${answer ? 'Yes' : 'No'}dashboard`}>
           <div className="container-fluid">
             <div className="row">
+              <div className="col-sm-2 bitcoinTrackerWrapper">
+                <BitcoinTracker
+                  currentBTCPrice={currentBTCPrice}
+                />
+            </div>
               <div className=" col-sm-2 off-canvas">
                 <Sidebar
                   topList={topList.map((x, y) =>
@@ -870,9 +827,11 @@ class Dashboard extends Component {
                       </button>)}
                 />
             </div>
+          </div>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
                 <Resize
                   className="col-sm-10 NoGraph"
+                  pose={pose}
                   onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1 }) : null}>
                   <Graph
                     dataNew={dataNew}
@@ -962,7 +921,6 @@ class Dashboard extends Component {
                 ) : null
               }
               </div>
-              {/*}
               <div className="imageContainer">
 
                   <Reveal3 pose={secondGraphVisible && isGraphVisible || sideBarOpener ? 'hidden' : 'visible'}>
@@ -989,6 +947,7 @@ class Dashboard extends Component {
                   </Reveal3>
 
               </div>
+              {/* }
           <Reveal2 pose={isGraphVisible || secondGraphVisible ? 'visible2' : 'hidden2'}>
             <div
               className="burgerMenuContainer"
@@ -1001,39 +960,9 @@ class Dashboard extends Component {
             </div>
           </Reveal2>
           */}
-          <div className="col-sm-2 Nochartheader">
-            <ChartInfo
-              rank={rank}
-              currentPrice={currentPrice}
-              currentPrice2={currentPrice2}
-              maxSupply={maxSupply}
-              availableSupply={availableSupply}
-              marketCap={marketCap}
-              oneDayVolume={oneDayVolume}
-              oneHour={oneHour}
-              oneHour2={oneHour2}
-              seven={seven}
-              seven2={seven2}
-              oneDay={oneDay}
-              oneDay2={oneDay2}
-              curr={curr}
-              dateRangeChange={dateRangeChange}
-              dateRangeChange2={dateRangeChange2}
-              days={days}
-              days2={days2}
-              name={name}
-            />
-        </div>
-          <div className="col-sm-2 bitcoinTrackerWrapper">
-            <BitcoinTracker
-              currentBTCPrice={currentBTCPrice}
-            />
-        </div>
-          <div className="backgroundClick" onClick={sideBarOpener ? this.addSidebar: null}></div>
           </div>
         </div>
         </div>
-      </div>
     );
   }
 }

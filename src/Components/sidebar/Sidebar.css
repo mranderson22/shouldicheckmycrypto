@@ -2,20 +2,53 @@
   width: 300px !important;
   position: fixed !important;
   left: 1%;
-  top: 1%;
-  height: 98%;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  background-color: #333;
+  top: 0%;
+  height: 85.3%;
   z-index: 1060;
   font-family: 'Poppins', sans-serif;
   border: 1px solid white;
   padding-left: 0px !important;
   padding-right: 0px !important;
+  margin-top: 98px;
+  overflow-y: scroll;
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none;  /* IE 10+ */
+}
+
+.off-canvas::-webkit-scrollbar { /* WebKit */
+    width: 0px;
+}
+
+@media screen and (max-height: 750px) {
+  .off-canvas {
+    height: 79.5%;
+  }
+}
+
+@media screen and (min-height: 900px) {
+  .off-canvas {
+    height: 85.3%;
+  }
+}
+
+@media screen and (min-height: 1050px) {
+  .off-canvas {
+    height: 84.2%;
+  }
+}
+
+@media screen and (min-height: 1150px) {
+  .off-canvas {
+    height: 83.4%;
+  }
 }
 
 .sidebarCoin {
   font-size: 16px;
+}
+
+.sidebarCoin:focus {
+  color: white;
 }
 
 @media screen and (max-width: 1200px) {
@@ -25,11 +58,25 @@
 }
 
 .redText {
-  color: #ff3333;
+  color: #800000;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1200px) {
+  .redText {
+    font-size: .7rem !important;
+  }
 }
 
 .greenText {
   color: #24cc24;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1200px) {
+  .greenText {
+    font-size: .7rem !important;
+  }
 }
 
 .right {
@@ -65,24 +112,26 @@
     color: #c7c7c7;
     padding: 1rem;
     cursor: pointer;
-    background-color: #1d1a1a !important;
+    background-color: #1d1a1a00 !important;
 
 }
 
 .listAddOn .list-group-item:hover {
-  background-color: #100b0b !important;
+  background-color: #1d1a1a !important;
   color: white;
 }
 
-.listAddOn .list-group-item:active {
-  background-color: #100b0b !important;
+.listAddOn .list-group-item:focus {
+  background: #404040 !important;
+  color: white;
+  outline: 0;
 }
 
 .listAddOn .list-group-item:visited {
-  background-color: #100b0b !important;
+  background: #1d1a1a !important;
 }
 
 .sidebarRank {
-  color: #757575;
+  color: #1d1a1a;
   font-size: 14px;
 }

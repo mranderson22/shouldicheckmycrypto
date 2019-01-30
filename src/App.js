@@ -12,12 +12,13 @@ import 'babel-polyfill';
 const Reveal = posed.div({
   hidden: {
     opacity: 0,
+    transition: { duration: 500 },
     x: 0,
     y: -10
   },
   visible: {
     opacity: 1,
-    transition: { duration: 1000 },
+    transition: { duration: 999 },
     x: 0,
     y: 0
   }
@@ -27,6 +28,7 @@ const Reveal = posed.div({
 const Reveal2 = posed.div({
   hidden: {
     opacity: 0,
+    transition: { duration: 1000 },
     x: 0,
     y: 10
   },
@@ -84,9 +86,8 @@ class App extends Component {
   // click function for lock or arrow on main screen. First loads dashboard component
   // with "showComponent" then scrolls to said component.
   onButtonClick() {
-    this.setState({ showComponent: true }, () => {
-      this.scrollToBottom();
-    });
+    this.setState({ isVisible: false });
+    this.setState({ showComponent: true });
   }
 
   // determines what main page text displays as "yes" or "no" depending on current %
