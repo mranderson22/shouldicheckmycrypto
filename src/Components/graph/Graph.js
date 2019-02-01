@@ -285,10 +285,10 @@ class Graph extends Component {
             days={days}
             days2={days2}
             name={name}
+            cryptoImage={Image2}
           />
           </div>
-          <div className="col-sm-2 cryptoImageContainer">
-            <img alt="" className="cryptoImage2" src={Image2} />
+          <div className="cryptoImageContainer">
             <div className="cryptoInput">
               <Form inline onSubmit={handleSubmit}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -303,11 +303,18 @@ class Graph extends Component {
             </div>
           </div>
           <div className="col-sm-2 coinButtonBank">
-            <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
-            <img alt="" className="cryptoImage3" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
-            <img alt="" className="cryptoImage4" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
-            <img alt="" className="cryptoImage5" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
-            <div className="backgroundClick" onClick={sideBarOpener ? this.addSidebar: null}></div>
+            <div className="quickButtonContainer" id="firstCoinButton">
+              <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+            </div>
+            <div className="quickButtonContainer" id="secondCoinButton">
+              <img alt="" className="cryptoImage" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
+            </div>
+            <div className="quickButtonContainer" id="thirdCoinButton">
+              <img alt="" className="cryptoImage" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
+            </div>
+            <div className="quickButtonContainer" id="fourthCoinButton">
+              <img alt="" className="cryptoImage" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
+            </div>
           </div>
             </div>
     );

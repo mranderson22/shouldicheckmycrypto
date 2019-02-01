@@ -14,11 +14,12 @@
 .NoGraphChild {
   position: relative;
   padding: 25px;
-  border: solid .1px white;
+  border: solid 1px white;
   padding-bottom: 40px;
   padding-left: 2px;
   padding-top: 40px;
-  background: #515151eb;
+  background: #5d5d5df5;
+  border-radius: 4px;
 
 }
 
@@ -32,10 +33,12 @@
   position: relative;
   padding: 25px;
   padding-bottom: 40px;
-  border: solid .1px white;
+  border: solid 1px white;
   padding-left: 2px;
   padding-top: 40px;
   background: #515151eb;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .toggled {
@@ -58,7 +61,7 @@
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .daysselector {
-        padding-bottom: 25px;
+
   }
 }
 
@@ -73,75 +76,57 @@
 }
 
 .cryptoImage {
-  position: absolute;
+
   border-radius: 50%;
   margin-top: 3px;
   width: 45px;
   background-color: white;
+  border: 2px solid white;
 
-
-      border: 2px solid white;
 }
 
 .cryptoImage:hover {
   cursor: pointer;
 }
 
-.cryptoImage3 {
-  position: absolute;
-  margin-top: 3px;
-  width: 45px;
-  background-color: white;
-    border-radius: 50%;
-    right: 155px;
-
-      border: 2px solid white;
-}
-
-.cryptoImage3:hover {
-  cursor: pointer;
-}
-
-.cryptoImage4 {
-  position: absolute;
-  margin-top: 3px;
-  width: 45px;
-  background-color: white;
-    border-radius: 50%;
-    right: 85px;
-
-      border: 2px solid white;
-}
-
-.cryptoImage4:hover {
-  cursor: pointer;
-}
-
-.cryptoImage5 {
-  position: absolute;
-  margin-top: 3px;
-  width: 45px;
-  background-color: white;
-    border-radius: 50%;
-    right: 15px;
-
-      border: 2px solid white;
-}
-
-.cryptoImage5:hover {
-  cursor: pointer;
-}
-
-@media screen and (max-width: 1200px) and (orientation: portrait) {
-  .cryptoImage {
-
-  }
-}
-
 @media screen and (max-width: 1200px) and (orientation: landscape) {
   .cryptoImage {
 
   }
+}
+
+#fourthCoinButton {
+
+}
+
+@media screen and (max-width: 1200px) {
+  #fourthCoinButton {
+    display: none;
+  }
+}
+
+#thirdCoinButton {
+
+}
+
+@media screen and (max-width: 900px) {
+  #thirdCoinButton {
+    display: none;
+  }
+}
+
+#secondCoinButton {
+
+}
+
+@media screen and (max-width: 600px) {
+  #secondCoinButton {
+    display: none;
+  }
+}
+
+.quickButtonContainer {
+
 }
 
 .cryptoImageBackground {
@@ -153,20 +138,7 @@
   width: 20vw;
   background-color: white;
   filter: grayscale(75%);
-  max-width: 500px;
   min-width: 200px;
-}
-
-@media screen and (max-height: 850px) {
-  .cryptoImageBackground {
-    width: 15vw;
-  }
-}
-
-@media screen and (min-width: 2100px) {
-  .cryptoImageBackground {
-    width: 12vw;
-  }
 }
 
 .form-control {
@@ -223,6 +195,12 @@
 
 .cryptoSubmit {
   background-color: #373d42 !important;
+  height: 33px;
+  width: 50px !important;
+  background-color: #1d1a1a !important;
+  border-color: #1d1a1a !important;
+  box-shadow: none !important;
+  font-size: .8rem !important;
 }
 
 .NoName {
@@ -255,9 +233,7 @@
   position: absolute;
   right: 10px;
   z-index: 2;
-  padding: 4px;
-  height: 35px;
-  bottom: 20px;
+  bottom: 12px;
 }
 
 .currButton {
@@ -265,6 +241,8 @@
   background-color: #1d1a1a !important;
   border-color: #1d1a1a !important;
   box-shadow: none !important;
+  height: 33px !important;
+  font-size: .8rem !important;
 }
 
 .currButton.active, .currButton.focus {
@@ -274,7 +252,21 @@
 }
 
 .textField {
-  text-transform:uppercase
+  text-transform:uppercase;
+  background-color: #bebebe !important;
+  color: black !important;
+  height: 33px !important;
+}
+
+.textField:focus, .textField:visited, .textField:action {
+  border-color: black !important;
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control:focus, .form-control:visited {
+  outline: none !important;
+  box-shadow:none !important;
 }
 
 .bar1 {

@@ -1,0 +1,21 @@
+.cryptoImageBackgroundChartInfo {
+  position: absolute;
+  left: 50%;
+  transform: translate(-20%, -50%);
+  top: 50%;
+  z-index: -1;
+  width: 300px;
+  background-color: white;
+  filter: grayscale(0%);
+
+
+
+}
+
+.chartInfoChild {
+  background: #515151eb;
+  display: flex;
+  padding: 6px;
+  padding-left: 10px;
+  height: inherit;
+};

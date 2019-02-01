@@ -30,6 +30,8 @@
   background: white;
   padding-top: 0px;
   padding-bottom: 0px;
+  border-radius: 4px;
+
 }
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
@@ -45,22 +47,26 @@
   font-family: 'Poppins', sans-serif;
   color: #c7c7c7;
   width: 300px !important;
-  padding: 5px;
+  padding: 0px;
   list-style: none;
   text-align: left;
-  padding-top: 9px;
-  padding-left: 12px;
-  padding-right: 11px;
+  padding-top: 0px;
   right: -29%;
   top: 0%;
   border: 1px solid white;
   max-width: 26.666667% !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  background: white;
+  overflow: hidden;
+  border-radius: 4px;
+  height: 243px;
 }
 
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
   .Nochartheader {
     font-size: .8rem;
   }
@@ -105,6 +111,7 @@
   background: white;
   padding-top: 0px;
   padding-bottom: 0px;
+  border-radius: 4px;
 }
 
 @media screen and (max-height: 800px) {
@@ -143,6 +150,7 @@
   left: 1%;
   border: 1px solid white;
   margin-top: 15px;
+  border-radius: 4px;
 }
 
 .cryptoImage2 {
@@ -156,22 +164,19 @@
 }
 
 .cryptoImageContainer {
-position: fixed !important;
-right: -29%;
-width: 300px !important;
-padding: 5px 5px 5px 5px;
-bottom: -4vh;
-z-index: 20;
-height: 63px;
-top: 0%;
-border: 1px solid white;
-margin-top: 196px;
-max-width: 26.666667% !important;
+  position: fixed !important;
+  bottom: -4vh;
+  z-index: 20;
+  height: 63px;
+  max-width: 26.666667% !important;
+  left: -60px;
+  bottom: -13px;
 }
 
 .cryptoInput {
   margin-top: 5px;
   margin-left: 75px;
+  width: max-content;
 }
 
 .coinButtonBank {
@@ -182,10 +187,17 @@ max-width: 26.666667% !important;
   bottom: -4vh;
   z-index: 20;
   height: 63px;
-  top: 0%;
+  top: 6%;
   border: 1px solid white;
-  margin-top: 277px;
+  margin-top: 231px;
   max-width: 26.666667% !important;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+
 }
 
 
@@ -236,11 +248,12 @@ max-width: 26.666667% !important;
 .NoGraphChild {
   position: relative;
   padding: 25px;
-  border: solid .1px white;
+  border: solid 1px white;
   padding-bottom: 40px;
   padding-left: 2px;
   padding-top: 40px;
-  background: #515151eb;
+  background: #5d5d5df5;
+  border-radius: 4px;
 
 }
 
@@ -254,10 +267,12 @@ max-width: 26.666667% !important;
   position: relative;
   padding: 25px;
   padding-bottom: 40px;
-  border: solid .1px white;
+  border: solid 1px white;
   padding-left: 2px;
   padding-top: 40px;
   background: #515151eb;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 .toggled {
@@ -280,7 +295,7 @@ max-width: 26.666667% !important;
 
 @media screen and (max-width: 1200px) and (orientation: portrait) {
   .daysselector {
-        padding-bottom: 25px;
+
   }
 }
 
@@ -295,75 +310,57 @@ max-width: 26.666667% !important;
 }
 
 .cryptoImage {
-  position: absolute;
+
   border-radius: 50%;
   margin-top: 3px;
   width: 45px;
   background-color: white;
+  border: 2px solid white;
 
-
-      border: 2px solid white;
 }
 
 .cryptoImage:hover {
   cursor: pointer;
 }
 
-.cryptoImage3 {
-  position: absolute;
-  margin-top: 3px;
-  width: 45px;
-  background-color: white;
-    border-radius: 50%;
-    right: 155px;
-
-      border: 2px solid white;
-}
-
-.cryptoImage3:hover {
-  cursor: pointer;
-}
-
-.cryptoImage4 {
-  position: absolute;
-  margin-top: 3px;
-  width: 45px;
-  background-color: white;
-    border-radius: 50%;
-    right: 85px;
-
-      border: 2px solid white;
-}
-
-.cryptoImage4:hover {
-  cursor: pointer;
-}
-
-.cryptoImage5 {
-  position: absolute;
-  margin-top: 3px;
-  width: 45px;
-  background-color: white;
-    border-radius: 50%;
-    right: 15px;
-
-      border: 2px solid white;
-}
-
-.cryptoImage5:hover {
-  cursor: pointer;
-}
-
-@media screen and (max-width: 1200px) and (orientation: portrait) {
-  .cryptoImage {
-
-  }
-}
-
 @media screen and (max-width: 1200px) and (orientation: landscape) {
   .cryptoImage {
 
   }
+}
+
+#fourthCoinButton {
+
+}
+
+@media screen and (max-width: 1200px) {
+  #fourthCoinButton {
+    display: none;
+  }
+}
+
+#thirdCoinButton {
+
+}
+
+@media screen and (max-width: 900px) {
+  #thirdCoinButton {
+    display: none;
+  }
+}
+
+#secondCoinButton {
+
+}
+
+@media screen and (max-width: 600px) {
+  #secondCoinButton {
+    display: none;
+  }
+}
+
+.quickButtonContainer {
+
 }
 
 .cryptoImageBackground {
@@ -375,20 +372,7 @@ max-width: 26.666667% !important;
   width: 20vw;
   background-color: white;
   filter: grayscale(75%);
-  max-width: 500px;
   min-width: 200px;
-}
-
-@media screen and (max-height: 850px) {
-  .cryptoImageBackground {
-    width: 15vw;
-  }
-}
-
-@media screen and (min-width: 2100px) {
-  .cryptoImageBackground {
-    width: 12vw;
-  }
 }
 
 .form-control {
@@ -445,6 +429,12 @@ max-width: 26.666667% !important;
 
 .cryptoSubmit {
   background-color: #373d42 !important;
+  height: 33px;
+  width: 50px !important;
+  background-color: #1d1a1a !important;
+  border-color: #1d1a1a !important;
+  box-shadow: none !important;
+  font-size: .8rem !important;
 }
 
 .NoName {
@@ -477,9 +467,7 @@ max-width: 26.666667% !important;
   position: absolute;
   right: 10px;
   z-index: 2;
-  padding: 4px;
-  height: 35px;
-  bottom: 20px;
+  bottom: 12px;
 }
 
 .currButton {
@@ -487,6 +475,8 @@ max-width: 26.666667% !important;
   background-color: #1d1a1a !important;
   border-color: #1d1a1a !important;
   box-shadow: none !important;
+  height: 33px !important;
+  font-size: .8rem !important;
 }
 
 .currButton.active, .currButton.focus {
@@ -496,7 +486,21 @@ max-width: 26.666667% !important;
 }
 
 .textField {
-  text-transform:uppercase
+  text-transform:uppercase;
+  background-color: #bebebe !important;
+  color: black !important;
+  height: 33px !important;
+}
+
+.textField:focus, .textField:visited, .textField:action {
+  border-color: black !important;
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control:focus, .form-control:visited {
+  outline: none !important;
+  box-shadow:none !important;
 }
 
 .bar1 {
@@ -547,6 +551,28 @@ max-width: 26.666667% !important;
   color: yellow !important;
 }
 
+.cryptoImageBackgroundChartInfo {
+  position: absolute;
+  left: 50%;
+  transform: translate(-20%, -50%);
+  top: 50%;
+  z-index: -1;
+  width: 300px;
+  background-color: white;
+  filter: grayscale(0%);
+
+
+
+}
+
+.chartInfoChild {
+  background: #515151eb;
+  display: flex;
+  padding: 6px;
+  padding-left: 10px;
+  height: inherit;
+};
+
 .off-canvas {
   width: 300px !important;
   position: fixed !important;
@@ -562,6 +588,7 @@ max-width: 26.666667% !important;
   overflow-y: scroll;
    scrollbar-width: none; /* Firefox */
    -ms-overflow-style: none;  /* IE 10+ */
+  border-radius: 4px;
 }
 
 .off-canvas::-webkit-scrollbar { /* WebKit */
@@ -684,6 +711,8 @@ max-width: 26.666667% !important;
   color: #1d1a1a;
   font-size: 14px;
 }
+
+html,body { height:100%; }
 
 .spinner {
   position: absolute;

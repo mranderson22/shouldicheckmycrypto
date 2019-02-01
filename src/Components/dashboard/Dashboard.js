@@ -462,6 +462,7 @@ class Dashboard extends Component {
     if (sideBarOpener === true) {
       this.addSidebar();
     }
+    this.scrollSidebarToTop();
   }
 
   handleSubmit2(e) {
@@ -498,6 +499,7 @@ class Dashboard extends Component {
     if (sideBarOpener === true) {
       this.addSidebar();
     }
+    this.scrollSidebarToTop();
   }
 
   handleSubmit3(e, pos) {
@@ -505,6 +507,7 @@ class Dashboard extends Component {
     e.persist();
     if (coinLog[pos] === 'BTC') {
       this.setState({ curr: 'USD' });
+      this.scrollSidebarToTop();
     }
     this.setState({ value: coinLog[pos], coin: coinLog[pos] }, () => {
       this.handleSubmit1(e);
@@ -516,6 +519,7 @@ class Dashboard extends Component {
     e.persist();
     if (coinLog2[pos] === 'BTC') {
       this.setState({ curr2: 'USD' });
+      this.scrollSidebarToTop();
     }
     this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos] }, () => {
       this.handleSubmit2(e);
@@ -538,6 +542,17 @@ class Dashboard extends Component {
         this.handleSubmit2(e);
       });
     }
+  }
+
+  scrollSidebarToTop() {
+    const sidebar = document.getElementById('sidebarContainer');
+    setTimeout(() => {
+      sidebar.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+    }, 800);
   }
 
   findSymbol(num) {
@@ -765,6 +780,8 @@ class Dashboard extends Component {
     }
   }
 
+
+
   addToCoinlog(num) {
     const { coinLog } = this.state;
     const { value } = this.state;
@@ -815,16 +832,17 @@ class Dashboard extends Component {
                   currentBTCPrice={currentBTCPrice}
                 />
             </div>
-              <div className=" col-sm-2 off-canvas">
+              <div id="sidebarContainer" className=" col-sm-2 off-canvas">
                 <Sidebar
                   topList={topList.map((x, y) =>
-                    <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
+                    (
+                      <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
                       {this.handleSubmit5(e, x.symbol)}}>
-                      <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
-                      <span className="sidebarCoin">{x.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                      <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
-                      {x.percent_change_24h + '%'}</span>
-                      </button>)}
+                        <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
+                        <span className="sidebarCoin">{x.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
+                        {x.percent_change_24h + '%'}</span>
+                      </button>))}
                 />
             </div>
           </div>
@@ -856,21 +874,23 @@ class Dashboard extends Component {
                     sideBarOpener={sideBarOpener}
                     inputValue={inputValue}
                   />
-                  { freshReveal ? (
-                    <div
-                      className="exitButton"
-                      onClick={() => {
-                        this.addGraph(2) }
-                      }
-                      onKeyDown={() => {
-                        this.addGraph(2) }
-                      }
-                      role="button"
-                      tabIndex={0}
-                    >
-                      <img className="exitImage" alt="" src={exit} />
-                    </div>
-                  ) : null}
+                  {/*
+                    { freshReveal ? (
+                      <div
+                        className="exitButton"
+                        onClick={() => {
+                          this.addGraph(2) }
+                        }
+                        onKeyDown={() => {
+                          this.addGraph(2) }
+                        }
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <img className="exitImage" alt="" src={exit} />
+                      </div>
+                    ) : null}
+                    */}
                 </Resize>
               </Reveal>
               <div>
