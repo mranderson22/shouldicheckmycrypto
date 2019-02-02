@@ -830,7 +830,7 @@ class Dashboard extends Component {
                   currentBTCPrice={currentBTCPrice}
                 />
             </div>
-              <div id="sidebarContainer" className=" col-sm-2 off-canvas">
+              <div id="sidebarContainer" className="col-sm-2 sidebar">
                 <Sidebar
                   topList={topList.map((x, y) =>
                     (

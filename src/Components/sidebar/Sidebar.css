@@ -1,4 +1,4 @@
-.off-canvas {
+.sidebar {
   width: 300px !important;
   position: fixed !important;
   left: 1%;
@@ -16,30 +16,30 @@
   border-radius: 4px;
 }
 
-.off-canvas::-webkit-scrollbar { /* WebKit */
+.sidebar::-webkit-scrollbar { /* WebKit */
     width: 0px;
 }
 
 @media screen and (max-height: 750px) {
-  .off-canvas {
+  .sidebar {
     height: 79.5%;
   }
 }
 
 @media screen and (min-height: 900px) {
-  .off-canvas {
+  .sidebar {
     height: 85.3%;
   }
 }
 
 @media screen and (min-height: 1050px) {
-  .off-canvas {
+  .sidebar {
     height: 84.2%;
   }
 }
 
 @media screen and (min-height: 1150px) {
-  .off-canvas {
+  .sidebar {
     height: 83.4%;
   }
 }
