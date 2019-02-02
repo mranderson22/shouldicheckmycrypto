@@ -712,8 +712,6 @@
   font-size: 14px;
 }
 
-html,body { height:100%; }
-
 .spinner {
   position: absolute;
   top: 45%;
