@@ -200,6 +200,52 @@
 
 }
 
+.sidebar {
+  width: 300px !important;
+  position: fixed !important;
+  left: 1%;
+  top: 0%;
+  height: 85.3%;
+  z-index: 1060;
+  font-family: 'Poppins', sans-serif;
+  border: 1px solid white;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-top: 98px;
+  overflow-y: scroll;
+   scrollbar-width: none; /* Firefox */
+   -ms-overflow-style: none;  /* IE 10+ */
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar { /* WebKit */
+    width: 0px;
+}
+
+@media screen and (max-height: 750px) {
+  .sidebar {
+    height: 79.5%;
+  }
+}
+
+@media screen and (min-height: 900px) {
+  .sidebar {
+    height: 85.3%;
+  }
+}
+
+@media screen and (min-height: 1050px) {
+  .sidebar {
+    height: 84.2%;
+  }
+}
+
+@media screen and (min-height: 1150px) {
+  .sidebar {
+    height: 83.4%;
+  }
+}
+
 
 
 .bitcoinCurrentPrice {
@@ -572,52 +618,6 @@
   padding-left: 10px;
   height: inherit;
 };
-
-.sidebar {
-  width: 300px !important;
-  position: fixed !important;
-  left: 1%;
-  top: 0%;
-  height: 85.3%;
-  z-index: 1060;
-  font-family: 'Poppins', sans-serif;
-  border: 1px solid white;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  margin-top: 98px;
-  overflow-y: scroll;
-   scrollbar-width: none; /* Firefox */
-   -ms-overflow-style: none;  /* IE 10+ */
-  border-radius: 4px;
-}
-
-.sidebar::-webkit-scrollbar { /* WebKit */
-    width: 0px;
-}
-
-@media screen and (max-height: 750px) {
-  .sidebar {
-    height: 79.5%;
-  }
-}
-
-@media screen and (min-height: 900px) {
-  .sidebar {
-    height: 85.3%;
-  }
-}
-
-@media screen and (min-height: 1050px) {
-  .sidebar {
-    height: 84.2%;
-  }
-}
-
-@media screen and (min-height: 1150px) {
-  .sidebar {
-    height: 83.4%;
-  }
-}
 
 .sidebarCoin {
   font-size: 16px;
