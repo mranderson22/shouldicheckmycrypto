@@ -780,8 +780,6 @@ class Dashboard extends Component {
     }
   }
 
-
-
   addToCoinlog(num) {
     const { coinLog } = this.state;
     const { value } = this.state;
