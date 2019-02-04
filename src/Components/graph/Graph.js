@@ -44,8 +44,51 @@ class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rSelected2: 5
+      rSelected2: 5,
+      hovered: false
     };
+    this.scrollEvent = this.scrollEvent.bind(this);
+  }
+
+componentDidMount() {
+    window.addEventListener('wheel', this.scrollEvent);
+  }
+
+  scrollEvent(e) {
+    const { onHistoryChange } = this.props;
+    const { days } = this.props;
+    const { graphFocus } = this.props;
+    const { hovered } = this.state;
+    if (graphFocus === 1 && hovered) {
+      if (e.deltaY > 0) {
+        if (days === 1500) {
+          onHistoryChange(365);
+        }
+        else if (days === 365) {
+          onHistoryChange(180);
+        }
+        else if (days === 180) {
+          onHistoryChange(60);
+        }
+        else if (days === 90) {
+          onHistoryChange(30);
+        }
+      }
+      else if (e.deltaY < 0 && hovered) {
+        if (days === 31) {
+          onHistoryChange(60);
+        }
+        else if (days === 90) {
+          onHistoryChange(180);
+        }
+        else if (days === 180) {
+          onHistoryChange(365);
+        }
+        else if (days === 365) {
+          onHistoryChange(1000);
+        }
+      }
+    }
   }
 
   render() {
@@ -174,7 +217,10 @@ class Graph extends Component {
 
 
     return (
-      <div className={`${answer ? 'Yes' : 'No'}GraphChild`}>
+      <div
+        onMouseEnter={() => this.setState({ hovered: true })}
+        onMouseLeave={() => this.setState({ hovered: false })}
+        className={`${answer ? 'Yes' : 'No'}GraphChild`}>
 
           <img alt="" className="cryptoImageBackground" src={Image2} />
 

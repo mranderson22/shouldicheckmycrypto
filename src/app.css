@@ -1,3 +1,11 @@
+html, body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
 .spinner {
   position: absolute;
   top: 45%;
@@ -12,12 +20,12 @@
 
 .Answernobackground {
   height: 100vh;
-  background: #606060;
+  background: #494949;
   position: static;
 }
 
 .Answernono {
-  height: 100vh;
+  height: inherit;
   /* background-image: linear-gradient(#bb0718ad, #00000085); */
   padding: 0;
   justify-content: stretch;
@@ -27,7 +35,7 @@
 }
 
 .Answernoyes {
-  height: 101vh;
+  height: inherit;
   padding: 0;
   justify-content: stretch;
   align-items: center;

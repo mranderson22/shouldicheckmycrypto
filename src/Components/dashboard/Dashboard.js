@@ -214,7 +214,7 @@ class Dashboard extends Component {
   }
 
 
-  onHistoryChange(num = 31) {
+  onHistoryChange(num = 30) {
     if (num === 30) {
       this.fetchCryptocurrencyHistory(1, 31);
     }
@@ -815,14 +815,12 @@ class Dashboard extends Component {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus
+      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus, graphFocus2
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice
     } = this.props;
     return (
-      <div id="dashboard" className="Nodashboardcontainer">
-        <div className={`${answer ? 'Yes' : 'No'}dashboard`}>
           <div className="container-fluid">
             <div className="row">
               <div className="col-sm-2 bitcoinTrackerWrapper">
@@ -848,7 +846,7 @@ class Dashboard extends Component {
                 <Resize
                   className="col-sm-10 NoGraph"
                   pose={pose}
-                  onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1 }) : null}>
+                  onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1, graphFocus2: 2 }) : null}>
                   <Graph
                     dataNew={dataNew}
                     graphData={graphData}
@@ -871,6 +869,7 @@ class Dashboard extends Component {
                     addSidebar={this.addSidebar}
                     sideBarOpener={sideBarOpener}
                     inputValue={inputValue}
+                    graphFocus={graphFocus}
                   />
                   {/*
                     { freshReveal ? (
@@ -896,7 +895,7 @@ class Dashboard extends Component {
                   <Reveal3
                     className="NoGraphNew"
                     pose={pose2}
-                    onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 2 }) : null}>
+                    onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 2, graphFocus2: 1 }) : null}>
                     <Graph
                       isEnabled={isEnabled2}
                       dataNew={dataNew2}
@@ -920,6 +919,7 @@ class Dashboard extends Component {
                       addSidebar={this.addSidebar}
                       sideBarOpener={sideBarOpener}
                       inputValue={inputValue2}
+                      graphFocus={graphFocus2}
                     />
                     {isGraphVisible ? (
                       <div
@@ -979,8 +979,6 @@ class Dashboard extends Component {
           </Reveal2>
           */}
           </div>
-        </div>
-        </div>
     );
   }
 }

@@ -2,12 +2,24 @@
 .NoChartActual {
   height: 65vh;
   width: 60vw;
-  min-height: 275px !important;
+  min-height: 162px !important;
 }
 
-@media screen and (max-height: 850px) {
+@media screen and (max-height: 800px) {
   .NoChartActual {
-    height: 60vh;
+    height: 35vh !important;
+  }
+}
+
+@media screen and (max-height: 650px) {
+  .NoChartActual {
+    height: 25vh !important;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .NoChartActual {
+    width: 90vw !important;
   }
 }
 
@@ -20,12 +32,12 @@
   padding-top: 40px;
   background: #5d5d5df5;
   border-radius: 4px;
-
+  overflow: hidden;
 }
 
-@media screen and (max-width: 1200px) and (orientation: portrait) {
+@media screen and (max-width: 950px) {
   .NoGraphChild {
-
+    width: 100% !important;
   }
 }
 
@@ -39,6 +51,12 @@
   background: #515151eb;
   border-radius: 4px;
   overflow: hidden;
+}
+
+@media screen and (max-width: 950px) {
+  .YesGraphChild {
+    width: 100% !important;
+  }
 }
 
 .toggled {
@@ -234,6 +252,12 @@
   right: 10px;
   z-index: 2;
   bottom: 12px;
+}
+
+@media screen and (max-width: 1200px) {
+  .currSelector {
+    display: none;
+  }
 }
 
 .currButton {

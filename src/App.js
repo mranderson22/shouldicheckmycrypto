@@ -262,7 +262,6 @@ class App extends Component {
 
 
     return (
-      <div>
         <div className="Answernobackground">
           <div className={`Answerno${answer ? 'yes' : 'no'}`}>
             <div className={`Answerbox${answer ? 'yes' : 'no'}`}>
@@ -310,7 +309,6 @@ class App extends Component {
             }
           </div>
         </div>
-      </div>
     );
   }
 }
