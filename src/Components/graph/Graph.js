@@ -6,6 +6,10 @@ import {
   Button, ButtonGroup, Form, Label, Input, FormGroup
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
+import exit from '../../../images/XCircle.png';
+import heart from '../../../images/heart.png';
+import heartFilled from '../../../images/heartFilled.png';
+import reload from '../../../images/reload.png';
 import PropTypes from 'prop-types';
 import ChartInfo from '../chartInfo/ChartInfo';
 
@@ -94,7 +98,8 @@ componentDidMount() {
   render() {
     const {
       dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
-      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2, addSidebar, sideBarOpener, inputValue
+      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2,
+      addSidebar, sideBarOpener, inputValue, secondGraphVisible, graphFocus, addGraph, handleSubmit5, addToFavorites, favorites
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
@@ -218,29 +223,22 @@ componentDidMount() {
 
     return (
       <div
-        onMouseEnter={() => this.setState({ hovered: true })}
-        onMouseLeave={() => this.setState({ hovered: false })}
         className={`${answer ? 'Yes' : 'No'}GraphChild`}>
-
-          <img alt="" className="cryptoImageBackground" src={Image2} />
-
-
+        <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
           { `${name} / ${curr}`}
         </div>
-
-          <ResizeNoChartActual className="NoChartActual" pose="resized">
+        <ResizeNoChartActual className="NoChartActual" pose="resized">
           <Bar
             data={graphData}
             options={options}
           />
-      </ResizeNoChartActual>
+        </ResizeNoChartActual>
         <div className="daysselector">
           <Button
             className="selectorButtons"
             color="primary"
             onClick={() => {
-
               onHistoryChange(30);
             }
           }
@@ -254,7 +252,6 @@ componentDidMount() {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-
               onHistoryChange(60);
             }
           }
@@ -268,7 +265,6 @@ componentDidMount() {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-
               onHistoryChange(180);
             }
           }
@@ -282,7 +278,6 @@ componentDidMount() {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-
               onHistoryChange(365);
             }
           }
@@ -296,7 +291,6 @@ componentDidMount() {
             className="selectorButtons"
             color="primary"
             onClick={() => {
-
               onHistoryChange(1000);
             }
           }
@@ -352,32 +346,72 @@ componentDidMount() {
             { cryptoImage[1] &&
               (
                 <div className="quickButtonContainer" id="firstCoinButton">
-                <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
-              </div>
+                  <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+                </div>
               )
               }
             { cryptoImage[2] &&
               (
-            <div className="quickButtonContainer" id="secondCoinButton">
-              <img alt="" className="cryptoImage" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
-            </div>
+                <div className="quickButtonContainer" id="secondCoinButton">
+                  <img alt="" className="cryptoImage" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
+                </div>
               )
               }
             { cryptoImage[3] &&
               (
-            <div className="quickButtonContainer" id="thirdCoinButton">
-              <img alt="" className="cryptoImage" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
-            </div>
+                <div className="quickButtonContainer" id="thirdCoinButton">
+                  <img alt="" className="cryptoImage" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
+                </div>
               )
               }
             { cryptoImage[4] &&
               (
-            <div className="quickButtonContainer" id="fourthCoinButton">
-              <img alt="" className="cryptoImage" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
-            </div>
+                <div className="quickButtonContainer" id="fourthCoinButton">
+                  <img alt="" className="cryptoImage" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
+                </div>
               )
               }
           </div>
+        <div className="optionsBank">
+          <div className="favoriteButton" onClick={() => {
+              addToFavorites(); }
+            }>
+            <img className="optionsImage large" alt="" src={
+                favorites.indexOf(value) === -1 ? heart : heartFilled
+              } />
+          </div>
+          <div
+            className="reloadButton"
+            onClick={(e) => {
+              handleSubmit5(e, value);
+            }, () => {
+              onHistoryChange(days);
+            }
+          }
+            onKeyDown={() => {
+              '';
+            }
+          }
+            role="button"
+            tabIndex={0}
+          >
+            <img className="optionsImage" alt="" src={reload} />
+          </div>
+          {secondGraphVisible ? (
+            <div
+              className="exitButton"
+              onClick={() => {
+                addGraph(1); }
+              }
+              onKeyDown={() => {
+                ''; }
+              }
+              role="button"
+              tabIndex={0}
+              >
+              <img className="optionsImage" alt="" src={exit} />
+            </div>) : null }
+        </div>
       </div>
     );
   }

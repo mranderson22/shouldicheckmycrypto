@@ -175,17 +175,6 @@
   z-index: -1;
 }
 
-.exitButton {
-  position: absolute;
-  top: .3vh;
-  right: 0.3%;
-  cursor: pointer;
-}
-
-.exitImage {
-  width: 35px;
-}
-
 .bitcoinTrackerWrapperYes {
   width: 300px !important;
   height: 63px;
@@ -384,6 +373,25 @@
   z-index: -1;
 }
 
+.optionsBank {
+    position: absolute;
+    top: .3vh;
+    right: 0.3%;
+    height: 150px;
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.exitButton {
+  cursor: pointer;
+}
+
+.exitImage {
+  width: 35px;
+}
+
 
 
 .bitcoinCurrentPrice {
@@ -392,7 +400,6 @@
   font-family: 'Poppins', sans-serif;
   padding-top: 7px;
   text-align: center;
-  margin-left: 15px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -758,6 +765,40 @@
 
 .coinInfoTitles {
   color: yellow !important;
+}
+
+.optionsBank {
+  position: absolute;
+  top: .3vh;
+  right: 0.3%;
+  height: 35px;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+.exitButton {
+  cursor: pointer;
+}
+
+.favoriteButton {
+  cursor: pointer;
+}
+
+.reloadButton {
+  cursor: pointer;
+}
+
+.optionsImage {
+  width: 25px;
+  margin-left: 8px;
+}
+
+.large {
+  width: 27px;
 }
 
 .cryptoImageBackgroundChartInfo {

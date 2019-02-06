@@ -11,6 +11,7 @@ class Sidebar extends Component {
     this.getBottomPercentage = this.getBottomPercentage.bind(this);
     this.getRanking = this.getRanking.bind(this);
     this.sidebarTemplate = this.sidebarTemplate.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
   }
 
   componentDidMount() {
@@ -18,6 +19,7 @@ class Sidebar extends Component {
     document.getElementById('topPercentage').addEventListener('click', this.getTopPercentage);
     document.getElementById('bottomPercentage').addEventListener('click', this.getBottomPercentage);
     document.getElementById('ranked').addEventListener('click', this.getRanking);
+    document.getElementById('favorites').addEventListener('click', this.getFavorites);
     this.sidebarTemplate(topList);
   }
 
@@ -45,6 +47,15 @@ class Sidebar extends Component {
     });
   }
 
+  getFavorites() {
+    const { favorites } = this.props;
+    const { topList } = this.props;
+    this.setState({ listStatus: 'Favorites' }, () => {
+      const newFavorites = topList.filter(coins => favorites.includes(coins.symbol));
+      this.sidebarTemplate(newFavorites);
+    });
+  }
+
   sidebarTemplate(list) {
     const { handleSubmit5 } = this.props;
     const newRankingList = list.map((x, y) =>
@@ -66,9 +77,10 @@ class Sidebar extends Component {
       <div>
         <div className="list-group listAddOn">
           <nav id="nav" className="nav nav-pills nav-fill">
-            <a className={listStatus === 'Ranked' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="ranked">Ranking</a>
-            <a className={listStatus === 'Top' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="topPercentage">Top %</a>
-            <a className={listStatus === 'Bottom' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="bottomPercentage">Bottom %</a>
+            <a className={listStatus === 'Ranked' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="ranked">1.2.3.</a>
+            <a className={listStatus === 'Top' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="topPercentage">%</a>
+            <a className={listStatus === 'Bottom' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="bottomPercentage">%</a>
+            <a className={listStatus === 'Favorites' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="favorites">Fav</a>
           </nav>
           {newRankingList}
         </div>

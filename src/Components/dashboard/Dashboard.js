@@ -14,7 +14,6 @@ import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
-import exit from '../../../images/XCircle.png';
 import burgerMenu from '../../../images/burgerMenu.png';
 
 const Hover = posed.div({
@@ -123,6 +122,7 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      favorites: [],
       graphFocus: 1,
       inputValue: '',
       inputValue2: '',
@@ -180,6 +180,7 @@ class Dashboard extends Component {
     this.handleSubmit3 = this.handleSubmit3.bind(this);
     this.handleSubmit4 = this.handleSubmit4.bind(this);
     this.handleSubmit5 = this.handleSubmit5.bind(this);
+    this.addToFavorites = this.addToFavorites.bind(this);
   }
 
   async componentDidMount() {
@@ -811,12 +812,27 @@ class Dashboard extends Component {
     }
   }
 
+  addToFavorites() {
+    const { value } = this.state;
+    const { value2 } = this.state;
+    const { data } = this.props;
+    const { favorites } = this.state;
+    const { graphFocus } = this.state;
+    if (graphFocus === 1) {
+      favorites.indexOf(value) === -1 ? favorites.push(value) : console.log('duplicate');
+      }
+      else if (graphFocus === 2) {
+        favorites.indexOf(value2) === -1 ? favorites.push(value2) : console.log('duplicate');
+      }
+    }
+
+
   render() {
     const {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus, graphFocus2
+      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus, graphFocus2, addGraph, favorites
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice
@@ -835,6 +851,7 @@ class Dashboard extends Component {
                 <Sidebar
                   topList={topList}
                   handleSubmit5={this.handleSubmit5}
+                  favorites={favorites}
                 />
             </div>
           </div>
@@ -853,6 +870,7 @@ class Dashboard extends Component {
                     onHistoryChange={this.onHistoryChange}
                     handleSubmit={this.handleSubmit1}
                     handleSubmit3={this.handleSubmit3}
+                    handleSubmit5={this.handleSubmit5}
                     handleChange={this.handleChange1}
                     answer={answer}
                     changeCurrency={this.changeCurrency1}
@@ -866,6 +884,9 @@ class Dashboard extends Component {
                     sideBarOpener={sideBarOpener}
                     inputValue={inputValue}
                     graphFocus={graphFocus}
+                    addGraph={this.addGraph}
+                    addToFavorites={this.addToFavorites}
+                    favorites={favorites}
                   />
                   {/*
                     { freshReveal ? (
@@ -905,6 +926,7 @@ class Dashboard extends Component {
                       onHistoryChange={this.onHistoryChange2}
                       handleSubmit={this.handleSubmit2}
                       handleSubmit3={this.handleSubmit4}
+                      handleSubmit5={this.handleSubmit5}
                       handleChange={this.handleChange2}
                       answer={answer}
                       changeCurrency={this.changeCurrency2}
@@ -918,23 +940,12 @@ class Dashboard extends Component {
                       sideBarOpener={sideBarOpener}
                       inputValue={inputValue2}
                       graphFocus={graphFocus2}
+                      addGraph={this.addGraph}
+                      addToFavorites={this.addToFavorites}
+                      favorites={favorites}
                     />
-                    {isGraphVisible ? (
-                      <div
-                        className="exitButton"
-                        onClick={() => {
-                          this.addGraph(1) }
-                        }
-                        onKeyDown={() => {
-                          this.addGraph(1) }
-                        }
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <img className="exitImage" alt="" src={exit} />
-                      </div>) : null }
-                      {graphFocus === 2 && <div className="graphConnector"></div>}
-                      <div className="graphConnectorSide"></div>
+                    {graphFocus === 2 && <div className="graphConnector"></div>}
+                    <div className="graphConnectorSide"></div>
                   </Reveal3>
                 ) : null
               }
