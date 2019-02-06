@@ -179,6 +179,7 @@ class Dashboard extends Component {
     this.handleSubmit2 = this.handleSubmit2.bind(this);
     this.handleSubmit3 = this.handleSubmit3.bind(this);
     this.handleSubmit4 = this.handleSubmit4.bind(this);
+    this.handleSubmit5 = this.handleSubmit5.bind(this);
   }
 
   async componentDidMount() {
@@ -823,22 +824,17 @@ class Dashboard extends Component {
     return (
           <div className="container-fluid">
             <div className="row">
-              <div className="col-sm-2 bitcoinTrackerWrapper">
+              <div className={answer === true ? "col-sm-2 bitcoinTrackerWrapperYes" :
+                "col-sm-2 bitcoinTrackerWrapperNo"
+              }>
                 <BitcoinTracker
                   currentBTCPrice={currentBTCPrice}
                 />
             </div>
               <div id="sidebarContainer" className="col-sm-2 sidebar">
                 <Sidebar
-                  topList={topList.map((x, y) =>
-                    (
-                      <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
-                      {this.handleSubmit5(e, x.symbol)}}>
-                        <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
-                        <span className="sidebarCoin">{x.id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
-                        {x.percent_change_24h + '%'}</span>
-                      </button>))}
+                  topList={topList}
+                  handleSubmit5={this.handleSubmit5}
                 />
             </div>
           </div>
@@ -888,6 +884,8 @@ class Dashboard extends Component {
                       </div>
                     ) : null}
                     */}
+                  {graphFocus === 1 && <div className="graphConnector"></div>}
+                  <div className="graphConnectorSide"></div>
                 </Resize>
               </Reveal>
               <div>
@@ -935,6 +933,8 @@ class Dashboard extends Component {
                       >
                         <img className="exitImage" alt="" src={exit} />
                       </div>) : null }
+                      {graphFocus === 2 && <div className="graphConnector"></div>}
+                      <div className="graphConnectorSide"></div>
                   </Reveal3>
                 ) : null
               }

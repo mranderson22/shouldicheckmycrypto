@@ -64,7 +64,7 @@
 
   .listAddOn .list-group-item {
 
-    color: #c7c7c7;
+    color: #dbdbdb;
     padding: .8rem;
     cursor: pointer;
     background-color: #1d1a1a00 !important;
@@ -89,4 +89,19 @@
 .sidebarRank {
   color: #1d1a1a;
   font-size: 14px;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show .nav-link {
+    color: white !important;
+    background-color: #5f5f5f !important;
+    font-size: 15px;
+}
+
+a {
+    color: #000000 !important;
+    font-size: 15px;
+}
+
+#nav {
+  background: #404040;
 }

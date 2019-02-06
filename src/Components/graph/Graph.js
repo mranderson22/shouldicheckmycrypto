@@ -349,20 +349,36 @@ componentDidMount() {
             </div>
           </div>
           <div className="col-sm-2 coinButtonBank">
-            <div className="quickButtonContainer" id="firstCoinButton">
-              <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
-            </div>
+            { cryptoImage[1] &&
+              (
+                <div className="quickButtonContainer" id="firstCoinButton">
+                <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+              </div>
+              )
+              }
+            { cryptoImage[2] &&
+              (
             <div className="quickButtonContainer" id="secondCoinButton">
               <img alt="" className="cryptoImage" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
             </div>
+              )
+              }
+            { cryptoImage[3] &&
+              (
             <div className="quickButtonContainer" id="thirdCoinButton">
               <img alt="" className="cryptoImage" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
             </div>
+              )
+              }
+            { cryptoImage[4] &&
+              (
             <div className="quickButtonContainer" id="fourthCoinButton">
               <img alt="" className="cryptoImage" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
             </div>
+              )
+              }
           </div>
-            </div>
+      </div>
     );
   }
 }

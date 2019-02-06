@@ -1,7 +1,7 @@
 
 
 .bitcoinCurrentPrice {
-  color: #cbcbcb;
+  color: #d7d7d7;
   font-size: 31px;
   font-family: 'Poppins', sans-serif;
   padding-top: 7px;
@@ -12,20 +12,21 @@
 @media screen and (max-width: 1200px) {
   .bitcoinCurrentPrice {
     font-size: 1.8rem;
-    margin-left: 0px;
-    text-align: right;
+    margin-left: -3px;
+    padding-top: 10px;
   }
 }
 
 .currentBTCImage {
-  width: 40px;
+  width: 95px;
   position: absolute;
   left: 16px;
   top: 10px;
+  opacity: .2;
 }
 
 @media screen and (max-width: 1200px) {
   .currentBTCImage {
-    opacity: 0;
+
   }
 }

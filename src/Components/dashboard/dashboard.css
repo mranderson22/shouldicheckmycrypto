@@ -45,9 +45,9 @@
 .Nochartheader {
   position: fixed !important;
   text-align: center;
-  font-size: 16px;
+  font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  color: #c7c7c7;
+  color: #d9d9d9;
   width: 300px !important;
   padding: 0px;
   list-style: none;
@@ -68,9 +68,9 @@
 
 
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1200px) {
   .Nochartheader {
-    font-size: .8rem;
+    font-size: .7rem;
   }
 }
 
@@ -95,20 +95,21 @@
 
 .plus {
     position: absolute;
-    left: 47%;
-    top: 73%;
+    top: 80%;
+    left: 50%;
+    transform: translate(-47%, -50%);
     z-index: 0;
 }
 
 @media screen and (max-height: 800px) {
   .plus {
-  top: 62%
+  top: 70%
   }
 }
 
 @media screen and (max-height: 650px) {
   .plus {
-  top: 55%
+  top: 66%
   }
 }
 
@@ -185,7 +186,7 @@
   width: 35px;
 }
 
-.bitcoinTrackerWrapper {
+.bitcoinTrackerWrapperYes {
   width: 300px !important;
   height: 63px;
   position: fixed !important;
@@ -194,10 +195,31 @@
   border: 1px solid white;
   margin-top: 15px;
   border-radius: 4px;
+  background: #2f743f47;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 950px) {
-  .bitcoinTrackerWrapper {
+  .bitcoinTrackerWrapperYes {
+    left: -35%;
+  }
+}
+
+.bitcoinTrackerWrapperNo {
+  width: 300px !important;
+  height: 63px;
+  position: fixed !important;
+  top: 0%;
+  left: 1%;
+  border: 1px solid white;
+  margin-top: 15px;
+  border-radius: 4px;
+  background: #84383869;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 950px) {
+  .bitcoinTrackerWrapperNo {
     left: -35%;
   }
 }
@@ -240,7 +262,6 @@
   width: 300px !important;
   padding: 5px 5px 5px 5px;
   bottom: -4vh;
-  z-index: 20;
   height: 63px;
   top: 6%;
   border: 1px solid white;
@@ -252,6 +273,7 @@
   justify-content: space-around;
   padding-left: 0px !important;
   padding-right: 0px !important;
+  background: #3d3d3d;
 
 }
 
@@ -340,4 +362,24 @@
     flex: 0 0 16.666667%;
     max-width: 16.666667%;
   }
+}
+
+.graphConnector {
+  width: 300px;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: -15%;
+  background: white;
+  z-index: -1;
+}
+
+.graphConnectorSide {
+  width: 300px;
+  height: 1px;
+  position: absolute;
+  top: 120px;
+  right: -15%;
+  background: white;
+  z-index: -1;
 }

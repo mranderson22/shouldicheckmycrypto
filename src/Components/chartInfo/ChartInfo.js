@@ -12,92 +12,64 @@ dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage
       {curr === 'USD' ? (
         <div className="coinInfo">
           <li>
-            { `Coin: ${name}` }
-            { ' \u00A0 '}
+            <span>Coin</span>
+            <span className="right">{name}</span>
           </li>
           <li>
-            { `Rank: ${rank}` }
-            { ' \u00A0 '}
+            <span>Rank</span>
+            <span className="right">{rank}</span>
           </li>
           <li>
-            { `Current Price: $${currentPrice}` }
-            { ' \u00A0 ' }
+            <span>Current Price</span>
+            <span className="black right">${currentPrice}</span>
           </li>
-          <div className="percentageWrapper">
-            <li>
-            1 Hour Change:
-              <span className={oneHour <= 0 ? 'redText' : 'greenText'}>
-                {` ${oneHour}`}
-              %
-              </span>
-            </li>
-            <li>
-            1 Day Change:
-              <span className={oneDay <= 0 ? 'redText' : 'greenText'}>
-                {` ${oneDay}`}
-              %
-              </span>
-            </li>
-            <li>
-            7 Day Change:
-              <span className={seven <= 0 ? 'redText' : 'greenText'}>
-                {` ${seven}`}
-              %
-              </span>
-            </li>
-            <li>
-              {` ${days} Day Change: `}
-              <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
-                {` ${dateRangeChange}`}
-              %
-              </span>
-            </li>
-          </div>
-        </div>) : (
-          <div className="coinInfo">
-            <li>
-              { `Coin: ${name}` }
-              { ' \u00A0 '}
-            </li>
-            <li>
-              { `Rank: ${rank}` }
-              { ' \u00A0 '}
-            </li>
-            <li>
-              { `Current Price: ${currentPrice2} BTC` }
-              { ' \u00A0 ' }
-            </li>
-            <div className="percentageWrapper">
+          <li>
+            <span>1 Hour Change</span>
+            <span className={oneHour <= 0 ? 'redText right' : 'greenText right'}>{oneHour}%</span>
+          </li>
+          <li>
+            <span>1 Day Change</span>
+            <span className={oneDay <= 0 ? 'redText right' : 'greenText right'}>{oneDay}%</span>
+          </li>
+          <li>
+            <span>7 Day Change</span>
+            <span className={seven <= 0 ? 'redText right' : 'greenText right'}>{seven}%</span>
+          </li>
+          <li>
+            <span>{days} Day Change </span>
+            <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>{dateRangeChange}%</span>
+          </li>
+          </div>) : (
+            <div className="coinInfo">
               <li>
-              1 Hour Change:
-                <span className={oneHour <= 0 ? 'redText' : 'greenText'}>
-                  {` ${oneHour2}`}
-                %
-                </span>
+                <span>Coin</span>
+                <span className="right">{name}</span>
               </li>
               <li>
-              1 Day Change:
-                <span className={oneDay <= 0 ? 'redText' : 'greenText'}>
-                  {` ${oneDay2}`}
-                %
-                </span>
+                <span>Rank</span>
+                <span className="right">{rank}</span>
               </li>
               <li>
-              7 Day Change:
-                <span className={seven <= 0 ? 'redText' : 'greenText'}>
-                  {` ${seven2}`}
-                %
-                </span>
+                <span>Current Price</span>
+                <span className="black right">${currentPrice2}</span>
               </li>
               <li>
-                {` ${days} Day Change: `}
-                <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
-                  {` ${dateRangeChange}`}
-                %
-                </span>
+                <span>1 Hour Change</span>
+                <span className={oneHour2 <= 0 ? 'redText right' : 'greenText right'}>{oneHour2}%</span>
               </li>
-            </div>
-          </div>)}
+              <li>
+                <span>1 Day Change</span>
+                <span className={oneDay2 <= 0 ? 'redText right' : 'greenText right'}>{oneDay2}%</span>
+              </li>
+              <li>
+                <span>7 Day Change</span>
+                <span className={seven2 <= 0 ? 'redText right' : 'greenText right'}>{seven2}%</span>
+              </li>
+              <li>
+                <span>{days} Day Change </span>
+                <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>{dateRangeChange}%</span>
+              </li>
+              </div>)}
     </div>
   );
 };
