@@ -4,7 +4,8 @@ var cors = require('cors')
 
 var app = express();
 
-app.use(express.static(path.join(__dirname, 'dist')), cors());
+
+app.use(cors(), express.static(path.join(__dirname, 'dist')));
 app.set('port', process.env.PORT || 80);
 
 const server = app.listen(app.get('port'), function() {

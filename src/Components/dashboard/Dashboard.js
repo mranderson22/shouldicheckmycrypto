@@ -348,7 +348,9 @@ class Dashboard extends Component {
       }
       this.setState({ coinLog: savedCoinsNew });
       this.setState({ cryptoImage: savedCoinImagesNew });
-      this.setState({ favorites: savedFavoriteCoinsNew });
+      if (savedFavoriteCoinsNew) {
+        this.setState({ favorites: savedFavoriteCoinsNew });
+      }
     }
     else if (num === 2) {
       if (savedCoinImagesNew2.indexOf(ETH) > 0) {
@@ -361,7 +363,9 @@ class Dashboard extends Component {
       }
       this.setState({ coinLog2: savedCoinsNew2 });
       this.setState({ cryptoImage2: savedCoinImagesNew2 });
-      this.setState({ favorites: savedFavoriteCoinsNew });
+      if (savedFavoriteCoinsNew) {
+        this.setState({ favorites: savedFavoriteCoinsNew });
+      }
     }
   }
 
