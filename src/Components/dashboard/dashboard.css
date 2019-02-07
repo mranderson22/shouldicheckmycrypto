@@ -372,22 +372,3 @@
   background: white;
   z-index: -1;
 }
-
-.optionsBank {
-    position: absolute;
-    top: .3vh;
-    right: 0.3%;
-    height: 150px;
-    width: 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-}
-
-.exitButton {
-  cursor: pointer;
-}
-
-.exitImage {
-  width: 35px;
-}

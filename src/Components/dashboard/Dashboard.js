@@ -327,6 +327,8 @@ class Dashboard extends Component {
   getLocalStorageData(num) {
     const BTC = '/media/19633/btc.png';
     const ETH = '/media/20646/eth_logo.png';
+    const retrievedFavoriteCoins = localStorage.getItem('savedFavoriteCoins');
+    const savedFavoriteCoinsNew = JSON.parse(retrievedFavoriteCoins);
     const retrievedCoins = localStorage.getItem('savedCoins');
     const retrievedCoinImages = localStorage.getItem('savedCoinImages');
     const savedCoinsNew = JSON.parse(retrievedCoins);
@@ -346,6 +348,7 @@ class Dashboard extends Component {
       }
       this.setState({ coinLog: savedCoinsNew });
       this.setState({ cryptoImage: savedCoinImagesNew });
+      this.setState({ favorites: savedFavoriteCoinsNew });
     }
     else if (num === 2) {
       if (savedCoinImagesNew2.indexOf(ETH) > 0) {
@@ -358,6 +361,7 @@ class Dashboard extends Component {
       }
       this.setState({ coinLog2: savedCoinsNew2 });
       this.setState({ cryptoImage2: savedCoinImagesNew2 });
+      this.setState({ favorites: savedFavoriteCoinsNew });
     }
   }
 
@@ -819,12 +823,43 @@ class Dashboard extends Component {
     const { favorites } = this.state;
     const { graphFocus } = this.state;
     if (graphFocus === 1) {
-      favorites.indexOf(value) === -1 ? favorites.push(value) : console.log('duplicate');
-      }
-      else if (graphFocus === 2) {
-        favorites.indexOf(value2) === -1 ? favorites.push(value2) : console.log('duplicate');
+      favorites.indexOf(value) === -1 ? favorites.push(value) : this.removeFromFavorites();
+      const freshFavorites = Array.from(new Set(favorites));
+      this.setState({ favorites: freshFavorites }, () => {
+        localStorage.setItem('savedFavoriteCoins', JSON.stringify(freshFavorites));
+        this.refs.child.getFavorites();
+      })
+    }
+    else if (graphFocus === 2) {
+      favorites.indexOf(value2) === -1 ? favorites.push(value2) : this.removeFromFavorites();
+      localStorage.setItem('savedFavoriteCoins', JSON.stringify(favorites));
+      this.refs.child.getFavorites();
+    }
+  }
+
+  removeFromFavorites() {
+    const { value } = this.state;
+    const { value2 } = this.state;
+    const { data } = this.props;
+    const { favorites } = this.state;
+    const { graphFocus } = this.state;
+    if (graphFocus === 1) {
+      for (let i = 0; i < favorites.length; i++) {
+        if (favorites[i] === value) {
+          favorites.splice(i, 1);
+          this.refs.child.getFavorites();
+        }
       }
     }
+    else if (graphFocus === 2) {
+      for (let i = 0; i < favorites.length; i++) {
+        if (favorites[i] === value2) {
+          favorites.splice(i, 1);
+          this.refs.child.getFavorites();
+        }
+      }
+    }
+  }
 
 
   render() {
@@ -852,6 +887,7 @@ class Dashboard extends Component {
                   topList={topList}
                   handleSubmit5={this.handleSubmit5}
                   favorites={favorites}
+                  ref='child'
                 />
             </div>
           </div>
@@ -868,7 +904,7 @@ class Dashboard extends Component {
                     freshReveal={freshReveal}
                     cryptoImage={cryptoImage}
                     onHistoryChange={this.onHistoryChange}
-                    handleSubmit={this.handleSubmit1}
+                    handleSubmit1={this.handleSubmit1}
                     handleSubmit3={this.handleSubmit3}
                     handleSubmit5={this.handleSubmit5}
                     handleChange={this.handleChange1}
@@ -924,7 +960,7 @@ class Dashboard extends Component {
                       cryptoImage={cryptoImage2}
                       secondGraphVisible={secondGraphVisible}
                       onHistoryChange={this.onHistoryChange2}
-                      handleSubmit={this.handleSubmit2}
+                      handleSubmit1={this.handleSubmit2}
                       handleSubmit3={this.handleSubmit4}
                       handleSubmit5={this.handleSubmit5}
                       handleChange={this.handleChange2}

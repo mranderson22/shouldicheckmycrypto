@@ -52,6 +52,7 @@ class Sidebar extends Component {
     const { topList } = this.props;
     this.setState({ listStatus: 'Favorites' }, () => {
       const newFavorites = topList.filter(coins => favorites.includes(coins.symbol));
+      newFavorites.sort((a, b) => b.percent_change_24h - a.percent_change_24h);
       this.sidebarTemplate(newFavorites);
     });
   }

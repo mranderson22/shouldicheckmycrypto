@@ -48,13 +48,12 @@ class Graph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rSelected2: 5,
       hovered: false
     };
     this.scrollEvent = this.scrollEvent.bind(this);
   }
 
-componentDidMount() {
+  componentDidMount() {
     window.addEventListener('wheel', this.scrollEvent);
   }
 
@@ -97,7 +96,7 @@ componentDidMount() {
 
   render() {
     const {
-      dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
+      dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit1, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
       dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2,
       addSidebar, sideBarOpener, inputValue, secondGraphVisible, graphFocus, addGraph, handleSubmit5, addToFavorites, favorites
     } = this.props;
@@ -223,6 +222,8 @@ componentDidMount() {
 
     return (
       <div
+        onMouseEnter={() => this.setState({ hovered: true })}
+        onMouseLeave={() => this.setState({ hovered: false })}
         className={`${answer ? 'Yes' : 'No'}GraphChild`}>
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
@@ -330,7 +331,7 @@ componentDidMount() {
           </div>
           <div className="cryptoImageContainer">
             <div className="cryptoInput">
-              <Form inline onSubmit={handleSubmit}>
+              <Form inline onSubmit={handleSubmit1}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                   <Label for="Name">
                     <Input className="textField" value={inputValue} onFocus={addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
@@ -375,19 +376,22 @@ componentDidMount() {
         <div className="optionsBank">
           <div className="favoriteButton" onClick={() => {
               addToFavorites(); }
-            }>
-            <img className="optionsImage large" alt="" src={
+              }>
+            <img
+              className="optionsImage large"
+              alt=""
+              src={
                 favorites.indexOf(value) === -1 ? heart : heartFilled
-              } />
+              }
+            />
           </div>
           <div
             className="reloadButton"
             onClick={(e) => {
               handleSubmit5(e, value);
-            }, () => {
-              onHistoryChange(days);
             }
-          }
+            }
+
             onKeyDown={() => {
               '';
             }
@@ -401,14 +405,16 @@ componentDidMount() {
             <div
               className="exitButton"
               onClick={() => {
-                addGraph(1); }
+                addGraph(1);
+              }
               }
               onKeyDown={() => {
-                ''; }
+                '';
+              }
               }
               role="button"
               tabIndex={0}
-              >
+            >
               <img className="optionsImage" alt="" src={exit} />
             </div>) : null }
         </div>

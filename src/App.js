@@ -100,7 +100,7 @@ class App extends Component {
       this.setState({ text: 'absolutely not.' });
     }
     else if (parseFloat(data) >= 5) {
-      this.setState({ text: 'rejoice!' });
+      this.setState({ text: 'absolutely!' });
       this.setState({ answer: true });
     }
     else if (parseFloat(data) >= 0) {
@@ -108,7 +108,7 @@ class App extends Component {
       this.setState({ answer: true });
     }
     else if (parseFloat(data) < 0) {
-      this.setState({ text: 'if you must' });
+      this.setState({ text: 'probably not' });
     }
   }
 
