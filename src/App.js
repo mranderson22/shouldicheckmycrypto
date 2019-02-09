@@ -71,16 +71,21 @@ class App extends Component {
   // Initial timeOut for loading screen on mount, while fetching crypto data to
   // determine if answer is "yes" or "no", then sets accordingly.
   async componentDidMount() {
-    setTimeout(() => {
+    await setTimeout(() => {
       this.setState({ loading: false }, () => {
         this.setMood();
         this.setState({ isVisible: 'true' });
       });
-    }, 2000);
+    }, 2500);
     await this.fetchCryptocurrencyData(1);
     await this.fetchCryptocurrencyData(2);
-    this.fetchCryptocurrencyData(3)
-    setInterval(() => { this.fetchCryptocurrencyData(3); }, 60000);
+    this.fetchCryptocurrencyData(3);
+    setInterval(() => {
+      this.fetchCryptocurrencyData(3);
+    }, 60000);
+    setTimeout(() => {
+      this.revealDashboard();
+    }, 3300);
   }
 
   // click function for lock or arrow on main screen. First loads dashboard component
@@ -104,7 +109,7 @@ class App extends Component {
       this.setState({ answer: true });
     }
     else if (parseFloat(data) >= 0) {
-      this.setState({ text: 'probably' });
+      this.setState({ text: 'looks good' });
       this.setState({ answer: true });
     }
     else if (parseFloat(data) < 0) {
@@ -124,6 +129,14 @@ class App extends Component {
       this.setState({ coin2: coinNew }, () => {
         this.fetchCryptocurrencyData(2);
       });
+    }
+  }
+
+  revealDashboard() {
+    const { answer } = this.state;
+    if (answer) {
+      this.setState({ isVisible: false });
+      this.setState({ showComponent: true });
     }
   }
 
@@ -254,7 +267,7 @@ class App extends Component {
       return (
         <div className="spinnercontainer">
           <div className="spinner">
-            <Loader type="Ball-Triangle" color="white" height={120} width={120} />
+            <Loader type="Oval" color="#0d0c0c" height={120} width={120} />
           </div>
         </div>
       );
@@ -269,25 +282,28 @@ class App extends Component {
                 {text}
               </Reveal>
             </div>
-            <Hover
-              className="lockbody"
-              pose={hovering ? 'hovered' : 'idle'}
-              onMouseEnter={() => this.setState({ hovering: true })}
-              onMouseLeave={() => this.setState({ hovering: false })}
-            >
-              <div
-                onClick={this.onButtonClick}
-                onKeyDown={this.onButtonClick}
-                role="button"
-                tabIndex={0}
-              >
-                <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
-                  <div>
-                    {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
+            {
+              answer === true ? null : (
+                <Hover
+                  className="lockbody"
+                  pose={hovering ? 'hovered' : 'idle'}
+                  onMouseEnter={() => this.setState({ hovering: true })}
+                  onMouseLeave={() => this.setState({ hovering: false })}
+                >
+                  <div
+                    onClick={this.onButtonClick}
+                    onKeyDown={this.onButtonClick}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
+                      <div>
+                        {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
+                      </div>
+                    </Reveal2>
                   </div>
-                </Reveal2>
-              </div>
-            </Hover>
+                </Hover>)
+            }
           </div>
           <div>
             {showComponent ? (

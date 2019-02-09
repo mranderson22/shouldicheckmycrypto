@@ -34,7 +34,7 @@
 
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .NoGraph {
     left: 2% !important;
     max-width: none !important;
@@ -74,7 +74,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .Nochartheader {
     right: -90%
   }
@@ -156,12 +156,17 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .NoGraphNew {
     left: 2% !important;
     max-width: none !important;
     width: 96% !important;
   }
+}
+
+.shadowGraph {
+  box-shadow: 0px 0px 20px 10px #00000047;
+
 }
 
 .fullView {
@@ -188,7 +193,7 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .bitcoinTrackerWrapperYes {
     left: -35%;
   }
@@ -207,7 +212,7 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .bitcoinTrackerWrapperNo {
     left: -35%;
   }
@@ -272,7 +277,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .coinButtonBank {
     right: -58%;
   }
@@ -307,9 +312,9 @@
   }
 }
 
-@media screen and (min-height: 750px) {
+@media screen and (min-height: 800px) {
   .sidebar {
-    height: 79.5%;
+    height: 85.9%;
   }
 }
 
@@ -331,7 +336,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .sidebar {
     left: -25%;
   }
@@ -917,9 +922,10 @@ li {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show .nav-link {
-    color: white !important;
+    color: black !important;
     background-color: #5f5f5f !important;
     font-size: 15px;
+    border-radius: 0 !important;
 }
 
 a {
@@ -929,6 +935,20 @@ a {
 
 #nav {
   background: #404040;
+}
+
+.heartSidebar {
+  width: 20px;
+}
+
+#topPercentage {
+  color: #24cc24 !important;
+  font-weight: bold;
+}
+
+#bottomPercentage {
+  color: #800000 !important;
+  font-weight: bold;
 }
 
 html, body {
@@ -948,7 +968,7 @@ html, body {
 
 .spinnercontainer {
   height: 100vh;
-  background: black;
+  background: #494949;
 }
 
 .Answernobackground {
@@ -984,7 +1004,7 @@ html, body {
   font-size: calc(4vw + 4vh + 4vmin);
   color: #130304;
   font-family: 'Poppins', sans-serif;
-  text-shadow: 3px 3px 10px #4e11179e;
+  text-shadow: 3px 3px 10px #141414ad;
   width: 90vw;
   text-align: center;
 }
@@ -997,7 +1017,7 @@ html, body {
   font-size: calc(4vw + 4vh + 4vmin);
   color: black;
   font-family: 'Poppins', sans-serif;
-  text-shadow: 3px 3px 10px #0c3515ad;
+  text-shadow: 3px 3px 10px #141414ad;
 }
 
 .lockbody {

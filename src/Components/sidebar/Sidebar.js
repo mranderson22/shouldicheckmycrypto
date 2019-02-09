@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Sidebar.css';
+import heartFilled from '../../../images/heartFilled.png';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -81,7 +82,9 @@ class Sidebar extends Component {
             <a className={listStatus === 'Ranked' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="ranked">1.2.3.</a>
             <a className={listStatus === 'Top' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="topPercentage">%</a>
             <a className={listStatus === 'Bottom' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="bottomPercentage">%</a>
-            <a className={listStatus === 'Favorites' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="favorites">Fav</a>
+            <a className={listStatus === 'Favorites' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="favorites">
+              <img className="heartSidebar" src={heartFilled}/>
+            </a>
           </nav>
           {newRankingList}
         </div>

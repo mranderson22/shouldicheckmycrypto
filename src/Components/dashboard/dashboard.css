@@ -34,7 +34,7 @@
 
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .NoGraph {
     left: 2% !important;
     max-width: none !important;
@@ -74,7 +74,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .Nochartheader {
     right: -90%
   }
@@ -156,12 +156,17 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .NoGraphNew {
     left: 2% !important;
     max-width: none !important;
     width: 96% !important;
   }
+}
+
+.shadowGraph {
+  box-shadow: 0px 0px 20px 10px #00000047;
+
 }
 
 .fullView {
@@ -188,7 +193,7 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .bitcoinTrackerWrapperYes {
     left: -35%;
   }
@@ -207,7 +212,7 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .bitcoinTrackerWrapperNo {
     left: -35%;
   }
@@ -272,7 +277,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .coinButtonBank {
     right: -58%;
   }
@@ -307,9 +312,9 @@
   }
 }
 
-@media screen and (min-height: 750px) {
+@media screen and (min-height: 800px) {
   .sidebar {
-    height: 79.5%;
+    height: 85.9%;
   }
 }
 
@@ -331,7 +336,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .sidebar {
     left: -25%;
   }

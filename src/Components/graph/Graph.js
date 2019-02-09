@@ -222,9 +222,10 @@ class Graph extends Component {
 
     return (
       <div
+        className={`${answer ? 'Yes' : 'No'}GraphChild`}
         onMouseEnter={() => this.setState({ hovered: true })}
         onMouseLeave={() => this.setState({ hovered: false })}
-        className={`${answer ? 'Yes' : 'No'}GraphChild`}>
+      >
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
           { `${name} / ${curr}`}

@@ -35,22 +35,25 @@ const Reveal2 = posed.div({
 const Reveal3 = posed.div({
   hidden: {
     opacity: 0,
-
+    transition: { duration: 800 },
+    delay: 200
   },
   visible: {
     opacity: 1,
-
+    transition: { duration: 800 },
+    delay: 200
   },
   secondary: {
     opacity: 1,
-
+    transition: { duration: 800 },
+    delay: 200
   },
   movedOver: {
     opacity: 1,
-
+    transition: { duration: 800 },
+    delay: 200
   },
   fullSize: {
-
   }
 });
 
@@ -59,7 +62,17 @@ const Reveal = posed.div({
   visible: {
     opacity: 1,
     transition: { duration: 900 },
-    delay: 600
+    delay: 800
+  },
+  visible2: {
+    opacity: 1,
+    transition: { duration: 900 },
+    delay: 400
+  },
+  visible3: {
+    opacity: 1,
+    transition: { duration: 900 },
+    delay: 1200
   }
 });
 
@@ -879,6 +892,7 @@ class Dashboard extends Component {
     return (
           <div className="container-fluid">
             <div className="row">
+              <Reveal pose={isGraphVisible ? 'visible2' : 'hidden'}>
               <div className={answer === true ? "col-sm-2 bitcoinTrackerWrapperYes" :
                 "col-sm-2 bitcoinTrackerWrapperNo"
               }>
@@ -894,10 +908,11 @@ class Dashboard extends Component {
                   ref='child'
                 />
             </div>
+            </Reveal>
           </div>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
                 <Resize
-                  className="col-sm-10 NoGraph"
+                  className={graphFocus === 1  ? "col-sm-10 NoGraph shadowGraph" : "col-sm-10 NoGraph"}
                   pose={pose}
                   onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1, graphFocus2: 2 }) : null}>
                   <Graph
@@ -945,14 +960,34 @@ class Dashboard extends Component {
                       </div>
                     ) : null}
                     */}
-                  {graphFocus === 1 && <div className="graphConnector"></div>}
-                  <div className="graphConnectorSide"></div>
                 </Resize>
+                <div className="imageContainer">
+                    <Reveal3 pose={secondGraphVisible && isGraphVisible || sideBarOpener ? 'hidden' : 'visible'}>
+                      <div className="plus">
+                        <Hover
+                          pose={hovering ? 'hovered' : 'idle'}
+                          >
+                          <div
+                            onClick={() => {
+                              isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
+                            }
+                            onKeyDown={() => {
+                              isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
+                            }
+                            role="button"
+                            tabIndex={0}
+                            >
+                            <img alt="" src={plus} />
+                          </div>
+                        </Hover>
+                      </div>
+                    </Reveal3>
+                </div>
               </Reveal>
               <div>
                 {freshReveal ? (
                   <Reveal3
-                    className="NoGraphNew"
+                    className={graphFocus === 2 ? "col-sm-10 NoGraphNew shadowGraph" : "col-sm-10 NoGraphNew"}
                     pose={pose2}
                     onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 2, graphFocus2: 1 }) : null}>
                     <Graph
@@ -984,37 +1019,9 @@ class Dashboard extends Component {
                       addToFavorites={this.addToFavorites}
                       favorites={favorites}
                     />
-                    {graphFocus === 2 && <div className="graphConnector"></div>}
-                    <div className="graphConnectorSide"></div>
                   </Reveal3>
                 ) : null
               }
-              </div>
-              <div className="imageContainer">
-
-                  <Reveal3 pose={secondGraphVisible && isGraphVisible || sideBarOpener ? 'hidden' : 'visible'}>
-                    <div className="plus">
-                      <Hover
-                        pose={hovering ? 'hovered' : 'idle'}
-                        onMouseEnter={() => this.setState({ hovering: true })}
-                        onMouseLeave={() => this.setState({ hovering: false })}
-                      >
-                        <div
-                          onClick={() => {
-                            isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
-                                  }
-                          onKeyDown={() => {
-                            isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
-                                  }
-                          role="button"
-                          tabIndex={0}
-                        >
-                          <img alt="" src={plus} />
-                        </div>
-                      </Hover>
-                    </div>
-                  </Reveal3>
-
               </div>
               {/* }
           <Reveal2 pose={isGraphVisible || secondGraphVisible ? 'visible2' : 'hidden2'}>

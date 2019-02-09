@@ -92,9 +92,10 @@
 }
 
 .nav-pills .nav-link.active, .nav-pills .show .nav-link {
-    color: white !important;
+    color: black !important;
     background-color: #5f5f5f !important;
     font-size: 15px;
+    border-radius: 0 !important;
 }
 
 a {
@@ -104,4 +105,18 @@ a {
 
 #nav {
   background: #404040;
+}
+
+.heartSidebar {
+  width: 20px;
+}
+
+#topPercentage {
+  color: #24cc24 !important;
+  font-weight: bold;
+}
+
+#bottomPercentage {
+  color: #800000 !important;
+  font-weight: bold;
 }
