@@ -166,7 +166,9 @@ class App extends Component {
         const response = await axios('https://api.coinmarketcap.com/v1/ticker/');
         const response2 = await axios('https://api.coinmarketcap.com/v2/listings/');
         const result = await response.data.filter(currency => currency.symbol === wanted);
-        const result1 = await response2.data.data.filter(currency => wanted.includes(currency.symbol));
+        const result1 = await response2.data.data.filter(
+          currency => wanted.includes(currency.symbol)
+        );
         const result2 = await response.data;
         if (topList === undefined || topList.length === 0) {
           for (let thetopList = 0; thetopList < result2.length; thetopList++) {
@@ -186,12 +188,13 @@ class App extends Component {
         }
       }
       catch (error) {
-        console.log('Data not received!')
+        console.log('Data not received!');
       }
-    } else if (num === 3) {
+    }
+    else if (num === 3) {
       const response = await axios('https://api.coinmarketcap.com/v1/ticker/bitcoin/');
       const result = response.data[0].price_usd;
-      this.setState({ currentBTCPrice: result })
+      this.setState({ currentBTCPrice: result });
     }
   }
 
@@ -220,7 +223,7 @@ class App extends Component {
         }));
     }
     catch (error) {
-      console.log('conversion to BTC failed!')
+      console.log('conversion to BTC failed!');
     }
   }
 
@@ -275,56 +278,56 @@ class App extends Component {
 
 
     return (
-        <div className="Answernobackground">
-          <div className={`Answerno${answer ? 'yes' : 'no'}`}>
-            <div className={`Answerbox${answer ? 'yes' : 'no'}`}>
-              <Reveal pose={isVisible ? 'visible' : 'hidden'}>
-                {text}
-              </Reveal>
-            </div>
-            {
-              answer === true ? null : (
-                <Hover
-                  className="lockbody"
-                  pose={hovering ? 'hovered' : 'idle'}
-                  onMouseEnter={() => this.setState({ hovering: true })}
-                  onMouseLeave={() => this.setState({ hovering: false })}
+      <div className="Answernobackground">
+        <div className={`Answerno${answer ? 'yes' : 'no'}`}>
+          <div className={`Answerbox${answer ? 'yes' : 'no'}`}>
+            <Reveal pose={isVisible ? 'visible' : 'hidden'}>
+              {text}
+            </Reveal>
+          </div>
+          {
+            answer === true ? null : (
+              <Hover
+                className="lockbody"
+                pose={hovering ? 'hovered' : 'idle'}
+                onMouseEnter={() => this.setState({ hovering: true })}
+                onMouseLeave={() => this.setState({ hovering: false })}
+              >
+                <div
+                  onClick={this.onButtonClick}
+                  onKeyDown={this.onButtonClick}
+                  role="button"
+                  tabIndex={0}
                 >
-                  <div
-                    onClick={this.onButtonClick}
-                    onKeyDown={this.onButtonClick}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
-                      <div>
-                        {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
-                      </div>
-                    </Reveal2>
-                  </div>
-                </Hover>)
-            }
-          </div>
-          <div>
-            {showComponent ? (
-              <Dashboard
-                fetchCryptocurrencyData={this.fetchCryptocurrencyData}
-                dataNew={dataNew}
-                dataNew2={dataNew2}
-                dataToBTC={dataToBTC}
-                dataToBTC2={dataToBTC2}
-                data={data}
-                sendCoin={this.getCoin}
-                sendCoin2={this.getCoin2}
-                answer={answer}
-                topList={topList}
-                currentBTCPrice={currentBTCPrice}
-              />
-            )
-              : null
-            }
-          </div>
+                  <Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
+                    <div>
+                      {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
+                    </div>
+                  </Reveal2>
+                </div>
+              </Hover>)
+          }
         </div>
+        <div>
+          {showComponent ? (
+            <Dashboard
+              fetchCryptocurrencyData={this.fetchCryptocurrencyData}
+              dataNew={dataNew}
+              dataNew2={dataNew2}
+              dataToBTC={dataToBTC}
+              dataToBTC2={dataToBTC2}
+              data={data}
+              sendCoin={this.getCoin}
+              sendCoin2={this.getCoin2}
+              answer={answer}
+              topList={topList}
+              currentBTCPrice={currentBTCPrice}
+            />
+          )
+            : null
+          }
+        </div>
+      </div>
     );
   }
 }

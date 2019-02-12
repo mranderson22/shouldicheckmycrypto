@@ -155,7 +155,7 @@
   z-index: -1;
   width: 20vw;
   background-color: white;
-  filter: grayscale(75%);
+  filter: grayscale(100%);
   min-width: 200px;
 }
 
@@ -195,6 +195,8 @@
   border-color: #1d1a1a !important;
   box-shadow: none !important;
   width: 50px !important;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media screen and (max-width: 900px) {
@@ -364,6 +366,14 @@
 
 .reloadButton {
   cursor: pointer;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.spun {
+  -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+     transform: rotate(90deg);
 }
 
 .optionsImage {

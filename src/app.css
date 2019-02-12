@@ -49,11 +49,12 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 4vmin);
-  color: #130304;
+  color: #161515;
   font-family: 'Poppins', sans-serif;
   text-shadow: 3px 3px 10px #141414ad;
   width: 90vw;
   text-align: center;
+  
 }
 
 .Answerboxyes {
@@ -62,15 +63,18 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 4vmin);
-  color: black;
+  color: #161515;
   font-family: 'Poppins', sans-serif;
   text-shadow: 3px 3px 10px #141414ad;
+  width: 90vw;
+  text-align: center;
 }
 
 .lockbody {
   padding: 0;
   margin: auto;
   margin-top: 48vh;
+  margin-left: 46%;
 }
 
 @media screen and (max-width: 1400px) and (orientation: portrait) {

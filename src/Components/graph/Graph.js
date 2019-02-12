@@ -6,7 +6,7 @@ import {
   Button, ButtonGroup, Form, Label, Input, FormGroup
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
-import exit from '../../../images/XCircle.png';
+import exit from '../../../images/exiticon.png';
 import heart from '../../../images/heart.png';
 import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
@@ -54,14 +54,14 @@ class Graph extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('wheel', this.scrollEvent);
+    // window.addEventListener('wheel', this.scrollEvent);
   }
 
   scrollEvent(e) {
     const { onHistoryChange } = this.props;
     const { days } = this.props;
     const { graphFocus } = this.props;
-    const { hovered } = this.state;
+    const { hovered } = this.props;
     if (graphFocus === 1 && hovered) {
       if (e.deltaY > 0) {
         if (days === 1500) {
@@ -77,7 +77,7 @@ class Graph extends Component {
           onHistoryChange(30);
         }
       }
-      else if (e.deltaY < 0 && hovered) {
+      else if (e.deltaY < 0) {
         if (days === 31) {
           onHistoryChange(60);
         }
@@ -91,6 +91,8 @@ class Graph extends Component {
           onHistoryChange(1000);
         }
       }
+    } else if (graphFocus === 2) {
+      return null
     }
   }
 
@@ -223,8 +225,6 @@ class Graph extends Component {
     return (
       <div
         className={`${answer ? 'Yes' : 'No'}GraphChild`}
-        onMouseEnter={() => this.setState({ hovered: true })}
-        onMouseLeave={() => this.setState({ hovered: false })}
       >
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
@@ -335,7 +335,7 @@ class Graph extends Component {
               <Form inline onSubmit={handleSubmit1}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                   <Label for="Name">
-                    <Input className="textField" value={inputValue} onFocus={addSidebar} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                    <Input className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
                   </Label>
                 </FormGroup>
                 <Button className="cryptoSubmit" disabled={!isEnabled}>

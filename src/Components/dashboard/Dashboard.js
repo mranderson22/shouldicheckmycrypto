@@ -136,7 +136,6 @@ class Dashboard extends Component {
 
     this.state = {
       favorites: [],
-      graphFocus: 1,
       inputValue: '',
       inputValue2: '',
       pose: 'initial',
@@ -194,6 +193,7 @@ class Dashboard extends Component {
     this.handleSubmit4 = this.handleSubmit4.bind(this);
     this.handleSubmit5 = this.handleSubmit5.bind(this);
     this.addToFavorites = this.addToFavorites.bind(this);
+    this.removeFromFavorites = this.removeFromFavorites.bind(this);
   }
 
   async componentDidMount() {
@@ -337,7 +337,7 @@ class Dashboard extends Component {
     }
   }
 
-  getLocalStorageData(num) {
+  async getLocalStorageData(num) {
     const BTC = '/media/19633/btc.png';
     const ETH = '/media/20646/eth_logo.png';
     const retrievedFavoriteCoins = localStorage.getItem('savedFavoriteCoins');
@@ -362,7 +362,7 @@ class Dashboard extends Component {
       this.setState({ coinLog: savedCoinsNew });
       this.setState({ cryptoImage: savedCoinImagesNew });
       if (savedFavoriteCoinsNew) {
-        this.setState({ favorites: savedFavoriteCoinsNew });
+        await this.setState({ favorites: savedFavoriteCoinsNew });
       }
     }
     else if (num === 2) {
@@ -377,7 +377,7 @@ class Dashboard extends Component {
       this.setState({ coinLog2: savedCoinsNew2 });
       this.setState({ cryptoImage2: savedCoinImagesNew2 });
       if (savedFavoriteCoinsNew) {
-        this.setState({ favorites: savedFavoriteCoinsNew });
+        await this.setState({ favorites: savedFavoriteCoinsNew });
       }
     }
   }
@@ -387,9 +387,7 @@ class Dashboard extends Component {
     const history2 = this.state;
     let historyExt;
     num === 1 ? historyExt = history.history : historyExt = history2.history2;
-    const dateRangeChange = Number.parseFloat((historyExt[historyExt.length - 1].close
-        - historyExt[0].close)
-      / historyExt[0].close * 100).toFixed(2);
+    const dateRangeChange = Number.parseFloat((historyExt[historyExt.length - 1].close - historyExt[0].close) / historyExt[0].close * 100).toFixed(2);
     if (num === 1) {
       this.setState({ dateRangeChange });
     }
@@ -687,23 +685,19 @@ class Dashboard extends Component {
         if (freshReveal === false) {
           this.setState({ pose: 'resized' }, () => {
             this.setState({ pose2: 'visible' });
-            this.setState({ secondWasThere: true });
           });
         }
         // Exit Button for 2nd Graph
         else {
           this.setState({ pose2: 'hidden' }, () => {
             this.setState({ pose: 'initial' });
-            this.setState({ graphFocus: 1 });
             if (sideBarOpener === true) {
-              this.setState({ secondWasThere: !secondWasThere });
             }
           });
         }
         this.setState({ pose2: pose === 'hidden' ? 'secondary' : 'hidden' }, () => {
           this.setState({ secondGraphVisible: !secondGraphVisible });
         });
-        this.setState({ secondWasThere: !secondWasThere });
       });
     }
     // Exit button for 1st Graph
@@ -715,9 +709,7 @@ class Dashboard extends Component {
         else {
           this.setState({ pose2: pose === 'secondary' ? 'hidden' : 'secondary' });
         }
-        this.setState({ graphFocus: 2 });
         if (sideBarOpener === false) {
-          this.setState({ secondWasThere: !secondWasThere });
         }
       });
     }
@@ -854,23 +846,33 @@ class Dashboard extends Component {
     }
   }
 
-  removeFromFavorites() {
+  removeFromFavorites(coin) {
     const { value } = this.state;
     const { value2 } = this.state;
-    const { data } = this.props;
     const { favorites } = this.state;
     const { graphFocus } = this.state;
+    let wanted;
     if (graphFocus === 1) {
+      if (coin) {
+        wanted = coin;
+      } else {
+        wanted = value;
+      }
       for (let i = 0; i < favorites.length; i++) {
-        if (favorites[i] === value) {
+        if (favorites[i] === wanted) {
           favorites.splice(i, 1);
           this.refs.child.getFavorites();
         }
       }
     }
     else if (graphFocus === 2) {
+      if (coin) {
+        wanted = coin;
+      } else {
+        wanted = value2;
+      }
       for (let i = 0; i < favorites.length; i++) {
-        if (favorites[i] === value2) {
+        if (favorites[i] === wanted) {
           favorites.splice(i, 1);
           this.refs.child.getFavorites();
         }
@@ -884,7 +886,7 @@ class Dashboard extends Component {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus, graphFocus2, addGraph, favorites
+      pose, sideBarOpener2, inputValue, inputValue2, pose2, graphFocus, graphFocus2, addGraph, favorites, hovered
     } = this.state;
     const {
       answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice
@@ -905,6 +907,7 @@ class Dashboard extends Component {
                   topList={topList}
                   handleSubmit5={this.handleSubmit5}
                   favorites={favorites}
+                  removeFromFavorites={this.removeFromFavorites}
                   ref='child'
                 />
             </div>
@@ -914,7 +917,8 @@ class Dashboard extends Component {
                 <Resize
                   className={graphFocus === 1  ? "col-sm-10 NoGraph shadowGraph" : "col-sm-10 NoGraph"}
                   pose={pose}
-                  onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 1, graphFocus2: 2 }) : null}>
+                  onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
+                  onMouseLeave={() => this.setState({ hovered: false })}>
                   <Graph
                     dataNew={dataNew}
                     graphData={graphData}
@@ -942,6 +946,7 @@ class Dashboard extends Component {
                     addGraph={this.addGraph}
                     addToFavorites={this.addToFavorites}
                     favorites={favorites}
+                    hovered={hovered}
                   />
                   {/*
                     { freshReveal ? (
@@ -971,8 +976,8 @@ class Dashboard extends Component {
                             onClick={() => {
                               isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
                             }
-                            onKeyDown={() => {
-                              isGraphVisible ? this.addGraph(1) : this.addGraph(2)}
+                            onKeyDown={
+                              null
                             }
                             role="button"
                             tabIndex={0}
@@ -989,7 +994,8 @@ class Dashboard extends Component {
                   <Reveal3
                     className={graphFocus === 2 ? "col-sm-10 NoGraphNew shadowGraph" : "col-sm-10 NoGraphNew"}
                     pose={pose2}
-                    onMouseOver={sideBarOpener === false ? () => this.setState({ graphFocus: 2, graphFocus2: 1 }) : null}>
+                    onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
+                    onMouseLeave={() => this.setState({ hovered: false })}>
                     <Graph
                       isEnabled={isEnabled2}
                       dataNew={dataNew2}
@@ -1018,6 +1024,7 @@ class Dashboard extends Component {
                       addGraph={this.addGraph}
                       addToFavorites={this.addToFavorites}
                       favorites={favorites}
+                      hovered={hovered}
                     />
                   </Reveal3>
                 ) : null
