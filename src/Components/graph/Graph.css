@@ -358,29 +358,48 @@
 
 .exitButton {
   cursor: pointer;
+  margin-left: 7px;
 }
 
 .favoriteButton {
   cursor: pointer;
+  margin-right: 35px;
 }
 
 .reloadButton {
   cursor: pointer;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .spun {
-  -webkit-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-     transform: rotate(90deg);
+  -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+     transform: rotate(180deg);
 }
 
 .optionsImage {
   width: 25px;
-  margin-left: 8px;
+  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .large {
   width: 27px;
+  position: absolute;
+}
+
+.heart {
+  opacity: 1;
+}
+
+.heartFilled {
+  opacity: 1;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  
+}
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }

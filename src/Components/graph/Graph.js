@@ -47,54 +47,74 @@ const Resize2 = posed.div({
 class Graph extends Component {
   constructor(props) {
     super(props);
+    // this.scrollEvent = this.scrollEvent.bind(this);
+    this.onReload = this.onReload.bind(this);
+    this.onFavorite = this.onFavorite.bind(this);
     this.state = {
       hovered: false
     };
-    this.scrollEvent = this.scrollEvent.bind(this);
   }
 
   componentDidMount() {
     // window.addEventListener('wheel', this.scrollEvent);
   }
 
-  scrollEvent(e) {
-    const { onHistoryChange } = this.props;
-    const { days } = this.props;
-    const { graphFocus } = this.props;
-    const { hovered } = this.props;
-    if (graphFocus === 1 && hovered) {
-      if (e.deltaY > 0) {
-        if (days === 1500) {
-          onHistoryChange(365);
-        }
-        else if (days === 365) {
-          onHistoryChange(180);
-        }
-        else if (days === 180) {
-          onHistoryChange(60);
-        }
-        else if (days === 90) {
-          onHistoryChange(30);
-        }
-      }
-      else if (e.deltaY < 0) {
-        if (days === 31) {
-          onHistoryChange(60);
-        }
-        else if (days === 90) {
-          onHistoryChange(180);
-        }
-        else if (days === 180) {
-          onHistoryChange(365);
-        }
-        else if (days === 365) {
-          onHistoryChange(1000);
-        }
-      }
-    } else if (graphFocus === 2) {
-      return null
-    }
+  onReload(e) {
+    const { value } = this.props;
+    const { handleSubmit5 } = this.props;
+    const element = document.getElementById(value);
+    element.classList.toggle('spun');
+    handleSubmit5(e, value);
   }
+
+  onFavorite() {
+    const { addToFavorites } = this.props;
+    const { value } = this.props;
+    const element = document.getElementById(`heartFilled ${value}`);
+    element.classList.toggle('fade');
+    addToFavorites();
+  }
+
+  // scrollEvent(e) {
+  //   const { onHistoryChange } = this.props;
+  //   const { days } = this.props;
+  //   const { graphFocus } = this.props;
+  //   const { hovered } = this.props;
+  //   if (graphFocus === 1 && hovered) {
+  //     if (e.deltaY > 0) {
+  //       if (days === 1500) {
+  //         onHistoryChange(365);
+  //       }
+  //       else if (days === 365) {
+  //         onHistoryChange(180);
+  //       }
+  //       else if (days === 180) {
+  //         onHistoryChange(60);
+  //       }
+  //       else if (days === 90) {
+  //         onHistoryChange(30);
+  //       }
+  //     }
+  //     else if (e.deltaY < 0) {
+  //       if (days === 31) {
+  //         onHistoryChange(60);
+  //       }
+  //       else if (days === 90) {
+  //         onHistoryChange(180);
+  //       }
+  //       else if (days === 180) {
+  //         onHistoryChange(365);
+  //       }
+  //       else if (days === 365) {
+  //         onHistoryChange(1000);
+  //       }
+  //     }
+  //   }
+  //   else if (graphFocus === 2) {
+  //     return null;
+  //   }
+  // }
+
 
   render() {
     const {
@@ -375,22 +395,27 @@ class Graph extends Component {
               }
           </div>
         <div className="optionsBank">
-          <div className="favoriteButton" onClick={() => {
-              addToFavorites(); }
-              }>
+          <div className="favoriteButton" onClick={this.onFavorite}>
             <img
-              className="optionsImage large"
+              id={`heart ${value}`}
+              className="optionsImage large heart"
               alt=""
               src={
-                favorites.indexOf(value) === -1 ? heart : heartFilled
+                heart
+              }
+            />
+            <img
+              id={`heartFilled ${value}`}
+              className="optionsImage large heartFilled"
+              alt=""
+              src={
+                heartFilled
               }
             />
           </div>
           <div
             className="reloadButton"
-            onClick={(e) => {
-              handleSubmit5(e, value);
-            }
+            onClick={this.onReload
             }
 
             onKeyDown={() => {
@@ -400,7 +425,7 @@ class Graph extends Component {
             role="button"
             tabIndex={0}
           >
-            <img className="optionsImage" alt="" src={reload} />
+            <img className="optionsImage" id={value} alt="" src={reload} />
           </div>
           {secondGraphVisible ? (
             <div

@@ -75,7 +75,8 @@ class Sidebar extends Component {
     const { handleSubmit5 } = this.props;
     const newRankingList = await list.map((x, y) =>
       (
-        <button type="button" className="list-group-item list-group-item-action " key={y} onClick={(e) =>
+        <div key={y}>
+        <button type="button" className="list-group-item list-group-item-action " onClick={(e) =>
         {handleSubmit5(e, x.symbol)}}>
           <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
           <span className="sidebarCoin">{x.symbol}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -83,7 +84,8 @@ class Sidebar extends Component {
           {x.percent_change_24h + '%'}</span>
           {favorites.indexOf(x.symbol) === -1 ? 
             null : (<span><img className="heartSidebarListed" src={heartFilled}/></span>)}
-        </button>));
+        </button>
+        </div>));
     this.setState({ newRankingList });
   }
 

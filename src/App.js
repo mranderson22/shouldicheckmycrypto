@@ -70,16 +70,15 @@ class App extends Component {
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
   // determine if answer is "yes" or "no", then sets accordingly.
-  async componentDidMount() {
-    await setTimeout(() => {
-      this.setState({ loading: false }, () => {
-        this.setMood();
-        this.setState({ isVisible: 'true' });
-      });
-    }, 2500);
-    await this.fetchCryptocurrencyData(1);
-    await this.fetchCryptocurrencyData(2);
+  componentDidMount() {
+    this.fetchCryptocurrencyData(1);
+    this.fetchCryptocurrencyData(2);
     this.fetchCryptocurrencyData(3);
+    setTimeout(() => {
+      this.setState(() => ({ loading: false }));
+      this.setState(() => ({ isVisible: 'true' }));
+      this.setMood();
+    }, 2000);
     setInterval(() => {
       this.fetchCryptocurrencyData(3);
     }, 60000);
@@ -91,8 +90,8 @@ class App extends Component {
   // click function for lock or arrow on main screen. First loads dashboard component
   // with "showComponent" then scrolls to said component.
   onButtonClick() {
-    this.setState({ isVisible: false });
-    this.setState({ showComponent: true });
+    this.setState(() => ({ isVisible: false }));
+    this.setState(() => ({ showComponent: true }));
   }
 
   // determines what main page text displays as "yes" or "no" depending on current %
@@ -102,18 +101,16 @@ class App extends Component {
     const data = dataNew[0].percent_change_24h;
 
     if (parseFloat(data) <= -5) {
-      this.setState({ text: 'absolutely not.' });
+      this.setState(() => ({ text: 'absolutely not.' }));
     }
     else if (parseFloat(data) >= 5) {
-      this.setState({ text: 'absolutely!' });
-      this.setState({ answer: true });
+      this.setState(() => ({ text: 'absolutely!', answer: true }));
     }
     else if (parseFloat(data) >= 0) {
-      this.setState({ text: 'looks good' });
-      this.setState({ answer: true });
+      this.setState(() => ({ text: 'looks good', answer: true }));
     }
     else if (parseFloat(data) < 0) {
-      this.setState({ text: 'probably not' });
+      this.setState(() => ({ text: 'probably not' }));
     }
   }
 
@@ -121,12 +118,12 @@ class App extends Component {
   // for the fetchCryptocurrencyData function to grab the correct data.
   getCoin(num, coinNew) {
     if (num === 1) {
-      this.setState({ coin: coinNew }, () => {
+      this.setState(() => ({ coin: coinNew }), () => {
         this.fetchCryptocurrencyData(1);
       });
     }
     else if (num === 2) {
-      this.setState({ coin2: coinNew }, () => {
+      this.setState(() => ({ coin2: coinNew }), () => {
         this.fetchCryptocurrencyData(2);
       });
     }
@@ -135,8 +132,7 @@ class App extends Component {
   revealDashboard() {
     const { answer } = this.state;
     if (answer) {
-      this.setState({ isVisible: false });
-      this.setState({ showComponent: true });
+      this.setState(() => ({ isVisible: false, showComponent: true }));
     }
   }
 
@@ -165,11 +161,11 @@ class App extends Component {
       try {
         const response = await axios('https://api.coinmarketcap.com/v1/ticker/');
         const response2 = await axios('https://api.coinmarketcap.com/v2/listings/');
-        const result = await response.data.filter(currency => currency.symbol === wanted);
-        const result1 = await response2.data.data.filter(
+        const result = response.data.filter(currency => currency.symbol === wanted);
+        const result1 = response2.data.data.filter(
           currency => wanted.includes(currency.symbol)
         );
-        const result2 = await response.data;
+        const result2 = response.data;
         if (topList === undefined || topList.length === 0) {
           for (let thetopList = 0; thetopList < result2.length; thetopList++) {
             const theList = result2[thetopList];
@@ -177,12 +173,12 @@ class App extends Component {
           }
         }
         if (num === 1) {
-          this.setState({ dataNew: result, dataToBTCid: result1, data: result2 }, () => {
+          this.setState(() => ({ dataNew: result, dataToBTCid: result1, data: result2 }), () => {
             this.convertToBTC(1);
           });
         }
         else if (num === 2) {
-          this.setState({ dataNew2: result, dataToBTCid2: result1, data: result2 }, () => {
+          this.setState(() => ({ dataNew2: result, dataToBTCid2: result1, data: result2 }), () => {
             this.convertToBTC(2);
           });
         }
@@ -194,7 +190,7 @@ class App extends Component {
     else if (num === 3) {
       const response = await axios('https://api.coinmarketcap.com/v1/ticker/bitcoin/');
       const result = response.data[0].price_usd;
-      this.setState({ currentBTCPrice: result });
+      this.setState(() => ({ currentBTCPrice: result }));
     }
   }
 
@@ -211,16 +207,14 @@ class App extends Component {
       wanted = dataToBTCid2[0].id;
     }
     try {
-      await axios.get(`https://api.coinmarketcap.com/v2/ticker/${wanted}/?convert=BTC`)
-        .then(((response3) => {
-          const result3 = response3.data.data.quotes.BTC;
-          if (num === 1) {
-            this.setState({ dataToBTC: result3 });
-          }
-          else {
-            this.setState({ dataToBTC2: result3 });
-          }
-        }));
+      const response3 = await axios.get(`https://api.coinmarketcap.com/v2/ticker/${wanted}/?convert=BTC`);
+      const result3 = response3.data.data.quotes.BTC;
+      if (num === 1) {
+        this.setState(() => ({ dataToBTC: result3 }));
+      }
+      else {
+        this.setState(() => ({ dataToBTC2: result3 }));
+      }
     }
     catch (error) {
       console.log('conversion to BTC failed!');
@@ -241,17 +235,15 @@ class App extends Component {
       wanted = value2;
     }
     try {
-      await axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wanted}&tsym=USD`)
-        .then((response) => {
-          if (num === 1) {
-            const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
-            cryptoImage.unshift(cryptoImageData);
-          }
-          else if (num === 2) {
-            const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
-            cryptoImage2.unshift(cryptoImage2Data);
-          }
-        });
+      const response = await axios.get(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wanted}&tsym=USD`);
+      if (num === 1) {
+        const cryptoImageData = response.data.Data[0].CoinInfo.ImageUrl;
+        cryptoImage.unshift(cryptoImageData);
+      }
+      else if (num === 2) {
+        const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
+        cryptoImage2.unshift(cryptoImage2Data);
+      }
     }
     catch (error) {
       console.log('Image not found!');
@@ -290,8 +282,8 @@ class App extends Component {
               <Hover
                 className="lockbody"
                 pose={hovering ? 'hovered' : 'idle'}
-                onMouseEnter={() => this.setState({ hovering: true })}
-                onMouseLeave={() => this.setState({ hovering: false })}
+                onMouseEnter={() => this.setState(() => ({ hovering: true }))}
+                onMouseLeave={() => this.setState(() => ({ hovering: false }))}
               >
                 <div
                   onClick={this.onButtonClick}
