@@ -3,6 +3,8 @@
   height: 65vh;
   width: 60vw;
   min-height: 162px !important;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media screen and (max-height: 800px) {
@@ -33,28 +35,11 @@
   background: #5d5d5df5;
   border-radius: 4px;
   overflow: hidden;
+
 }
 
 @media screen and (max-width: 950px) {
   .NoGraphChild {
-    width: 100% !important;
-  }
-}
-
-.YesGraphChild {
-  position: relative;
-  padding: 25px;
-  padding-bottom: 40px;
-  border: solid 1px white;
-  padding-left: 2px;
-  padding-top: 40px;
-  background: #515151eb;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-@media screen and (max-width: 950px) {
-  .YesGraphChild {
     width: 100% !important;
   }
 }
@@ -247,6 +232,8 @@
 
 .coinInfo {
   margin-top: -5px;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .currSelector {
@@ -371,15 +358,15 @@
 }
 
 .spun {
-  -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-     transform: rotate(180deg);
+  -webkit-transform: rotate(450deg);
+    -ms-transform: rotate(450deg);
+     transform: rotate(450deg);
 }
 
 .optionsImage {
   width: 25px;
-  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: transform 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .large {
@@ -393,8 +380,8 @@
 
 .heartFilled {
   opacity: 1;
-  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   
 }
 
@@ -403,3 +390,14 @@
   -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
+.flash {
+  opacity: 0;
+}
+
+.pulse {
+  transform: scale(1.2, 1.2);
+  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+

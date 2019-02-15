@@ -62,7 +62,7 @@ const Reveal = posed.div({
   visible: {
     opacity: 1,
     transition: { duration: 900 },
-    delay: 800
+    delay: 400
   },
   visible2: {
     opacity: 1,
@@ -72,7 +72,7 @@ const Reveal = posed.div({
   visible3: {
     opacity: 1,
     transition: { duration: 900 },
-    delay: 1200
+    delay: 400
   }
 });
 

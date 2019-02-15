@@ -4,13 +4,16 @@ import './ChartInfo.css';
 const ChartInfo = ({
  rank, currentPrice, currentPrice2, maxSupply, availableSupply, marketCap,
 oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr,
-dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage
+dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
 }) => {
   return (
     <div className="chartInfoChild">
       <img alt="" className="cryptoImageBackgroundChartInfo" src={cryptoImage} />
       {curr === 'USD' ? (
-        <div className="coinInfo">
+        <div 
+        className="coinInfo"
+        id={`coinInfo ${value}`}
+        >
           <li>
             <span>Coin</span>
             <span className="right">{name}</span>

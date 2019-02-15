@@ -10,6 +10,7 @@ import exit from '../../../images/exiticon.png';
 import heart from '../../../images/heart.png';
 import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
+import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import ChartInfo from '../chartInfo/ChartInfo';
 
@@ -49,14 +50,17 @@ class Graph extends Component {
     super(props);
     // this.scrollEvent = this.scrollEvent.bind(this);
     this.onReload = this.onReload.bind(this);
+    this.loadSpinner = this.loadSpinner.bind(this);
     this.onFavorite = this.onFavorite.bind(this);
     this.state = {
-      hovered: false
+      hovered: false,
+      loading: false
     };
   }
 
   componentDidMount() {
     // window.addEventListener('wheel', this.scrollEvent);
+    this.loadSpinner();
   }
 
   onReload(e) {
@@ -65,14 +69,32 @@ class Graph extends Component {
     const element = document.getElementById(value);
     element.classList.toggle('spun');
     handleSubmit5(e, value);
+    this.loadSpinner();
   }
 
   onFavorite() {
-    const { addToFavorites } = this.props;
     const { value } = this.props;
+    const { addToFavorites } = this.props;
     const element = document.getElementById(`heartFilled ${value}`);
-    element.classList.toggle('fade');
+    element.classList.add('pulse');
+    setTimeout(() => {
+      element.classList.remove('pulse');
+    }, 1000)
     addToFavorites();
+  }
+
+  loadSpinner() {
+    const { value } = this.props;
+    const element2 = document.getElementById(`NoChartActual ${value}`);
+    const element3 = document.getElementById(`coinInfo ${value}`);
+    element2.classList.add('flash');
+    element3.classList.add('flash');
+    this.setState(() => ({ loading: true }));
+    setTimeout(() => {
+      element2.classList.toggle('flash');
+      element3.classList.toggle('flash');
+      this.setState(() => ({ loading: false }));
+    }, 1500)
   }
 
   // scrollEvent(e) {
@@ -123,6 +145,7 @@ class Graph extends Component {
       addSidebar, sideBarOpener, inputValue, secondGraphVisible, graphFocus, addGraph, handleSubmit5, addToFavorites, favorites
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
+    const { loading } = this.state;
     const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
     const currentPrice2 = Number(dataToBTC.price).toFixed(10);
     const { rank } = dataNew[0];
@@ -244,13 +267,24 @@ class Graph extends Component {
 
     return (
       <div
-        className={`${answer ? 'Yes' : 'No'}GraphChild`}
+        className="NoGraphChild"
       >
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
           { `${name} / ${curr}`}
         </div>
-        <ResizeNoChartActual className="NoChartActual" pose="resized">
+        {loading ? (
+          <div className="spinnerContainerGraph">
+            <div className="spinner">
+              <Loader type="Grid" color="#0d0c0c" height={60} width={60} />
+            </div>
+          </div>
+        ) : null }
+        <ResizeNoChartActual 
+          className="NoChartActual" 
+          pose="resized"
+          id={`NoChartActual ${value}`}
+          >
           <Bar
             data={graphData}
             options={options}
@@ -326,8 +360,18 @@ class Graph extends Component {
             {button}
           </div>
         </div>
-        <div className="col-sm-2 Nochartheader">
+        <div 
+        className="col-sm-2 Nochartheader"
+        >
+        {loading ? (
+          <div className="spinnerContainerGraph">
+            <div className="spinner">
+              <Loader type="Grid" color="#0d0c0c" height={60} width={60} />
+            </div>
+          </div>
+        ) : null }
           <ChartInfo
+            value={value}
             rank={rank}
             currentPrice={currentPrice}
             currentPrice2={currentPrice2}
@@ -397,19 +441,11 @@ class Graph extends Component {
         <div className="optionsBank">
           <div className="favoriteButton" onClick={this.onFavorite}>
             <img
-              id={`heart ${value}`}
-              className="optionsImage large heart"
-              alt=""
-              src={
-                heart
-              }
-            />
-            <img
               id={`heartFilled ${value}`}
-              className="optionsImage large heartFilled"
+              className="optionsImage large"
               alt=""
               src={
-                heartFilled
+                favorites.indexOf(value) === -1 ? heart : heartFilled
               }
             />
           </div>

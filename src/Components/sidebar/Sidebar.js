@@ -32,7 +32,7 @@ class Sidebar extends Component {
       this.setState({ loading: false }, () => {
         this.sidebarTemplate(topList);
       });
-    }, 3000);
+    }, 1500);
   }
 
 
