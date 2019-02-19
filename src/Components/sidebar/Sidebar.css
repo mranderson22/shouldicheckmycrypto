@@ -1,5 +1,6 @@
 .sidebarCoin {
   font-size: 16px;
+  color: #d4e6ff;
 }
 
 .sidebarCoin:focus {
@@ -13,7 +14,7 @@
 }
 
 .redText {
-  color: #800000;
+  color: #690000;
   font-weight: bold;
 }
 
@@ -24,8 +25,7 @@
 }
 
 .greenText {
-  color: #24cc24;
-  font-weight: bold;
+  color: #00ff3a;
 }
 
 @media screen and (max-width: 1200px) {
@@ -67,7 +67,7 @@
     color: #dbdbdb;
     padding: .8rem;
     cursor: pointer;
-    background-color: #636363 !important;
+    background-color: #7b8589 !important;
     visibility: visible;
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -75,18 +75,18 @@
 }
 
 .listAddOn .list-group-item:hover {
-  background-color: #1d1a1a !important;
+  background-color: #223242 !important;
   color: white;
 }
 
 .listAddOn .list-group-item:focus {
-  background: #404040 !important;
+  background: #18212c !important;
   color: white;
   outline: 0;
 }
 
 .listAddOn .list-group-item:visited {
-  background: #1d1a1a !important;
+  background: #18212c !important;
 }
 
 .sidebarRank {
@@ -95,12 +95,18 @@
 }
 
 .nav-pills .nav-link.active, .nav-pills .show .nav-link {
-    color: black !important;
-    background-color: #5f5f5f !important;
+    color: #d9d9d9 !important;
+    background-color: #7b8589 !important;
     font-size: 15px;
     border-radius: 0 !important;
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.nav-pills .nav-link {
+  border-radius: 0 !important; 
+  background-color: #223242;
+  color: #d9d9d9 !important;
 }
 
 a {
@@ -114,6 +120,7 @@ a {
 
 .heartSidebar {
   width: 20px;
+  filter: invert(85%);
 }
 
 .heartSidebarListed {
@@ -135,14 +142,15 @@ a {
 }
 
 .removeFavorite {
-  background: #5f5f5f;
+  background: #7b8589;
   border: none;
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
 }
 
 .removeFavorite:hover {
-  background: #404040;
+  background: #22324270;
 }
 
 .removeFavorite:focus {
@@ -161,4 +169,20 @@ a {
 
 .visible {
   opacity: 1;
+}
+
+.list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: 0 !important; 
+  border-bottom-left-radius: 0 !important;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0 !important; 
+  border-top-right-radius: 0 !important; 
+}
+
+.favoritesListSettings {
+  max-height: 80vh !important;
+  height: fit-content !important;
 }

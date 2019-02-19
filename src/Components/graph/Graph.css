@@ -28,11 +28,10 @@
 .NoGraphChild {
   position: relative;
   padding: 25px;
-  border: solid 1px white;
   padding-bottom: 40px;
   padding-left: 2px;
   padding-top: 40px;
-  background: #5d5d5df5;
+  background: #737d82f0;
   border-radius: 4px;
   overflow: hidden;
 
@@ -79,13 +78,11 @@
 }
 
 .cryptoImage {
-
   border-radius: 50%;
   margin-top: 3px;
   width: 45px;
   background-color: white;
   border: 2px solid white;
-
 }
 
 .cryptoImage:hover {
@@ -176,7 +173,7 @@
   height: 33px;
   font-size: .8rem !important;
   color: #bfbebe !important;
-  background-color: #1d1a1a !important;
+  background-color: #223242 !important; 
   border-color: #1d1a1a !important;
   box-shadow: none !important;
   width: 50px !important;
@@ -192,17 +189,16 @@
 
 .selectorButtons.active, .selectorButtons.focus {
   color: white !important;
-  background-color: #404040 !important;
+  background-color: #18212c !important;
   border-color: #1d1a1a !important;
   /* box-shadow: none !important;
   border: none !important; */
 }
 
 .cryptoSubmit {
-  background-color: #373d42 !important;
   height: 33px;
   width: 50px !important;
-  background-color: #1d1a1a !important;
+  background-color: #1e2938 !important;
   border-color: #1d1a1a !important;
   box-shadow: none !important;
   font-size: .8rem !important;
@@ -214,7 +210,7 @@
   left: 3%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
-  color: #333333;
+  color: #1e2938;
   width: fit-content;
   z-index: 1;
 }
@@ -225,7 +221,7 @@
   left: 3%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
-  color: #333333;
+  color: #1e2938;
   width: fit-content;
   z-index: 1;
 }
@@ -251,7 +247,7 @@
 
 .currButton {
   color: #bfbebe !important;
-  background-color: #1d1a1a !important;
+  background-color: #223242 !important;
   border-color: #1d1a1a !important;
   box-shadow: none !important;
   height: 33px !important;
@@ -260,7 +256,7 @@
 
 .currButton.active, .currButton.focus {
   color: white !important;
-  background-color: #404040 !important;
+  background-color: #18212c !important;
   border-color: #1d1a1a !important;
 }
 

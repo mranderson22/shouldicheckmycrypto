@@ -20,11 +20,11 @@ dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
           </li>
           <li>
             <span>Rank</span>
-            <span className="right">{rank}</span>
+            <span className="right black">{rank}</span>
           </li>
           <li>
             <span>Current Price</span>
-            <span className="black right">${currentPrice}</span>
+            <span className={oneDay <= 0 ? 'redText right' : 'greenText right'}>${currentPrice}</span>
           </li>
           <li>
             <span>1 Hour Change</span>
@@ -43,18 +43,21 @@ dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
             <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>{dateRangeChange}%</span>
           </li>
           </div>) : (
-            <div className="coinInfo">
+            <div 
+              className="coinInfo"
+              id={`coinInfo ${value}`}
+            >
               <li>
                 <span>Coin</span>
                 <span className="right">{name}</span>
               </li>
               <li>
                 <span>Rank</span>
-                <span className="right">{rank}</span>
+                <span className="right black">{rank}</span>
               </li>
               <li>
                 <span>Current Price</span>
-                <span className="black right">${currentPrice2}</span>
+                <span className={oneDay <= 0 ? 'redText right' : 'greenText right'}>${currentPrice2}</span>
               </li>
               <li>
                 <span>1 Hour Change</span>
