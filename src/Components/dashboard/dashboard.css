@@ -31,7 +31,7 @@
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 4px;
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
   -webkit-transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -65,7 +65,7 @@
   overflow: hidden;
   border-radius: 4px;
   height: 243px;
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
 }
 
 
@@ -138,7 +138,7 @@
   padding-bottom: 0px;
   border-radius: 4px;
   z-index: 1;
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
   -webkit-transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -171,7 +171,7 @@
 }
 
 .shadowGraph {
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
   transform: scale(1, 1);
 }
 
@@ -196,7 +196,7 @@
   border-radius: 4px;
   background: rgba(0, 179, 41, 0.6196078431372549);
   overflow: hidden;
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
 }
 
 @media screen and (max-width: 750px) {
@@ -215,7 +215,7 @@
   margin-top: 15px;
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
 }
 
 @media screen and (max-width: 750px) {
@@ -273,7 +273,7 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
   background: #7b8589;
-    box-shadow: 0px 0px 20px 10px #00000047;
+        box-shadow: 10px 10px 15px 0px #0f161c85;
 
 
 }
@@ -306,7 +306,7 @@
    -ms-overflow-style: none;  /* IE 10+ */
   border-radius: 4px;
   background-color: #7b8589 !important;
-  box-shadow: 0px 0px 20px 10px #00000047;
+      box-shadow: 10px 10px 15px 0px #0f161c85;
 }
 
 .sidebar::-webkit-scrollbar { /* WebKit */

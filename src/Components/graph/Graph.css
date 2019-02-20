@@ -19,7 +19,7 @@
   }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 750px) {
   .NoChartActual {
     width: 90vw !important;
   }
@@ -57,7 +57,7 @@
   font-family: 'Poppins', sans-serif;
   color: black;
   padding-top: 25px;
-  width: fit-content;
+  width: 350px;
   z-index: 1;
 }
 

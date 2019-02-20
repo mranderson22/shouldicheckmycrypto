@@ -301,7 +301,7 @@ class Dashboard extends Component {
           type: 'bar',
           yAxisID: 'y-axis-1',
           hoverBackgroundColor: '#1d1a1a',
-          backgroundColor: '#1d1a1a61'
+          backgroundColor: 'rgba(29, 26, 26, 0.3803921568627451)'
         }
       ]
     };
