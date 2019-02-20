@@ -280,11 +280,11 @@ class Graph extends Component {
             </div>
           </div>
         ) : null }
-        <ResizeNoChartActual 
-          className="NoChartActual" 
+        <ResizeNoChartActual
+          className="NoChartActual"
           pose="resized"
           id={`NoChartActual ${value}`}
-          >
+        >
           <Bar
             data={graphData}
             options={options}

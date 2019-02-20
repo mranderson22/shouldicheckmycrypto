@@ -262,7 +262,7 @@ class App extends Component {
       return (
         <div className="spinnercontainer">
           <div className="spinner">
-            <Loader type="Oval" color="#0d0c0c" height={120} width={120} />
+            <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
           </div>
         </div>
       );

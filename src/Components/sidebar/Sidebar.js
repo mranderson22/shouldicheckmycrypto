@@ -137,7 +137,7 @@ class Sidebar extends Component {
     return (
       <div>
         {loading ? (
-          <div className="spinnercontainer">
+          <div className="spinnercontainerGraph">
             <div className="spinner">
               <Loader type="Grid" color="#0d0c0c" height={60} width={60} />
             </div>
