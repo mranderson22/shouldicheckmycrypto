@@ -179,7 +179,8 @@ class Graph extends Component {
       },
       tooltips: {
         displayColors: false,
-        mode: 'index'
+        mode: 'index',
+        backgroundColor: 'rgb(24, 33, 44)'
       },
       scales: {
         yAxes: [{
@@ -267,7 +268,7 @@ class Graph extends Component {
 
     return (
       <div
-        className="NoGraphChild"
+        className={graphFocus === 1 ? "NoGraphChild graphFocused" : "NoGraphChild"}
       >
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
@@ -364,9 +365,9 @@ class Graph extends Component {
         className="col-sm-2 Nochartheader"
         >
         {loading ? (
-          <div className="spinnerContainerGraph">
+          <div className="spinnerContainerChartInfo">
             <div className="spinner">
-              <Loader type="Grid" color="#0d0c0c" height={60} width={60} />
+              <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
             </div>
           </div>
         ) : null }

@@ -64,8 +64,8 @@
   background: white;
   overflow: hidden;
   border-radius: 4px;
-  height: 243px;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
+  height: 225px;
+  box-shadow: 10px 10px 15px 0px #0f161c85;
 }
 
 
@@ -138,9 +138,7 @@
   padding-bottom: 0px;
   border-radius: 4px;
   z-index: 1;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
-  -webkit-transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 10px 10px 15px 0px #0f161c85;
 }
 
 @media screen and (max-height: 800px) {
@@ -263,7 +261,7 @@
   padding: 5px 5px 5px 5px;
   bottom: -4vh;
   height: 63px;
-  top: 6%;
+  top: 3%;
   margin-top: 231px;
   max-width: 26.666667% !important;
   border-radius: 4px;
@@ -273,7 +271,7 @@
   padding-left: 0px !important;
   padding-right: 0px !important;
   background: #7b8589;
-        box-shadow: 10px 10px 15px 0px #0f161c85;
+  box-shadow: 10px 10px 15px 0px #0f161c85;
 
 
 }
@@ -456,6 +454,8 @@
   background: rgba(115, 125, 130, 0.9411764705882353);
   border-radius: 4px;
   overflow: hidden;
+  -webkit-transition: background .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: background .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
 }
 
@@ -463,6 +463,10 @@
   .NoGraphChild {
     width: 100% !important;
   }
+}
+
+.graphFocused {
+  background: rgba(123, 133, 137, 0.93);
 }
 
 .toggled {
@@ -733,7 +737,7 @@
 }
 
 .redText {
-  color: #ff3333;
+  color: #801f28;
 }
 
 .greenText {
@@ -819,6 +823,10 @@
   transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.spinnerContainerChartInfo {
+  background: black;
+}
+
 
 .cryptoImageBackgroundChartInfo {
   position: absolute;
@@ -837,7 +845,8 @@
   padding-left: 10px;
   height: inherit;
   z-index: 1;
-  padding-top: 18px;
+  padding-top: 10px;
+  padding-bottom: 75px;
 }
 
 .right {
@@ -863,6 +872,34 @@ li {
   margin-bottom: 5px;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show .nav-link {
+  color: #d9d9d9 !important;
+  background-color: #7b8589 !important;
+  font-size: 15px;
+  border-radius: 0 !important;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.nav-pills .nav-link {
+border-radius: 0 !important; 
+background-color: #223242;
+color: #d9d9d9 !important;
+}
+
+a {
+  color: #000000 !important;
+  font-size: 15px;
+}
+
+#nav {
+background: #404040;
+}
+
+.nav-chartInfo {
+  background: #7b8589 !important;
+
+}
 .sidebarCoin {
   font-size: 16px;
   color: #d4e6ff;

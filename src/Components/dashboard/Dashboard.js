@@ -288,8 +288,8 @@ class Dashboard extends Component {
           pointBackgroundColor: '#dad7d7',
           pointBorderWidth: 0,
           pointHoverRadius: 2,
-          pointHoverBackgroundColor: 'black',
-          pointHoverBorderColor: 'black',
+          pointHoverBackgroundColor: '#1E2938',
+          pointHoverBorderColor: '#1E2938',
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
@@ -300,8 +300,8 @@ class Dashboard extends Component {
           label: 'Volume',
           type: 'bar',
           yAxisID: 'y-axis-1',
-          hoverBackgroundColor: '#1d1a1a',
-          backgroundColor: 'rgba(29, 26, 26, 0.3803921568627451)'
+          hoverBackgroundColor: '#1E2938',
+          backgroundColor: 'rgba(30, 41, 56, 0.65)'
         }
       ]
     };
@@ -915,7 +915,7 @@ class Dashboard extends Component {
           </div>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
                 <Resize
-                  className={graphFocus === 1  ? "col-sm-10 NoGraph shadowGraph" : "col-sm-10 NoGraph"}
+                  className="col-sm-10 NoGraph"
                   pose={pose}
                   onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
                   onMouseLeave={() => this.setState({ hovered: false })}>

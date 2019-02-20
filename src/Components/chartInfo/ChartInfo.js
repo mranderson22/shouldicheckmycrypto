@@ -7,6 +7,10 @@ oneDayVolume, oneHour, oneDay, seven, oneHour2, oneDay2, seven2, curr,
 dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
 }) => {
   return (
+    <div>
+    <nav className="nav nav-pills nav-fill">
+    <a className={"nav-item nav-link nav-chartInfo"}>{`${value} Details`}</a>
+  </nav>
     <div className="chartInfoChild">
       <img alt="" className="cryptoImageBackgroundChartInfo" src={cryptoImage} />
       {curr === 'USD' ? (
@@ -14,10 +18,6 @@ dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
         className="coinInfo"
         id={`coinInfo ${value}`}
         >
-          <li>
-            <span>Coin</span>
-            <span className="right">{name}</span>
-          </li>
           <li>
             <span>Rank</span>
             <span className="right black">{rank}</span>
@@ -48,10 +48,6 @@ dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
               id={`coinInfo ${value}`}
             >
               <li>
-                <span>Coin</span>
-                <span className="right">{name}</span>
-              </li>
-              <li>
                 <span>Rank</span>
                 <span className="right black">{rank}</span>
               </li>
@@ -76,6 +72,7 @@ dateRangeChange, dateRangeChange2, days, days2, name, cryptoImage, value
                 <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>{dateRangeChange}%</span>
               </li>
               </div>)}
+    </div>
     </div>
   );
 };
