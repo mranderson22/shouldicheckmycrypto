@@ -34,8 +34,6 @@
   background: rgba(115, 125, 130, 0.9411764705882353);
   border-radius: 4px;
   overflow: hidden;
-  -webkit-transition: background .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: background .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
 }
 

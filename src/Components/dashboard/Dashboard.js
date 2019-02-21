@@ -143,6 +143,8 @@ class Dashboard extends Component {
       secondWasThere: false,
       sideBarOpener: false,
       sideBarOpener2: false,
+      coin: 'BTC',
+      coin2: 'ETH',
       curr: 'USD',
       curr2: 'USD',
       toggleCurr: false,
@@ -185,6 +187,7 @@ class Dashboard extends Component {
     this.findSymbol = this.findSymbol.bind(this);
     this.addGraph = this.addGraph.bind(this);
     this.addSidebar = this.addSidebar.bind(this);
+    this.setUserInput = this.setUserInput.bind(this);
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleSubmit1 = this.handleSubmit1.bind(this);
@@ -447,9 +450,7 @@ class Dashboard extends Component {
     }
     else {
       this.setState({ inputValue: event.target.value.toUpperCase() });
-      this.setState({ value: event.target.value.toUpperCase() });
-      this.setState({ coin: event.target.value.toUpperCase() });
-      if (event.target.value !== '') {
+      if (event.target.value !== ' ') {
         this.setState({ isEnabled: true });
       }
     }
@@ -457,26 +458,64 @@ class Dashboard extends Component {
 
   handleChange2(event) {
     if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
-      console.log('error, IOTA is corrupt!');
+      console.log('error!');
     }
     else {
       this.setState({ inputValue2: event.target.value.toUpperCase() });
-      this.setState({ value2: event.target.value.toUpperCase() });
-      this.setState({ coin2: event.target.value.toUpperCase() });
       if (event.target.value !== '') {
         this.setState({ isEnabled2: true });
       }
     }
   }
 
+  setUserInput(e) {
+    const { graphFocus } = this.state;
+    const { data } = this.props;
+    const userInput = e.target.elements.userInput.value;
+    const index = data.findIndex(coin => coin.id === userInput.toString().toLowerCase());
+    e.preventDefault();
+    this.setState(() => {
+      if (graphFocus === 1) {
+        if (index !== -1) {
+          return {
+            coin: data[index].symbol,
+            value: data[index].symbol
+          }
+        } 
+        return {
+          coin: userInput,
+          value: userInput
+        }
+        
+      } if (graphFocus === 2) {
+        if (index !== -1) {
+          return {
+            coin2: data[index].symbol,
+            value2: data[index].symbol
+          }
+        } 
+        return {
+          coin2: userInput,
+          value2: userInput
+        }
+        
+      }
+    }, () => {
+      if (graphFocus === 1) {
+        this.handleSubmit1(e);
+      } else if (graphFocus === 2) {
+        this.handleSubmit2(e);
+      }
+    });
+  }
+
   handleSubmit1(e) {
     const { sideBarOpener } = this.state;
     const { value } = this.state;
     const { curr } = this.state;
-
     this.addToCoinlog(1);
     this.findSymbol(1);
-    e.preventDefault();
+    e.persist();
     if (value === 'BTC') {
       this.setState({ curr: 'USD' });
     }
@@ -495,11 +534,11 @@ class Dashboard extends Component {
       this.setState({ toggleCurr2: true });
       this.addToCoinlog(2);
       this.findSymbol(2);
-      e.preventDefault();
+      e.persist();
     }
     else if (value2 === 'BTC' && toggleCurr2 === true) {
       this.setState({ toggleCurr2: false });
-      e.preventDefault();
+      e.persist();
       this.setState({ curr2: 'USD' }, () => {
         this.addToCoinlog(2);
         this.findSymbol(2);
@@ -509,13 +548,13 @@ class Dashboard extends Component {
       this.setState({ curr2: 'USD' }, () => {
         this.addToCoinlog(2);
         this.findSymbol(2);
-        e.preventDefault();
+        e.persist();
       });
     }
     else {
       this.addToCoinlog(2);
       this.findSymbol(2);
-      e.preventDefault();
+      e.persist();
     }
     if (sideBarOpener === true) {
       this.addSidebar();
@@ -550,8 +589,8 @@ class Dashboard extends Component {
   handleSubmit5(e, sym) {
     const { graphFocus } = this.state;
     e.persist();
-    if (sym === 'MIOTA') {
-      alert('error! IOTA data currently corrupt');
+    if (sym === 'EOS') {
+      alert('error! data currently corrupt');
     }
     else if (graphFocus === 1) {
       this.setState({ value: sym, coin: sym }, () => {
@@ -589,8 +628,8 @@ class Dashboard extends Component {
     const { toggleCurr2 } = this.state;
 
     if (num === 1) {
-      data.forEach((coins) => {
-        if (coins.symbol === value) {
+      const index = data.findIndex(coin => coin.symbol === value);
+        if (index !== -1) {
           if (value !== 'BTC' && toggleCurr === false) {
             this.setState({ toggleCurr: true });
           }
@@ -602,12 +641,11 @@ class Dashboard extends Component {
           this.fetchCryptocurrencyImage(1);
           this.getPoints(1);
           this.setState({ inputValue: '' });
-        }
-      });
-    }
+        } 
+      }
     else if (num === 2) {
-      data.forEach((coins) => {
-        if (coins.symbol === value2) {
+      const index = data.findIndex(coins => coins.symbol === value);
+        if (index !== -1) {
           if (value2 !== 'BTC' && toggleCurr2 === false) {
             this.setState({ toggleCurr2: true });
           }
@@ -620,7 +658,6 @@ class Dashboard extends Component {
           this.getPoints(2);
           this.setState({ inputValue2: '' });
         }
-      });
     }
   }
 
@@ -915,7 +952,7 @@ class Dashboard extends Component {
           </div>
               <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
                 <Resize
-                  className="col-sm-10 NoGraph"
+                className={graphFocus === 1 ? "col-sm-10 NoGraph shadowGraph" : "col-sm-10 NoGraph"}
                   pose={pose}
                   onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
                   onMouseLeave={() => this.setState({ hovered: false })}>
@@ -947,6 +984,7 @@ class Dashboard extends Component {
                     addToFavorites={this.addToFavorites}
                     favorites={favorites}
                     hovered={hovered}
+                    setUserInput={this.setUserInput}
                   />
                   {/*
                     { freshReveal ? (
@@ -1025,6 +1063,7 @@ class Dashboard extends Component {
                       addToFavorites={this.addToFavorites}
                       favorites={favorites}
                       hovered={hovered}
+                      setUserInput={this.setUserInput}
                     />
                   </Reveal3>
                 ) : null

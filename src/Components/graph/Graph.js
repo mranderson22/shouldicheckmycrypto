@@ -142,7 +142,7 @@ class Graph extends Component {
     const {
       dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit1, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
       dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2,
-      addSidebar, sideBarOpener, inputValue, secondGraphVisible, graphFocus, addGraph, handleSubmit5, addToFavorites, favorites
+      addSidebar, sideBarOpener, setUserInput, inputValue, secondGraphVisible, graphFocus, addGraph, handleSubmit5, addToFavorites, favorites
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
     const { loading } = this.state;
@@ -268,7 +268,7 @@ class Graph extends Component {
 
     return (
       <div
-        className={graphFocus === 1 ? "NoGraphChild graphFocused" : "NoGraphChild"}
+        className="NoGraphChild"
       >
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
@@ -397,10 +397,10 @@ class Graph extends Component {
           </div>
           <div className="cryptoImageContainer">
             <div className="cryptoInput">
-              <Form inline onSubmit={handleSubmit1}>
+              <Form inline onSubmit={setUserInput}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                   <Label for="Name">
-                    <Input className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                    <Input name="userInput" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
                   </Label>
                 </FormGroup>
                 <Button className="cryptoSubmit" disabled={!isEnabled}>

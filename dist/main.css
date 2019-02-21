@@ -31,9 +31,9 @@
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 4px;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
-  -webkit-transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: box-shadow .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: 10px 10px 15px 0px #0f161c85;
+  -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media screen and (max-width: 750px) {
@@ -139,6 +139,8 @@
   border-radius: 4px;
   z-index: 1;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media screen and (max-height: 800px) {
@@ -169,8 +171,7 @@
 }
 
 .shadowGraph {
-      box-shadow: 10px 10px 15px 0px #0f161c85;
-  transform: scale(1, 1);
+    
 }
 
 .fullView {
@@ -454,8 +455,6 @@
   background: rgba(115, 125, 130, 0.9411764705882353);
   border-radius: 4px;
   overflow: hidden;
-  -webkit-transition: background .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: background .6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
 }
 
@@ -897,7 +896,7 @@ background: #404040;
 }
 
 .nav-chartInfo {
-  background: #7b8589 !important;
+  background: rgba(34, 50, 66, 0.6705882352941176) !important;
 
 }
 .sidebarCoin {

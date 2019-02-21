@@ -117,15 +117,51 @@ class App extends Component {
   // receiving data from dashboard component and sets the state accordingly in order
   // for the fetchCryptocurrencyData function to grab the correct data.
   getCoin(num, coinNew) {
-    if (num === 1) {
-      this.setState(() => ({ coin: coinNew }), () => {
-        this.fetchCryptocurrencyData(1);
-      });
-    }
-    else if (num === 2) {
-      this.setState(() => ({ coin2: coinNew }), () => {
-        this.fetchCryptocurrencyData(2);
-      });
+    const { data } = this.state;
+    const index = data.findIndex(coin => coin.id === coinNew.toString().toLowerCase());
+    if (index === -1) {
+      if (num === 1) {
+        this.setState(() => {
+          return {
+            value: coinNew,
+            coin: coinNew 
+          }
+        }, () => {
+          this.fetchCryptocurrencyData(1);
+        });
+      }
+      else if (num === 2) {
+        this.setState(() => { 
+          return {
+            value2: coinNew,
+            coin2: coinNew 
+          }
+        }, () => {
+          this.fetchCryptocurrencyData(2);
+        });
+      }
+    } else if (index !== -1) {
+      const symbol = data[index].symbol.toString().toLowerCase();
+      if (num === 1) {
+        this.setState(() => {
+          return {
+            value: symbol,
+            coin: symbol
+          }
+        }, () => {
+          this.fetchCryptocurrencyData(1);
+        });
+      }
+      else if (num === 2) {
+        this.setState(() => { 
+          return {
+            value2: symbol,
+            coin2: symbol
+          }
+        }, () => {
+          this.fetchCryptocurrencyData(2);
+        });
+      }
     }
   }
 
