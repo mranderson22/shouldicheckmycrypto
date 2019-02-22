@@ -189,10 +189,10 @@ class App extends Component {
     let wanted;
     if (num !== 3) {
       if (num === 1) {
-        wanted = coin;
+        wanted = coin.toUpperCase();
       }
       else if (num === 2) {
-        wanted = coin2;
+        wanted = coin2.toUpperCase();
       }
       try {
         const response = await axios('https://api.coinmarketcap.com/v1/ticker/');

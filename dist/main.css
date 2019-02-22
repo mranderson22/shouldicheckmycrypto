@@ -1001,7 +1001,8 @@ background: #404040;
     font-size: 15px;
     border-radius: 0 !important;
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+
 }
 
 .nav-pills .nav-link {
@@ -1016,7 +1017,11 @@ a {
 }
 
 #nav {
-  background: #404040;
+  background: #223242;
+}
+
+.flex-item {
+  flex: 1 1 0px !important;
 }
 
 .heartSidebar {
@@ -1104,7 +1109,7 @@ html, body {
 
 .spinnercontainer {
   height: 100vh;
-  background: #1E2938;
+  background: #1E2938 !important;
 }
 
 .Answernobackground {

@@ -144,19 +144,21 @@ class Sidebar extends Component {
           </div>
         ) : null}
         <div className={loading ? "list-group listAddOn" : "list-group listAddOn visible"}>
-          <nav id="nav" className="nav nav-pills nav-fill">
-            <a className={listStatus === 'Ranked' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="ranked">1.2.3.</a>
-            <a className={listStatus === 'Top' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="topPercentage">
+          <nav id="nav" className="nav sticky-top nav-pills nav-fill">
+            <a className={listStatus === 'Ranked' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="ranked">1.2.3.</a>
+            <a className={listStatus === 'Top' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="topPercentage">
               <img className="heartSidebar" src={trendingup}/>
             </a>
-            <a className={listStatus === 'Bottom' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="bottomPercentage">
+            <a className={listStatus === 'Bottom' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="bottomPercentage">
               <img className="heartSidebar" src={trendingdown}/>
             </a>
-            <a className={listStatus === 'Favorites' ? "nav-item nav-link active" : "nav-item nav-link"} href="#" id="favorites">
+            <a className={listStatus === 'Favorites' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="favorites">
               <img className="heartSidebar" src={heartFilled}/>
             </a>
           </nav>
-          {newRankingList}
+          <div>
+            {newRankingList}
+          </div>
         </div>
       </div>
     );

@@ -15,7 +15,7 @@ html, body {
 
 .spinnercontainer {
   height: 100vh;
-  background: #1E2938;
+  background: #1E2938 !important;
 }
 
 .Answernobackground {

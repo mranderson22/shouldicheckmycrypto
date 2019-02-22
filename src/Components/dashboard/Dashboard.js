@@ -385,6 +385,46 @@ class Dashboard extends Component {
     }
   }
 
+  setUserInput(e) {
+    const { graphFocus } = this.state;
+    const { data } = this.props;
+    const userInput = e.target.elements.userInput.value;
+    const index = data.findIndex(coin => coin.id === userInput);
+    e.preventDefault();
+    this.setState(() => {
+      if (graphFocus === 1) {
+        if (index !== -1) {
+          return {
+            coin: data[index].symbol,
+            value: data[index].symbol
+          };
+        }
+        return {
+          coin: userInput.toUpperCase(),
+          value: userInput.toUpperCase()
+        };
+      } if (graphFocus === 2) {
+        if (index !== -1) {
+          return {
+            coin2: data[index].symbol,
+            value2: data[index].symbol
+          };
+        }
+        return {
+          coin2: userInput.toUpperCase(),
+          value2: userInput.toUpperCase()
+        };
+      }
+    }, () => {
+      if (graphFocus === 1) {
+        this.handleSubmit1(e);
+      }
+      else if (graphFocus === 2) {
+        this.handleSubmit2(e);
+      }
+    });
+  }
+
   getHistoryChange(num = 1) {
     const history = this.state;
     const history2 = this.state;
@@ -449,7 +489,7 @@ class Dashboard extends Component {
       console.log('error, IOTA is corrupt!');
     }
     else {
-      this.setState({ inputValue: event.target.value.toUpperCase() });
+      this.setState({ inputValue: event.target.value });
       if (event.target.value !== ' ') {
         this.setState({ isEnabled: true });
       }
@@ -461,58 +501,16 @@ class Dashboard extends Component {
       console.log('error!');
     }
     else {
-      this.setState({ inputValue2: event.target.value.toUpperCase() });
+      this.setState({ inputValue2: event.target.value });
       if (event.target.value !== '') {
         this.setState({ isEnabled2: true });
       }
     }
   }
 
-  setUserInput(e) {
-    const { graphFocus } = this.state;
-    const { data } = this.props;
-    const userInput = e.target.elements.userInput.value;
-    const index = data.findIndex(coin => coin.id === userInput.toString().toLowerCase());
-    e.preventDefault();
-    this.setState(() => {
-      if (graphFocus === 1) {
-        if (index !== -1) {
-          return {
-            coin: data[index].symbol,
-            value: data[index].symbol
-          }
-        } 
-        return {
-          coin: userInput,
-          value: userInput
-        }
-        
-      } if (graphFocus === 2) {
-        if (index !== -1) {
-          return {
-            coin2: data[index].symbol,
-            value2: data[index].symbol
-          }
-        } 
-        return {
-          coin2: userInput,
-          value2: userInput
-        }
-        
-      }
-    }, () => {
-      if (graphFocus === 1) {
-        this.handleSubmit1(e);
-      } else if (graphFocus === 2) {
-        this.handleSubmit2(e);
-      }
-    });
-  }
-
   handleSubmit1(e) {
     const { sideBarOpener } = this.state;
     const { value } = this.state;
-    const { curr } = this.state;
     this.addToCoinlog(1);
     this.findSymbol(1);
     e.persist();
@@ -589,10 +587,7 @@ class Dashboard extends Component {
   handleSubmit5(e, sym) {
     const { graphFocus } = this.state;
     e.persist();
-    if (sym === 'EOS') {
-      alert('error! data currently corrupt');
-    }
-    else if (graphFocus === 1) {
+    if (graphFocus === 1) {
       this.setState({ value: sym, coin: sym }, () => {
         this.handleSubmit1(e);
       });
@@ -628,7 +623,7 @@ class Dashboard extends Component {
     const { toggleCurr2 } = this.state;
 
     if (num === 1) {
-      const index = data.findIndex(coin => coin.symbol === value);
+      const index = data.findIndex(coin3 => coin3.symbol === value);
         if (index !== -1) {
           if (value !== 'BTC' && toggleCurr === false) {
             this.setState({ toggleCurr: true });
@@ -644,7 +639,7 @@ class Dashboard extends Component {
         } 
       }
     else if (num === 2) {
-      const index = data.findIndex(coins => coins.symbol === value);
+      const index = data.findIndex(coins4 => coins4.symbol === value);
         if (index !== -1) {
           if (value2 !== 'BTC' && toggleCurr2 === false) {
             this.setState({ toggleCurr2: true });
