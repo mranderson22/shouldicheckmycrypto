@@ -1,14 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './BitcoinTracker.css';
 
-class BitcoinTracker extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const { currentBTCPrice } = this.props;
+const BitcoinTracker = ({currentBTCPrice}) => {
     const price = parseFloat(currentBTCPrice).toFixed(2);
     return (
         <div className="bitcoinCurrentPrice">
@@ -17,6 +10,6 @@ class BitcoinTracker extends Component {
           {price}
         </div>
     );
-  }
 }
+
 export default BitcoinTracker;

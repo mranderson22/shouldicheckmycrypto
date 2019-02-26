@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Sidebar.css';
 import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 import heartFilled from '../../../images/heartFilled.png';
 import trendingup from '../../../images/trendingup.png';
 import trendingdown from '../../../images/trendingdown.png';
@@ -8,19 +9,10 @@ import exiticon from '../../../images/exiticon.png';
 
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listStatus: 'Ranked',
-      loading: true
-    };
-    this.getTopPercentage = this.getTopPercentage.bind(this);
-    this.getBottomPercentage = this.getBottomPercentage.bind(this);
-    this.getRanking = this.getRanking.bind(this);
-    this.sidebarTemplate = this.sidebarTemplate.bind(this);
-    this.sidebarTemplateFavorites = this.sidebarTemplateFavorites.bind(this);
-    this.getFavorites = this.getFavorites.bind(this);
-  }
+  state = {
+    listStatus: 'Ranked',
+    loading: true
+  };
 
   async componentDidMount() {
     const { topList } = this.props;
@@ -36,7 +28,7 @@ class Sidebar extends Component {
   }
 
 
-  getTopPercentage() {
+  getTopPercentage = () => {
     const { topList } = this.props;
     this.setState({ listStatus: 'Top' }, () => {
       topList.sort((a, b) => b.percent_change_24h - a.percent_change_24h);
@@ -44,7 +36,7 @@ class Sidebar extends Component {
     });
   }
 
-  getBottomPercentage() {
+  getBottomPercentage = () => {
     const { topList } = this.props;
     this.setState({ listStatus: 'Bottom' }, () => {
       topList.sort((a, b) => a.percent_change_24h - b.percent_change_24h);
@@ -52,7 +44,7 @@ class Sidebar extends Component {
     });
   }
 
-  getRanking() {
+  getRanking = () => {
     const { topList } = this.props;
     this.setState({ listStatus: 'Ranked' }, () => {
       topList.sort((a, b) => a.rank - b.rank);
@@ -60,7 +52,7 @@ class Sidebar extends Component {
     });
   }
 
-  getFavorites() {
+  getFavorites = () => {
     const { favorites } = this.props;
     const { topList } = this.props;
     this.setState({ listStatus: 'Favorites' }, () => {
@@ -70,63 +62,80 @@ class Sidebar extends Component {
     });
   }
 
-  async sidebarTemplate(list) {
+  sidebarTemplate = async (list) => {
     const { favorites } = this.props;
     const { handleSubmit5 } = this.props;
-    const newRankingList = await list.map((x, y) =>
-      (
-        <div key={y}>
-        <button type="button" className="list-group-item list-group-item-action " onClick={(e) =>
-        {handleSubmit5(e, x.symbol)}}>
-          <span className="sidebarRank">{x.rank + ".     "}&nbsp;</span>
-          <span className="sidebarCoin">{x.symbol}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span className={x.percent_change_24h > 0 ? "greenText right" : "redText right"}>
-          {x.percent_change_24h + '%'}</span>
-          {favorites.indexOf(x.symbol) === -1 ? 
-            null : (<span><img className="heartSidebarListed" src={heartFilled}/></span>)}
+    const newRankingList = await list.map(x => (
+      <div key={x.id}>
+        <button
+          type="button"
+          className="list-group-item list-group-item-action "
+          onClick={(e) => {
+            handleSubmit5(e, x.symbol);
+          }
+                  }
+        >
+          <span className="sidebarRank">
+            {`${x.rank}.`}
+            &nbsp;
+          </span>
+          <span className="sidebarCoin">
+            {x.symbol}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span className={x.percent_change_24h > 0 ? 'greenText right' : 'redText right'}>
+            {`${x.percent_change_24h} %`}
+          </span>
+          {favorites.indexOf(x.symbol) === -1
+            ? null : (
+              <span>
+                <img
+                  className="heartSidebarListed"
+                  src={heartFilled}
+                  alt="heart"
+                />
+              </span>)}
         </button>
-        </div>));
+      </div>));
     this.setState({ newRankingList });
   }
 
-  sidebarTemplateFavorites(list) {
-    const { favorites } = this.props;
+  sidebarTemplateFavorites = (list) => {
     const { handleSubmit5 } = this.props;
     const { removeFromFavorites } = this.props;
-    const newRankingList = list.map((x, y) => (
-      <div key={y} className="sidebarButtonWrapper">
-      <button
-        type="button"
-        className="list-group-item list-group-item-action "
-        onClick={(e) => {
-          handleSubmit5(e, x.symbol);
-        }}
-      >
-        <span className="sidebarRank">
-          {`${x.rank}.`}
+    const newRankingList = list.map(x => (
+      <div key={x.id} className="sidebarButtonWrapper">
+        <button
+          type="button"
+          className="list-group-item list-group-item-action "
+          onClick={(e) => {
+            handleSubmit5(e, x.symbol);
+          }
+                }
+        >
+          <span className="sidebarRank">
+            {`${x.rank}.`}
           &nbsp;
-        </span>
-        <span className="sidebarCoin">
-          {x.symbol}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </span>
-        <span className={x.percent_change_24h > 0 ? 'greenText right' : 'redText right'}>
-          {`${x.percent_change_24h} %`}
-        </span>
-      </button>
-      <button
-      className="removeFavorite"
-      type="button"
-      onClick={() => {
-        removeFromFavorites(x.symbol);
-      }}
-      >
-              <img className="heartSidebarListed" src={exiticon}/>
-      </button>
-      </div>)
-    );
+          </span>
+          <span className="sidebarCoin">
+            {x.symbol}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
+          <span className={x.percent_change_24h > 0 ? 'greenText right' : 'redText right'}>
+            {`${x.percent_change_24h} %`}
+          </span>
+        </button>
+        <button
+          className="removeFavorite"
+          type="button"
+          onClick={() => {
+            removeFromFavorites(x.symbol);
+          }}
+        >
+          <img className="heartSidebarListed" src={exiticon} alt="favorite" />
+        </button>
+      </div>));
     this.setState({ newRankingList });
-
   }
 
 
@@ -143,18 +152,20 @@ class Sidebar extends Component {
             </div>
           </div>
         ) : null}
-        <div className={loading ? "list-group listAddOn" : "list-group listAddOn visible"}>
+        <div className={loading ? 'list-group listAddOn' : 'list-group listAddOn visible'}>
           <nav id="nav" className="nav sticky-top nav-pills nav-fill">
-            <a className={listStatus === 'Ranked' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="ranked">1.2.3.</a>
-            <a className={listStatus === 'Top' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="topPercentage">
-              <img className="heartSidebar" src={trendingup}/>
-            </a>
-            <a className={listStatus === 'Bottom' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="bottomPercentage">
-              <img className="heartSidebar" src={trendingdown}/>
-            </a>
-            <a className={listStatus === 'Favorites' ? "flex-item nav-item nav-link active" : "flex-item nav-item nav-link"} href="#" id="favorites">
-              <img className="heartSidebar" src={heartFilled}/>
-            </a>
+            <span className={listStatus === 'Ranked' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="ranked">
+            1.2.3.
+            </span>
+            <span className={listStatus === 'Top' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="topPercentage">
+              <img className="heartSidebar" src={trendingup} alt="trendingup" />
+            </span>
+            <span className={listStatus === 'Bottom' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="bottomPercentage">
+              <img className="heartSidebar" src={trendingdown} alt="trendingdown" />
+            </span>
+            <span className={listStatus === 'Favorites' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="favorites">
+              <img className="heartSidebar" src={heartFilled} alt="favorited" />
+            </span>
           </nav>
           <div>
             {newRankingList}
@@ -164,5 +175,19 @@ class Sidebar extends Component {
     );
   }
 }
+
+Sidebar.propTypes = {
+  topList: PropTypes.array,
+  favorites: PropTypes.array,
+  handleSubmit5: PropTypes.func,
+  removeFromFavorites: PropTypes.func
+};
+
+Sidebar.defaultProps = {
+  topList: PropTypes.array,
+  favorites: PropTypes.array,
+  handleSubmit5: PropTypes.func,
+  removeFromFavorites: PropTypes.func
+};
 
 export default Sidebar;

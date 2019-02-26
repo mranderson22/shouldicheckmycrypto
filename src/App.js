@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { Component } from 'react';
 import axios from 'axios';
 import posed from 'react-pose';
@@ -49,24 +50,18 @@ const Hover = posed.div({
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      topList: [],
-      value: 'BTC',
-      value2: 'ETH',
-      coin: 'BTC',
-      coin2: 'ETH',
-      loading: true,
-      answer: false,
-      showComponent: false,
-      isVisible: false,
-      hovering: false
-    };
-    this.getCoin = this.getCoin.bind(this);
-    this.fetchCryptocurrencyData = this.fetchCryptocurrencyData.bind(this);
-    this.onButtonClick = this.onButtonClick.bind(this);
-  }
+  state = {
+    topList: [],
+    value: 'BTC',
+    value2: 'ETH',
+    coin: 'BTC',
+    coin2: 'ETH',
+    loading: true,
+    answer: false,
+    showComponent: false,
+    isVisible: false,
+    hovering: false
+  };
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
   // determine if answer is "yes" or "no", then sets accordingly.
@@ -116,63 +111,56 @@ class App extends Component {
 
   // receiving data from dashboard component and sets the state accordingly in order
   // for the fetchCryptocurrencyData function to grab the correct data.
-  getCoin(num, coinNew) {
+  getCoin = (num, coinNew) => {
     const { data } = this.state;
     const index = data.findIndex(coin => coin.id === coinNew.toString().toLowerCase());
     if (index === -1) {
       if (num === 1) {
-        this.setState(() => {
-          return {
-            value: coinNew,
-            coin: coinNew 
-          }
-        }, () => {
+        this.setState(() => ({
+          value: coinNew,
+          coin: coinNew
+        }), () => {
           this.fetchCryptocurrencyData(1);
         });
       }
       else if (num === 2) {
-        this.setState(() => { 
-          return {
-            value2: coinNew,
-            coin2: coinNew 
-          }
-        }, () => {
+        this.setState(() => ({
+          value2: coinNew,
+          coin2: coinNew
+        }), () => {
           this.fetchCryptocurrencyData(2);
         });
       }
-    } else if (index !== -1) {
+    }
+    else if (index !== -1) {
       const symbol = data[index].symbol.toString().toLowerCase();
       if (num === 1) {
-        this.setState(() => {
-          return {
-            value: symbol,
-            coin: symbol
-          }
-        }, () => {
+        this.setState(() => ({
+          value: symbol,
+          coin: symbol
+        }), () => {
           this.fetchCryptocurrencyData(1);
         });
       }
       else if (num === 2) {
-        this.setState(() => { 
-          return {
-            value2: symbol,
-            coin2: symbol
-          }
-        }, () => {
+        this.setState(() => ({
+          value2: symbol,
+          coin2: symbol
+        }), () => {
           this.fetchCryptocurrencyData(2);
         });
       }
     }
   }
 
-  revealDashboard() {
+  revealDashboard = () => {
     const { answer } = this.state;
     if (answer) {
       this.setState(() => ({ isVisible: false, showComponent: true }));
     }
   }
 
-  scrollToBottom() {
+  scrollToBottom = () => {
     window.scrollBy({
       left: 0,
       top: window.innerHeight,
@@ -182,7 +170,7 @@ class App extends Component {
 
   // Fetches main data for all coins, as well as specific coin that the user inputs.
   // Then retrieves id from api so it can convert all info to BTC via converToBTC().
-  async fetchCryptocurrencyData(num = 1) {
+  fetchCryptocurrencyData = async (num = 1) => {
     const { coin } = this.state;
     const { coin2 } = this.state;
     const { topList } = this.state;
@@ -232,7 +220,7 @@ class App extends Component {
 
   // Separate api call to retrieve all information converted from USD to BTC for
   // USD/BTC toggle button on graph.
-  async convertToBTC(num = 1) {
+  convertToBTC = async (num = 1) => {
     const { dataToBTCid } = this.state;
     const { dataToBTCid2 } = this.state;
     let wanted;
@@ -258,7 +246,7 @@ class App extends Component {
   }
 
   // Grabs the image URL data for specific coin
-  async fetchCryptocurrencyImage(num = 1) {
+  fetchCryptocurrencyImage = async (num = 1) => {
     const { value } = this.state;
     const { value2 } = this.state;
     const { cryptoImage } = this.state;

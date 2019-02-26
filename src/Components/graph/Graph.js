@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
@@ -6,26 +8,13 @@ import {
   Button, ButtonGroup, Form, Label, Input, FormGroup
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
+import Loader from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 import exit from '../../../images/exiticon.png';
 import heart from '../../../images/heart.png';
 import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
-import Loader from 'react-loader-spinner';
-import PropTypes from 'prop-types';
 import ChartInfo from '../chartInfo/ChartInfo';
-
-const Resize1 = posed.div({
-  initial: {
-    fontSize: '15px',
-    height: '142px',
-    transform: 'translate(-11.5%, -98.7%)'
-  },
-  resized: {
-    fontSize: '13px',
-    height: '124px',
-    transform: 'translate(-14.0%, -113.5%)'
-  }
-});
 
 const ResizeNoChartActual = posed.div({
   initial: {
@@ -36,34 +25,18 @@ const ResizeNoChartActual = posed.div({
   }
 });
 
-const Resize2 = posed.div({
-  initial: {
-    width: '30vw'
-  },
-  resized: {
-    width: '20vw'
-  }
-});
-
 class Graph extends Component {
-  constructor(props) {
-    super(props);
-    // this.scrollEvent = this.scrollEvent.bind(this);
-    this.onReload = this.onReload.bind(this);
-    this.loadSpinner = this.loadSpinner.bind(this);
-    this.onFavorite = this.onFavorite.bind(this);
-    this.state = {
-      hovered: false,
-      loading: false
-    };
-  }
+  state = {
+    // hovered: false,
+    loading: false
+  };
 
   componentDidMount() {
     // window.addEventListener('wheel', this.scrollEvent);
     this.loadSpinner();
   }
 
-  onReload(e) {
+  onReload = (e) => {
     const { value } = this.props;
     const { handleSubmit5 } = this.props;
     const element = document.getElementById(value);
@@ -72,18 +45,18 @@ class Graph extends Component {
     this.loadSpinner();
   }
 
-  onFavorite() {
+  onFavorite = () => {
     const { value } = this.props;
     const { addToFavorites } = this.props;
     const element = document.getElementById(`heartFilled ${value}`);
     element.classList.add('pulse');
     setTimeout(() => {
       element.classList.remove('pulse');
-    }, 1000)
+    }, 1000);
     addToFavorites();
   }
 
-  loadSpinner() {
+  loadSpinner = () => {
     const { value } = this.props;
     const element2 = document.getElementById(`NoChartActual ${value}`);
     const element3 = document.getElementById(`coinInfo ${value}`);
@@ -94,7 +67,7 @@ class Graph extends Component {
       element2.classList.toggle('flash');
       element3.classList.toggle('flash');
       this.setState(() => ({ loading: false }));
-    }, 1500)
+    }, 1500);
   }
 
   // scrollEvent(e) {
@@ -140,9 +113,11 @@ class Graph extends Component {
 
   render() {
     const {
-      dateRangeChange, dateRangeChange2, answer, handleChange, handleSubmit1, handleSubmit3, isEnabled, onHistoryChange, freshReveal,
-      dataNew, graphData, cryptoImage, changeCurrency, curr, dataToBTC, value, toggleCurr, days, days2,
-      addSidebar, sideBarOpener, setUserInput, inputValue, secondGraphVisible, graphFocus, addGraph, handleSubmit5, addToFavorites, favorites
+      answer, handleChange, handleSubmit3,
+      isEnabled, onHistoryChange, dataNew, graphData, cryptoImage, changeCurrency,
+      curr, dataToBTC, value, toggleCurr, setUserInput, inputValue,
+      // eslint-disable-next-line react/prop-types
+      secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
     const { loading } = this.state;
@@ -165,12 +140,6 @@ class Graph extends Component {
     const Image4 = `https://www.cryptocompare.com/${cryptoImage[3]}`;
     const Image5 = `https://www.cryptocompare.com/${cryptoImage[4]}`;
     let oneDayVolume;
-    const oneDayVolumeKeys = Object.keys(dataNew[0]).map((key) => {
-      const tempdata = dataNew[0];
-      if (key === '24h_volume_usd') {
-        oneDayVolume = tempdata[key];
-      }
-    });
     const options = {
       maintainAspectRatio: false,
       responsive: true,
@@ -361,16 +330,16 @@ class Graph extends Component {
             {button}
           </div>
         </div>
-        <div 
-        className="col-sm-2 Nochartheader"
+        <div
+          className="col-sm-2 Nochartheader"
         >
-        {loading ? (
-          <div className="spinnerContainerChartInfo">
-            <div className="spinner">
-              <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
+          {loading ? (
+            <div className="spinnerContainerChartInfo">
+              <div className="spinner">
+                <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
+              </div>
             </div>
-          </div>
-        ) : null }
+          ) : null }
           <ChartInfo
             value={value}
             rank={rank}
@@ -394,53 +363,87 @@ class Graph extends Component {
             name={name}
             cryptoImage={Image2}
           />
-          </div>
-          <div className="cryptoImageContainer">
-            <div className="cryptoInput">
-              <Form inline onSubmit={setUserInput}>
-                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                  <Label for="Name">
-                    <Input name="userInput" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
-                  </Label>
-                </FormGroup>
-                <Button className="cryptoSubmit" disabled={!isEnabled}>
+        </div>
+        <div className="cryptoImageContainer">
+          <div className="cryptoInput">
+            <Form inline onSubmit={setUserInput}>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Label for="Name">
+                  <Input name="userInput" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
+                </Label>
+              </FormGroup>
+              <Button className="cryptoSubmit" disabled={!isEnabled}>
                   GO
-                </Button>
-              </Form>
-            </div>
+              </Button>
+            </Form>
           </div>
-          <div className="col-sm-2 coinButtonBank">
-            { cryptoImage[1] &&
-              (
+        </div>
+        <div className="col-sm-2 coinButtonBank">
+          { cryptoImage[1]
+              && (
                 <div className="quickButtonContainer" id="firstCoinButton">
-                  <img alt="" className="cryptoImage" cursor="pointer" src={Image} onClick={(e) => {handleSubmit3(e, 1)}}/>
+                  <img
+                    alt=""
+                    className="cryptoImage"
+                    cursor="pointer"
+                    src={Image}
+                    onClick={(e) => {
+                      handleSubmit3(e, 1);
+                    }}
+                  />
                 </div>
               )
               }
-            { cryptoImage[2] &&
-              (
+          { cryptoImage[2]
+              && (
                 <div className="quickButtonContainer" id="secondCoinButton">
-                  <img alt="" className="cryptoImage" src={Image3} onClick={(e) => {handleSubmit3(e, 2)}}/>
+                  <img
+                    alt=""
+                    className="cryptoImage"
+                    src={Image3}
+                    onClick={(e) => {
+                      handleSubmit3(e, 2);
+                    }}
+                  />
                 </div>
               )
               }
-            { cryptoImage[3] &&
-              (
+          { cryptoImage[3]
+              && (
                 <div className="quickButtonContainer" id="thirdCoinButton">
-                  <img alt="" className="cryptoImage" src={Image4} onClick={(e) => {handleSubmit3(e, 3)}}/>
+                  <img
+                    alt=""
+                    className="cryptoImage"
+                    src={Image4}
+                    onClick={(e) => {
+                      handleSubmit3(e, 3);
+                    }}
+                  />
                 </div>
               )
               }
-            { cryptoImage[4] &&
-              (
+          { cryptoImage[4]
+              && (
                 <div className="quickButtonContainer" id="fourthCoinButton">
-                  <img alt="" className="cryptoImage" src={Image5} onClick={(e) => {handleSubmit3(e, 4)}}/>
+                  <img
+                    alt=""
+                    className="cryptoImage"
+                    src={Image5}
+                    onClick={(e) => {
+                      handleSubmit3(e, 4);
+                    }}
+                  />
                 </div>
               )
               }
-          </div>
+        </div>
         <div className="optionsBank">
-          <div className="favoriteButton" onClick={this.onFavorite}>
+          <div
+            className="favoriteButton"
+            role="button"
+            tabIndex="0"
+            onClick={this.onFavorite}
+          >
             <img
               id={`heartFilled ${value}`}
               className="optionsImage large"
@@ -488,35 +491,47 @@ class Graph extends Component {
 
 
 Graph.propTypes = {
-  freshReveal: PropTypes.bool,
   onHistoryChange: PropTypes.func,
   dataNew: PropTypes.array,
   graphData: PropTypes.object,
   answer: PropTypes.bool,
   handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
   dataToBTC: PropTypes.object,
   toggleCurr: PropTypes.bool,
-  value: PropTypes.string
+  handleSubmit5: PropTypes.func,
+  addToFavorites: PropTypes.func,
+  handleSubmit3: PropTypes.func,
+  favorites: PropTypes.array,
+  addGraph: PropTypes.func,
+  setUserInput: PropTypes.func,
+  value: PropTypes.string,
+  cryptoImage: PropTypes.array,
+  inputValue: PropTypes.string
 };
 
 Graph.defaultProps = {
-  freshReveal: PropTypes.bool,
   onHistoryChange: PropTypes.func,
   dataNew: PropTypes.array,
   graphData: PropTypes.object,
   answer: PropTypes.bool,
   handleChange: PropTypes.func,
-  handleSubmit: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
   dataToBTC: PropTypes.object,
   toggleCurr: PropTypes.bool,
-  value: PropTypes.string
+  handleSubmit5: PropTypes.func,
+  addToFavorites: PropTypes.func,
+  handleSubmit3: PropTypes.func,
+  favorites: PropTypes.array,
+  addGraph: PropTypes.func,
+  setUserInput: PropTypes.func,
+  value: PropTypes.string,
+  cryptoImage: PropTypes.array,
+  inputValue: PropTypes.string
 };
 
 

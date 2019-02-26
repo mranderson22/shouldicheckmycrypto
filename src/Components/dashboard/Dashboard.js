@@ -131,73 +131,52 @@ const BitcoinTrackerSlide = posed.div({
 });
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      favorites: [],
-      inputValue: '',
-      inputValue2: '',
-      pose: 'initial',
-      pose2: 'hidden',
-      secondWasThere: false,
-      sideBarOpener: false,
-      sideBarOpener2: false,
-      coin: 'BTC',
-      coin2: 'ETH',
-      curr: 'USD',
-      curr2: 'USD',
-      toggleCurr: false,
-      toggleCurr2: true,
-      isEnabled: false,
-      isEnabled2: false,
-      value: 'BTC',
-      value2: 'ETH',
-      coinLog: [],
-      coinLog2: [],
-      freshReveal: false,
-      hovering: false,
-      secondGraphVisible: false,
-      isGraphVisible: false,
-      cryptoImage: [],
-      cryptoImage2: [],
-      history: [],
-      history2: [],
-      graphData: {
-        labels: [],
-        datasets: [
-          {
-            data: []
-          }
-        ]
-      },
-      graphData2: {
-        labels: [],
-        datasets: [
-          {
-            data: []
-          }
-        ]
-      }
-    };
-    this.changeCurrency1 = this.changeCurrency1.bind(this);
-    this.changeCurrency2 = this.changeCurrency2.bind(this);
-    this.onHistoryChange = this.onHistoryChange.bind(this);
-    this.onHistoryChange2 = this.onHistoryChange2.bind(this);
-    this.findSymbol = this.findSymbol.bind(this);
-    this.addGraph = this.addGraph.bind(this);
-    this.addSidebar = this.addSidebar.bind(this);
-    this.setUserInput = this.setUserInput.bind(this);
-    this.handleChange1 = this.handleChange1.bind(this);
-    this.handleChange2 = this.handleChange2.bind(this);
-    this.handleSubmit1 = this.handleSubmit1.bind(this);
-    this.handleSubmit2 = this.handleSubmit2.bind(this);
-    this.handleSubmit3 = this.handleSubmit3.bind(this);
-    this.handleSubmit4 = this.handleSubmit4.bind(this);
-    this.handleSubmit5 = this.handleSubmit5.bind(this);
-    this.addToFavorites = this.addToFavorites.bind(this);
-    this.removeFromFavorites = this.removeFromFavorites.bind(this);
-  }
+  state = {
+    favorites: [],
+    inputValue: '',
+    inputValue2: '',
+    pose: 'initial',
+    pose2: 'hidden',
+    secondWasThere: false,
+    sideBarOpener: false,
+    sideBarOpener2: false,
+    coin: 'BTC',
+    coin2: 'ETH',
+    curr: 'USD',
+    curr2: 'USD',
+    toggleCurr: false,
+    toggleCurr2: true,
+    isEnabled: false,
+    isEnabled2: false,
+    value: 'BTC',
+    value2: 'ETH',
+    coinLog: [],
+    coinLog2: [],
+    freshReveal: false,
+    hovering: false,
+    secondGraphVisible: false,
+    isGraphVisible: false,
+    cryptoImage: [],
+    cryptoImage2: [],
+    history: [],
+    history2: [],
+    graphData: {
+      labels: [],
+      datasets: [
+        {
+          data: []
+        }
+      ]
+    },
+    graphData2: {
+      labels: [],
+      datasets: [
+        {
+          data: []
+        }
+      ]
+    }
+  };
 
   async componentDidMount() {
     const { isGraphVisible } = this.state;
@@ -232,7 +211,7 @@ class Dashboard extends Component {
   }
 
 
-  onHistoryChange(num = 30) {
+  onHistoryChange = (num = 30) => {
     if (num === 30) {
       this.fetchCryptocurrencyHistory(1, 31);
     }
@@ -250,7 +229,7 @@ class Dashboard extends Component {
     }
   }
 
-  onHistoryChange2(num = 30) {
+  onHistoryChange2 = (num = 30) => {
     if (num === 30) {
       this.fetchCryptocurrencyHistory(2, 31);
     }
@@ -268,7 +247,7 @@ class Dashboard extends Component {
     }
   }
 
-  getPoints(num = 1) {
+  getPoints = (num = 1) => {
     const graphCats = {
       history: [],
       labels: [],
@@ -340,7 +319,7 @@ class Dashboard extends Component {
     }
   }
 
-  async getLocalStorageData(num) {
+  getLocalStorageData = async (num) => {
     const BTC = '/media/19633/btc.png';
     const ETH = '/media/20646/eth_logo.png';
     const retrievedFavoriteCoins = localStorage.getItem('savedFavoriteCoins');
@@ -385,11 +364,12 @@ class Dashboard extends Component {
     }
   }
 
-  setUserInput(e) {
+  setUserInput = (e) => {
     const { graphFocus } = this.state;
     const { data } = this.props;
     const userInput = e.target.elements.userInput.value;
     const index = data.findIndex(coin => coin.id === userInput);
+    const index2 = data.findIndex(coin5 => coin5.symbol === userInput.toUpperCase());
     e.preventDefault();
     this.setState(() => {
       if (graphFocus === 1) {
@@ -398,10 +378,11 @@ class Dashboard extends Component {
             coin: data[index].symbol,
             value: data[index].symbol
           };
+        } else if (index2 !== -1) {
+          return {
+            coin: userInput.toUpperCase(),
+            value: userInput.toUpperCase()
         }
-        return {
-          coin: userInput.toUpperCase(),
-          value: userInput.toUpperCase()
         };
       } if (graphFocus === 2) {
         if (index !== -1) {
@@ -409,10 +390,11 @@ class Dashboard extends Component {
             coin2: data[index].symbol,
             value2: data[index].symbol
           };
+        } else if (index2 !== -1) {
+          return {
+            coin2: userInput.toUpperCase(),
+            value2: userInput.toUpperCase()
         }
-        return {
-          coin2: userInput.toUpperCase(),
-          value2: userInput.toUpperCase()
         };
       }
     }, () => {
@@ -425,7 +407,7 @@ class Dashboard extends Component {
     });
   }
 
-  getHistoryChange(num = 1) {
+  getHistoryChange = (num = 1) => {
     const history = this.state;
     const history2 = this.state;
     let historyExt;
@@ -439,7 +421,7 @@ class Dashboard extends Component {
     }
   }
 
-  async fetchCryptocurrencyHistory(num = 1, dayNum = 180) {
+  fetchCryptocurrencyHistory = async (num = 1, dayNum = 180) => {
     let { value } = this.state;
     const { value2 } = this.state;
     const { curr } = this.state;
@@ -484,7 +466,7 @@ class Dashboard extends Component {
     }
   }
 
-  handleChange1(event) {
+  handleChange1 = (event) => {
     if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
       console.log('error, IOTA is corrupt!');
     }
@@ -496,7 +478,7 @@ class Dashboard extends Component {
     }
   }
 
-  handleChange2(event) {
+  handleChange2 = (event) => {
     if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
       console.log('error!');
     }
@@ -508,7 +490,7 @@ class Dashboard extends Component {
     }
   }
 
-  handleSubmit1(e) {
+  handleSubmit1 = (e) => {
     const { sideBarOpener } = this.state;
     const { value } = this.state;
     this.addToCoinlog(1);
@@ -523,7 +505,7 @@ class Dashboard extends Component {
     this.scrollSidebarToTop();
   }
 
-  handleSubmit2(e) {
+  handleSubmit2 = (e) => {
     const { sideBarOpener } = this.state;
     const { toggleCurr2 } = this.state;
     const { value2 } = this.state;
@@ -560,7 +542,7 @@ class Dashboard extends Component {
     this.scrollSidebarToTop();
   }
 
-  handleSubmit3(e, pos) {
+  handleSubmit3 = (e, pos) => {
     const { coinLog } = this.state;
     e.persist();
     if (coinLog[pos] === 'BTC') {
@@ -572,7 +554,7 @@ class Dashboard extends Component {
     });
   }
 
-  handleSubmit4(e, pos) {
+  handleSubmit4 = (e, pos) => {
     const { coinLog2 } = this.state;
     e.persist();
     if (coinLog2[pos] === 'BTC') {
@@ -584,7 +566,7 @@ class Dashboard extends Component {
     });
   }
 
-  handleSubmit5(e, sym) {
+  handleSubmit5 = (e, sym) => {
     const { graphFocus } = this.state;
     e.persist();
     if (graphFocus === 1) {
@@ -599,7 +581,7 @@ class Dashboard extends Component {
     }
   }
 
-  scrollSidebarToTop() {
+  scrollSidebarToTop = () => {
     const sidebar = document.getElementById('sidebarContainer');
     setTimeout(() => {
       sidebar.scroll({
@@ -610,7 +592,7 @@ class Dashboard extends Component {
     }, 800);
   }
 
-  findSymbol(num) {
+  findSymbol = (num) => {
     const { sendCoin } = this.props;
     const { coin } = this.state;
     const { data } = this.props;
@@ -656,7 +638,7 @@ class Dashboard extends Component {
     }
   }
 
-  async fetchCryptocurrencyImage(num = 1) {
+  fetchCryptocurrencyImage = async (num = 1) => {
     const { value } = this.state;
     const { value2 } = this.state;
     const { cryptoImage } = this.state;
@@ -687,7 +669,7 @@ class Dashboard extends Component {
     }
   }
 
-  formatDate(num = 1) {
+  formatDate = (num = 1) => {
     const { history } = this.state;
     const { history2 } = this.state;
     if (num === 1) {
@@ -704,7 +686,7 @@ class Dashboard extends Component {
     }
   }
 
-  addGraph(num) {
+  addGraph = (num) => {
     const pose = this.state;
     const { freshReveal } = this.state;
     const { secondGraphVisible } = this.state;
@@ -747,7 +729,7 @@ class Dashboard extends Component {
     }
   }
 
-  addSidebar() {
+  addSidebar = () => {
     const { sideBarOpener } = this.state;
     const { graphFocus } = this.state;
     const { secondWasThere } = this.state;
@@ -797,7 +779,7 @@ class Dashboard extends Component {
     }
   }
 
-  changeCurrency1(curr) {
+  changeCurrency1 = (curr) => {
     const { value } = this.state;
     const { days } = this.state;
     if (curr === 'USD' && value !== 'BTC') {
@@ -812,7 +794,7 @@ class Dashboard extends Component {
     }
   }
 
-  changeCurrency2(curr2) {
+  changeCurrency2 = (curr2) => {
     const { value2 } = this.state;
     const { days2 } = this.state;
     if (curr2 === 'USD' && value2 !== 'BTC') {
@@ -827,7 +809,7 @@ class Dashboard extends Component {
     }
   }
 
-  addToCoinlog(num) {
+  addToCoinlog = (num) => {
     const { coinLog } = this.state;
     const { value } = this.state;
     const { data } = this.props;
@@ -857,7 +839,7 @@ class Dashboard extends Component {
     }
   }
 
-  addToFavorites() {
+  addToFavorites = () => {
     const { value } = this.state;
     const { value2 } = this.state;
     const { data } = this.props;
@@ -878,7 +860,7 @@ class Dashboard extends Component {
     }
   }
 
-  removeFromFavorites(coin) {
+  removeFromFavorites = (coin) => {
     const { value } = this.state;
     const { value2 } = this.state;
     const { favorites } = this.state;
