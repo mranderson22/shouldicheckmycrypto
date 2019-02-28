@@ -115,25 +115,12 @@ class Graph extends Component {
     const {
       answer, handleChange, handleSubmit3,
       isEnabled, onHistoryChange, dataNew, graphData, cryptoImage, changeCurrency,
-      curr, dataToBTC, value, toggleCurr, setUserInput, inputValue,
+      curr, dataToBTC, value, toggleCurr, setUserInput, inputValue, coinInfo,
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
     const { loading } = this.state;
-    const currentPrice = parseFloat(dataNew[0].price_usd).toFixed(2);
-    const currentPrice2 = Number(dataToBTC.price).toFixed(10);
-    const { rank } = dataNew[0];
-    const { name } = dataNew[0];
-    const oneHour = parseFloat(dataNew[0].percent_change_1h);
-    const oneHour2 = parseFloat(dataToBTC.percent_change_1h);
-    const oneDay = parseFloat(dataNew[0].percent_change_24h);
-    const oneDay2 = parseFloat(dataToBTC.percent_change_24h);
-    const seven = parseFloat(dataNew[0].percent_change_7d);
-    const seven2 = parseFloat(dataToBTC.percent_change_7d);
-    const maxSupply = dataNew[0].max_supply;
-    const availableSupply = dataNew[0].available_supply;
-    const marketCap = dataNew[0].market_cap_usd;
     const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
     const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
     const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
@@ -241,7 +228,7 @@ class Graph extends Component {
       >
         <img alt="" className="cryptoImageBackground" src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
-          { `${name} / ${curr}`}
+          { `${coinInfo.name} / ${curr}`}
         </div>
         {loading ? (
           <div className="spinnerContainerGraph">
@@ -342,26 +329,13 @@ class Graph extends Component {
           ) : null }
           <ChartInfo
             value={value}
-            rank={rank}
-            currentPrice={currentPrice}
-            currentPrice2={currentPrice2}
-            maxSupply={maxSupply}
-            availableSupply={availableSupply}
-            marketCap={marketCap}
-            oneDayVolume={oneDayVolume}
-            oneHour={oneHour}
-            oneHour2={oneHour2}
-            seven={seven}
-            seven2={seven2}
-            oneDay={oneDay}
-            oneDay2={oneDay2}
             curr={curr}
             dateRangeChange={dateRangeChange}
             dateRangeChange2={dateRangeChange2}
             days={days}
             days2={days2}
-            name={name}
             cryptoImage={Image2}
+            coinInfo={coinInfo}
           />
         </div>
         <div className="cryptoImageContainer">
@@ -492,14 +466,12 @@ class Graph extends Component {
 
 Graph.propTypes = {
   onHistoryChange: PropTypes.func,
-  dataNew: PropTypes.array,
   graphData: PropTypes.object,
   answer: PropTypes.bool,
   handleChange: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
-  dataToBTC: PropTypes.object,
   toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
   addToFavorites: PropTypes.func,
@@ -514,14 +486,12 @@ Graph.propTypes = {
 
 Graph.defaultProps = {
   onHistoryChange: PropTypes.func,
-  dataNew: PropTypes.array,
   graphData: PropTypes.object,
   answer: PropTypes.bool,
   handleChange: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
-  dataToBTC: PropTypes.object,
   toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
   addToFavorites: PropTypes.func,

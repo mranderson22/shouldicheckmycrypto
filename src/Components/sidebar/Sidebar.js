@@ -15,49 +15,49 @@ class Sidebar extends Component {
   };
 
   async componentDidMount() {
-    const { topList } = this.props;
+    const { allCoins } = this.props;
     document.getElementById('topPercentage').addEventListener('click', this.getTopPercentage);
     document.getElementById('bottomPercentage').addEventListener('click', this.getBottomPercentage);
     document.getElementById('ranked').addEventListener('click', this.getRanking);
     document.getElementById('favorites').addEventListener('click', this.getFavorites);
     setTimeout(() => {
       this.setState({ loading: false }, () => {
-        this.sidebarTemplate(topList);
+        this.sidebarTemplate(allCoins);
       });
     }, 1500);
   }
 
 
   getTopPercentage = () => {
-    const { topList } = this.props;
+    const { allCoins } = this.props;
     this.setState({ listStatus: 'Top' }, () => {
-      topList.sort((a, b) => b.percent_change_24h - a.percent_change_24h);
-      this.sidebarTemplate(topList);
+      allCoins.sort((a, b) => b.price_change_percentage_24h_in_currency - a.price_change_percentage_24h_in_currency);
+      this.sidebarTemplate(allCoins);
     });
   }
 
   getBottomPercentage = () => {
-    const { topList } = this.props;
+    const { allCoins } = this.props;
     this.setState({ listStatus: 'Bottom' }, () => {
-      topList.sort((a, b) => a.percent_change_24h - b.percent_change_24h);
-      this.sidebarTemplate(topList);
+      allCoins.sort((a, b) => a.price_change_percentage_24h_in_currency - b.price_change_percentage_24h_in_currency);
+      this.sidebarTemplate(allCoins);
     });
   }
 
   getRanking = () => {
-    const { topList } = this.props;
+    const { allCoins } = this.props;
     this.setState({ listStatus: 'Ranked' }, () => {
-      topList.sort((a, b) => a.rank - b.rank);
-      this.sidebarTemplate(topList);
+      allCoins.sort((a, b) => a.market_cap_rank - b.market_cap_rank);
+      this.sidebarTemplate(allCoins);
     });
   }
 
   getFavorites = () => {
     const { favorites } = this.props;
-    const { topList } = this.props;
+    const { allCoins } = this.props;
     this.setState({ listStatus: 'Favorites' }, () => {
-      const newFavorites = topList.filter(coins => favorites.includes(coins.symbol));
-      newFavorites.sort((a, b) => b.percent_change_24h - a.percent_change_24h);
+      const newFavorites = allCoins.filter(coins => favorites.includes(coins.symbol.toUpperCase()));
+      newFavorites.sort((a, b) => b.price_change_percentage_24h_in_currency - a.price_change_percentage_24h_in_currency);
       this.sidebarTemplateFavorites(newFavorites);
     });
   }
@@ -71,22 +71,22 @@ class Sidebar extends Component {
           type="button"
           className="list-group-item list-group-item-action "
           onClick={(e) => {
-            handleSubmit5(e, x.symbol);
+            handleSubmit5(e, x.symbol.toUpperCase());
           }
                   }
         >
           <span className="sidebarRank">
-            {`${x.rank}.`}
+            {`${x.market_cap_rank}.`}
             &nbsp;
           </span>
           <span className="sidebarCoin">
-            {x.symbol}
+            {x.symbol.toUpperCase()}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </span>
-          <span className={x.percent_change_24h > 0 ? 'greenText right' : 'redText right'}>
-            {`${x.percent_change_24h} %`}
+          <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
+            {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
           </span>
-          {favorites.indexOf(x.symbol) === -1
+          {favorites.indexOf(x.symbol.toUpperCase()) === -1
             ? null : (
               <span>
                 <img
@@ -109,27 +109,27 @@ class Sidebar extends Component {
           type="button"
           className="list-group-item list-group-item-action "
           onClick={(e) => {
-            handleSubmit5(e, x.symbol);
+            handleSubmit5(e, x.symbol.toUpperCase());
           }
                 }
         >
           <span className="sidebarRank">
-            {`${x.rank}.`}
+            {`${x.market_cap_rank}.`}
           &nbsp;
           </span>
           <span className="sidebarCoin">
-            {x.symbol}
+            {x.symbol.toUpperCase()}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           </span>
-          <span className={x.percent_change_24h > 0 ? 'greenText right' : 'redText right'}>
-            {`${x.percent_change_24h} %`}
+          <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
+            {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
           </span>
         </button>
         <button
           className="removeFavorite"
           type="button"
           onClick={() => {
-            removeFromFavorites(x.symbol);
+            removeFromFavorites(x.symbol.toUpperCase());
           }}
         >
           <img className="heartSidebarListed" src={exiticon} alt="favorite" />
@@ -177,14 +177,12 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
-  topList: PropTypes.array,
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
   removeFromFavorites: PropTypes.func
 };
 
 Sidebar.defaultProps = {
-  topList: PropTypes.array,
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
   removeFromFavorites: PropTypes.func

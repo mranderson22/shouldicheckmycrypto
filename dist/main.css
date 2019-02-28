@@ -424,8 +424,8 @@
   height: 65vh;
   width: 60vw;
   min-height: 162px !important;
-  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media screen and (max-height: 800px) {
@@ -564,6 +564,9 @@
   background-color: white;
   filter: grayscale(100%);
   min-width: 200px;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+ 
 }
 
 .form-control {
@@ -808,8 +811,8 @@
 
 .fade {
   opacity: 0;
-  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .flash {
@@ -836,6 +839,8 @@
   width: 300px;
   background-color: white;
   filter: grayscale(0%);
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .chartInfoChild {
