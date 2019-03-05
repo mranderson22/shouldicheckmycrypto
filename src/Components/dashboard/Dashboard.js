@@ -5,77 +5,15 @@ import React, { Component } from 'react';
 import './dashboard.css';
 import 'react-moment';
 import axios from 'axios';
-import posed from 'react-pose';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
+import * as animations from '../../animations';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
 // import burgerMenu from '../../../images/burgerMenu.png';
-
-const Hover = posed.div({
-  idle: { scale: 1 },
-  hovered: { scale: 1.3 }
-});
-
-const Reveal3 = posed.div({
-  hidden: {
-    opacity: 0,
-    transition: { duration: 800 },
-    delay: 200
-  },
-  visible: {
-    opacity: 1,
-    transition: { duration: 800 },
-    delay: 200
-  },
-  secondary: {
-    opacity: 1,
-    transition: { duration: 800 },
-    delay: 200
-  },
-  movedOver: {
-    opacity: 1,
-    transition: { duration: 800 },
-    delay: 200
-  },
-  fullSize: {
-  }
-});
-
-const Reveal = posed.div({
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 900 },
-    delay: 400
-  },
-  visible2: {
-    opacity: 1,
-    transition: { duration: 900 },
-    delay: 400
-  },
-  visible3: {
-    opacity: 1,
-    transition: { duration: 900 },
-    delay: 400
-  }
-});
-
-const Resize = posed.div({
-  initial: {
-
-  },
-  resized: {
-
-  },
-  movedOver: {
-
-  }
-
-});
 
 class Dashboard extends Component {
   state = {
@@ -130,29 +68,29 @@ class Dashboard extends Component {
     const { coinLog2 } = this.state;
     const { value } = this.state;
     const { value2 } = this.state;
-    await coinLog.unshift(value);
-    await coinLog2.unshift(value2);
-    await this.fetchCryptocurrencyHistory(1);
-    await this.fetchCryptocurrencyHistory(2);
-    await this.getPoints(1);
-    await this.getPoints(2);
+    coinLog.unshift(value);
+    coinLog2.unshift(value2);
+    this.fetchCryptocurrencyHistory(1);
+    this.fetchCryptocurrencyHistory(2);
+    this.getPoints(1);
+    this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
     if (localStorage.getItem('savedCoins') === null) {
       if (localStorage.getItem('savedCoins2') === null) {
-        await this.fetchCryptocurrencyImage(2);
+        this.fetchCryptocurrencyImage(2);
       }
       else {
-        await this.getLocalStorageData(2);
+        this.getLocalStorageData(2);
       }
-      await this.fetchCryptocurrencyImage(1);
+      this.fetchCryptocurrencyImage(1);
     }
     else if (localStorage.getItem('savedCoins2') === null) {
-      await this.fetchCryptocurrencyImage(2);
-      await this.getLocalStorageData(1);
+      this.fetchCryptocurrencyImage(2);
+      this.getLocalStorageData(1);
     }
     else {
-      await this.getLocalStorageData(1);
-      await this.getLocalStorageData(2);
+      this.getLocalStorageData(1);
+      this.getLocalStorageData(2);
     }
   }
 
@@ -378,11 +316,14 @@ class Dashboard extends Component {
 
   fetchCryptocurrencyHistory = async (num = 1, dayNum = 180) => {
     let { value } = this.state;
-    const { value2 } = this.state;
+    let { value2 } = this.state;
     const { curr } = this.state;
     const { curr2 } = this.state;
     if (value === 'MIOTA') {
       value = 'IOTA';
+    }
+    else if (value2 === 'MIOTA') {
+      value2 = 'IOTA';
     }
     const dayTarget = dayNum;
     let wanted;
@@ -576,6 +517,7 @@ class Dashboard extends Component {
         this.setState({ inputValue: '' });
       }
     }
+
     else if (num === 2) {
       const index = allCoins.findIndex(coins4 => coins4.symbol === value.toLowerCase());
       if (index !== -1) {
@@ -595,15 +537,21 @@ class Dashboard extends Component {
   }
 
   fetchCryptocurrencyImage = async (num = 1) => {
-    const { value } = this.state;
-    const { value2 } = this.state;
+    let { value } = this.state;
+    let { value2 } = this.state;
     const { cryptoImage } = this.state;
     const { cryptoImage2 } = this.state;
+    if (value === 'MIOTA') {
+      value = 'IOT';
+    }
+    else if (value2 === 'MIOTA') {
+      value2 = 'IOT';
+    }
     let wantedVal;
     if (num === 1) {
       wantedVal = value;
     }
-    else {
+    else if (num === 2) {
       wantedVal = value2;
     }
     try {
@@ -627,6 +575,22 @@ class Dashboard extends Component {
     }
     catch (error) {
       console.log('Image not received!');
+      if (num === 1) {
+        const cryptoImageData = '/media/19633/btc.png';
+        cryptoImage.unshift(cryptoImageData);
+        const unique = Array.from(new Set(cryptoImage));
+        this.setState({ cryptoImage: unique }, () => {
+          localStorage.setItem('savedCoinImages', JSON.stringify(unique));
+        });
+      }
+      else if (num === 2) {
+        const cryptoImage2Data = '/media/19633/btc.png';
+        cryptoImage2.unshift(cryptoImage2Data);
+        const unique = Array.from(new Set(cryptoImage2));
+        this.setState({ cryptoImage2: unique }, () => {
+          localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
+        });
+      }
     }
   }
 
@@ -880,7 +844,7 @@ class Dashboard extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <Reveal pose={isGraphVisible ? 'visible2' : 'hidden'}>
+          <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'}>
             <div className={answer === true ? 'col-sm-2 bitcoinTrackerWrapperYes'
               : 'col-sm-2 bitcoinTrackerWrapperNo'
               }
@@ -899,10 +863,10 @@ class Dashboard extends Component {
                 ref="child"
               />
             </div>
-          </Reveal>
+          </animations.Reveal4>
         </div>
-        <Reveal pose={isGraphVisible ? 'visible' : 'hidden'}>
-          <Resize
+        <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'}>
+          <animations.Resize
             className={graphFocus === 1 ? 'col-sm-10 NoGraph shadowGraph' : 'col-sm-10 NoGraph'}
             pose={pose}
             onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
@@ -957,11 +921,11 @@ class Dashboard extends Component {
                 </div>
               ) : null}
               */}
-          </Resize>
+          </animations.Resize>
           <div className="imageContainer">
-            <Reveal3 pose={(secondGraphVisible && isGraphVisible) || sideBarOpener ? 'hidden' : 'visible'}>
+            <animations.Reveal3 pose={(secondGraphVisible && isGraphVisible) || sideBarOpener ? 'hidden' : 'visible'}>
               <div className="plus">
-                <Hover
+                <div
                   pose={hovering ? 'hovered' : 'idle'}
                 >
                   <div
@@ -982,14 +946,14 @@ class Dashboard extends Component {
                   >
                     <img alt="" src={plus} />
                   </div>
-                </Hover>
+                </div>
               </div>
-            </Reveal3>
+            </animations.Reveal3>
           </div>
-        </Reveal>
+        </animations.Reveal4>
         <div>
           {freshReveal ? (
-            <Reveal3
+            <animations.Reveal3
               className={graphFocus === 2 ? 'col-sm-10 NoGraphNew shadowGraph' : 'col-sm-10 NoGraphNew'}
               pose={pose2}
               onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
@@ -1028,7 +992,7 @@ class Dashboard extends Component {
                 setUserInput={this.setUserInput}
                 coinInfo={coin2Info}
               />
-            </Reveal3>
+            </animations.Reveal3>
           ) : null
         }
         </div>

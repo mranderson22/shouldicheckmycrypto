@@ -69,12 +69,13 @@ class Sidebar extends Component {
       <div key={x.id}>
         <button
           type="button"
-          className="list-group-item list-group-item-action "
+          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
           onClick={(e) => {
             handleSubmit5(e, x.symbol.toUpperCase());
           }
                   }
         >
+          <img className="sidebarIcon" src={x.image}/>
           <span className="sidebarRank">
             {`${x.market_cap_rank}.`}
             &nbsp;
@@ -101,18 +102,20 @@ class Sidebar extends Component {
   }
 
   sidebarTemplateFavorites = (list) => {
+    const { favorites } = this.props;
     const { handleSubmit5 } = this.props;
     const { removeFromFavorites } = this.props;
     const newRankingList = list.map(x => (
       <div key={x.id} className="sidebarButtonWrapper">
         <button
           type="button"
-          className="list-group-item list-group-item-action "
+          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
           onClick={(e) => {
             handleSubmit5(e, x.symbol.toUpperCase());
           }
                 }
         >
+          <img className="sidebarIcon" src={x.image}/>
           <span className="sidebarRank">
             {`${x.market_cap_rank}.`}
           &nbsp;

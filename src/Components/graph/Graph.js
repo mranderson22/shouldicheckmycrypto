@@ -5,25 +5,18 @@ import './Graph.css';
 import 'react-moment';
 import posed from 'react-pose';
 import {
-  Button, ButtonGroup, Form, Label, Input, FormGroup
+  Button, ButtonGroup
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
+import * as animations from '../../animations';
 import exit from '../../../images/exiticon.png';
 import heart from '../../../images/heart.png';
 import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
+import CoinSearch from '../coinSearch/CoinSearch';
 import ChartInfo from '../chartInfo/ChartInfo';
-
-const ResizeNoChartActual = posed.div({
-  initial: {
-    height: '55vh'
-  },
-  resized: {
-    height: '37.5vh'
-  }
-});
 
 class Graph extends Component {
   state = {
@@ -36,10 +29,15 @@ class Graph extends Component {
     this.loadSpinner();
   }
 
+  /**
+   * @func onReload
+   * On reload triggers re-fetching of coin data
+   */
   onReload = (e) => {
     const { value } = this.props;
     const { handleSubmit5 } = this.props;
     const element = document.getElementById(value);
+
     element.classList.toggle('spun');
     handleSubmit5(e, value);
     this.loadSpinner();
@@ -49,6 +47,7 @@ class Graph extends Component {
     const { value } = this.props;
     const { addToFavorites } = this.props;
     const element = document.getElementById(`heartFilled ${value}`);
+
     element.classList.add('pulse');
     setTimeout(() => {
       element.classList.remove('pulse');
@@ -115,7 +114,7 @@ class Graph extends Component {
     const {
       answer, handleChange, handleSubmit3,
       isEnabled, onHistoryChange, dataNew, graphData, cryptoImage, changeCurrency,
-      curr, dataToBTC, value, toggleCurr, setUserInput, inputValue, coinInfo,
+      curr, dataToBTC, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, 
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
@@ -226,7 +225,7 @@ class Graph extends Component {
       <div
         className="NoGraphChild"
       >
-        <img alt="" className="cryptoImageBackground" src={Image2} />
+        <img alt="" className={graphFocus === 1 ? "cryptoImageBackground saturated" : "cryptoImageBackground"} src={Image2} />
         <div className={`${answer ? 'Yes' : 'No'}Name`}>
           { `${coinInfo.name} / ${curr}`}
         </div>
@@ -237,7 +236,7 @@ class Graph extends Component {
             </div>
           </div>
         ) : null }
-        <ResizeNoChartActual
+        <animations.ResizeNoChartActual
           className="NoChartActual"
           pose="resized"
           id={`NoChartActual ${value}`}
@@ -246,7 +245,7 @@ class Graph extends Component {
             data={graphData}
             options={options}
           />
-        </ResizeNoChartActual>
+        </animations.ResizeNoChartActual>
         <div className="daysselector">
           <Button
             className="selectorButtons"
@@ -338,20 +337,12 @@ class Graph extends Component {
             coinInfo={coinInfo}
           />
         </div>
-        <div className="cryptoImageContainer">
-          <div className="cryptoInput">
-            <Form inline onSubmit={setUserInput}>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                <Label for="Name">
-                  <Input name="userInput" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. ETH" maxLength="7" />
-                </Label>
-              </FormGroup>
-              <Button className="cryptoSubmit" disabled={!isEnabled}>
-                  GO
-              </Button>
-            </Form>
-          </div>
-        </div>
+        <CoinSearch
+          setUserInput={setUserInput}
+          inputValue={inputValue}
+          handleChange={handleChange}
+          isEnabled={isEnabled}
+          />
         <div className="col-sm-2 coinButtonBank">
           { cryptoImage[1]
               && (

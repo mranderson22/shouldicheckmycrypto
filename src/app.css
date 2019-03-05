@@ -32,6 +32,7 @@ html, body {
   align-items: center;
   display: flex;
   z-index: 1;
+  -webkit-backface-visibility: hidden;
 }
 
 .Answernoyes {
@@ -41,6 +42,7 @@ html, body {
   align-items: center;
   display: flex;
   z-index: 1;
+  -webkit-backface-visibility: hidden;
 }
 
 .Answerboxno {

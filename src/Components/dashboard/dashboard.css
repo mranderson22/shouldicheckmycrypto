@@ -32,8 +32,12 @@
   padding-bottom: 0px;
   border-radius: 4px;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(.95, .95);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
 @media screen and (max-width: 750px) {
@@ -102,6 +106,7 @@
     left: 50%;
     transform: translate(-47%, -50%);
     z-index: 0;
+    filter: invert(65%);
 }
 
 @media screen and (max-height: 800px) {
@@ -139,8 +144,12 @@
   border-radius: 4px;
   z-index: 1;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(.95, .95);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
 @media screen and (max-height: 800px) {
@@ -171,7 +180,16 @@
 }
 
 .shadowGraph {
-    
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(1, 1);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
+}
+
+.shadowGraph2 {
+  
 }
 
 .fullView {

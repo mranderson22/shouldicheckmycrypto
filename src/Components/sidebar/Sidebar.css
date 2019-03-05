@@ -67,16 +67,16 @@
     color: #dbdbdb;
     padding: .8rem;
     cursor: pointer;
-    background-color: #7b8589 !important;
+    background-color: #7b8589;
     visibility: visible;
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-
+    overflow: hidden;
 }
 
 .listAddOn .list-group-item:hover {
   background-color: #223242 !important;
-  color: white;
+  color: white !important;
 }
 
 .listAddOn .list-group-item:focus {
@@ -87,6 +87,10 @@
 
 .listAddOn .list-group-item:visited {
   background: #18212c !important;
+}
+
+.iconVisible {
+  z-index: 1;
 }
 
 .sidebarRank {
@@ -117,6 +121,8 @@ a {
 
 #nav {
   background: #223242;
+  border-bottom: 2px solid #bebebe;
+  cursor: pointer;
 }
 
 .flex-item {
@@ -130,6 +136,10 @@ a {
 
 .heartSidebarListed {
   width: 10px;
+  position: absolute;
+  left: 2%;
+  top: 11%;
+  filter: invert(85%);
 }
 
 #topPercentage {
@@ -190,4 +200,20 @@ a {
 .favoritesListSettings {
   max-height: 80vh !important;
   height: fit-content !important;
+}
+
+.sidebarIcon {
+  width: 95px;
+  position: absolute;
+  left: 16px;
+  top: 2px;
+  opacity: .4;
+  z-index: -1;
+}
+
+.buttonFav {
+  background: #6a7580 !important;
+  color: white;
+  outline: 0;
+  z-index: 1;
 }

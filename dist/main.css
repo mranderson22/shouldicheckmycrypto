@@ -32,8 +32,12 @@
   padding-bottom: 0px;
   border-radius: 4px;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(.95, .95);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
 @media screen and (max-width: 750px) {
@@ -102,6 +106,7 @@
     left: 50%;
     transform: translate(-47%, -50%);
     z-index: 0;
+    filter: invert(65%);
 }
 
 @media screen and (max-height: 800px) {
@@ -139,8 +144,12 @@
   border-radius: 4px;
   z-index: 1;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(.95, .95);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
 @media screen and (max-height: 800px) {
@@ -171,7 +180,16 @@
 }
 
 .shadowGraph {
-    
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(1, 1);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
+}
+
+.shadowGraph2 {
+  
 }
 
 .fullView {
@@ -564,13 +582,17 @@
   background-color: white;
   filter: grayscale(100%);
   min-width: 200px;
-  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
- 
+  -webkit-transition: opacity, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.saturated {
+  filter: grayscale(50%);
 }
 
 .form-control {
   width: 100px !important;
+  font-size: 14px !important;
 }
 
 .btn {
@@ -830,6 +852,7 @@
 }
 
 
+
 .cryptoImageBackgroundChartInfo {
   position: absolute;
   left: 60%;
@@ -973,16 +996,16 @@ background: #404040;
     color: #dbdbdb;
     padding: .8rem;
     cursor: pointer;
-    background-color: #7b8589 !important;
+    background-color: #7b8589;
     visibility: visible;
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-
+    overflow: hidden;
 }
 
 .listAddOn .list-group-item:hover {
   background-color: #223242 !important;
-  color: white;
+  color: white !important;
 }
 
 .listAddOn .list-group-item:focus {
@@ -993,6 +1016,10 @@ background: #404040;
 
 .listAddOn .list-group-item:visited {
   background: #18212c !important;
+}
+
+.iconVisible {
+  z-index: 1;
 }
 
 .sidebarRank {
@@ -1023,6 +1050,8 @@ a {
 
 #nav {
   background: #223242;
+  border-bottom: 2px solid #bebebe;
+  cursor: pointer;
 }
 
 .flex-item {
@@ -1036,6 +1065,10 @@ a {
 
 .heartSidebarListed {
   width: 10px;
+  position: absolute;
+  left: 2%;
+  top: 11%;
+  filter: invert(85%);
 }
 
 #topPercentage {
@@ -1097,6 +1130,22 @@ a {
   max-height: 80vh !important;
   height: fit-content !important;
 }
+
+.sidebarIcon {
+  width: 95px;
+  position: absolute;
+  left: 16px;
+  top: 2px;
+  opacity: .4;
+  z-index: -1;
+}
+
+.buttonFav {
+  background: #6a7580 !important;
+  color: white;
+  outline: 0;
+  z-index: 1;
+}
 html, body {
   height: 100%;
 }
@@ -1131,6 +1180,7 @@ html, body {
   align-items: center;
   display: flex;
   z-index: 1;
+  -webkit-backface-visibility: hidden;
 }
 
 .Answernoyes {
@@ -1140,6 +1190,7 @@ html, body {
   align-items: center;
   display: flex;
   z-index: 1;
+  -webkit-backface-visibility: hidden;
 }
 
 .Answerboxno {
