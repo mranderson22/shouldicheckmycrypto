@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import axios from 'axios';
-import * as animations from './animations';
 import Loader from 'react-loader-spinner';
+import * as animations from './animations';
 import lockbody from '../images/lockbody.png';
 import arrows from '../images/arrows.png';
 import Dashboard from './Components/dashboard/Dashboard';
@@ -11,7 +11,6 @@ import 'babel-polyfill';
 
 class App extends Component {
   state = {
-    topList: [],
     coin: 'BTC',
     coin2: 'ETH',
     loading: true,
@@ -23,13 +22,11 @@ class App extends Component {
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
   // determine if answer is "yes" or "no", then sets accordingly.
-  componentDidMount() {
-    this.fetchCryptoData(1);
-    this.fetchCryptoData(2);
-    this.fetchCryptoData(3);
-    // this.fetchCryptocurrencyData(1);
-    // this.fetchCryptocurrencyData(2);
-    setTimeout(() => {
+  async componentDidMount() {
+    await this.fetchCryptoData(1);
+    await this.fetchCryptoData(2);
+    await this.fetchCryptoData(3);
+    await setTimeout(() => {
       this.setState(() => ({ loading: false }));
       this.setState(() => ({ isVisible: 'true' }));
       this.setMood();
@@ -37,7 +34,7 @@ class App extends Component {
     setInterval(() => {
       this.fetchCryptoData(3);
     }, 10000);
-    setTimeout(() => {
+    await setTimeout(() => {
       this.revealDashboard();
     }, 3300);
   }
@@ -55,17 +52,22 @@ class App extends Component {
     const { coin1Info } = this.state;
     const data = coin1Info.change24h;
 
-    if (parseFloat(data) <= -5) {
-      this.setState(() => ({ text: 'absolutely not.' }));
+    try {
+      if (parseFloat(data) <= -5) {
+        this.setState(() => ({ text: 'absolutely not.' }));
+      }
+      else if (parseFloat(data) >= 5) {
+        this.setState(() => ({ text: 'absolutely!', answer: true }));
+      }
+      else if (parseFloat(data) >= 0) {
+        this.setState(() => ({ text: 'looks good', answer: true }));
+      }
+      else if (parseFloat(data) < 0) {
+        this.setState(() => ({ text: 'probably not' }));
+      }
     }
-    else if (parseFloat(data) >= 5) {
-      this.setState(() => ({ text: 'absolutely!', answer: true }));
-    }
-    else if (parseFloat(data) >= 0) {
-      this.setState(() => ({ text: 'looks good', answer: true }));
-    }
-    else if (parseFloat(data) < 0) {
-      this.setState(() => ({ text: 'probably not' }));
+    catch (error) {
+      console.log('mood not set!');
     }
   }
 
@@ -74,6 +76,7 @@ class App extends Component {
   updateCoin = (num, coinNew, curr) => {
     const { allCoins } = this.state;
     const index = allCoins.findIndex(coin => coin.id === coinNew.toString().toLowerCase());
+
     if (index === -1) {
       if (num === 1) {
         this.setState(() => ({
@@ -94,6 +97,7 @@ class App extends Component {
     }
     else if (index !== -1) {
       const symbol = allCoins[index].symbol.toString().toLowerCase();
+
       if (num === 1) {
         this.setState(() => ({
           value: symbol,
@@ -115,6 +119,7 @@ class App extends Component {
 
   revealDashboard = () => {
     const { answer } = this.state;
+
     if (answer) {
       this.setState(() => ({ isVisible: false, showComponent: true }));
     }
@@ -152,6 +157,15 @@ class App extends Component {
           athChange: parseFloat(x.ath_change_percentage).toFixed(2),
           athDate: x.ath_date
         };
+
+        const response2 = await axios(`https://api.coingecko.com/api/v3/coins/${specificCoin[0].id.toLowerCase()}`);
+        coin1.description = response2.data.description.en;
+        [coin1.homepage] = response2.data.links.homepage;
+        coin1.twitter_handle = response2.data.links.twitter_screen_name;
+        coin1.facebook_username = response2.data.links.facebook_username;
+        coin1.subreddit = response2.data.links.subreddit_url;
+        [coin1.github] = response2.data.links.repos_url.github;
+
         if (num === 1) {
           this.setState(() => ({ coin1Info: coin1, allCoins }));
         }
@@ -172,8 +186,8 @@ class App extends Component {
 
   render() {
     const {
-      data, loading, answer, isVisible, text, coin1Info, coin2Info, allCoins,
-      dataNew, dataNew2, showComponent, hovering, dataToBTC, dataToBTC2, topList, currentBTCPrice
+      loading, answer, isVisible, text, coin1Info, coin2Info, allCoins,
+      showComponent, hovering, currentBTCPrice
     } = this.state;
 
 
@@ -222,16 +236,10 @@ class App extends Component {
           {showComponent ? (
             <Dashboard
               fetchCryptocurrencyData={this.fetchCryptocurrencyData}
-              dataNew={dataNew}
-              dataNew2={dataNew2}
-              dataToBTC={dataToBTC}
-              dataToBTC2={dataToBTC2}
-              data={data}
               sendCoin={this.updateCoin}
               sendCoin2={this.updateCoin2}
               fetchData={this.fetchCryptoData}
               answer={answer}
-              topList={topList}
               currentBTCPrice={currentBTCPrice}
               coin1Info={coin1Info}
               coin2Info={coin2Info}

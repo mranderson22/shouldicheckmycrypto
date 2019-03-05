@@ -31,29 +31,11 @@ const ChartInfo = ({
         </li>
         <li>
           <span>
-          Current Price
-          </span>
-          <span className={coinInfo.change24h <= 0 ? 'redText right' : 'greenText right'}>
-            {curr === 'USD' ? '$' : 'Ƀ'}
-            {curr === 'USD' ? parseFloat(coinInfo.price).toFixed(2) : parseFloat(coinInfo.price).toFixed(8)}
-          </span>
-        </li>
-        <li>
-          <span>
           1 Hour Change
           </span>
           <span className={coinInfo.change1h <= 0 ? 'redText right' : 'greenText right'}>
             {coinInfo.change1h}
             %
-          </span>
-        </li>
-        <li>
-          <span>
-          1 Day Change
-          </span>
-          <span className={coinInfo.change24h <= 0 ? 'redText right' : 'greenText right'}>
-            {coinInfo.change24h}
-          %
           </span>
         </li>
         <li>
@@ -77,6 +59,16 @@ const ChartInfo = ({
             </span>
           </li>
         ) : null}
+        <li>
+          <span>
+          Website
+          </span>
+          <span className="tags badge badge-light">
+            <a href={coinInfo.homepage} target="_blank" rel="noopener noreferrer">
+            Home
+            </a>
+          </span>
+        </li>
       </div>
     </div>
   </div>

@@ -70,6 +70,8 @@
   border-radius: 4px;
   height: 225px;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 
@@ -213,7 +215,8 @@
   border-radius: 4px;
   background: rgba(0, 179, 41, 0.6196078431372549);
   overflow: hidden;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
+  box-shadow: 10px 10px 15px 0px #0f161c85;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 750px) {
@@ -232,7 +235,8 @@
   margin-top: 15px;
   border-radius: 4px;
   overflow: hidden;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
+  box-shadow: 10px 10px 15px 0px #0f161c85;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 750px) {

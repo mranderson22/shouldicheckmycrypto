@@ -70,6 +70,8 @@
   border-radius: 4px;
   height: 225px;
   box-shadow: 10px 10px 15px 0px #0f161c85;
+  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 
@@ -213,7 +215,8 @@
   border-radius: 4px;
   background: rgba(0, 179, 41, 0.6196078431372549);
   overflow: hidden;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
+  box-shadow: 10px 10px 15px 0px #0f161c85;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 750px) {
@@ -232,7 +235,8 @@
   margin-top: 15px;
   border-radius: 4px;
   overflow: hidden;
-      box-shadow: 10px 10px 15px 0px #0f161c85;
+  box-shadow: 10px 10px 15px 0px #0f161c85;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 750px) {
@@ -473,7 +477,6 @@
   background: rgba(115, 125, 130, 0.9411764705882353);
   border-radius: 4px;
   overflow: hidden;
-
 }
 
 @media screen and (max-width: 950px) {
@@ -654,26 +657,16 @@
   font-size: .8rem !important;
 }
 
-.NoName {
+.graphName {
   position: absolute;
   top: 1%;
-  left: 3%;
+  left: 2%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
   color: #1e2938;
   width: fit-content;
   z-index: 1;
-}
-
-.YesName {
-  position: absolute;
-  top: 1%;
-  left: 3%;
-  font-size: 30px;
-  font-family: 'Poppins', sans-serif;
-  color: #1e2938;
-  width: fit-content;
-  z-index: 1;
+  font-weight: bold;
 }
 
 .coinInfo {
@@ -851,6 +844,16 @@
   background: black;
 }
 
+.graphPrice {
+  font-weight: 100;
+  font-size: 25px;
+}
+
+.graphPercentage {
+  font-weight: 100;
+  font-size: 15px !important;
+}
+
 
 
 .cryptoImageBackgroundChartInfo {
@@ -873,7 +876,7 @@
   height: inherit;
   z-index: 1;
   padding-top: 10px;
-  padding-bottom: 75px;
+  padding-bottom: 200px;
 }
 
 .right {
@@ -927,6 +930,14 @@ background: #404040;
   background: rgba(34, 50, 66, 0.6705882352941176) !important;
 
 }
+
+.tags {
+  text-align: right;
+  float: right;
+  color: #428bca !important;
+  font-weight: 500;
+  background-color: #3f4953 !important;
+}
 .sidebarCoin {
   font-size: 16px;
   color: #d4e6ff;
@@ -947,26 +958,20 @@ background: #404040;
   font-weight: bold;
 }
 
-@media screen and (max-width: 1200px) {
-  .redText {
-    font-size: .7rem !important;
-  }
-}
-
 .greenText {
   color: #00ff3a;
-}
-
-@media screen and (max-width: 1200px) {
-  .greenText {
-    font-size: .7rem !important;
-  }
 }
 
 .right {
   text-align: right;
   font-size: 15px;
   float: right;
+}
+
+@media screen and (max-width: 1200px) {
+  .right {
+    font-size: .7rem !important;
+  }
 }
 
 .sidebarButtonContainer {
@@ -998,8 +1003,8 @@ background: #404040;
     cursor: pointer;
     background-color: #7b8589;
     visibility: visible;
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); */
     overflow: hidden;
 }
 
@@ -1145,6 +1150,10 @@ a {
   color: white;
   outline: 0;
   z-index: 1;
+}
+
+.exitIcons {
+  width: 10px;
 }
 html, body {
   height: 100%;

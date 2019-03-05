@@ -34,7 +34,6 @@
   background: rgba(115, 125, 130, 0.9411764705882353);
   border-radius: 4px;
   overflow: hidden;
-
 }
 
 @media screen and (max-width: 950px) {
@@ -215,26 +214,16 @@
   font-size: .8rem !important;
 }
 
-.NoName {
+.graphName {
   position: absolute;
   top: 1%;
-  left: 3%;
+  left: 2%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
   color: #1e2938;
   width: fit-content;
   z-index: 1;
-}
-
-.YesName {
-  position: absolute;
-  top: 1%;
-  left: 3%;
-  font-size: 30px;
-  font-family: 'Poppins', sans-serif;
-  color: #1e2938;
-  width: fit-content;
-  z-index: 1;
+  font-weight: bold;
 }
 
 .coinInfo {
@@ -410,5 +399,15 @@
 
 .spinnerContainerChartInfo {
   background: black;
+}
+
+.graphPrice {
+  font-weight: 100;
+  font-size: 25px;
+}
+
+.graphPercentage {
+  font-weight: 100;
+  font-size: 15px !important;
 }
 

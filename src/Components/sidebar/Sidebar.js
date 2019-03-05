@@ -135,7 +135,7 @@ class Sidebar extends Component {
             removeFromFavorites(x.symbol.toUpperCase());
           }}
         >
-          <img className="heartSidebarListed" src={exiticon} alt="favorite" />
+          <img className="exitIcons" src={exiticon} alt="favorite" />
         </button>
       </div>));
     this.setState({ newRankingList });

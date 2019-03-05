@@ -220,14 +220,34 @@ class Graph extends Component {
       rSelected2 = 7;
     }
 
+    let processPrice;
+    if (curr === 'USD') {
+      if (coinInfo.price < 0.01) {
+        processPrice = parseFloat(coinInfo.price).toFixed(6);
+      } else {
+        processPrice = parseFloat(coinInfo.price).toFixed(2);
+      }
+    }
+    else {
+      processPrice = parseFloat(coinInfo.price).toFixed(8);
+    }
+
 
     return (
       <div
         className="NoGraphChild"
       >
-        <img alt="" className={graphFocus === 1 ? "cryptoImageBackground saturated" : "cryptoImageBackground"} src={Image2} />
-        <div className={`${answer ? 'Yes' : 'No'}Name`}>
-          { `${coinInfo.name} / ${curr}`}
+        <img alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={Image2} />
+        <div className="graphName">
+          { `${coinInfo.name} / ${curr} `}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span className="graphPrice">
+            {curr === 'USD' ? '$' : 'Ƀ'}
+            {processPrice}
+          </span>
+          <span className={coinInfo.change24h <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
+            {` ${coinInfo.change24h}%`}
+          </span>
         </div>
         {loading ? (
           <div className="spinnerContainerGraph">

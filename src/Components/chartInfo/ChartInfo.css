@@ -18,7 +18,7 @@
   height: inherit;
   z-index: 1;
   padding-top: 10px;
-  padding-bottom: 75px;
+  padding-bottom: 200px;
 }
 
 .right {
@@ -71,4 +71,12 @@ background: #404040;
 .nav-chartInfo {
   background: rgba(34, 50, 66, 0.6705882352941176) !important;
 
+}
+
+.tags {
+  text-align: right;
+  float: right;
+  color: #428bca !important;
+  font-weight: 500;
+  background-color: #3f4953 !important;
 }

@@ -17,6 +17,7 @@ import plus from '../../../images/plus-button.png';
 
 class Dashboard extends Component {
   state = {
+    graphFocus: 1,
     favorites: [],
     inputValue: '',
     inputValue2: '',
@@ -70,10 +71,10 @@ class Dashboard extends Component {
     const { value2 } = this.state;
     coinLog.unshift(value);
     coinLog2.unshift(value2);
-    this.fetchCryptocurrencyHistory(1);
-    this.fetchCryptocurrencyHistory(2);
-    this.getPoints(1);
-    this.getPoints(2);
+    await this.fetchCryptocurrencyHistory(1);
+    await this.fetchCryptocurrencyHistory(2);
+    await this.getPoints(1);
+    await this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
     if (localStorage.getItem('savedCoins') === null) {
       if (localStorage.getItem('savedCoins2') === null) {
@@ -96,38 +97,28 @@ class Dashboard extends Component {
 
 
   onHistoryChange = (num = 30) => {
+    const { graphFocus } = this.state;
+    let graph;
+    if (graphFocus === 1) {
+      graph = 1;
+    }
+    else if (graphFocus === 2) {
+      graph = 2;
+    }
     if (num === 30) {
-      this.fetchCryptocurrencyHistory(1, 31);
+      this.fetchCryptocurrencyHistory(graph, 31);
     }
     else if (num === 60) {
-      this.fetchCryptocurrencyHistory(1, 90);
+      this.fetchCryptocurrencyHistory(graph, 90);
     }
     else if (num === 180) {
-      this.fetchCryptocurrencyHistory(1, 180);
+      this.fetchCryptocurrencyHistory(graph, 180);
     }
     else if (num === 365) {
-      this.fetchCryptocurrencyHistory(1, 365);
+      this.fetchCryptocurrencyHistory(graph, 365);
     }
     else if (num === 1000) {
-      this.fetchCryptocurrencyHistory(1, 1500);
-    }
-  }
-
-  onHistoryChange2 = (num = 30) => {
-    if (num === 30) {
-      this.fetchCryptocurrencyHistory(2, 31);
-    }
-    else if (num === 60) {
-      this.fetchCryptocurrencyHistory(2, 90);
-    }
-    else if (num === 180) {
-      this.fetchCryptocurrencyHistory(2, 180);
-    }
-    else if (num === 365) {
-      this.fetchCryptocurrencyHistory(2, 365);
-    }
-    else if (num === 1000) {
-      this.fetchCryptocurrencyHistory(2, 1500);
+      this.fetchCryptocurrencyHistory(graph, 1500);
     }
   }
 
@@ -435,7 +426,7 @@ class Dashboard extends Component {
     if (sideBarOpener === true) {
       this.addSidebar();
     }
-    this.scrollSidebarToTop();
+    // this.scrollSidebarToTop();
   }
 
   handleSubmit3 = (e, pos) => {
@@ -595,19 +586,35 @@ class Dashboard extends Component {
   }
 
   formatDate = (num = 1) => {
+    const { days } = this.state;
     const { history } = this.state;
     const { history2 } = this.state;
-    if (num === 1) {
-      history.forEach((pos) => {
-        const { time } = pos;
-        (pos).time = moment.unix(time).format('MMM DD YYYY');
-      });
+    try {
+      if (num === 1) {
+        history.forEach((pos) => {
+          const { time } = pos;
+          if (days > 360) {
+            (pos).time = moment.unix(time).format('MMM DD YYYY');
+          }
+          else {
+            (pos).time = moment.unix(time).format('MMM DD');
+          }
+        });
+      }
+      else if (num === 2) {
+        history2.forEach((pos) => {
+          const { time } = pos;
+          if (days > 360) {
+            (pos).time = moment.unix(time).format('MMM DD YYYY');
+          }
+          else {
+            (pos).time = moment.unix(time).format('MMM DD');
+          }
+        });
+      }
     }
-    else if (num === 2) {
-      history2.forEach((pos) => {
-        const { time } = pos;
-        (pos).time = moment.unix(time).format('MMM DD YYYY');
-      });
+    catch (error) {
+      console.log('Error processing data!')
     }
   }
 
@@ -839,15 +846,25 @@ class Dashboard extends Component {
       pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites, hovered
     } = this.state;
     const {
-      answer, dataNew, dataNew2, dataToBTC, dataToBTC2, topList, currentBTCPrice, coin1Info, coin2Info, allCoins
+      answer, currentBTCPrice, coin1Info, coin2Info, allCoins
     } = this.props;
     return (
       <div className="container-fluid">
         <div className="row">
           <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'}>
-            <div className={answer === true ? 'col-sm-2 bitcoinTrackerWrapperYes'
-              : 'col-sm-2 bitcoinTrackerWrapperNo'
+            <div 
+              className={answer === true ? 'col-sm-2 bitcoinTrackerWrapperYes'
+                : 'col-sm-2 bitcoinTrackerWrapperNo'
               }
+              onClick={(e) => {
+                this.handleSubmit5(e, 'BTC');
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={() => {
+                '';
+              }
+            }
             >
               <BitcoinTracker
                 currentBTCPrice={currentBTCPrice}
@@ -856,7 +873,6 @@ class Dashboard extends Component {
             <div id="sidebarContainer" className="col-sm-2 sidebar">
               <Sidebar
                 allCoins={allCoins}
-                topList={topList}
                 handleSubmit5={this.handleSubmit5}
                 favorites={favorites}
                 removeFromFavorites={this.removeFromFavorites}
@@ -874,7 +890,6 @@ class Dashboard extends Component {
             onMouseLeave={() => this.setState({ hovered: false })}
           >
             <Graph
-              dataNew={dataNew}
               graphData={graphData}
               isGraphVisible={isGraphVisible}
               isEnabled={isEnabled}
@@ -889,7 +904,6 @@ class Dashboard extends Component {
               changeCurrency={this.changeCurrency1}
               value={value}
               curr={curr}
-              dataToBTC={dataToBTC}
               toggleCurr={toggleCurr}
               days={days}
               dateRangeChange={dateRangeChange}
@@ -962,13 +976,12 @@ class Dashboard extends Component {
             >
               <Graph
                 isEnabled={isEnabled2}
-                dataNew={dataNew2}
                 graphData={graphData2}
                 isGraphVisible={isGraphVisible}
                 freshReveal={freshReveal}
                 cryptoImage={cryptoImage2}
                 secondGraphVisible={secondGraphVisible}
-                onHistoryChange={this.onHistoryChange2}
+                onHistoryChange={this.onHistoryChange}
                 handleSubmit1={this.handleSubmit2}
                 handleSubmit3={this.handleSubmit4}
                 handleSubmit5={this.handleSubmit5}
@@ -977,7 +990,6 @@ class Dashboard extends Component {
                 changeCurrency={this.changeCurrency2}
                 value={value2}
                 curr={curr2}
-                dataToBTC={dataToBTC2}
                 toggleCurr={toggleCurr2}
                 days={days2}
                 dateRangeChange={dateRangeChange2}
@@ -1016,12 +1028,20 @@ class Dashboard extends Component {
 
 
 Dashboard.propTypes = {
+  coin1Info: PropTypes.object,
+  coin2Info: PropTypes.object,
+  fetchData: PropTypes.func,
+  allCoins: PropTypes.array,
   sendCoin: PropTypes.func,
   answer: PropTypes.bool,
   currentBTCPrice: PropTypes.number
 };
 
 Dashboard.defaultProps = {
+  coin1Info: PropTypes.object,
+  coin2Info: PropTypes.object,
+  fetchData: PropTypes.func,
+  allCoins: PropTypes.array,
   sendCoin: 'sendCoin',
   answer: 'answer',
   currentBTCPrice: PropTypes.string
