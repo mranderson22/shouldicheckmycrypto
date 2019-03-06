@@ -158,7 +158,7 @@ class Dashboard extends Component {
           type: 'bar',
           yAxisID: 'y-axis-1',
           hoverBackgroundColor: '#1E2938',
-          backgroundColor: 'rgba(30, 41, 56, 0.65)'
+          backgroundColor: 'rgba(30, 41, 56, 0.55)'
         }
       ]
     };
@@ -587,6 +587,7 @@ class Dashboard extends Component {
 
   formatDate = (num = 1) => {
     const { days } = this.state;
+    const { days2 } = this.state;
     const { history } = this.state;
     const { history2 } = this.state;
     try {
@@ -604,7 +605,7 @@ class Dashboard extends Component {
       else if (num === 2) {
         history2.forEach((pos) => {
           const { time } = pos;
-          if (days > 360) {
+          if (days2 > 360) {
             (pos).time = moment.unix(time).format('MMM DD YYYY');
           }
           else {

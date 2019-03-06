@@ -77,7 +77,7 @@
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .Nochartheader {
     font-size: .7rem;
   }
@@ -317,7 +317,6 @@
   left: 1%;
   top: 0%;
   height: 82.6%;
-  z-index: 1060;
   font-family: 'Poppins', sans-serif;
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -418,9 +417,9 @@
 
 @media screen and (max-width: 1200px) {
   .bitcoinCurrentPrice {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-left: -3px;
-    padding-top: 10px;
+    padding-top: 15px;
   }
 }
 
@@ -889,7 +888,7 @@
 
 @media screen and (max-width: 1200px) {
   .right {
-    font-size: .7rem !important;
+    font-size: .9rem !important;
   }
 }
 
@@ -919,7 +918,6 @@ color: #d9d9d9 !important;
 
 a {
   color: #000000 !important;
-  font-size: 15px;
 }
 
 #nav {
@@ -932,11 +930,35 @@ background: #404040;
 }
 
 .tags {
-  text-align: right;
-  float: right;
-  color: #428bca !important;
-  font-weight: 500;
-  background-color: #3f4953 !important;
+  flex-shrink: 5;
+}
+
+.tagIcons {
+  width: 20px;
+}
+
+.iconsContainer {
+  display: flex;
+  text-align: center;
+  margin: 8px -4px 0px;
+  border: 1px solid #6a7580;
+  padding: 5px;
+  padding-right: 0;
+  margin-right: 0;
+  border-radius: 4px;
+}
+
+.linksHeader {
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: white;
+}
+
+.tagIcons:hover {
+  filter: invert(90%);
+  -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .sidebarCoin {
   font-size: 16px;
@@ -947,7 +969,7 @@ background: #404040;
   color: white;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .sidebarCoin {
     font-size: .7rem;
   }
@@ -968,7 +990,7 @@ background: #404040;
   float: right;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
   .right {
     font-size: .7rem !important;
   }
@@ -1003,8 +1025,8 @@ background: #404040;
     cursor: pointer;
     background-color: #7b8589;
     visibility: visible;
-    /* -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); */
+    -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow: hidden;
 }
 
@@ -1014,13 +1036,13 @@ background: #404040;
 }
 
 .listAddOn .list-group-item:focus {
-  background: #18212c !important;
+  background: #223242 !important;
   color: white;
   outline: 0;
 }
 
 .listAddOn .list-group-item:visited {
-  background: #18212c !important;
+  background: #223242 !important;
 }
 
 .iconVisible {
@@ -1032,9 +1054,15 @@ background: #404040;
   font-size: 14px;
 }
 
+@media screen and (max-width: 1000px) {
+  .sidebarRank {
+      font-size: .7rem;
+}
+} 
+
 .nav-pills .nav-link.active, .nav-pills .show .nav-link {
     color: #d9d9d9 !important;
-    background-color: #7b8589 !important;
+    background-color: #6b7680 !important;
     font-size: 15px;
     border-radius: 0 !important;
     -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -1044,7 +1072,7 @@ background: #404040;
 
 .nav-pills .nav-link {
   border-radius: 0 !important; 
-  background-color: #223242;
+  background-color: #18212c;
   color: #d9d9d9 !important;
 }
 

@@ -17,6 +17,7 @@ import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
 import CoinSearch from '../coinSearch/CoinSearch';
 import ChartInfo from '../chartInfo/ChartInfo';
+import { nonlinearSpring } from 'popmotion/lib/transformers';
 
 class Graph extends Component {
   state = {
@@ -112,9 +113,9 @@ class Graph extends Component {
 
   render() {
     const {
-      answer, handleChange, handleSubmit3,
-      isEnabled, onHistoryChange, dataNew, graphData, cryptoImage, changeCurrency,
-      curr, dataToBTC, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, 
+      handleChange, handleSubmit3,
+      isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency,
+      curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, 
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
@@ -125,7 +126,6 @@ class Graph extends Component {
     const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
     const Image4 = `https://www.cryptocompare.com/${cryptoImage[3]}`;
     const Image5 = `https://www.cryptocompare.com/${cryptoImage[4]}`;
-    let oneDayVolume;
     const options = {
       maintainAspectRatio: false,
       responsive: true,
@@ -134,18 +134,28 @@ class Graph extends Component {
       },
       tooltips: {
         displayColors: false,
+        position: 'nearest',
         mode: 'index',
-        backgroundColor: 'rgb(24, 33, 44)'
+        backgroundColor: 'rgb(24, 33, 44)',
+        style: {
+          pointerEvents: 'none'
+        }
+        // callbacks: {
+        //   label: (tooltipItems) => {
+        //     if (curr === 'USD') {
+        //       return `${graphData.datasets[tooltipItems.datasetIndex].label} : $ ${tooltipItems.yLabel}`;
+        //     }
+        //     return `${graphData.datasets[tooltipItems.datasetIndex].label} : Ƀ ${tooltipItems.yLabel}`;
+        //   }
+        // }
       },
       scales: {
         yAxes: [{
           display: false,
-          type: 'logarithmic',
+          type: 'linear',
           id: 'y-axis-1',
           ticks: {
-            fontColor: 'black',
-
-            max: 1000000000000
+            fontColor: 'black'
           }
         }, {
           type: 'logarithmic',
@@ -166,7 +176,7 @@ class Graph extends Component {
             autoSkip: true,
             maxTicksLimit: 15,
             fontColor: 'black',
-            min: 0
+           
           }
         }]
       }
@@ -247,6 +257,7 @@ class Graph extends Component {
           </span>
           <span className={coinInfo.change24h <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
             {` ${coinInfo.change24h}%`}
+            {coinInfo.change24h <= 0 ? '↓' : '↑'}
           </span>
         </div>
         {loading ? (
