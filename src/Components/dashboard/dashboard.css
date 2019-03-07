@@ -262,14 +262,14 @@
   height: 63px;
   max-width: 26.666667% !important;
   left: -60px;
-  bottom: -13px;
+  bottom: -15px;
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   .cryptoImageContainer {
     display: none;
   }
-}
+} */
 
 .cryptoInput {
   margin-top: 5px;

@@ -77,16 +77,9 @@ class Dashboard extends Component {
     await this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
     if (localStorage.getItem('savedCoins') === null) {
-      if (localStorage.getItem('savedCoins2') === null) {
-        this.fetchCryptocurrencyImage(2);
-      }
-      else {
-        this.getLocalStorageData(2);
-      }
-      this.fetchCryptocurrencyImage(1);
+      this.getLocalStorageData(2);
     }
     else if (localStorage.getItem('savedCoins2') === null) {
-      this.fetchCryptocurrencyImage(2);
       this.getLocalStorageData(1);
     }
     else {
@@ -200,39 +193,25 @@ class Dashboard extends Component {
     const retrievedFavoriteCoins = localStorage.getItem('savedFavoriteCoins');
     const savedFavoriteCoinsNew = JSON.parse(retrievedFavoriteCoins);
     const retrievedCoins = localStorage.getItem('savedCoins');
-    const retrievedCoinImages = localStorage.getItem('savedCoinImages');
     const savedCoinsNew = JSON.parse(retrievedCoins);
-    const savedCoinImagesNew = JSON.parse(retrievedCoinImages);
     const retrievedCoins2 = localStorage.getItem('savedCoins2');
-    const retrievedCoinImages2 = localStorage.getItem('savedCoinImages2');
     const savedCoinsNew2 = JSON.parse(retrievedCoins2);
-    const savedCoinImagesNew2 = JSON.parse(retrievedCoinImages2);
     if (num === 1) {
-      if (savedCoinImagesNew.indexOf(BTC) > 0) {
-        savedCoinImagesNew.splice(savedCoinImagesNew.indexOf(BTC), 1);
-        savedCoinImagesNew.unshift(BTC);
-      }
       if (savedCoinsNew.indexOf('BTC') > 0) {
         savedCoinsNew.splice(savedCoinsNew.indexOf('BTC'), 1);
         savedCoinsNew.unshift('BTC');
       }
       this.setState({ coinLog: savedCoinsNew });
-      this.setState({ cryptoImage: savedCoinImagesNew });
       if (savedFavoriteCoinsNew) {
         await this.setState({ favorites: savedFavoriteCoinsNew });
       }
     }
     else if (num === 2) {
-      if (savedCoinImagesNew2.indexOf(ETH) > 0) {
-        savedCoinImagesNew2.splice(savedCoinImagesNew2.indexOf(ETH), 1);
-        savedCoinImagesNew2.unshift(ETH);
-      }
       if (savedCoinsNew2.indexOf('ETH') > 0) {
         savedCoinsNew2.splice(savedCoinsNew2.indexOf('ETH'), 1);
         savedCoinsNew2.unshift('ETH');
       }
       this.setState({ coinLog2: savedCoinsNew2 });
-      this.setState({ cryptoImage2: savedCoinImagesNew2 });
       if (savedFavoriteCoinsNew) {
         await this.setState({ favorites: savedFavoriteCoinsNew });
       }
@@ -503,7 +482,6 @@ class Dashboard extends Component {
         }
         sendCoin(1, coin, curr);
         this.fetchCryptocurrencyHistory(1, days);
-        this.fetchCryptocurrencyImage(1);
         this.getPoints(1);
         this.setState({ inputValue: '' });
       }
@@ -520,67 +498,8 @@ class Dashboard extends Component {
         }
         sendCoin(2, coin2, curr);
         this.fetchCryptocurrencyHistory(2, days2);
-        this.fetchCryptocurrencyImage(2);
         this.getPoints(2);
         this.setState({ inputValue2: '' });
-      }
-    }
-  }
-
-  fetchCryptocurrencyImage = async (num = 1) => {
-    let { value } = this.state;
-    let { value2 } = this.state;
-    const { cryptoImage } = this.state;
-    const { cryptoImage2 } = this.state;
-    if (value === 'MIOTA') {
-      value = 'IOT';
-    }
-    else if (value2 === 'MIOTA') {
-      value2 = 'IOT';
-    }
-    let wantedVal;
-    if (num === 1) {
-      wantedVal = value;
-    }
-    else if (num === 2) {
-      wantedVal = value2;
-    }
-    try {
-      const response = await axios(`https://min-api.cryptocompare.com/data/coin/generalinfo?fsyms=${wantedVal}&tsym=USD`);
-      if (num === 1) {
-        const cryptoImageData = await response.data.Data[0].CoinInfo.ImageUrl;
-        cryptoImage.unshift(cryptoImageData);
-        const unique = Array.from(new Set(cryptoImage));
-        this.setState({ cryptoImage: unique }, () => {
-          localStorage.setItem('savedCoinImages', JSON.stringify(unique));
-        });
-      }
-      else if (num === 2) {
-        const cryptoImage2Data = response.data.Data[0].CoinInfo.ImageUrl;
-        cryptoImage2.unshift(cryptoImage2Data);
-        const unique = Array.from(new Set(cryptoImage2));
-        this.setState({ cryptoImage2: unique }, () => {
-          localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
-        });
-      }
-    }
-    catch (error) {
-      console.log('Image not received!');
-      if (num === 1) {
-        const cryptoImageData = '/media/19633/btc.png';
-        cryptoImage.unshift(cryptoImageData);
-        const unique = Array.from(new Set(cryptoImage));
-        this.setState({ cryptoImage: unique }, () => {
-          localStorage.setItem('savedCoinImages', JSON.stringify(unique));
-        });
-      }
-      else if (num === 2) {
-        const cryptoImage2Data = '/media/19633/btc.png';
-        cryptoImage2.unshift(cryptoImage2Data);
-        const unique = Array.from(new Set(cryptoImage2));
-        this.setState({ cryptoImage2: unique }, () => {
-          localStorage.setItem('savedCoinImages2', JSON.stringify(unique));
-        });
       }
     }
   }

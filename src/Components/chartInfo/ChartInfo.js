@@ -7,19 +7,22 @@ import twitter from '../../../images/twitter_icon.png';
 import github from '../../../images/github_icon.png';
 
 const ChartInfo = ({
- curr, dateRangeChange, days, cryptoImage, value, coinInfo
+  dateRangeChange, days, value, coinInfo
 }) => (
   <div>
     <nav className="nav nav-pills nav-fill">
       <span className="nav-item nav-link nav-chartInfo">
-        {`${value} Details`}
+        <img className="detailsImage" src={coinInfo.image} alt="" />
+        <span className="detailsLabel">
+          {`${value} Details`}
+        </span>
       </span>
     </nav>
     <div className="chartInfoChild">
       <img
         alt=""
         className="cryptoImageBackgroundChartInfo"
-        src={cryptoImage}
+        src={coinInfo.image}
         id={`cryptoImageBackgroundChartInfo ${value}`}
       />
       <div
@@ -51,7 +54,7 @@ const ChartInfo = ({
           <span className={coinInfo.change7d <= 0 ? 'redText right' : 'greenText right'}>
             {coinInfo.change7d}
           %
-          {coinInfo.change7d <= 0 ? '↓' : '↑'}
+            {coinInfo.change7d <= 0 ? '↓' : '↑'}
           </span>
         </li>
         {days !== 1500 ? (
@@ -62,7 +65,7 @@ const ChartInfo = ({
             <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>
               {dateRangeChange}
         %
-        {dateRangeChange <= 0 ? '↓' : '↑'}
+              {dateRangeChange <= 0 ? '↓' : '↑'}
             </span>
           </li>
         ) : null}
@@ -73,35 +76,55 @@ const ChartInfo = ({
           <span className={coinInfo.athChange <= 0 ? 'redText right' : 'greenText right'}>
             {coinInfo.athChange}
           %
-          {coinInfo.athChange <= 0 ? '↓' : '↑'}
+            {coinInfo.athChange <= 0 ? '↓' : '↑'}
           </span>
         </li>
         <div className="iconsContainer">
-          <span className="tags flex-item">
-            <a href={coinInfo.homepage} target="_blank" rel="noopener noreferrer">
-              <img className="tagIcons" src={home} alt="home" />
-            </a>
-          </span>
-          <span className="tags flex-item">
-            <a href={`https://www.twitter.com/${coinInfo.twitter_handle}`} target="_blank" rel="noopener noreferrer">
-              <img className="tagIcons" src={twitter} alt="home" />
-            </a>
-          </span>
-          <span className="tags flex-item">
-            <a href={`https://www.facebook.com/${coinInfo.facebook_username}`} target="_blank" rel="noopener noreferrer">
-              <img className="tagIcons" src={facebook} alt="home" />
-            </a>
-          </span>
-          <span className="tags flex-item">
-            <a href={coinInfo.subreddit} target="_blank" rel="noopener noreferrer">
-              <img className="tagIcons" src={reddit} alt="home" />
-            </a>
-          </span>
-          <span className="tags flex-item">
-            <a href={coinInfo.github} target="_blank" rel="noopener noreferrer">
-              <img className="tagIcons" src={github} alt="home" />
-            </a>
-          </span>
+          {coinInfo.homepage
+            && (
+              <span className="tags flex-item">
+                <a href={coinInfo.homepage} target="_blank" rel="noopener noreferrer">
+                  <img className="tagIcons" src={home} alt="home" />
+                </a>
+              </span>
+            )
+          }
+          {coinInfo.twitter_handle
+            && (
+              <span className="tags flex-item">
+                <a href={`https://www.twitter.com/${coinInfo.twitter_handle}`} target="_blank" rel="noopener noreferrer">
+                  <img className="tagIcons" src={twitter} alt="home" />
+                </a>
+              </span>
+            )
+          }
+          {coinInfo.facebook_username
+            && (
+              <span className="tags flex-item">
+                <a href={`https://www.facebook.com/${coinInfo.facebook_username}`} target="_blank" rel="noopener noreferrer">
+                  <img className="tagIcons" src={facebook} alt="home" />
+                </a>
+              </span>
+            )
+          }
+          {coinInfo.subreddit
+            && (
+              <span className="tags flex-item">
+                <a href={coinInfo.subreddit} target="_blank" rel="noopener noreferrer">
+                  <img className="tagIcons" src={reddit} alt="home" />
+                </a>
+              </span>
+            )
+          }
+          {coinInfo.github
+            && (
+              <span className="tags flex-item">
+                <a href={coinInfo.github} target="_blank" rel="noopener noreferrer">
+                  <img className="tagIcons" src={github} alt="home" />
+                </a>
+              </span>
+            )
+          }
         </div>
       </div>
     </div>

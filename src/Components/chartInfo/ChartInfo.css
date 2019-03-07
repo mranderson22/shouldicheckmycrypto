@@ -103,3 +103,23 @@ background: #404040;
   -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
+.detailsImage {
+  width: 30px;
+  margin-left: -7px;
+  position: absolute;
+  margin-top: -4px;
+
+}
+
+@media screen and (max-width: 1000px) {
+  .detailsImage {
+    width: 20px;
+  }
+}
+
+
+
+.detailsLabel {
+  margin-left: 31px;
+}

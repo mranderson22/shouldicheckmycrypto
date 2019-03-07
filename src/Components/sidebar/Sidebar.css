@@ -63,8 +63,8 @@
     cursor: pointer;
     background-color: #7b8589;
     visibility: visible;
-    -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     overflow: hidden;
 }
 
@@ -103,8 +103,8 @@
     background-color: #6b7680 !important;
     font-size: 15px;
     border-radius: 0 !important;
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: color, background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: color, background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
 }
 
@@ -220,4 +220,8 @@ a {
 
 .exitIcons {
   width: 10px;
+}
+
+.nav {
+  flex-wrap: wrap-reverse !important;
 }

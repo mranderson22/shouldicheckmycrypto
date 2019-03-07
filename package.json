@@ -13,7 +13,6 @@
     "license": "MIT",
     "dependencies": {
         "animate.css": "^3.6.1",
-        "apexcharts": "^2.1.5",
         "axios": "^0.18.0",
         "babel-eslint": "^10.0.1",
         "babel-plugin-transform-class-properties": "^6.24.1",
@@ -23,21 +22,16 @@
         "cors": "^2.8.5",
         "eslint-plugin-babel": "^5.3.0",
         "express": "*",
-        "image-palette-core": "^0.2.2",
         "moment": "^2.22.2",
         "popmotion-pose": "^2.2.0",
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
         "react-animated-css": "^1.0.4",
-        "react-apexcharts": "^1.0.9",
         "react-chartjs-2": "^2.7.4",
-        "react-chartkick": "^0.2.1",
         "react-dom": "^16.4.1",
-        "react-image-palette": "^0.2.4",
         "react-loader-spinner": "^2.1.0",
         "react-moment": "^0.7.9",
         "react-pose": "^2.3.0",
-        "react-svg-line-chart": "^2.0.1",
         "reactstrap": "^6.2.0"
     },
     "devDependencies": {
@@ -58,6 +52,6 @@
         "url-loader": "^1.0.1",
         "webpack": "^4.14.0",
         "webpack-cli": "^3.0.8",
-        "webpack-dev-server": "^3.1.4"
+        "webpack-dev-server": "^3.2.1"
     }
 }

@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
-import posed from 'react-pose';
 import {
   Button, ButtonGroup
 } from 'reactstrap';
@@ -17,7 +16,6 @@ import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
 import CoinSearch from '../coinSearch/CoinSearch';
 import ChartInfo from '../chartInfo/ChartInfo';
-import { nonlinearSpring } from 'popmotion/lib/transformers';
 
 class Graph extends Component {
   state = {
@@ -136,10 +134,7 @@ class Graph extends Component {
         displayColors: false,
         position: 'nearest',
         mode: 'index',
-        backgroundColor: 'rgb(24, 33, 44)',
-        style: {
-          pointerEvents: 'none'
-        }
+        backgroundColor: 'rgb(24, 33, 44)'
         // callbacks: {
         //   label: (tooltipItems) => {
         //     if (curr === 'USD') {
@@ -198,7 +193,7 @@ class Graph extends Component {
          }
             active={rSelected === 1}
           >
-          USD
+          $
           </Button>
           <Button
             className="currButton"
@@ -208,7 +203,7 @@ class Graph extends Component {
          }
             active={rSelected === 2}
           >
-          BTC
+          Ƀ
           </Button>
         </ButtonGroup>
       );
@@ -247,7 +242,7 @@ class Graph extends Component {
       <div
         className="NoGraphChild"
       >
-        <img alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={Image2} />
+        <img alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={coinInfo.image} />
         <div className="graphName">
           { `${coinInfo.name} / ${curr} `}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -373,66 +368,7 @@ class Graph extends Component {
           inputValue={inputValue}
           handleChange={handleChange}
           isEnabled={isEnabled}
-          />
-        <div className="col-sm-2 coinButtonBank">
-          { cryptoImage[1]
-              && (
-                <div className="quickButtonContainer" id="firstCoinButton">
-                  <img
-                    alt=""
-                    className="cryptoImage"
-                    cursor="pointer"
-                    src={Image}
-                    onClick={(e) => {
-                      handleSubmit3(e, 1);
-                    }}
-                  />
-                </div>
-              )
-              }
-          { cryptoImage[2]
-              && (
-                <div className="quickButtonContainer" id="secondCoinButton">
-                  <img
-                    alt=""
-                    className="cryptoImage"
-                    src={Image3}
-                    onClick={(e) => {
-                      handleSubmit3(e, 2);
-                    }}
-                  />
-                </div>
-              )
-              }
-          { cryptoImage[3]
-              && (
-                <div className="quickButtonContainer" id="thirdCoinButton">
-                  <img
-                    alt=""
-                    className="cryptoImage"
-                    src={Image4}
-                    onClick={(e) => {
-                      handleSubmit3(e, 3);
-                    }}
-                  />
-                </div>
-              )
-              }
-          { cryptoImage[4]
-              && (
-                <div className="quickButtonContainer" id="fourthCoinButton">
-                  <img
-                    alt=""
-                    className="cryptoImage"
-                    src={Image5}
-                    onClick={(e) => {
-                      handleSubmit3(e, 4);
-                    }}
-                  />
-                </div>
-              )
-              }
-        </div>
+        />
         <div className="optionsBank">
           <div
             className="favoriteButton"
