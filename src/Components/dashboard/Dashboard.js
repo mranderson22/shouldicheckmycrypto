@@ -13,7 +13,7 @@ import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
-// import burgerMenu from '../../../images/burgerMenu.png';
+import burgerMenu from '../../../images/burgerMenu.png';
 
 class Dashboard extends Component {
   state = {
@@ -366,7 +366,7 @@ class Dashboard extends Component {
       this.setState({ curr: 'USD' });
     }
     if (sideBarOpener === true) {
-      this.addSidebar();
+      // this.addSidebar();
     }
     // this.scrollSidebarToTop();
   }
@@ -403,7 +403,7 @@ class Dashboard extends Component {
       e.persist();
     }
     if (sideBarOpener === true) {
-      this.addSidebar();
+      // this.addSidebar();
     }
     // this.scrollSidebarToTop();
   }
@@ -574,56 +574,60 @@ class Dashboard extends Component {
       });
     }
   }
-
+  
   addSidebar = () => {
-    const { sideBarOpener } = this.state;
-    const { graphFocus } = this.state;
-    const { secondWasThere } = this.state;
-    const { pose } = this.state;
-    if (sideBarOpener) {
-      setTimeout(() => {
-        this.setState({ sideBarOpener: false });
-        if (secondWasThere) {
-          if (graphFocus === 1) {
-            this.setState({ freshReveal: true });
-            this.setState({ secondGraphVisible: true });
-            this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' }, () => {
-              this.setState({ pose2: 'secondary' });
-            });
-          }
-          else {
-            this.setState({ pose2: 'secondary' });
-            this.setState({ isGraphVisible: true });
-            this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
-          }
-        }
-        else if (graphFocus === 1) {
-          this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
-        }
-        else {
-          this.setState({ pose: 'resized' });
-          this.setState({ pose2: 'fullSize' });
-        }
-      }, 500);
-    }
-    else {
-      this.setState({ sideBarOpener: true });
-      if (graphFocus === 1 && secondWasThere) {
-        this.setState({ pose2: 'hidden' }, () => {
-          this.setState({ pose: 'movedOver' });
-        });
-      }
-      else if (graphFocus === 1) {
-        this.setState({ pose: 'movedOver' });
-      }
-      else if (graphFocus === 2) {
-        this.setState({ secondGraphVisible: true });
-        this.setState({ freshReveal: true });
-        this.setState({ isGraphVisible: false });
-        this.setState({ pose2: 'movedOver' });
-      }
-    }
+
   }
+
+  // addSidebar = () => {
+  //   const { sideBarOpener } = this.state;
+  //   const { graphFocus } = this.state;
+  //   const { secondWasThere } = this.state;
+  //   const { pose } = this.state;
+  //   if (sideBarOpener) {
+  //     setTimeout(() => {
+  //       this.setState({ sideBarOpener: false });
+  //       if (secondWasThere) {
+  //         if (graphFocus === 1) {
+  //           this.setState({ freshReveal: true });
+  //           this.setState({ secondGraphVisible: true });
+  //           this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' }, () => {
+  //             this.setState({ pose2: 'secondary' });
+  //           });
+  //         }
+  //         else {
+  //           this.setState({ pose2: 'secondary' });
+  //           this.setState({ isGraphVisible: true });
+  //           this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
+  //         }
+  //       }
+  //       else if (graphFocus === 1) {
+  //         this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
+  //       }
+  //       else {
+  //         this.setState({ pose: 'resized' });
+  //         this.setState({ pose2: 'fullSize' });
+  //       }
+  //     }, 500);
+  //   }
+  //   else {
+  //     this.setState({ sideBarOpener: true });
+  //     if (graphFocus === 1 && secondWasThere) {
+  //       this.setState({ pose2: 'hidden' }, () => {
+  //         this.setState({ pose: 'movedOver' });
+  //       });
+  //     }
+  //     else if (graphFocus === 1) {
+  //       this.setState({ pose: 'movedOver' });
+  //     }
+  //     else if (graphFocus === 2) {
+  //       this.setState({ secondGraphVisible: true });
+  //       this.setState({ freshReveal: true });
+  //       this.setState({ isGraphVisible: false });
+  //       this.setState({ pose2: 'movedOver' });
+  //     }
+  //   }
+  // }
 
   changeCurrency1 = (curr) => {
     const { value } = this.state;
@@ -773,8 +777,8 @@ class Dashboard extends Component {
         <div className="row">
           <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'} className="animations_Reveal4">
             <div
-              className={answer === true ? 'col-sm-2 bitcoinTrackerWrapperYes'
-                : 'col-sm-2 bitcoinTrackerWrapperNo'
+              className={answer === true ? 'col-sm-2 bitcoinTrackerWrapper yesBackgroundColor'
+                : 'col-sm-2 bitcoinTrackerWrapper noBackgroundColor'
               }
               onClick={(e) => {
                 this.handleSubmit5(e, 'BTC');
@@ -930,19 +934,18 @@ class Dashboard extends Component {
           ) : null
         }
         </div>
-        {/* }
-    <Reveal2 pose={isGraphVisible || secondGraphVisible ? 'visible2' : 'hidden2'}>
-      <div
-        className="burgerMenuContainer"
-        onClick={this.addSidebar}
-        onKeyDown={this.addSidebar}
-        role="button"
-        tabIndex={-1}
-      >
-        <img className="burgerMenu" alt="" src={burgerMenu} />
-      </div>
-    </Reveal2>
-    */}
+        }
+        <div>
+          <div
+            className="burgerMenuContainer"
+            onClick={this.addSidebar}
+            onKeyDown={this.addSidebar}
+            role="button"
+            tabIndex={-1}
+          >
+            <img className="burgerMenu" alt="" src={burgerMenu} />
+          </div>
+        </div>
       </div>
     );
   }
