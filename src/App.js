@@ -205,7 +205,7 @@ class App extends Component {
       <div className="Answernobackground">
         <div className={`Answerno${answer ? 'yes' : 'no'}`}>
           <div className={`Answerbox${answer ? 'yes' : 'no'}`}>
-            <animations.Reveal pose={isVisible ? 'visible' : 'hidden'}>
+            <animations.Reveal pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal">
               {text}
             </animations.Reveal>
           </div>
@@ -223,7 +223,7 @@ class App extends Component {
                   role="button"
                   tabIndex={0}
                 >
-                  <animations.Reveal2 pose={isVisible ? 'visible' : 'hidden'}>
+                  <animations.Reveal2 pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal2">
                     <div>
                       {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
                     </div>

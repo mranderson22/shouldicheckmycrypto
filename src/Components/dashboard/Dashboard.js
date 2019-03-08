@@ -771,8 +771,8 @@ class Dashboard extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'}>
-            <div 
+          <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'} className="animations_Reveal4">
+            <div
               className={answer === true ? 'col-sm-2 bitcoinTrackerWrapperYes'
                 : 'col-sm-2 bitcoinTrackerWrapperNo'
               }
@@ -801,7 +801,7 @@ class Dashboard extends Component {
             </div>
           </animations.Reveal4>
         </div>
-        <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'}>
+        <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
           <animations.Resize
             className={graphFocus === 1 ? 'col-sm-10 NoGraph shadowGraph' : 'col-sm-10 NoGraph'}
             pose={pose}
@@ -857,7 +857,9 @@ class Dashboard extends Component {
               */}
           </animations.Resize>
           <div className="imageContainer">
-            <animations.Reveal3 pose={(secondGraphVisible && isGraphVisible) || sideBarOpener ? 'hidden' : 'visible'}>
+            <animations.Reveal3 pose={(secondGraphVisible && isGraphVisible) || sideBarOpener ? 'hidden' : 'visible'}
+              className="animations_Reveal3"
+            >
               <div className="plus">
                 <div
                   pose={hovering ? 'hovered' : 'idle'}
@@ -888,7 +890,7 @@ class Dashboard extends Component {
         <div>
           {freshReveal ? (
             <animations.Reveal3
-              className={graphFocus === 2 ? 'col-sm-10 NoGraphNew shadowGraph' : 'col-sm-10 NoGraphNew'}
+              className={graphFocus === 2 ? 'col-sm-10 NoGraphNew animations_Reveal3 shadowGraph' : 'col-sm-10 NoGraphNew animations_Reveal3'}
               pose={pose2}
               onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
               onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
