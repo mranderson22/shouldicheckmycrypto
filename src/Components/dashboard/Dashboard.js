@@ -23,7 +23,6 @@ class Dashboard extends Component {
     inputValue2: '',
     pose: 'initial',
     pose2: 'hidden',
-    secondWasThere: false,
     sideBarOpener: false,
     coin: 'BTC',
     coin2: 'ETH',
@@ -359,11 +358,16 @@ class Dashboard extends Component {
   handleSubmit1 = (e) => {
     const { sideBarOpener } = this.state;
     const { value } = this.state;
-    this.addToCoinlog(1);
-    this.findSymbol(1);
     e.persist();
-    if (value === 'BTC') {
-      this.setState({ curr: 'USD' });
+    if (value === 'BTC' || 'btc') {
+      this.setState({ curr: 'USD' }, () => {
+        this.addToCoinlog(1);
+        this.findSymbol(1);
+      });
+    }
+    else {
+      this.addToCoinlog(1);
+      this.findSymbol(1);
     }
     if (sideBarOpener === true) {
       // this.addSidebar();
@@ -390,7 +394,7 @@ class Dashboard extends Component {
         this.findSymbol(2);
       });
     }
-    else if (curr2 === 'BTC' && value2 === 'BTC') {
+    else if ((curr2 === 'BTC' || 'btc') && (value2 === 'BTC' || 'btc')) {
       this.setState({ curr2: 'USD' }, () => {
         this.addToCoinlog(2);
         this.findSymbol(2);
@@ -434,6 +438,7 @@ class Dashboard extends Component {
 
   handleSubmit5 = (e, sym) => {
     const { graphFocus } = this.state;
+    const { sideBarOpener } = this.state;
     e.persist();
     if (graphFocus === 1) {
       this.setState({ value: sym, coin: sym }, () => {
@@ -444,6 +449,9 @@ class Dashboard extends Component {
       this.setState({ value2: sym, coin2: sym }, () => {
         this.handleSubmit2(e);
       });
+    }
+    if (sideBarOpener === true) {
+      this.addSidebar();
     }
   }
 
@@ -460,6 +468,7 @@ class Dashboard extends Component {
 
   findSymbol = (num) => {
     const { curr } = this.state;
+    const { curr2 } = this.state;
     const { sendCoin } = this.props;
     const { coin } = this.state;
     const { allCoins } = this.props;
@@ -496,7 +505,7 @@ class Dashboard extends Component {
         else if (value2 === 'BTC' && toggleCurr2 === true) {
           this.setState({ toggleCurr2: false });
         }
-        sendCoin(2, coin2, curr);
+        sendCoin(2, coin2, curr2);
         this.fetchCryptocurrencyHistory(2, days2);
         this.getPoints(2);
         this.setState({ inputValue2: '' });
@@ -574,9 +583,17 @@ class Dashboard extends Component {
       });
     }
   }
-  
-  addSidebar = () => {
 
+  addSidebar = () => {
+    const { sideBarOpener } = this.state;
+    const sidebar = document.getElementById('sidebarContainer');
+    sidebar.classList.toggle('open');
+    if (sideBarOpener === false) {
+      this.setState(() => ({ sideBarOpener: true }));
+    }
+    else {
+      this.setState(() => ({ sideBarOpener: false }));
+    }
   }
 
   // addSidebar = () => {
@@ -635,8 +652,8 @@ class Dashboard extends Component {
     const { fetchData } = this.props;
     if (curr === 'USD' && value !== 'BTC') {
       this.setState({ curr: 'USD' }, () => {
-        fetchData(1, 'usd');
         this.fetchCryptocurrencyHistory(1, days);
+        fetchData(1, 'usd');
       });
     }
     else if (curr === 'BTC' && value !== 'BTC') {
@@ -659,8 +676,8 @@ class Dashboard extends Component {
     }
     else if (curr2 === 'BTC' && value2 !== 'BTC') {
       this.setState({ curr2: 'BTC' }, () => {
-        fetchData(2, 'btc');
         this.fetchCryptocurrencyHistory(2, days2);
+        fetchData(2, 'btc');
       });
     }
   }
@@ -803,6 +820,13 @@ class Dashboard extends Component {
                 ref="child"
               />
             </div>
+            { sideBarOpener ? 
+              <div
+              onClick={this.addSidebar}
+              className="offClick"
+              /> : 
+              null
+            }
           </animations.Reveal4>
         </div>
         <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
