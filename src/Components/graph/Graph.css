@@ -455,3 +455,9 @@
   }
 }
 
+.currIcons {
+  width: 16px;
+  filter: invert(80%);
+  padding-bottom: 3px;
+}
+

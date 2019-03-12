@@ -6,6 +6,7 @@ import heartFilled from '../../../images/heartFilled.png';
 import trendingup from '../../../images/trendingup.png';
 import trendingdown from '../../../images/trendingdown.png';
 import exiticon from '../../../images/exiticon.png';
+import list from '../../../images/list.png';
 
 
 class Sidebar extends Component {
@@ -158,7 +159,7 @@ class Sidebar extends Component {
         <div className={loading ? 'list-group listAddOn' : 'list-group listAddOn visible'}>
           <nav id="nav" className="nav sticky-top nav-pills nav-fill">
             <span className={listStatus === 'Ranked' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="ranked">
-            1.2.3.
+              <img className="heartSidebar" src={list} alt="ranked" />
             </span>
             <span className={listStatus === 'Top' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="topPercentage">
               <img className="heartSidebar" src={trendingup} alt="trendingup" />

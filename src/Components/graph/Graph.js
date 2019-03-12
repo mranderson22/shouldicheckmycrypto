@@ -11,6 +11,8 @@ import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import * as animations from '../../animations';
 import exit from '../../../images/exiticon.png';
+import dollarIcon from '../../../images/dollar-symbol.png';
+import bitcoinIcon from '../../../images/bitcoin-logo.png';
 import heart from '../../../images/heart.png';
 import heartFilled from '../../../images/heartFilled.png';
 import reload from '../../../images/reload.png';
@@ -193,7 +195,7 @@ class Graph extends Component {
          }
             active={rSelected === 1}
           >
-          $
+            <img src={dollarIcon} className="currIcons" alt="dollar" />
           </Button>
           <Button
             className="currButton"
@@ -203,7 +205,7 @@ class Graph extends Component {
          }
             active={rSelected === 2}
           >
-          Ƀ
+            <img src={bitcoinIcon} className="currIcons" alt="bitcoin" />
           </Button>
         </ButtonGroup>
       );

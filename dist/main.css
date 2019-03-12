@@ -924,6 +924,12 @@
   }
 }
 
+.currIcons {
+  width: 16px;
+  filter: invert(80%);
+  padding-bottom: 3px;
+}
+
 
 
 .cryptoImageBackgroundChartInfo {
@@ -1193,6 +1199,12 @@ a {
 .heartSidebar {
   width: 20px;
   filter: invert(85%);
+}
+
+@media screen and (max-width: 1300px) {
+  .heartSidebar {
+    width: 15px;
+  }
 }
 
 .heartSidebarListed {

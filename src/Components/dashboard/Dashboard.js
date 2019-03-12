@@ -7,6 +7,7 @@ import 'react-moment';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import Swipe from 'react-easy-swipe';
 import 'babel-polyfill';
 import * as animations from '../../animations';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
@@ -811,7 +812,7 @@ class Dashboard extends Component {
                 currentBTCPrice={currentBTCPrice}
               />
             </div>
-            <div id="sidebarContainer" className="col-sm-2 sidebar">
+            <Swipe id="sidebarContainer" className="col-sm-2 sidebar" onSwipeLeft={this.addSidebar}>
               <Sidebar
                 allCoins={allCoins}
                 handleSubmit5={this.handleSubmit5}
@@ -819,7 +820,7 @@ class Dashboard extends Component {
                 removeFromFavorites={this.removeFromFavorites}
                 ref="child"
               />
-            </div>
+            </Swipe>
             { sideBarOpener ? 
               <div
               onClick={this.addSidebar}
