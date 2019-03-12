@@ -6,11 +6,13 @@
   font-family: 'Poppins', sans-serif;
   padding-top: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 1000px) {
   .bitcoinCurrentPrice {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin-left: -3px;
     padding-top: 2px;
   }
@@ -31,4 +33,13 @@
   .currentBTCImage {
 
   }
+}
+
+.bitcoinCurrentPriceLabel {
+  font-size: 10px;
+  margin-top: -2px;
+}
+
+.bitcoinCurrentPriceActual {
+  margin-top: -8px;
 }

@@ -812,7 +812,12 @@ class Dashboard extends Component {
                 currentBTCPrice={currentBTCPrice}
               />
             </div>
-            <Swipe id="sidebarContainer" className="col-sm-2 sidebar" onSwipeLeft={this.addSidebar}>
+            <Swipe
+              id="sidebarContainer"
+              className="col-sm-2 sidebar"
+              onSwipeLeft={this.addSidebar}
+              tolerance={100}
+            >
               <Sidebar
                 allCoins={allCoins}
                 handleSubmit5={this.handleSubmit5}
