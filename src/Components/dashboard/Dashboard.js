@@ -826,18 +826,20 @@ class Dashboard extends Component {
                 ref="child"
               />
             </Swipe>
-            { sideBarOpener ? 
-              <div
-              onClick={this.addSidebar}
-              className="offClick"
-              /> : 
-              null
+            { sideBarOpener
+              ? (
+                <div
+                  onClick={this.addSidebar}
+                  className="offClick"
+                />
+              )
+              : null
             }
           </animations.Reveal4>
         </div>
         <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
           <animations.Resize
-            className={graphFocus === 1 ? 'col-sm-10 NoGraph shadowGraph' : 'col-sm-10 NoGraph'}
+            className="col-sm-10 NoGraph"
             pose={pose}
             onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
             onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
@@ -924,7 +926,7 @@ class Dashboard extends Component {
         <div>
           {freshReveal ? (
             <animations.Reveal3
-              className={graphFocus === 2 ? 'col-sm-10 NoGraphNew animations_Reveal3 shadowGraph' : 'col-sm-10 NoGraphNew animations_Reveal3'}
+              className="col-sm-10 NoGraphNew animations_Reveal3"
               pose={pose2}
               onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
               onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
@@ -964,7 +966,6 @@ class Dashboard extends Component {
           ) : null
         }
         </div>
-        }
         <div>
           <div
             className="burgerMenuContainer"

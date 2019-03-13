@@ -20,7 +20,7 @@ export const Reveal = posed.div({
 export const Reveal2 = posed.div({
   hidden: {
     opacity: 0,
-    transition: { duration: 1000 },
+    transition: { duration: 500 },
     x: 0,
     y: 10
   },
@@ -40,12 +40,6 @@ export const ResizeNoChartActual = posed.div({
   resized: {
     height: '37.5vh'
   }
-});
-
-// hover animation for lock or arrows
-export const Hover = posed.div({
-  idle: { scale: 1 },
-  hovered: { scale: 1.3 }
 });
 
 export const Reveal3 = posed.div({

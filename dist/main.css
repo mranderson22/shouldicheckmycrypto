@@ -31,7 +31,6 @@
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 4px;
-  box-shadow: 10px 10px 15px 0px #0f161c85;
   /* -webkit-backface-visibility: hidden;
   transform: translateZ(0) scale(.95, .95);
   -webkit-transform-style: preserve-3d;
@@ -70,7 +69,6 @@
   overflow: hidden;
   border-radius: 4px;
   height: 225px;
-  box-shadow: 10px 10px 15px 0px #0f161c85;
   -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -156,7 +154,6 @@
   padding-bottom: 0px;
   border-radius: 4px;
   z-index: 1;
-  box-shadow: 10px 10px 15px 0px #0f161c85;
   /* -webkit-backface-visibility: hidden;
   transform: translateZ(0) scale(.95, .95);
   -webkit-transform-style: preserve-3d;
@@ -188,15 +185,6 @@
   .NoGraphNew {
     display: none;
   }
-}
-
-.shadowGraph {
-  /* -webkit-backface-visibility: hidden;
-  transform: translateZ(0) scale(1, 1);
-  -webkit-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-  -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
 }
 
 .shadowGraph2 {
@@ -515,6 +503,10 @@
   background: rgba(115, 125, 130, 0.9411764705882353);
   border-radius: 4px;
   overflow: hidden;
+  
+  -webkit-transition: all .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .6s cubic-bezier(0.165, 0.84, 0.44, 1); 
+  
 }
 
 @media screen and (max-width: 950px) {
@@ -522,6 +514,20 @@
     width: 100% !important;
     overflow: inherit;
   }
+}
+
+.shadowGraph {
+  /* -webkit-backface-visibility: hidden;
+  transform: translateZ(0) scale(1, 1);
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
+  box-shadow: 0px 0px 16px 10px #0f161c85;
+  background: rgba(128, 140, 147, 0.9411764705882353) !important;
+  
+  -webkit-transition: all .6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .6s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
 .graphFocused {
@@ -703,7 +709,6 @@
   border-color: #1d1a1a !important;
   box-shadow: none !important;
   font-size: .8rem !important;
-  display: none !important;
 }
 
 .graphName {
@@ -942,7 +947,9 @@
 }
 
 
-
+.form-inline {
+  align-items: unset !important;
+}
 .cryptoImageBackgroundChartInfo {
   position: absolute;
   left: 60%;
@@ -1316,14 +1323,6 @@ a {
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-html, body {
-  height: 100%;
-}
-
-#app {
-  height: 100%;
-}
-
 .spinner {
   position: absolute;
   top: 45%;
@@ -1336,54 +1335,31 @@ html, body {
   background: #1E2938 !important;
 }
 
-.Answernobackground {
+.answerBackground {
   height: 100vh;
   background: #1E2938;
   position: static;
 }
 
-.Answernono {
-  height: inherit;
-  /* background-image: linear-gradient(#bb0718ad, #00000085); */
-  padding: 0;
-  justify-content: stretch;
-  align-items: center;
-  display: flex;
-  z-index: 1;
-  -webkit-backface-visibility: hidden;
-}
-
-.Answernoyes {
+.answerWrapper {
   height: inherit;
   padding: 0;
   justify-content: stretch;
   align-items: center;
   display: flex;
   z-index: 1;
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  flex-direction: column-reverse;
 }
 
-.Answerboxno {
+.answerBox {
   position: absolute;
   top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: calc(4vw + 4vh + 4vmin);
-  color: rgba(223, 226, 230, 0.5);
-  font-family: 'Poppins', sans-serif;
-  text-shadow: 3px 3px 10px #141414ad;
-  width: 90vw;
-  text-align: center;
-  
-}
-
-.Answerboxyes {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: calc(4vw + 4vh + 4vmin);
-  color: rgba(223, 226, 230, 0.5);
+  color: rgba(223, 226, 230, 0.6);
   font-family: 'Poppins', sans-serif;
   text-shadow: 3px 3px 10px #141414ad;
   width: 90vw;
@@ -1391,40 +1367,29 @@ html, body {
 }
 
 .lockbody {
-  padding: 0;
-  margin: auto;
-  margin-top: 48vh;
-  margin-left: 46%;
+  margin-bottom: 44vh;
   filter: invert(58%);
+  margin-left: -16px;
 }
 
-@media screen and (max-width: 1400px) and (orientation: portrait) {
-  .lockbody {
-
-  }
+.lockImage {
+  width: 8vw;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
 }
 
-@media screen and (orientation: landscape) {
-  .lockbody {
-
-  }
+.lockImage:hover {
+  width: 8.7vw;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
 *:focus {outline:none}
 
-body {
+/* body {
   overflow: hidden;
-}
-
-.lockImage {
-
-}
-
-@media screen and (max-width: 1200px) and (orientation: portrait) {
-  .lockImage {
-    width: 12vw;
-  }
-}
+} */
 
 .animations_reveal {
   opacity: 0;

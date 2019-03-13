@@ -15,9 +15,8 @@ class App extends Component {
     coin2: 'ETH',
     loading: true,
     answer: false,
-    showComponent: false,
-    isVisible: false,
-    hovering: false
+    showDashboard: false,
+    isVisible: false
   };
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
@@ -42,15 +41,16 @@ class App extends Component {
   // click function for lock or arrow on main screen. First loads dashboard component
   // with "showComponent" then scrolls to said component.
   onButtonClick = () => {
-    this.setState(() => ({ isVisible: false }));
-    this.setState(() => ({ showComponent: true }));
+    this.setState(() => ({ isVisible: false }), () => {
+      this.setState(() => ({ showDashboard: true }));
+    });
   }
 
   // determines what main page text displays as "yes" or "no" depending on current %
   // change of Bitcoin. (data was gathered on mount with fetchCryptocurrencyData)
   setMood = () => {
     const { coin1Info } = this.state;
-    const data = coin1Info.change24h;
+    const data = coin1Info.change7d;
 
     try {
       if (parseFloat(data) <= -5) {
@@ -64,6 +64,9 @@ class App extends Component {
       }
       else if (parseFloat(data) < 0) {
         this.setState(() => ({ text: 'probably not' }));
+      }
+      else {
+        this.setState(() => ({ text: 'try again' }));
       }
     }
     catch (error) {
@@ -121,7 +124,7 @@ class App extends Component {
     const { answer } = this.state;
 
     if (answer) {
-      this.setState(() => ({ isVisible: false, showComponent: true }));
+      this.setState(() => ({ isVisible: false, showDashboard: true }));
     }
   }
 
@@ -187,7 +190,7 @@ class App extends Component {
   render() {
     const {
       loading, answer, isVisible, text, coin1Info, coin2Info, allCoins,
-      showComponent, hovering, currentBTCPrice
+      showDashboard, hovering, currentBTCPrice
     } = this.state;
 
 
@@ -202,21 +205,16 @@ class App extends Component {
     }
 
     return (
-      <div className="Answernobackground">
-        <div className={`Answerno${answer ? 'yes' : 'no'}`}>
-          <div className={`Answerbox${answer ? 'yes' : 'no'}`}>
+      <div className="answerBackground">
+        <div className="answerWrapper">
+          <div className="answerBox">
             <animations.Reveal pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal">
               {text}
             </animations.Reveal>
           </div>
           {
             answer === true ? null : (
-              <animations.Hover
-                className="lockbody"
-                pose={hovering ? 'hovered' : 'idle'}
-                onMouseEnter={() => this.setState(() => ({ hovering: true }))}
-                onMouseLeave={() => this.setState(() => ({ hovering: false }))}
-              >
+              <div className="lockbody">
                 <div
                   onClick={this.onButtonClick}
                   onKeyDown={this.onButtonClick}
@@ -229,11 +227,11 @@ class App extends Component {
                     </div>
                   </animations.Reveal2>
                 </div>
-              </animations.Hover>)
+              </div>)
           }
         </div>
         <div>
-          {showComponent ? (
+          {showDashboard ? (
             <Dashboard
               fetchCryptocurrencyData={this.fetchCryptocurrencyData}
               sendCoin={this.updateCoin}

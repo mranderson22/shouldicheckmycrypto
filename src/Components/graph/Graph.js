@@ -242,7 +242,7 @@ class Graph extends Component {
 
     return (
       <div
-        className="NoGraphChild"
+        className={graphFocus === 1 ? 'NoGraphChild shadowGraph' : 'NoGraphChild'}
       >
         <img alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={coinInfo.image} />
         <div className="graphName">
