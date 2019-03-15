@@ -20,17 +20,18 @@
   position: fixed !important;
   width: 100% !important;
   top: 0%;
-  left: 19% !important;
+  left: 19%;
   padding: 1px;
   max-width: 62% !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
   transform: translate(0%, 0%);
   margin-top: 15px;
-  background: white;
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 4px;
+  -webkit-transition: top .2s, left .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: top .2s, left .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
   /* -webkit-backface-visibility: hidden;
   transform: translateZ(0) scale(.95, .95);
   -webkit-transform-style: preserve-3d;
@@ -65,12 +66,11 @@
   max-width: 26.666667% !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
-  background: white;
   overflow: hidden;
   border-radius: 4px;
   height: 225px;
-  -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
 
@@ -141,19 +141,20 @@
 .NoGraphNew {
   position: fixed !important;
   width: 100% !important;
-  top: 41.5%;
-  left: 19% !important;
+  top: 41.3%;
+  left: 19%;
   padding: 1px;
   max-width: 62% !important;
   padding-left: 0px !important;
   padding-right: 0px !important;
   transform: translate(0%, 0%);
   margin-top: 79px;
-  background: white;
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 4px;
   z-index: 1;
+  -webkit-transition: top .2s, left .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: top .2s, left .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
   /* -webkit-backface-visibility: hidden;
   transform: translateZ(0) scale(.95, .95);
   -webkit-transform-style: preserve-3d;
@@ -170,7 +171,7 @@
 
 @media screen and (max-height: 650px) {
   .NoGraphNew {
-    top: 8.5%;
+    top: 8.5% !important;
     margin-top: 225px;
   }
 }
@@ -187,8 +188,14 @@
   }
 }
 
-.shadowGraph2 {
+.popup {
   
+  background: white;
+}
+
+.popup2 {
+  
+  background: white;
 }
 
 .fullView {
@@ -313,7 +320,7 @@
    scrollbar-width: none; /* Firefox */
    -ms-overflow-style: none;  /* IE 10+ */
   border-radius: 4px;
-  background-color: #7b8589 !important;
+  background-color:#879095 !important;
   box-shadow: 10px 10px 15px 0px #0f161c85;
   -webkit-transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);

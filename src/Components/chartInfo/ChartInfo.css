@@ -5,14 +5,13 @@
   top: 50%;
   z-index: -1;
   width: 300px;
-  background-color: white;
   filter: grayscale(0%);
   -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .chartInfoChild {
-  background: rgba(115, 125, 130, 0.9411764705882353);
+  background: rgba(148, 155, 159, 0.93);
   padding: 6px;
   padding-left: 10px;
   height: inherit;
@@ -50,7 +49,7 @@ li {
   font-size: 15px;
   border-radius: 0 !important;
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .nav-pills .nav-link {
@@ -68,8 +67,7 @@ background: #404040;
 }
 
 .nav-chartInfo {
-  background: rgba(34, 50, 66, 0.6705882352941176) !important;
-
+  background: rgba(24, 33, 44, 0.53) !important;
 }
 
 .tags {
@@ -114,7 +112,8 @@ background: #404040;
 
 @media screen and (max-width: 1000px) {
   .detailsImage {
-    width: 20px;
+    width: 25px;
+    margin-top: -2px;
   }
 }
 

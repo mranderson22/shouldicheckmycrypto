@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import './dashboard.css';
 import 'react-moment';
 import axios from 'axios';
+import { Tooltip } from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Swipe from 'react-easy-swipe';
@@ -25,6 +26,7 @@ class Dashboard extends Component {
     pose: 'initial',
     pose2: 'hidden',
     sideBarOpener: false,
+    tooltipOpen: false,
     coin: 'BTC',
     coin2: 'ETH',
     curr: 'USD',
@@ -225,18 +227,28 @@ class Dashboard extends Component {
     const index = allCoins.findIndex(coin => coin.id === userInput.toLowerCase());
     const index2 = allCoins.findIndex(coin5 => coin5.symbol === userInput);
     e.preventDefault();
+    if (index === -1 && index2 === -1) {
+      if (graphFocus === 1) {
+        this.toggleTooltip(1);
+      }
+      else if (graphFocus === 2) {
+        this.toggleTooltip(2);
+      }
+    }
     this.setState(() => {
       if (graphFocus === 1) {
         if (index !== -1) {
           return {
             coin: allCoins[index].symbol.toUpperCase(),
-            value: allCoins[index].symbol.toUpperCase()
+            value: allCoins[index].symbol.toUpperCase(),
+            inputValue: ''
           };
         }
         if (index2 !== -1) {
           return {
             coin: userInput.toUpperCase(),
-            value: userInput.toUpperCase()
+            value: userInput.toUpperCase(),
+            inputValue: ''
           };
         }
       }
@@ -244,13 +256,15 @@ class Dashboard extends Component {
         if (index !== -1) {
           return {
             coin2: allCoins[index].symbol.toUpperCase(),
-            value2: allCoins[index].symbol.toUpperCase()
+            value2: allCoins[index].symbol.toUpperCase(),
+            inputValue2: ''
           };
         }
         if (index2 !== -1) {
           return {
             coin2: userInput.toUpperCase(),
-            value2: userInput.toUpperCase()
+            value2: userInput.toUpperCase(),
+            inputValue2: ''
           };
         }
       }
@@ -333,6 +347,7 @@ class Dashboard extends Component {
   }
 
   handleChange1 = (event) => {
+    const { tooltipOpen } = this.state;
     if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
       console.log('error, IOTA is corrupt!');
     }
@@ -341,6 +356,9 @@ class Dashboard extends Component {
       if (event.target.value !== ' ') {
         this.setState({ isEnabled: true });
       }
+    }
+    if (event.target.value) {
+      this.toggleTooltip(1, 'remove');
     }
   }
 
@@ -353,6 +371,9 @@ class Dashboard extends Component {
       if (event.target.value !== '') {
         this.setState({ isEnabled2: true });
       }
+    }
+    if (event.target.value) {
+      this.toggleTooltip(2, 'remove');
     }
   }
 
@@ -493,7 +514,6 @@ class Dashboard extends Component {
         sendCoin(1, coin, curr);
         this.fetchCryptocurrencyHistory(1, days);
         this.getPoints(1);
-        this.setState({ inputValue: '' });
       }
     }
 
@@ -509,7 +529,36 @@ class Dashboard extends Component {
         sendCoin(2, coin2, curr2);
         this.fetchCryptocurrencyHistory(2, days2);
         this.getPoints(2);
-        this.setState({ inputValue2: '' });
+      }
+    }
+  }
+
+  toggleTooltip = (num = 1, action = 'add') => {
+    const { value } = this.state;
+    const { value2 } = this.state;
+
+    if (num === 1) {
+      const tooltip = document.getElementById(`userInput ${value}`);
+      if (action === 'add') {
+        tooltip.classList.add('active');
+        setTimeout(() => {
+          tooltip.classList.remove('active');
+        }, 2000);
+      }
+      else if (action === 'remove') {
+        tooltip.classList.remove('active');
+      }
+    }
+    else if (num === 2) {
+      const tooltip = document.getElementById(`userInput ${value2}`);
+      if (action === 'add') {
+        tooltip.classList.add('active');
+        setTimeout(() => {
+          tooltip.classList.remove('active');
+        }, 2000);
+      }
+      else if (action === 'remove') {
+        tooltip.classList.remove('active');
       }
     }
   }
@@ -785,7 +834,8 @@ class Dashboard extends Component {
       curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites, hovered
+      pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites, hovered,
+      tooltipOpen
     } = this.state;
     const {
       answer, currentBTCPrice, coin1Info, coin2Info, allCoins
@@ -839,7 +889,7 @@ class Dashboard extends Component {
         </div>
         <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
           <animations.Resize
-            className="col-sm-10 NoGraph"
+            className={graphFocus === 1 ? ('col-sm-10 NoGraph popup') : ('col-sm-10 NoGraph')}
             pose={pose}
             onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
             onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
@@ -873,6 +923,8 @@ class Dashboard extends Component {
               hovered={hovered}
               setUserInput={this.setUserInput}
               coinInfo={coin1Info}
+              toggleTooltip={this.toggleTooltip}
+              tooltipOpen={tooltipOpen}
             />
             {/*
               { freshReveal ? (
@@ -926,7 +978,7 @@ class Dashboard extends Component {
         <div>
           {freshReveal ? (
             <animations.Reveal3
-              className="col-sm-10 NoGraphNew animations_Reveal3"
+              className={graphFocus === 1 ? ('col-sm-10 NoGraphNew animations_Reveal3') : ('col-sm-10 NoGraphNew animations_Reveal3 popup2')}
               pose={pose2}
               onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
               onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
@@ -961,12 +1013,14 @@ class Dashboard extends Component {
                 hovered={hovered}
                 setUserInput={this.setUserInput}
                 coinInfo={coin2Info}
+                toggleTooltip={this.toggleTooltip}
+                tooltipOpen={tooltipOpen}
               />
             </animations.Reveal3>
           ) : null
         }
         </div>
-        <div>
+        <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'}>
           <div
             className="burgerMenuContainer"
             onClick={this.addSidebar}
@@ -976,7 +1030,7 @@ class Dashboard extends Component {
           >
             <img className="burgerMenu" alt="" src={burgerMenu} />
           </div>
-        </div>
+        </animations.Reveal4>
       </div>
     );
   }

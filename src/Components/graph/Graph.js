@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
 import {
-  Button, ButtonGroup
+  Button, ButtonGroup, Tooltip
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import Loader from 'react-loader-spinner';
@@ -114,8 +114,8 @@ class Graph extends Component {
   render() {
     const {
       handleChange, handleSubmit3,
-      isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency,
-      curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, 
+      isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency, tooltipOpen,
+      curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, toggleTooltip,
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
@@ -231,7 +231,8 @@ class Graph extends Component {
     if (curr === 'USD') {
       if (coinInfo.price < 0.01) {
         processPrice = parseFloat(coinInfo.price).toFixed(6);
-      } else {
+      }
+      else {
         processPrice = parseFloat(coinInfo.price).toFixed(2);
       }
     }
@@ -345,15 +346,8 @@ class Graph extends Component {
           </div>
         </div>
         <div
-          className="col-sm-2 Nochartheader"
+          className={graphFocus === 1 ? ('col-sm-2 Nochartheader shadowGraph') : ('col-sm-2 Nochartheader')}
         >
-          {loading ? (
-            <div className="spinnerContainerChartInfo">
-              <div className="spinner">
-                <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
-              </div>
-            </div>
-          ) : null }
           <ChartInfo
             value={value}
             curr={curr}
@@ -363,6 +357,7 @@ class Graph extends Component {
             days2={days2}
             cryptoImage={Image2}
             coinInfo={coinInfo}
+            loading={loading}
           />
         </div>
         <CoinSearch
@@ -370,6 +365,8 @@ class Graph extends Component {
           inputValue={inputValue}
           handleChange={handleChange}
           isEnabled={isEnabled}
+          tooltipOpen={tooltipOpen}
+          value={value}
         />
         <div className="optionsBank">
           <div

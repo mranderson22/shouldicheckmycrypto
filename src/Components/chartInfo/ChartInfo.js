@@ -1,5 +1,6 @@
 import React from 'react';
 import './ChartInfo.css';
+import Loader from 'react-loader-spinner';
 import home from '../../../images/home_icon.png';
 import reddit from '../../../images/reddit_icon.png';
 import facebook from '../../../images/facebook_icon.png';
@@ -7,7 +8,7 @@ import twitter from '../../../images/twitter_icon.png';
 import github from '../../../images/github_icon.png';
 
 const ChartInfo = ({
-  dateRangeChange, days, value, coinInfo
+  dateRangeChange, days, value, coinInfo, loading
 }) => (
   <div>
     <nav className="nav nav-pills nav-fill">
@@ -25,6 +26,13 @@ const ChartInfo = ({
         src={coinInfo.image}
         id={`cryptoImageBackgroundChartInfo ${value}`}
       />
+      {loading ? (
+        <div className="spinnerContainerChartInfo">
+          <div className="spinnerChartInfo">
+            <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
+          </div>
+        </div>
+      ) : null }
       <div
         className="coinInfo"
         id={`coinInfo ${value}`}

@@ -190,63 +190,70 @@ class App extends Component {
   render() {
     const {
       loading, answer, isVisible, text, coin1Info, coin2Info, allCoins,
-      showDashboard, hovering, currentBTCPrice
+      showDashboard, currentBTCPrice
     } = this.state;
 
-
-    if ((loading) === true) {
-      return (
-        <div className="spinnercontainer">
-          <div className="spinner">
-            <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
-          </div>
-        </div>
-      );
-    }
-
     return (
-      <div className="answerBackground">
-        <div className="answerWrapper">
-          <div className="answerBox">
-            <animations.Reveal pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal">
-              {text}
-            </animations.Reveal>
+      <div>
+        <animations.Reveal3
+          className="shouldIHeader"
+          pose={showDashboard ? 'hidden' : 'visible'}
+        >
+          <span>
+            {'Should I check my crypto?'}
+          </span>
+        </animations.Reveal3>
+        {loading ? (
+          <div className="spinnercontainer">
+            <div className="spinner">
+              <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
+            </div>
           </div>
-          {
-            answer === true ? null : (
-              <div className="lockbody">
-                <div
-                  onClick={this.onButtonClick}
-                  onKeyDown={this.onButtonClick}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <animations.Reveal2 pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal2">
-                    <div>
-                      {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
-                    </div>
-                  </animations.Reveal2>
-                </div>
-              </div>)
-          }
-        </div>
-        <div>
-          {showDashboard ? (
-            <Dashboard
-              fetchCryptocurrencyData={this.fetchCryptocurrencyData}
-              sendCoin={this.updateCoin}
-              sendCoin2={this.updateCoin2}
-              fetchData={this.fetchCryptoData}
-              answer={answer}
-              currentBTCPrice={currentBTCPrice}
-              coin1Info={coin1Info}
-              coin2Info={coin2Info}
-              allCoins={allCoins}
-            />
-          )
-            : null
-          }
-        </div>
+        ) : (
+          <div className="answerBackground">
+            <div className="answerWrapper">
+              <div className="answerBox">
+                <animations.Reveal pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal">
+                  {text}
+                </animations.Reveal>
+              </div>
+              {
+          answer === true ? null : (
+            <div className="lockbody">
+              <div
+                onClick={this.onButtonClick}
+                onKeyDown={this.onButtonClick}
+                role="button"
+                tabIndex={0}
+              >
+                <animations.Reveal2 pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal2">
+                  <div>
+                    {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
+                  </div>
+                </animations.Reveal2>
+              </div>
+            </div>)
+        }
+            </div>
+            <div>
+              {showDashboard ? (
+                <Dashboard
+                  fetchCryptocurrencyData={this.fetchCryptocurrencyData}
+                  sendCoin={this.updateCoin}
+                  sendCoin2={this.updateCoin2}
+                  fetchData={this.fetchCryptoData}
+                  answer={answer}
+                  currentBTCPrice={currentBTCPrice}
+                  coin1Info={coin1Info}
+                  coin2Info={coin2Info}
+                  allCoins={allCoins}
+                />
+              )
+                : null
+              }
+            </div>
+          </div>
+        )}
       </div>
     );
   }
