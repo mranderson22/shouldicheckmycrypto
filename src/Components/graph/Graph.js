@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
 import {
-  Button, ButtonGroup, Tooltip
+  Button, ButtonGroup, Tooltip, FormGroup, Input
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import Loader from 'react-loader-spinner';
@@ -45,9 +45,9 @@ class Graph extends Component {
   }
 
   onFavorite = () => {
-    const { value } = this.props;
+    const { id } = this.props;
     const { addToFavorites } = this.props;
-    const element = document.getElementById(`heartFilled ${value}`);
+    const element = document.getElementById(`heartFilled ${id}`);
 
     element.classList.add('pulse');
     setTimeout(() => {
@@ -57,9 +57,9 @@ class Graph extends Component {
   }
 
   loadSpinner = () => {
-    const { value } = this.props;
-    const element2 = document.getElementById(`NoChartActual ${value}`);
-    const element3 = document.getElementById(`coinInfo ${value}`);
+    const { id } = this.props;
+    const element2 = document.getElementById(`NoChartActual ${id}`);
+    const element3 = document.getElementById(`coinInfo ${id}`);
     element2.classList.add('flash');
     element3.classList.add('flash');
     this.setState(() => ({ loading: true }));
@@ -114,7 +114,7 @@ class Graph extends Component {
   render() {
     const {
       handleChange, handleSubmit3,
-      isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency, tooltipOpen,
+      isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency, tooltipOpen, id,
       curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, toggleTooltip,
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
@@ -268,7 +268,7 @@ class Graph extends Component {
         <animations.ResizeNoChartActual
           className="NoChartActual"
           pose="resized"
-          id={`NoChartActual ${value}`}
+          id={`NoChartActual ${id}`}
         >
           <Bar
             data={graphData}
@@ -276,7 +276,35 @@ class Graph extends Component {
           />
         </animations.ResizeNoChartActual>
         <div className="daysselector">
-          <Button
+          <Input
+            defaultValue="6M"
+            type="select"
+            className="daysselectorDropdown"
+            onChange={(e) => {
+              if (e.target.value === '1M') {
+                onHistoryChange(30);
+              }
+              else if (e.target.value === '3M') {
+                onHistoryChange(60);
+              }
+              else if (e.target.value === '6M') {
+                onHistoryChange(180);
+              }
+              else if (e.target.value === 'YTD') {
+                onHistoryChange(365);
+              }
+              else if (e.target.value === 'ALL') {
+                onHistoryChange(1000);
+              }
+            }}
+          >
+            <option value="1M">1 Month</option>
+            <option value="3M">3 Months</option>
+            <option value="6M">6 Months</option>
+            <option value="YTD">YTD</option>
+            <option value="ALL">All</option>
+          </Input>
+          { /* <Button
             className="selectorButtons"
             color="primary"
             onClick={() => {
@@ -338,7 +366,7 @@ class Graph extends Component {
             active={rSelected2 === 7}
           >
             { 'All' }
-          </Button>
+        </Button> */}
         </div>
         <div className="currSelector">
           <div>
@@ -358,6 +386,7 @@ class Graph extends Component {
             cryptoImage={Image2}
             coinInfo={coinInfo}
             loading={loading}
+            id={id}
           />
         </div>
         <CoinSearch
@@ -376,7 +405,7 @@ class Graph extends Component {
             onClick={this.onFavorite}
           >
             <img
-              id={`heartFilled ${value}`}
+              id={`heartFilled ${id}`}
               className="optionsImage large"
               alt=""
               src={

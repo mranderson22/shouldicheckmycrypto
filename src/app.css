@@ -23,11 +23,12 @@ body {
 
 .answerBackground {
   height: 100vh;
-  background: #1E2938;
+  background-image: url('../images/circles.png');
   position: static;
 }
 
 .answerWrapper {
+  background: rgba(30, 41, 56, 0.84);
   height: inherit;
   padding: 0;
   justify-content: stretch;

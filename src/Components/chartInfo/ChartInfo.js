@@ -8,7 +8,7 @@ import twitter from '../../../images/twitter_icon.png';
 import github from '../../../images/github_icon.png';
 
 const ChartInfo = ({
-  dateRangeChange, days, value, coinInfo, loading
+  dateRangeChange, days, value, coinInfo, loading, id
 }) => (
   <div>
     <nav className="nav nav-pills nav-fill">
@@ -24,7 +24,7 @@ const ChartInfo = ({
         alt=""
         className="cryptoImageBackgroundChartInfo"
         src={coinInfo.image}
-        id={`cryptoImageBackgroundChartInfo ${value}`}
+        id={`cryptoImageBackgroundChartInfo ${id}`}
       />
       {loading ? (
         <div className="spinnerContainerChartInfo">
@@ -35,7 +35,7 @@ const ChartInfo = ({
       ) : null }
       <div
         className="coinInfo"
-        id={`coinInfo ${value}`}
+        id={`coinInfo ${id}`}
       >
         <li>
           <span>
@@ -65,18 +65,28 @@ const ChartInfo = ({
             {coinInfo.change7d <= 0 ? '↓' : '↑'}
           </span>
         </li>
-        {days !== 1500 ? (
           <li>
             <span>
               {`${days} Day`}
             </span>
-            <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>
+            {isFinite(dateRangeChange) ? (
+              <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>
               {dateRangeChange}
         %
               {dateRangeChange <= 0 ? '↓' : '↑'}
             </span>
+            ) : (
+              <span className="right black">N/A</span>
+            )}
           </li>
-        ) : null}
+        <li>
+          <span>
+          ATH
+          </span>
+          <span className="right black">
+            {`$${coinInfo.ath}`}
+          </span>
+        </li>
         <li>
           <span>
           ATH Diff

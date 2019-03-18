@@ -872,6 +872,7 @@ class Dashboard extends Component {
                 allCoins={allCoins}
                 handleSubmit5={this.handleSubmit5}
                 favorites={favorites}
+                graphFocus={graphFocus}
                 removeFromFavorites={this.removeFromFavorites}
                 ref="child"
               />
@@ -925,6 +926,7 @@ class Dashboard extends Component {
               coinInfo={coin1Info}
               toggleTooltip={this.toggleTooltip}
               tooltipOpen={tooltipOpen}
+              id="graph1"
             />
             {/*
               { freshReveal ? (
@@ -1015,6 +1017,7 @@ class Dashboard extends Component {
                 coinInfo={coin2Info}
                 toggleTooltip={this.toggleTooltip}
                 tooltipOpen={tooltipOpen}
+                id="graph2"
               />
             </animations.Reveal3>
           ) : null
