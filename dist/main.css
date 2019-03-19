@@ -47,6 +47,7 @@
     max-width: none !important;
     width: 96% !important;
     top: 5% !important;
+    box-shadow: none !important;
   }
 }
 
@@ -90,6 +91,12 @@
     top: 105%;
     box-shadow: none;
     width: 96vw !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .Nochartheader {
+    top: 101%;
   }
 }
 
@@ -191,12 +198,12 @@
 }
 
 .popup {
-  
+  box-shadow: 0px 0px 0px 4px #bebebe;
   background: white;
 }
 
 .popup2 {
-  
+  box-shadow: 0px 0px 0px 4px #bebebe;
   background: white;
 }
 
@@ -322,7 +329,7 @@
    -ms-overflow-style: none;  /* IE 10+ */
   border-radius: 4px;
   background-color:#879095 !important;
-  box-shadow: 0px 0px 0px 4px #bebebe;
+  /* box-shadow: 0px 0px 0px 4px #bebebe; */
   -webkit-transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
@@ -472,10 +479,33 @@
   margin-top: -2px;
 }
 
+@media screen and (max-height: 850px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceLabel {
+    display: none;
+  }
+}
+
 .bitcoinCurrentPriceActual {
   margin-top: -8px;
 }
 
+@media screen and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    margin-top: -5px;
+  }
+}
+
+@media screen and (max-height: 850px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    margin-top: -1px;
+  }
+}
+
+@media screen and (max-height: 700px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    font-size: 16px;
+  }
+}
 
 .NoChartActual {
   height: 65vh;
@@ -532,7 +562,6 @@
   transform-style: preserve-3d;
   -webkit-transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: transform .6s cubic-bezier(0.165, 0.84, 0.44, 1); */
-  box-shadow: 0px 0px 0px 4px #bebebe;
   /* box-shadow: 7px 8px 17px 3px #0f161c85; */
   /* background: rgba(128, 140, 147, 0.9411764705882353) !important; */
   -webkit-transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -554,11 +583,12 @@
   z-index: 1;
   padding: 5px 5px 5px;
   margin-top: 12px;
+  width: fit-content;
 }
 
 @media screen and (max-width: 600px) {
   .daysselector {
-    
+    margin-top: 23px;
   }
 }
 
@@ -568,6 +598,13 @@
   height: 30px !important;
   font-weight: bold;
   border: 1px solid #cdd4da;
+}
+
+@media screen and (min-width: 600px) {
+  .daysselectorDropdown {
+    visibility: hidden;
+    position: absolute;
+  }
 }
 
 .btn-primary {
@@ -636,7 +673,7 @@
   transform: translate(-50%, -50%);
   top: 45%;
   z-index: -1;
-  width: 20vw;
+  width: 40vw;
   filter: grayscale(100%);
   min-width: 200px;
   max-width: 400px;
@@ -690,11 +727,13 @@
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* @media screen and (max-width: 900px) {
+@media screen and (max-width: 600px) {
   .selectorButtons {
-        width: 50px !important;
+        visibility: hidden !important;
+        position: absolute;
+        
   }
-} */
+}
 
 .selectorButtons.active, .selectorButtons.focus {
   color: white !important;
@@ -793,7 +832,7 @@
   box-shadow: none;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1100px) {
   .textField {
     width: 75px !important;
   }
@@ -982,8 +1021,15 @@
   z-index: 1;
   top: 100%;
   left: 50%; 
-  margin-left: -109px;
+  margin-left: -77px;
   margin-top: -56px;
+}
+
+@media screen and (max-width: 600px) {
+  .tooltipText {
+    margin-left: 0px;
+    margin-top: -90px;
+  }
 }
 
 .active {
@@ -1372,16 +1418,8 @@ a {
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
-
-.graphLine {
-
-}
-
-.hidden {
-  
-}
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 .spinner {

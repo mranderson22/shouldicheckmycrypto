@@ -38,9 +38,9 @@ class App extends Component {
     }, 3300);
   }
 
-  // click function for lock or arrow on main screen. First loads dashboard component
-  // with "showComponent" then scrolls to said component.
-  onButtonClick = () => {
+  // click function for lock on main screen. First loads dashboard component
+  // with "showComponent" then reveals said component.
+  onLockClick = () => {
     this.setState(() => ({ isVisible: false }), () => {
       this.setState(() => ({ showDashboard: true }));
     });
@@ -50,76 +50,48 @@ class App extends Component {
   // change of Bitcoin. (data was gathered on mount with fetchCryptocurrencyData)
   setMood = () => {
     const { coin1Info } = this.state;
-    const data = coin1Info.change7d;
+    const change7d = parseFloat(coin1Info.change7d);
 
-    try {
-      if (parseFloat(data) <= -5) {
-        this.setState(() => ({ text: 'absolutely not.' }));
-      }
-      else if (parseFloat(data) >= 5) {
-        this.setState(() => ({ text: 'absolutely!', answer: true }));
-      }
-      else if (parseFloat(data) >= 0) {
-        this.setState(() => ({ text: 'looks good', answer: true }));
-      }
-      else if (parseFloat(data) < 0) {
-        this.setState(() => ({ text: 'probably not' }));
-      }
-      else {
-        this.setState(() => ({ text: 'try again' }));
-      }
+    if (change7d <= -5) {
+      this.setState(() => ({ text: 'absolutely not.' }));
     }
-    catch (error) {
-      console.log('mood not set!');
+    else if (change7d >= 5) {
+      this.setState(() => ({ text: 'absolutely!', answer: true }));
+    }
+    else if (change7d >= 0) {
+      this.setState(() => ({ text: 'looks good', answer: true }));
+    }
+    else if (change7d < 0) {
+      this.setState(() => ({ text: 'probably not' }));
+    }
+    else {
+      this.setState(() => ({ text: 'try again' }));
     }
   }
+
 
   // receiving data from dashboard component and sets the state accordingly in order
-  // for the fetchCryptocurrencyData function to grab the correct data.
-  updateCoin = (num, coinNew, curr) => {
-    const { allCoins } = this.state;
-    const index = allCoins.findIndex(coin => coin.id === coinNew.toString().toLowerCase());
-
-    if (index === -1) {
-      if (num === 1) {
-        this.setState(() => ({
-          value: coinNew,
-          coin: coinNew
-        }), () => {
-          this.fetchCryptoData(1, curr);
-        });
-      }
-      else if (num === 2) {
-        this.setState(() => ({
-          value2: coinNew,
-          coin2: coinNew
-        }), () => {
-          this.fetchCryptoData(2, curr);
-        });
-      }
+  // for the fetchCryptoData function to grab the correct data.
+  updateCoin = (num, updatedCoin, curr) => {
+    if (num === 1) {
+      this.setState(() => ({
+        value: updatedCoin,
+        coin: updatedCoin
+      }), () => {
+        this.fetchCryptoData(1, curr);
+      });
     }
-    else if (index !== -1) {
-      const symbol = allCoins[index].symbol.toString().toLowerCase();
-
-      if (num === 1) {
-        this.setState(() => ({
-          value: symbol,
-          coin: symbol
-        }), () => {
-          this.fetchCryptoData(1, curr);
-        });
-      }
-      else if (num === 2) {
-        this.setState(() => ({
-          value2: symbol,
-          coin2: symbol
-        }), () => {
-          this.fetchCryptoData(2, curr);
-        });
-      }
+    else if (num === 2) {
+      this.setState(() => ({
+        value2: updatedCoin,
+        coin2: updatedCoin
+      }), () => {
+        this.fetchCryptoData(2, curr);
+      });
     }
   }
 
+  // Waits for yes or no answer on splash page before displaying the Dashboard onMount
   revealDashboard = () => {
     const { answer } = this.state;
 
@@ -128,6 +100,7 @@ class App extends Component {
     }
   }
 
+  // Main API call to populate the coinInfo object with the apropriate data
   fetchCryptoData = async (num, curr = 'usd') => {
     const { coin } = this.state;
     const { coin2 } = this.state;
@@ -204,31 +177,33 @@ class App extends Component {
           </span>
         </animations.Reveal3>
         {loading ? (
-          <div className="spinnercontainer">
-            <div className="spinner">
-              <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
+          <div className="answerBackground">
+            <div className="answerWrapper">
+              <div className="spinner">
+                <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
+              </div>
             </div>
           </div>
         ) : (
           <div className="answerBackground">
             <div className="answerWrapper">
-              <div className="answerBox">
+              <h1 className="answerBox">
                 <animations.Reveal pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal">
                   {text}
                 </animations.Reveal>
-              </div>
+              </h1>
               {
           answer === true ? null : (
             <div className="lockbody">
               <div
-                onClick={this.onButtonClick}
-                onKeyDown={this.onButtonClick}
+                onClick={this.onLockClick}
+                onKeyDown={this.onLockClick}
                 role="button"
                 tabIndex={0}
               >
                 <animations.Reveal2 pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal2">
                   <div>
-                    {answer ? (<img className="downArrows" alt="" src={arrows} />) : (<img className="lockImage" alt="" src={lockbody} />)}
+                    {answer ? null : (<img className="lockImage" alt="" src={lockbody} />)}
                   </div>
                 </animations.Reveal2>
               </div>

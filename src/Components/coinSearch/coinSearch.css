@@ -19,8 +19,15 @@
   z-index: 1;
   top: 100%;
   left: 50%; 
-  margin-left: -109px;
+  margin-left: -77px;
   margin-top: -56px;
+}
+
+@media screen and (max-width: 600px) {
+  .tooltipText {
+    margin-left: 0px;
+    margin-top: -90px;
+  }
 }
 
 .active {

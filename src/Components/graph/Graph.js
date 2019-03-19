@@ -304,7 +304,7 @@ class Graph extends Component {
             <option value="YTD">YTD</option>
             <option value="ALL">All</option>
           </Input>
-          { /* <Button
+          <Button
             className="selectorButtons"
             color="primary"
             onClick={() => {
@@ -366,7 +366,7 @@ class Graph extends Component {
             active={rSelected2 === 7}
           >
             { 'All' }
-        </Button> */}
+          </Button>
         </div>
         <div className="currSelector">
           <div>

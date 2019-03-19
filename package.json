@@ -30,6 +30,7 @@
         "react-chartjs-2": "^2.7.4",
         "react-dom": "^16.4.1",
         "react-easy-swipe": "0.0.17",
+        "react-lazy-load": "^3.0.13",
         "react-loader-spinner": "^2.1.0",
         "react-moment": "^0.7.9",
         "react-pose": "^4.0.8",

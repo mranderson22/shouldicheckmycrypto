@@ -223,8 +223,8 @@ class Dashboard extends Component {
   setUserInput = (e) => {
     const { graphFocus } = this.state;
     const { allCoins } = this.props;
-    const userInput = e.target.elements.userInput.value;
-    const index = allCoins.findIndex(coin => coin.id === userInput.toLowerCase());
+    const userInput = e.target.elements.userInput.value.toLowerCase();
+    const index = allCoins.findIndex(coin => coin.id === userInput);
     const index2 = allCoins.findIndex(coin5 => coin5.symbol === userInput);
     e.preventDefault();
     if (index === -1 && index2 === -1) {
@@ -347,31 +347,14 @@ class Dashboard extends Component {
   }
 
   handleChange1 = (event) => {
-    const { tooltipOpen } = this.state;
-    if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
-      console.log('error, IOTA is corrupt!');
-    }
-    else {
-      this.setState({ inputValue: event.target.value });
-      if (event.target.value !== ' ') {
-        this.setState({ isEnabled: true });
-      }
-    }
+    this.setState({ inputValue: event.target.value });
     if (event.target.value) {
       this.toggleTooltip(1, 'remove');
     }
   }
 
   handleChange2 = (event) => {
-    if (event.target.value === 'miota' || event.target.value === 'MIOTA') {
-      console.log('error!');
-    }
-    else {
-      this.setState({ inputValue2: event.target.value });
-      if (event.target.value !== '') {
-        this.setState({ isEnabled2: true });
-      }
-    }
+    this.setState({ inputValue2: event.target.value });
     if (event.target.value) {
       this.toggleTooltip(2, 'remove');
     }
@@ -890,7 +873,7 @@ class Dashboard extends Component {
         </div>
         <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
           <animations.Resize
-            className={graphFocus === 1 ? ('col-sm-10 NoGraph popup') : ('col-sm-10 NoGraph')}
+            className={graphFocus === 1 && secondGraphVisible ? ('col-sm-10 NoGraph popup') : ('col-sm-10 NoGraph')}
             pose={pose}
             onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
             onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}

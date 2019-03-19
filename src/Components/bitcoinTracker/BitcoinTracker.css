@@ -40,6 +40,30 @@
   margin-top: -2px;
 }
 
+@media screen and (max-height: 850px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceLabel {
+    display: none;
+  }
+}
+
 .bitcoinCurrentPriceActual {
   margin-top: -8px;
+}
+
+@media screen and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    margin-top: -5px;
+  }
+}
+
+@media screen and (max-height: 850px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    margin-top: -1px;
+  }
+}
+
+@media screen and (max-height: 700px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    font-size: 16px;
+  }
 }

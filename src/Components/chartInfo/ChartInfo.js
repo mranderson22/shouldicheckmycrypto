@@ -71,8 +71,8 @@ const ChartInfo = ({
             </span>
             {isFinite(dateRangeChange) ? (
               <span className={dateRangeChange <= 0 ? 'redText right' : 'greenText right'}>
-              {dateRangeChange}
-        %
+                {dateRangeChange}
+                  %
               {dateRangeChange <= 0 ? '↓' : '↑'}
             </span>
             ) : (

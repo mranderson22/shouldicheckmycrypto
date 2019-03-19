@@ -4,7 +4,7 @@ import {
   Button, Form, Label, Input, FormGroup, Tooltip
 } from 'reactstrap';
 
-const CoinSearch = ({ setUserInput, inputValue, handleChange, isEnabled, tooltipOpen, value }) => (
+const CoinSearch = ({ setUserInput, inputValue, handleChange, value }) => (
   <div className="cryptoImageContainer">
     <div className="cryptoInput">
       <Form inline onSubmit={setUserInput}>
@@ -18,7 +18,7 @@ const CoinSearch = ({ setUserInput, inputValue, handleChange, isEnabled, tooltip
             </div>
           </Label>
         </FormGroup>
-        <Button className="cryptoSubmit" disabled={!isEnabled}>GO</Button>
+        <Button className="cryptoSubmit" disabled={!inputValue}>GO</Button>
       </Form>
     </div>
   </div>

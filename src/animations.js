@@ -13,6 +13,12 @@ export const Reveal = posed.div({
     transition: { duration: 999 },
     x: 0,
     y: 0
+  },
+  stationary: {
+    opacity: 1,
+    transition: { duration: 999 },
+    x: 0,
+    y: 0
   }
 });
 
