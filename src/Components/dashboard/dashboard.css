@@ -329,7 +329,7 @@
    -ms-overflow-style: none;  /* IE 10+ */
   border-radius: 4px;
   background-color:#879095 !important;
-  /* box-shadow: 0px 0px 0px 4px #bebebe; */
+  box-shadow: 0px 0px 0px 3px #bebebe;
   -webkit-transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
