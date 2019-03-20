@@ -271,10 +271,14 @@ class Dashboard extends Component {
       }
     }, () => {
       if (graphFocus === 1) {
-        this.handleSubmit1(e);
+        if (index !== -1 || index2 !== -1) {
+          this.handleSubmit1(e);
+        }
       }
       else if (graphFocus === 2) {
-        this.handleSubmit2(e);
+        if (index !== -1 || index2 !== -1) {
+          this.handleSubmit2(e);
+        }
       }
     });
   }
