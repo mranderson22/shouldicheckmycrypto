@@ -104,6 +104,7 @@ class App extends Component {
   fetchCryptoData = async (num, curr = 'usd') => {
     const { coin } = this.state;
     const { coin2 } = this.state;
+    const { showDashboard } = this.state;
     let wanted;
     if (num !== 3) {
       if (num === 1) {
@@ -143,10 +144,28 @@ class App extends Component {
         [coin1.github] = response2.data.links.repos_url.github;
 
         if (num === 1) {
-          this.setState(() => ({ coin1Info: coin1, allCoins }));
+          this.setState(() => ({ coin1Info: coin1, allCoins }), () => {
+            if (showDashboard) {
+              const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
+              const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
+              setTimeout(() => {
+                bgImageChartInfo.classList.remove('fade');
+                bgImage.classList.remove('fade');
+              }, 0);
+            }
+          });
         }
         else if (num === 2) {
-          this.setState(() => ({ coin2Info: coin1, allCoins }));
+          this.setState(() => ({ coin2Info: coin1, allCoins }), () => {
+            if (showDashboard) {
+              const bgImage2 = document.getElementById('cryptoImageBackgroundgraph2');
+              const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
+              setTimeout(() => {
+                bgImageChartInfo2.classList.remove('fade');
+                bgImage2.classList.remove('fade');
+              }, 0);
+            }
+          });
         }
       }
       catch (error) {

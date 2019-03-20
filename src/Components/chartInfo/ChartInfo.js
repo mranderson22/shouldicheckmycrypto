@@ -24,7 +24,7 @@ const ChartInfo = ({
         alt=""
         className="cryptoImageBackgroundChartInfo"
         src={coinInfo.image}
-        id={`cryptoImageBackgroundChartInfo ${id}`}
+        id={`cryptoImageBackgroundChartInfo${id}`}
       />
       {loading ? (
         <div className="spinnerContainerChartInfo">

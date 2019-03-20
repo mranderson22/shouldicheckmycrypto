@@ -11,13 +11,13 @@
 }
 
 .chartInfoChild {
-  background: rgba(148, 155, 159, 0.93);
+  background: rgba(135, 144, 149, 0.9);
   padding: 6px;
   padding-left: 10px;
   height: inherit;
   z-index: 1;
   padding-top: 10px;
-  padding-bottom: 200px;
+  padding-bottom: 75px;
 }
 
 .right {

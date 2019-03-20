@@ -75,7 +75,7 @@
   z-index: 1;
   padding: 5px 5px 5px;
   margin-top: 12px;
-  width: fit-content;
+  width: 300px;
 }
 
 @media screen and (max-width: 600px) {
@@ -90,6 +90,8 @@
   height: 30px !important;
   font-weight: bold;
   border: 1px solid #cdd4da;
+  margin-left: 91px;
+  padding: 2px 10px 0px !important;
 }
 
 @media screen and (min-width: 600px) {
@@ -165,12 +167,18 @@
   transform: translate(-50%, -50%);
   top: 45%;
   z-index: -1;
-  width: 40vw;
+  width: 27vw;
   filter: grayscale(100%);
   min-width: 200px;
   max-width: 400px;
-  -webkit-transition: opacity, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: opacity, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: opacity 0.2s, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .saturated {

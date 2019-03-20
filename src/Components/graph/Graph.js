@@ -35,12 +35,13 @@ class Graph extends Component {
    * On reload triggers re-fetching of coin data
    */
   onReload = (e) => {
+    const { id } = this.props;
     const { value } = this.props;
     const { handleSubmit5 } = this.props;
-    const element = document.getElementById(value);
+    const element = document.getElementById(`optionsImage${id}`);
 
     element.classList.toggle('spun');
-    handleSubmit5(e, value);
+    handleSubmit5(e, value, false);
     this.loadSpinner();
   }
 
@@ -245,7 +246,7 @@ class Graph extends Component {
       <div
         className={graphFocus === 1 ? 'NoGraphChild shadowGraph' : 'NoGraphChild'}
       >
-        <img alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={coinInfo.image} />
+        <img id={`cryptoImageBackground${id}`} alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={coinInfo.image} />
         <div className="graphName">
           { `${coinInfo.name} / ${curr} `}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -425,7 +426,7 @@ class Graph extends Component {
             role="button"
             tabIndex={0}
           >
-            <img className="optionsImage" id={value} alt="" src={reload} />
+            <img className="optionsImage" id={`optionsImage${id}`} alt="" src={reload} />
           </div>
           {secondGraphVisible ? (
             <div

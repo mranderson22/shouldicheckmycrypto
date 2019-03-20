@@ -15,6 +15,7 @@ import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
+import gecko from '../../../images/gecko.png';
 import burgerMenu from '../../../images/burgerMenu.png';
 
 class Dashboard extends Component {
@@ -360,7 +361,7 @@ class Dashboard extends Component {
     }
   }
 
-  handleSubmit1 = (e) => {
+  handleSubmit1 = (e, fade = true) => {
     const { sideBarOpener } = this.state;
     const { value } = this.state;
     e.persist();
@@ -368,11 +369,17 @@ class Dashboard extends Component {
       this.setState({ curr: 'USD' }, () => {
         this.addToCoinlog(1);
         this.findSymbol(1);
+        if (fade) {
+          this.fadeBackgroundImage1();
+        }
       });
     }
     else {
       this.addToCoinlog(1);
       this.findSymbol(1);
+      if (fade) {
+        this.fadeBackgroundImage1();
+      }
     }
     if (sideBarOpener === true) {
       // this.addSidebar();
@@ -380,7 +387,7 @@ class Dashboard extends Component {
     // this.scrollSidebarToTop();
   }
 
-  handleSubmit2 = (e) => {
+  handleSubmit2 = (e, fade = true) => {
     const { sideBarOpener } = this.state;
     const { toggleCurr2 } = this.state;
     const { value2 } = this.state;
@@ -389,6 +396,9 @@ class Dashboard extends Component {
       this.setState({ toggleCurr2: true });
       this.addToCoinlog(2);
       this.findSymbol(2);
+      if (fade) {
+        this.fadeBackgroundImage2();
+      }
       e.persist();
     }
     else if (value2 === 'BTC' && toggleCurr2 === true) {
@@ -397,6 +407,9 @@ class Dashboard extends Component {
       this.setState({ curr2: 'USD' }, () => {
         this.addToCoinlog(2);
         this.findSymbol(2);
+        if (fade) {
+          this.fadeBackgroundImage2();
+        }
       });
     }
     else if ((curr2 === 'BTC' || 'btc') && (value2 === 'BTC' || 'btc')) {
@@ -404,9 +417,15 @@ class Dashboard extends Component {
         this.addToCoinlog(2);
         this.findSymbol(2);
         e.persist();
+        if (fade) {
+          this.fadeBackgroundImage2();
+        }
       });
     }
     else {
+      if (fade) {
+        this.fadeBackgroundImage2();
+      }
       this.addToCoinlog(2);
       this.findSymbol(2);
       e.persist();
@@ -441,18 +460,28 @@ class Dashboard extends Component {
     });
   }
 
-  handleSubmit5 = (e, sym) => {
+  handleSubmit5 = (e, sym, fade = true) => {
     const { graphFocus } = this.state;
     const { sideBarOpener } = this.state;
     e.persist();
     if (graphFocus === 1) {
       this.setState({ value: sym, coin: sym }, () => {
-        this.handleSubmit1(e);
+        if (!fade) {
+          this.handleSubmit1(e, false);
+        }
+        else if (fade) {
+          this.handleSubmit1(e);
+        }
       });
     }
     else if (graphFocus === 2) {
       this.setState({ value2: sym, coin2: sym }, () => {
-        this.handleSubmit2(e);
+        if (!fade) {
+          this.handleSubmit2(e, false);
+        }
+        else if (fade) {
+          this.handleSubmit2(e);
+        }
       });
     }
     if (sideBarOpener === true) {
@@ -494,9 +523,11 @@ class Dashboard extends Component {
         else if (value === 'BTC' && toggleCurr === true) {
           this.setState({ toggleCurr: false });
         }
-        sendCoin(1, coin, curr);
-        this.fetchCryptocurrencyHistory(1, days);
-        this.getPoints(1);
+        setTimeout(() => {
+          sendCoin(1, coin, curr);
+          this.fetchCryptocurrencyHistory(1, days);
+          this.getPoints(1);
+        }, 500);
       }
     }
 
@@ -509,9 +540,11 @@ class Dashboard extends Component {
         else if (value2 === 'BTC' && toggleCurr2 === true) {
           this.setState({ toggleCurr2: false });
         }
-        sendCoin(2, coin2, curr2);
-        this.fetchCryptocurrencyHistory(2, days2);
-        this.getPoints(2);
+        setTimeout(() => {
+          sendCoin(2, coin2, curr2);
+          this.fetchCryptocurrencyHistory(2, days2);
+          this.getPoints(2);
+        }, 500);
       }
     }
   }
@@ -811,6 +844,20 @@ class Dashboard extends Component {
     }
   }
 
+  fadeBackgroundImage1 = () => {
+    const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
+    const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
+    bgImage.classList.add('fade');
+    bgImageChartInfo.classList.add('fade');
+  }
+
+  fadeBackgroundImage2 = () => {
+    const bgImage2 = document.getElementById('cryptoImageBackgroundgraph2');
+    const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
+    bgImage2.classList.add('fade');
+    bgImageChartInfo2.classList.add('fade');
+  }
+
 
   render() {
     const {
@@ -1017,6 +1064,14 @@ class Dashboard extends Component {
             <img className="burgerMenu" alt="" src={burgerMenu} />
           </div>
         </animations.Reveal4>
+        <div className="geckoWrapper">
+          <span className="gecko">
+            {'powered by'}
+            <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer">
+              {' CoinGecko'}
+            </a>
+          </span>
+        </div>
       </div>
     );
   }
