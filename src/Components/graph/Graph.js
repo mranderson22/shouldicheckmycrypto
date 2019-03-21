@@ -22,12 +22,13 @@ import ChartInfo from '../chartInfo/ChartInfo';
 class Graph extends Component {
   state = {
     // hovered: false,
-    loading: false
   };
 
   componentDidMount() {
+    const { loadSpinner } = this.props;
+    const { id } = this.props;
     // window.addEventListener('wheel', this.scrollEvent);
-    this.loadSpinner();
+    loadSpinner(id);
   }
 
   /**
@@ -35,6 +36,7 @@ class Graph extends Component {
    * On reload triggers re-fetching of coin data
    */
   onReload = (e) => {
+    const { loadSpinner } = this.props;
     const { id } = this.props;
     const { value } = this.props;
     const { handleSubmit5 } = this.props;
@@ -42,7 +44,7 @@ class Graph extends Component {
 
     element.classList.toggle('spun');
     handleSubmit5(e, value, false);
-    this.loadSpinner();
+    loadSpinner(id);
   }
 
   onFavorite = () => {
@@ -57,71 +59,16 @@ class Graph extends Component {
     addToFavorites();
   }
 
-  loadSpinner = () => {
-    const { id } = this.props;
-    const element2 = document.getElementById(`NoChartActual ${id}`);
-    const element3 = document.getElementById(`coinInfo ${id}`);
-    element2.classList.add('flash');
-    element3.classList.add('flash');
-    this.setState(() => ({ loading: true }));
-    setTimeout(() => {
-      element2.classList.toggle('flash');
-      element3.classList.toggle('flash');
-      this.setState(() => ({ loading: false }));
-    }, 1500);
-  }
-
-  // scrollEvent(e) {
-  //   const { onHistoryChange } = this.props;
-  //   const { days } = this.props;
-  //   const { graphFocus } = this.props;
-  //   const { hovered } = this.props;
-  //   if (graphFocus === 1 && hovered) {
-  //     if (e.deltaY > 0) {
-  //       if (days === 1500) {
-  //         onHistoryChange(365);
-  //       }
-  //       else if (days === 365) {
-  //         onHistoryChange(180);
-  //       }
-  //       else if (days === 180) {
-  //         onHistoryChange(60);
-  //       }
-  //       else if (days === 90) {
-  //         onHistoryChange(30);
-  //       }
-  //     }
-  //     else if (e.deltaY < 0) {
-  //       if (days === 31) {
-  //         onHistoryChange(60);
-  //       }
-  //       else if (days === 90) {
-  //         onHistoryChange(180);
-  //       }
-  //       else if (days === 180) {
-  //         onHistoryChange(365);
-  //       }
-  //       else if (days === 365) {
-  //         onHistoryChange(1000);
-  //       }
-  //     }
-  //   }
-  //   else if (graphFocus === 2) {
-  //     return null;
-  //   }
-  // }
-
-
   render() {
     const {
-      handleChange, handleSubmit3,
+      handleChange,
       isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency, tooltipOpen, id,
-      curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus, toggleTooltip,
+      curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus,
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
-    const { loading } = this.state;
+    const { loading } = this.props;
     const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
     const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
     const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
@@ -244,7 +191,8 @@ class Graph extends Component {
 
     return (
       <div
-        className={graphFocus === 1 ? 'NoGraphChild shadowGraph' : 'NoGraphChild'}
+        // eslint-disable-next-line no-nested-ternary
+        className="NoGraphChild"
       >
         <img id={`cryptoImageBackground${id}`} alt="" className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'} src={coinInfo.image} />
         <div className="graphName">
@@ -375,7 +323,7 @@ class Graph extends Component {
           </div>
         </div>
         <div
-          className={graphFocus === 1 ? ('col-sm-2 Nochartheader shadowGraph') : ('col-sm-2 Nochartheader')}
+          className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 Nochartheader shadowGraph') : ('col-sm-2 Nochartheader')}
         >
           <ChartInfo
             value={value}

@@ -61,6 +61,12 @@
   transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
+@media screen and (max-width: 600px) {
+  .shadowGraph {
+    box-shadow: none;
+  }
+}
+
 .toggled {
   width: 45vw !important;
   left: 26% !important;

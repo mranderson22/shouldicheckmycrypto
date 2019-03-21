@@ -666,56 +666,6 @@ class Dashboard extends Component {
     }
   }
 
-  // addSidebar = () => {
-  //   const { sideBarOpener } = this.state;
-  //   const { graphFocus } = this.state;
-  //   const { secondWasThere } = this.state;
-  //   const { pose } = this.state;
-  //   if (sideBarOpener) {
-  //     setTimeout(() => {
-  //       this.setState({ sideBarOpener: false });
-  //       if (secondWasThere) {
-  //         if (graphFocus === 1) {
-  //           this.setState({ freshReveal: true });
-  //           this.setState({ secondGraphVisible: true });
-  //           this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' }, () => {
-  //             this.setState({ pose2: 'secondary' });
-  //           });
-  //         }
-  //         else {
-  //           this.setState({ pose2: 'secondary' });
-  //           this.setState({ isGraphVisible: true });
-  //           this.setState({ pose: pose === 'initial' ? 'initial' : 'resized' });
-  //         }
-  //       }
-  //       else if (graphFocus === 1) {
-  //         this.setState({ pose: pose === 'initial' ? 'resized' : 'initial' });
-  //       }
-  //       else {
-  //         this.setState({ pose: 'resized' });
-  //         this.setState({ pose2: 'fullSize' });
-  //       }
-  //     }, 500);
-  //   }
-  //   else {
-  //     this.setState({ sideBarOpener: true });
-  //     if (graphFocus === 1 && secondWasThere) {
-  //       this.setState({ pose2: 'hidden' }, () => {
-  //         this.setState({ pose: 'movedOver' });
-  //       });
-  //     }
-  //     else if (graphFocus === 1) {
-  //       this.setState({ pose: 'movedOver' });
-  //     }
-  //     else if (graphFocus === 2) {
-  //       this.setState({ secondGraphVisible: true });
-  //       this.setState({ freshReveal: true });
-  //       this.setState({ isGraphVisible: false });
-  //       this.setState({ pose2: 'movedOver' });
-  //     }
-  //   }
-  // }
-
   changeCurrency1 = (curr) => {
     const { value } = this.state;
     const { days } = this.state;
@@ -853,6 +803,7 @@ class Dashboard extends Component {
     const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
     bgImage.classList.add('fade');
     bgImageChartInfo.classList.add('fade');
+    this.loadSpinner('graph1', false);
   }
 
   fadeBackgroundImage2 = () => {
@@ -860,6 +811,34 @@ class Dashboard extends Component {
     const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
     bgImage2.classList.add('fade');
     bgImageChartInfo2.classList.add('fade');
+    this.loadSpinner('graph2', false);
+  }
+
+  loadSpinner = (graph, fade = true) => {
+    const element2 = document.getElementById(`NoChartActual ${graph}`);
+    const element3 = document.getElementById(`coinInfo ${graph}`);
+    if (fade) {
+      element2.classList.add('flash');
+    }
+    element3.classList.add('flash');
+    if (graph === 'graph1') {
+      this.setState(() => ({ loading: true }));
+    }
+    else {
+      this.setState(() => ({ loading2: true }));
+    }
+    setTimeout(() => {
+      if (fade) {
+        element2.classList.toggle('flash');
+      }
+      element3.classList.toggle('flash');
+      if (graph === 'graph1') {
+        this.setState(() => ({ loading: false }));
+      }
+      else {
+        this.setState(() => ({ loading2: false }));
+      }
+    }, 1500);
   }
 
 
@@ -869,7 +848,7 @@ class Dashboard extends Component {
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
       pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites, hovered,
-      tooltipOpen
+      tooltipOpen, loading, loading2
     } = this.state;
     const {
       answer, currentBTCPrice, coin1Info, coin2Info, allCoins
@@ -931,6 +910,9 @@ class Dashboard extends Component {
             onMouseLeave={() => this.setState({ hovered: false })}
           >
             <Graph
+              secondGraphVisible={secondGraphVisible}
+              loading={loading}
+              loadSpinner={this.loadSpinner}
               graphData={graphData}
               isGraphVisible={isGraphVisible}
               isEnabled={isEnabled}
@@ -1021,6 +1003,8 @@ class Dashboard extends Component {
               onMouseLeave={() => this.setState({ hovered: false })}
             >
               <Graph
+                loading={loading2}
+                loadSpinner={this.loadSpinner}
                 isEnabled={isEnabled2}
                 graphData={graphData2}
                 isGraphVisible={isGraphVisible}
