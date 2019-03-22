@@ -1,10 +1,10 @@
 import React from 'react';
 import './coinSearch.css';
 import {
-  Button, Form, Label, Input, FormGroup, Tooltip
+  Button, Form, Label, Input, FormGroup
 } from 'reactstrap';
 
-const CoinSearch = ({ setUserInput, inputValue, handleChange, value }) => (
+const CoinSearch = ({ setUserInput, inputValue, handleChange, coin1 }) => (
   <div className="cryptoImageContainer">
     <div className="cryptoInput">
       <Form inline onSubmit={setUserInput}>
@@ -12,7 +12,7 @@ const CoinSearch = ({ setUserInput, inputValue, handleChange, value }) => (
           <Label for="Name">
             <Input name="userInput" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. LTC" maxLength="12" />
             <div className="coinSearchTooltip">
-              <span id={`userInput ${value}`} className="tooltipText">
+              <span id={`userInput ${coin1}`} className="tooltipText">
                 {'Coin not found!'}
               </span>
             </div>

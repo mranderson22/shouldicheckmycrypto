@@ -8,14 +8,14 @@ import twitter from '../../../images/twitter_icon.png';
 import github from '../../../images/github_icon.png';
 
 const ChartInfo = ({
-  dateRangeChange, days, value, coinInfo, loading, id
+  dateRangeChange, days, coin1, coinInfo, loading, id
 }) => (
   <div>
     <nav className="nav nav-pills nav-fill">
       <span className="nav-item nav-link nav-chartInfo">
         <img className="detailsImage" src={coinInfo.image} alt="" />
         <span className="detailsLabel">
-          {`${value} Details`}
+          {`${coin1} Details`}
         </span>
       </span>
     </nav>

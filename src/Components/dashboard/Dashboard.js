@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import './dashboard.css';
 import 'react-moment';
 import axios from 'axios';
-import { Tooltip } from 'reactstrap';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Swipe from 'react-easy-swipe';
@@ -15,7 +14,6 @@ import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 import plus from '../../../images/plus-button.png';
-import gecko from '../../../images/gecko.png';
 import burgerMenu from '../../../images/burgerMenu.png';
 
 class Dashboard extends Component {
@@ -27,8 +25,7 @@ class Dashboard extends Component {
     pose: 'initial',
     pose2: 'hidden',
     sideBarOpener: false,
-    tooltipOpen: false,
-    coin: 'BTC',
+    coin1: 'BTC',
     coin2: 'ETH',
     curr: 'USD',
     curr2: 'USD',
@@ -36,16 +33,11 @@ class Dashboard extends Component {
     toggleCurr2: true,
     isEnabled: false,
     isEnabled2: false,
-    value: 'BTC',
-    value2: 'ETH',
     coinLog: [],
     coinLog2: [],
     freshReveal: false,
-    hovering: false,
     secondGraphVisible: false,
     isGraphVisible: false,
-    cryptoImage: [],
-    cryptoImage2: [],
     history: [],
     history2: [],
     graphData: {
@@ -70,51 +62,35 @@ class Dashboard extends Component {
     const { isGraphVisible } = this.state;
     const { coinLog } = this.state;
     const { coinLog2 } = this.state;
-    const { value } = this.state;
-    const { value2 } = this.state;
-    coinLog.unshift(value);
-    coinLog2.unshift(value2);
+    const { coin1 } = this.state;
+    const { coin2 } = this.state;
+    coinLog.unshift(coin1);
+    coinLog2.unshift(coin2);
     await this.fetchCryptocurrencyHistory(1);
     await this.fetchCryptocurrencyHistory(2);
     await this.getPoints(1);
     await this.getPoints(2);
     this.setState({ isGraphVisible: !isGraphVisible });
-    if (localStorage.getItem('savedCoins') === null) {
-      this.getLocalStorageData(2);
-    }
-    else if (localStorage.getItem('savedCoins2') === null) {
-      this.getLocalStorageData(1);
-    }
-    else {
-      this.getLocalStorageData(1);
-      this.getLocalStorageData(2);
-    }
+    this.getLocalStorageData();
   }
-
 
   onHistoryChange = (num = 30) => {
     const { graphFocus } = this.state;
-    let graph;
-    if (graphFocus === 1) {
-      graph = 1;
-    }
-    else if (graphFocus === 2) {
-      graph = 2;
-    }
+
     if (num === 30) {
-      this.fetchCryptocurrencyHistory(graph, 31);
+      this.fetchCryptocurrencyHistory(graphFocus, 31);
     }
     else if (num === 60) {
-      this.fetchCryptocurrencyHistory(graph, 90);
+      this.fetchCryptocurrencyHistory(graphFocus, 90);
     }
     else if (num === 180) {
-      this.fetchCryptocurrencyHistory(graph, 180);
+      this.fetchCryptocurrencyHistory(graphFocus, 180);
     }
     else if (num === 365) {
-      this.fetchCryptocurrencyHistory(graph, 365);
+      this.fetchCryptocurrencyHistory(graphFocus, 365);
     }
     else if (num === 1000) {
-      this.fetchCryptocurrencyHistory(graph, 1500);
+      this.fetchCryptocurrencyHistory(graphFocus, 1500);
     }
   }
 
@@ -190,34 +166,11 @@ class Dashboard extends Component {
     }
   }
 
-  getLocalStorageData = async (num) => {
-    const BTC = '/media/19633/btc.png';
-    const ETH = '/media/20646/eth_logo.png';
+  getLocalStorageData = () => {
     const retrievedFavoriteCoins = localStorage.getItem('savedFavoriteCoins');
     const savedFavoriteCoinsNew = JSON.parse(retrievedFavoriteCoins);
-    const retrievedCoins = localStorage.getItem('savedCoins');
-    const savedCoinsNew = JSON.parse(retrievedCoins);
-    const retrievedCoins2 = localStorage.getItem('savedCoins2');
-    const savedCoinsNew2 = JSON.parse(retrievedCoins2);
-    if (num === 1) {
-      if (savedCoinsNew.indexOf('BTC') > 0) {
-        savedCoinsNew.splice(savedCoinsNew.indexOf('BTC'), 1);
-        savedCoinsNew.unshift('BTC');
-      }
-      this.setState({ coinLog: savedCoinsNew });
-      if (savedFavoriteCoinsNew) {
-        await this.setState({ favorites: savedFavoriteCoinsNew });
-      }
-    }
-    else if (num === 2) {
-      if (savedCoinsNew2.indexOf('ETH') > 0) {
-        savedCoinsNew2.splice(savedCoinsNew2.indexOf('ETH'), 1);
-        savedCoinsNew2.unshift('ETH');
-      }
-      this.setState({ coinLog2: savedCoinsNew2 });
-      if (savedFavoriteCoinsNew) {
-        await this.setState({ favorites: savedFavoriteCoinsNew });
-      }
+    if (savedFavoriteCoinsNew) {
+      this.setState({ favorites: savedFavoriteCoinsNew });
     }
   }
 
@@ -240,15 +193,13 @@ class Dashboard extends Component {
       if (graphFocus === 1) {
         if (index !== -1) {
           return {
-            coin: allCoins[index].symbol.toUpperCase(),
-            value: allCoins[index].symbol.toUpperCase(),
+            coin1: allCoins[index].symbol.toUpperCase(),
             inputValue: ''
           };
         }
         if (index2 !== -1) {
           return {
-            coin: userInput.toUpperCase(),
-            value: userInput.toUpperCase(),
+            coin1: userInput.toUpperCase(),
             inputValue: ''
           };
         }
@@ -257,14 +208,12 @@ class Dashboard extends Component {
         if (index !== -1) {
           return {
             coin2: allCoins[index].symbol.toUpperCase(),
-            value2: allCoins[index].symbol.toUpperCase(),
             inputValue2: ''
           };
         }
         if (index2 !== -1) {
           return {
             coin2: userInput.toUpperCase(),
-            value2: userInput.toUpperCase(),
             inputValue2: ''
           };
         }
@@ -304,25 +253,25 @@ class Dashboard extends Component {
   }
 
   fetchCryptocurrencyHistory = async (num = 1, dayNum = 180) => {
-    let { value } = this.state;
-    let { value2 } = this.state;
+    let { coin1 } = this.state;
+    let { coin2 } = this.state;
     const { curr } = this.state;
     const { curr2 } = this.state;
-    if (value === 'MIOTA') {
-      value = 'IOTA';
+    if (coin1 === 'MIOTA') {
+      coin1 = 'IOTA';
     }
-    else if (value2 === 'MIOTA') {
-      value2 = 'IOTA';
+    else if (coin2 === 'MIOTA') {
+      coin2 = 'IOTA';
     }
     const dayTarget = dayNum;
     let wanted;
     let currency;
     if (num === 1) {
-      wanted = value;
+      wanted = coin1;
       currency = curr;
     }
     else if (num === 2) {
-      wanted = value2;
+      wanted = coin2;
       currency = curr2;
     }
     try {
@@ -367,9 +316,9 @@ class Dashboard extends Component {
 
   handleSubmit1 = (e, fade = true) => {
     const { sideBarOpener } = this.state;
-    const { value } = this.state;
+    const { coin1 } = this.state;
     e.persist();
-    if (value === 'BTC' || 'btc') {
+    if (coin1 === 'BTC' || 'btc') {
       this.setState({ curr: 'USD' }, () => {
         this.addToCoinlog(1);
         this.findSymbol(1);
@@ -447,7 +396,7 @@ class Dashboard extends Component {
       this.setState({ curr: 'USD' });
       this.scrollSidebarToTop();
     }
-    this.setState({ value: coinLog[pos], coin: coinLog[pos] }, () => {
+    this.setState({ coin1: coinLog[pos] }, () => {
       this.handleSubmit1(e);
     });
   }
@@ -469,7 +418,7 @@ class Dashboard extends Component {
     const { sideBarOpener } = this.state;
     e.persist();
     if (graphFocus === 1) {
-      this.setState({ value: sym, coin: sym }, () => {
+      this.setState({ coin1: sym }, () => {
         if (!fade) {
           this.handleSubmit1(e, false);
         }
@@ -508,10 +457,8 @@ class Dashboard extends Component {
     const { curr } = this.state;
     const { curr2 } = this.state;
     const { sendCoin } = this.props;
-    const { coin } = this.state;
+    const { coin1 } = this.state;
     const { allCoins } = this.props;
-    const { value } = this.state;
-    const { value2 } = this.state;
     const { coin2 } = this.state;
     const { days } = this.state;
     const { days2 } = this.state;
@@ -519,16 +466,16 @@ class Dashboard extends Component {
     const { toggleCurr2 } = this.state;
 
     if (num === 1) {
-      const index = allCoins.findIndex(coin3 => coin3.symbol === value.toLowerCase());
+      const index = allCoins.findIndex(coin3 => coin3.symbol === coin1.toLowerCase());
       if (index !== -1) {
-        if (value !== 'BTC' && toggleCurr === false) {
+        if (coin1 !== 'BTC' && toggleCurr === false) {
           this.setState({ toggleCurr: true });
         }
-        else if (value === 'BTC' && toggleCurr === true) {
+        else if (coin1 === 'BTC' && toggleCurr === true) {
           this.setState({ toggleCurr: false });
         }
         setTimeout(() => {
-          sendCoin(1, coin, curr);
+          sendCoin(1, coin1, curr);
           this.fetchCryptocurrencyHistory(1, days);
           this.getPoints(1);
         }, 500);
@@ -536,12 +483,12 @@ class Dashboard extends Component {
     }
 
     else if (num === 2) {
-      const index = allCoins.findIndex(coins4 => coins4.symbol === value.toLowerCase());
+      const index = allCoins.findIndex(coins4 => coins4.symbol === coin1.toLowerCase());
       if (index !== -1) {
-        if (value2 !== 'BTC' && toggleCurr2 === false) {
+        if (coin2 !== 'BTC' && toggleCurr2 === false) {
           this.setState({ toggleCurr2: true });
         }
-        else if (value2 === 'BTC' && toggleCurr2 === true) {
+        else if (coin2 === 'BTC' && toggleCurr2 === true) {
           this.setState({ toggleCurr2: false });
         }
         setTimeout(() => {
@@ -554,11 +501,11 @@ class Dashboard extends Component {
   }
 
   toggleTooltip = (num = 1, action = 'add') => {
-    const { value } = this.state;
-    const { value2 } = this.state;
+    const { coin1 } = this.state;
+    const { coin2 } = this.state;
 
     if (num === 1) {
-      const tooltip = document.getElementById(`userInput ${value}`);
+      const tooltip = document.getElementById(`userInput ${coin1}`);
       if (action === 'add') {
         tooltip.classList.add('active');
         setTimeout(() => {
@@ -570,7 +517,7 @@ class Dashboard extends Component {
       }
     }
     else if (num === 2) {
-      const tooltip = document.getElementById(`userInput ${value2}`);
+      const tooltip = document.getElementById(`userInput ${coin2}`);
       if (action === 'add') {
         tooltip.classList.add('active');
         setTimeout(() => {
@@ -667,16 +614,16 @@ class Dashboard extends Component {
   }
 
   changeCurrency1 = (curr) => {
-    const { value } = this.state;
+    const { coin1 } = this.state;
     const { days } = this.state;
     const { fetchData } = this.props;
-    if (curr === 'USD' && value !== 'BTC') {
+    if (curr === 'USD' && coin1 !== 'BTC') {
       this.setState({ curr: 'USD' }, () => {
         this.fetchCryptocurrencyHistory(1, days);
         fetchData(1, 'usd');
       });
     }
-    else if (curr === 'BTC' && value !== 'BTC') {
+    else if (curr === 'BTC' && coin1 !== 'BTC') {
       this.setState({ curr: 'BTC' }, () => {
         this.fetchCryptocurrencyHistory(1, days);
         fetchData(1, 'btc');
@@ -685,16 +632,16 @@ class Dashboard extends Component {
   }
 
   changeCurrency2 = (curr2) => {
-    const { value2 } = this.state;
+    const { coin2 } = this.state;
     const { days2 } = this.state;
     const { fetchData } = this.props;
-    if (curr2 === 'USD' && value2 !== 'BTC') {
+    if (curr2 === 'USD' && coin2 !== 'BTC') {
       this.setState({ curr2: 'USD' }, () => {
         fetchData(2, 'usd');
         this.fetchCryptocurrencyHistory(2, days2);
       });
     }
-    else if (curr2 === 'BTC' && value2 !== 'BTC') {
+    else if (curr2 === 'BTC' && coin2 !== 'BTC') {
       this.setState({ curr2: 'BTC' }, () => {
         this.fetchCryptocurrencyHistory(2, days2);
         fetchData(2, 'btc');
@@ -704,14 +651,14 @@ class Dashboard extends Component {
 
   addToCoinlog = (num) => {
     const { coinLog } = this.state;
-    const { value } = this.state;
+    const { coin1 } = this.state;
     const { allCoins } = this.props;
     const { coinLog2 } = this.state;
     const { value2 } = this.state;
     if (num === 1) {
       allCoins.forEach((coins) => {
-        if (coins.symbol === value.toLowerCase()) {
-          coinLog.unshift(value);
+        if (coins.symbol === coin1.toLowerCase()) {
+          coinLog.unshift(coin1);
           const unique = Array.from(new Set(coinLog));
           this.setState({ coinLog: unique }, () => {
             localStorage.setItem('savedCoins', JSON.stringify(unique));
@@ -733,13 +680,13 @@ class Dashboard extends Component {
   }
 
   addToFavorites = () => {
-    const { value } = this.state;
-    const { value2 } = this.state;
+    const { coin1 } = this.state;
+    const { coin2 } = this.state;
     const { favorites } = this.state;
     const { graphFocus } = this.state;
     if (graphFocus === 1) {
-      if (favorites.indexOf(value) === -1) {
-        favorites.push(value);
+      if (favorites.indexOf(coin1) === -1) {
+        favorites.push(coin1);
       }
       else {
         this.removeFromFavorites();
@@ -751,8 +698,8 @@ class Dashboard extends Component {
       });
     }
     else if (graphFocus === 2) {
-      if (favorites.indexOf(value2) === -1) {
-        favorites.push(value2);
+      if (favorites.indexOf(coin2) === -1) {
+        favorites.push(coin2);
       }
       else {
         this.removeFromFavorites();
@@ -762,36 +709,38 @@ class Dashboard extends Component {
     }
   }
 
-  removeFromFavorites = (coin) => {
-    const { value } = this.state;
-    const { value2 } = this.state;
+  removeFromFavorites = (sidebarCoin) => {
+    const { coin1 } = this.state;
+    const { coin2 } = this.state;
     const { favorites } = this.state;
     const { graphFocus } = this.state;
     let wanted;
     if (graphFocus === 1) {
-      if (coin) {
-        wanted = coin;
+      if (sidebarCoin) {
+        wanted = sidebarCoin;
       }
       else {
-        wanted = value;
+        wanted = coin1;
       }
       for (let i = 0; i < favorites.length; i++) {
         if (favorites[i] === wanted) {
           favorites.splice(i, 1);
+          localStorage.setItem('savedFavoriteCoins', JSON.stringify(favorites));
           this.refs.child.getFavorites();
         }
       }
     }
     else if (graphFocus === 2) {
-      if (coin) {
-        wanted = coin;
+      if (sidebarCoin) {
+        wanted = sidebarCoin;
       }
       else {
-        wanted = value2;
+        wanted = coin2;
       }
       for (let i = 0; i < favorites.length; i++) {
         if (favorites[i] === wanted) {
           favorites.splice(i, 1);
+          localStorage.setItem('savedFavoriteCoins', JSON.stringify(favorites));
           this.refs.child.getFavorites();
         }
       }
@@ -829,26 +778,26 @@ class Dashboard extends Component {
     }
     setTimeout(() => {
       if (fade) {
-        element2.classList.toggle('flash');
+        element2.classList.remove('flash');
       }
-      element3.classList.toggle('flash');
+      element3.classList.remove('flash');
       if (graph === 'graph1') {
         this.setState(() => ({ loading: false }));
       }
       else {
         this.setState(() => ({ loading2: false }));
       }
-    }, 1500);
+    }, 1000);
   }
 
 
   render() {
     const {
-      curr, curr2, value, value2, isEnabled, isEnabled2, freshReveal, hovering, secondGraphVisible,
+      curr, curr2, isEnabled, isEnabled2, freshReveal, secondGraphVisible,
       isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
       pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites, hovered,
-      tooltipOpen, loading, loading2
+      loading, loading2, coin1, coin2
     } = this.state;
     const {
       answer, currentBTCPrice, coin1Info, coin2Info, allCoins
@@ -916,32 +865,22 @@ class Dashboard extends Component {
               graphData={graphData}
               isGraphVisible={isGraphVisible}
               isEnabled={isEnabled}
-              freshReveal={freshReveal}
-              cryptoImage={cryptoImage}
               onHistoryChange={this.onHistoryChange}
-              handleSubmit1={this.handleSubmit1}
-              handleSubmit3={this.handleSubmit3}
               handleSubmit5={this.handleSubmit5}
               handleChange={this.handleChange1}
-              answer={answer}
               changeCurrency={this.changeCurrency1}
-              value={value}
+              coin1={coin1}
               curr={curr}
               toggleCurr={toggleCurr}
               days={days}
               dateRangeChange={dateRangeChange}
-              addSidebar={this.addSidebar}
-              sideBarOpener={sideBarOpener}
               inputValue={inputValue}
               graphFocus={graphFocus}
               addGraph={this.addGraph}
               addToFavorites={this.addToFavorites}
               favorites={favorites}
-              hovered={hovered}
               setUserInput={this.setUserInput}
               coinInfo={coin1Info}
-              toggleTooltip={this.toggleTooltip}
-              tooltipOpen={tooltipOpen}
               id="graph1"
             />
             {/*
@@ -968,26 +907,22 @@ class Dashboard extends Component {
             >
               <div className="plus">
                 <div
-                  pose={hovering ? 'hovered' : 'idle'}
+                  onClick={() => {
+                    if (isGraphVisible) {
+                      this.addGraph(1);
+                    }
+                    else {
+                      this.addGraph(2);
+                    }
+                  }
+                  }
+                  onKeyDown={
+                    null
+                  }
+                  role="button"
+                  tabIndex={0}
                 >
-                  <div
-                    onClick={() => {
-                      if (isGraphVisible) {
-                        this.addGraph(1);
-                      }
-                      else {
-                        this.addGraph(2);
-                      }
-                    }
-                    }
-                    onKeyDown={
-                      null
-                    }
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <img alt="" src={plus} />
-                  </div>
+                  <img alt="" src={plus} />
                 </div>
               </div>
             </animations.Reveal3>
@@ -1008,33 +943,23 @@ class Dashboard extends Component {
                 isEnabled={isEnabled2}
                 graphData={graphData2}
                 isGraphVisible={isGraphVisible}
-                freshReveal={freshReveal}
-                cryptoImage={cryptoImage2}
                 secondGraphVisible={secondGraphVisible}
                 onHistoryChange={this.onHistoryChange}
-                handleSubmit1={this.handleSubmit2}
-                handleSubmit3={this.handleSubmit4}
                 handleSubmit5={this.handleSubmit5}
                 handleChange={this.handleChange2}
-                answer={answer}
                 changeCurrency={this.changeCurrency2}
-                value={value2}
+                coin1={coin2}
                 curr={curr2}
                 toggleCurr={toggleCurr2}
                 days={days2}
                 dateRangeChange={dateRangeChange2}
-                addSidebar={this.addSidebar}
-                sideBarOpener={sideBarOpener}
                 inputValue={inputValue2}
                 graphFocus={graphFocus2}
                 addGraph={this.addGraph}
                 addToFavorites={this.addToFavorites}
                 favorites={favorites}
-                hovered={hovered}
                 setUserInput={this.setUserInput}
                 coinInfo={coin2Info}
-                toggleTooltip={this.toggleTooltip}
-                tooltipOpen={tooltipOpen}
                 id="graph2"
               />
             </animations.Reveal3>

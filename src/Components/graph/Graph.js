@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
 import {
-  Button, ButtonGroup, Tooltip, FormGroup, Input
+  Button, ButtonGroup, Input
 } from 'reactstrap';
 import { Bar } from 'react-chartjs-2';
 import Loader from 'react-loader-spinner';
@@ -20,14 +20,10 @@ import CoinSearch from '../coinSearch/CoinSearch';
 import ChartInfo from '../chartInfo/ChartInfo';
 
 class Graph extends Component {
-  state = {
-    // hovered: false,
-  };
-
   componentDidMount() {
     const { loadSpinner } = this.props;
     const { id } = this.props;
-    // window.addEventListener('wheel', this.scrollEvent);
+
     loadSpinner(id);
   }
 
@@ -38,12 +34,12 @@ class Graph extends Component {
   onReload = (e) => {
     const { loadSpinner } = this.props;
     const { id } = this.props;
-    const { value } = this.props;
+    const { coin1 } = this.props;
     const { handleSubmit5 } = this.props;
     const element = document.getElementById(`optionsImage${id}`);
 
     element.classList.toggle('spun');
-    handleSubmit5(e, value, false);
+    handleSubmit5(e, coin1, false);
     loadSpinner(id);
   }
 
@@ -62,18 +58,12 @@ class Graph extends Component {
   render() {
     const {
       handleChange,
-      isEnabled, onHistoryChange, graphData, cryptoImage, changeCurrency, tooltipOpen, id,
-      curr, value, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus,
+      isEnabled, onHistoryChange, graphData, changeCurrency, id, loading,
+      curr, coin1, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus,
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
     const rSelected = curr === 'USD' ? 1 : 2;
-    const { loading } = this.props;
-    const Image = `https://www.cryptocompare.com/${cryptoImage[1]}`;
-    const Image2 = `https://www.cryptocompare.com/${cryptoImage[0]}`;
-    const Image3 = `https://www.cryptocompare.com/${cryptoImage[2]}`;
-    const Image4 = `https://www.cryptocompare.com/${cryptoImage[3]}`;
-    const Image5 = `https://www.cryptocompare.com/${cryptoImage[4]}`;
     const options = {
       maintainAspectRatio: false,
       responsive: true,
@@ -129,7 +119,7 @@ class Graph extends Component {
     let button;
 
 
-    if (value === 'BTC' && toggleCurr === false) {
+    if (coin1 === 'BTC' && toggleCurr === false) {
       button = null;
     }
     else if (toggleCurr === true) {
@@ -326,13 +316,12 @@ class Graph extends Component {
           className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 Nochartheader shadowGraph') : ('col-sm-2 Nochartheader')}
         >
           <ChartInfo
-            value={value}
+            coin1={coin1}
             curr={curr}
             dateRangeChange={dateRangeChange}
             dateRangeChange2={dateRangeChange2}
             days={days}
             days2={days2}
-            cryptoImage={Image2}
             coinInfo={coinInfo}
             loading={loading}
             id={id}
@@ -343,8 +332,7 @@ class Graph extends Component {
           inputValue={inputValue}
           handleChange={handleChange}
           isEnabled={isEnabled}
-          tooltipOpen={tooltipOpen}
-          value={value}
+          coin1={coin1}
         />
         <div className="optionsBank">
           <div
@@ -358,7 +346,7 @@ class Graph extends Component {
               className="optionsImage large"
               alt=""
               src={
-                favorites.indexOf(value) === -1 ? heart : heartFilled
+                favorites.indexOf(coin1) === -1 ? heart : heartFilled
               }
             />
           </div>
@@ -376,7 +364,7 @@ class Graph extends Component {
           >
             <img className="optionsImage" id={`optionsImage${id}`} alt="" src={reload} />
           </div>
-          {secondGraphVisible ? (
+          {id === 'graph2' ? (
             <div
               className="exitButton"
               onClick={() => {
@@ -402,7 +390,6 @@ class Graph extends Component {
 Graph.propTypes = {
   onHistoryChange: PropTypes.func,
   graphData: PropTypes.object,
-  answer: PropTypes.bool,
   handleChange: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
@@ -410,19 +397,15 @@ Graph.propTypes = {
   toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
   addToFavorites: PropTypes.func,
-  handleSubmit3: PropTypes.func,
   favorites: PropTypes.array,
   addGraph: PropTypes.func,
   setUserInput: PropTypes.func,
-  value: PropTypes.string,
-  cryptoImage: PropTypes.array,
   inputValue: PropTypes.string
 };
 
 Graph.defaultProps = {
   onHistoryChange: PropTypes.func,
   graphData: PropTypes.object,
-  answer: PropTypes.bool,
   handleChange: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
@@ -430,12 +413,9 @@ Graph.defaultProps = {
   toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
   addToFavorites: PropTypes.func,
-  handleSubmit3: PropTypes.func,
   favorites: PropTypes.array,
   addGraph: PropTypes.func,
   setUserInput: PropTypes.func,
-  value: PropTypes.string,
-  cryptoImage: PropTypes.array,
   inputValue: PropTypes.string
 };
 

@@ -11,12 +11,12 @@ import 'babel-polyfill';
 
 class App extends Component {
   state = {
-    coin: 'BTC',
+    coin1: 'BTC',
     coin2: 'ETH',
     loading: true,
     answer: false,
-    showDashboard: false,
-    isVisible: false
+    isDashboardVisible: false,
+    isAnswerBoxVisible: false
   };
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
@@ -27,7 +27,7 @@ class App extends Component {
     await this.fetchCryptoData(3);
     await setTimeout(() => {
       this.setState(() => ({ loading: false }));
-      this.setState(() => ({ isVisible: 'true' }));
+      this.setState(() => ({ isAnswerBoxVisible: 'true' }));
       this.setMood();
     }, 2000);
     setInterval(() => {
@@ -41,8 +41,8 @@ class App extends Component {
   // click function for lock on main screen. First loads dashboard component
   // with "showComponent" then reveals said component.
   onLockClick = () => {
-    this.setState(() => ({ isVisible: false }), () => {
-      this.setState(() => ({ showDashboard: true }));
+    this.setState(() => ({ isAnswerBoxVisible: false }), () => {
+      this.setState(() => ({ isDashboardVisible: true }));
     });
   }
 
@@ -75,15 +75,13 @@ class App extends Component {
   updateCoin = (num, updatedCoin, curr) => {
     if (num === 1) {
       this.setState(() => ({
-        value: updatedCoin,
-        coin: updatedCoin
+        coin1: updatedCoin
       }), () => {
         this.fetchCryptoData(1, curr);
       });
     }
     else if (num === 2) {
       this.setState(() => ({
-        value2: updatedCoin,
         coin2: updatedCoin
       }), () => {
         this.fetchCryptoData(2, curr);
@@ -96,19 +94,19 @@ class App extends Component {
     const { answer } = this.state;
 
     if (answer) {
-      this.setState(() => ({ isVisible: false, showDashboard: true }));
+      this.setState(() => ({ isAnswerBoxVisible: false, isDashboardVisible: true }));
     }
   }
 
   // Main API call to populate the coinInfo object with the apropriate data
   fetchCryptoData = async (num, curr = 'usd') => {
-    const { coin } = this.state;
+    const { coin1 } = this.state;
     const { coin2 } = this.state;
-    const { showDashboard } = this.state;
+    const { isDashboardVisible } = this.state;
     let wanted;
     if (num !== 3) {
       if (num === 1) {
-        wanted = coin.toLowerCase();
+        wanted = coin1.toLowerCase();
       }
       else if (num === 2) {
         wanted = coin2.toLowerCase();
@@ -118,7 +116,7 @@ class App extends Component {
         const allCoins = response.data;
         const specificCoin = response.data.filter(currency => currency.symbol === wanted);
         const x = specificCoin[0];
-        const coin1 = {
+        const coin = {
           name: x.name,
           symbol: x.symbol,
           image: x.image,
@@ -136,33 +134,41 @@ class App extends Component {
         };
 
         const response2 = await axios(`https://api.coingecko.com/api/v3/coins/${specificCoin[0].id.toLowerCase()}`);
-        coin1.description = response2.data.description.en;
-        [coin1.homepage] = response2.data.links.homepage;
-        coin1.twitter_handle = response2.data.links.twitter_screen_name;
-        coin1.facebook_username = response2.data.links.facebook_username;
-        coin1.subreddit = response2.data.links.subreddit_url;
-        [coin1.github] = response2.data.links.repos_url.github;
+        coin.description = response2.data.description.en;
+        [coin.homepage] = response2.data.links.homepage;
+        coin.twitter_handle = response2.data.links.twitter_screen_name;
+        coin.facebook_username = response2.data.links.facebook_username;
+        coin.subreddit = response2.data.links.subreddit_url;
+        [coin.github] = response2.data.links.repos_url.github;
 
         if (num === 1) {
-          this.setState(() => ({ coin1Info: coin1, allCoins }), () => {
-            if (showDashboard) {
+          this.setState(() => ({ coin1Info: coin, allCoins }), () => {
+            if (isDashboardVisible) {
               const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
               const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
+              const element2 = document.getElementById('NoChartActual graph1');
+              const element3 = document.getElementById('coinInfo graph1');
               setTimeout(() => {
                 bgImageChartInfo.classList.remove('fade');
                 bgImage.classList.remove('fade');
+                element2.classList.remove('flash');
+                element3.classList.remove('flash');
               }, 0);
             }
           });
         }
         else if (num === 2) {
-          this.setState(() => ({ coin2Info: coin1, allCoins }), () => {
-            if (showDashboard) {
+          this.setState(() => ({ coin2Info: coin, allCoins }), () => {
+            if (isDashboardVisible) {
               const bgImage2 = document.getElementById('cryptoImageBackgroundgraph2');
               const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
+              const element4 = document.getElementById('NoChartActual graph2');
+              const element5 = document.getElementById('coinInfo graph2');
               setTimeout(() => {
                 bgImageChartInfo2.classList.remove('fade');
                 bgImage2.classList.remove('fade');
+                element4.classList.remove('flash');
+                element5.classList.remove('flash');
               }, 0);
             }
           });
@@ -181,37 +187,33 @@ class App extends Component {
 
   render() {
     const {
-      loading, answer, isVisible, text, coin1Info, coin2Info, allCoins,
-      showDashboard, currentBTCPrice
+      loading, answer, isAnswerBoxVisible, text, coin1Info, coin2Info, allCoins,
+      isDashboardVisible, currentBTCPrice
     } = this.state;
 
     return (
       <div>
         <animations.Reveal3
           className="shouldIHeader"
-          pose={showDashboard ? 'hidden' : 'visible'}
+          pose={isDashboardVisible ? 'hidden' : 'visible'}
         >
           <span>
             {'Should I check my crypto?'}
           </span>
         </animations.Reveal3>
-        {loading ? (
-          <div className="answerBackground">
-            <div className="answerWrapper">
+        <div className="answerBackground">
+          <div className="answerWrapper">
+            {loading ? (
               <div className="spinner">
                 <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
               </div>
-            </div>
-          </div>
-        ) : (
-          <div className="answerBackground">
-            <div className="answerWrapper">
-              <h1 className="answerBox">
-                <animations.Reveal pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal">
-                  {text}
-                </animations.Reveal>
-              </h1>
-              {
+            ) : null}
+            <h1 className="answerBox">
+              <animations.Reveal pose={isAnswerBoxVisible ? 'visible' : 'hidden'} className="animations_reveal">
+                {text}
+              </animations.Reveal>
+            </h1>
+            {
           answer === true ? null : (
             <div className="lockbody">
               <div
@@ -220,7 +222,7 @@ class App extends Component {
                 role="button"
                 tabIndex={0}
               >
-                <animations.Reveal2 pose={isVisible ? 'visible' : 'hidden'} className="animations_reveal2">
+                <animations.Reveal2 pose={isAnswerBoxVisible ? 'visible' : 'hidden'} className="animations_reveal2">
                   <div>
                     {answer ? null : (<img className="lockImage" alt="" src={lockbody} />)}
                   </div>
@@ -228,26 +230,23 @@ class App extends Component {
               </div>
             </div>)
         }
-            </div>
-            <div>
-              {showDashboard ? (
-                <Dashboard
-                  fetchCryptocurrencyData={this.fetchCryptocurrencyData}
-                  sendCoin={this.updateCoin}
-                  sendCoin2={this.updateCoin2}
-                  fetchData={this.fetchCryptoData}
-                  answer={answer}
-                  currentBTCPrice={currentBTCPrice}
-                  coin1Info={coin1Info}
-                  coin2Info={coin2Info}
-                  allCoins={allCoins}
-                />
-              )
-                : null
-              }
-            </div>
           </div>
-        )}
+          <div>
+            {isDashboardVisible ? (
+              <Dashboard
+                sendCoin={this.updateCoin}
+                fetchData={this.fetchCryptoData}
+                answer={answer}
+                currentBTCPrice={currentBTCPrice}
+                coin1Info={coin1Info}
+                coin2Info={coin2Info}
+                allCoins={allCoins}
+              />
+            )
+              : null
+            }
+          </div>
+        </div>
       </div>
     );
   }
