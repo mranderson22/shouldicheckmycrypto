@@ -654,7 +654,7 @@ class Dashboard extends Component {
     const { coin1 } = this.state;
     const { allCoins } = this.props;
     const { coinLog2 } = this.state;
-    const { value2 } = this.state;
+    const { coin2 } = this.state;
     if (num === 1) {
       allCoins.forEach((coins) => {
         if (coins.symbol === coin1.toLowerCase()) {
@@ -668,8 +668,8 @@ class Dashboard extends Component {
     }
     else if (num === 2) {
       allCoins.forEach((coins) => {
-        if (coins.symbol === value2.toLowerCase()) {
-          coinLog2.unshift(value2);
+        if (coins.symbol === coin2.toLowerCase()) {
+          coinLog2.unshift(coin2);
           const unique = Array.from(new Set(coinLog2));
           this.setState({ coinLog2: unique }, () => {
             localStorage.setItem('savedCoins2', JSON.stringify(unique));
