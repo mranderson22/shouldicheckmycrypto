@@ -105,7 +105,7 @@ class Sidebar extends Component {
   sidebarTemplateFavorites = (list) => {
     const { favorites } = this.props;
     const { handleSubmit5 } = this.props;
-    const { removeFromFavorites } = this.props;
+    const { toggleFavorites } = this.props;
     const newRankingList = list.map(x => (
       <div key={x.id} className="sidebarButtonWrapper">
         <button
@@ -133,7 +133,7 @@ class Sidebar extends Component {
           className="removeFavorite"
           type="button"
           onClick={() => {
-            removeFromFavorites(x.symbol.toUpperCase());
+            toggleFavorites(x.symbol.toUpperCase());
           }}
         >
           <img className="exitIcons" src={exiticon} alt="favorite" />
@@ -183,13 +183,13 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
-  removeFromFavorites: PropTypes.func
+  toggleFavorites: PropTypes.func
 };
 
 Sidebar.defaultProps = {
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
-  removeFromFavorites: PropTypes.func
+  toggleFavorites: PropTypes.func
 };
 
 export default Sidebar;

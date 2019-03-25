@@ -617,6 +617,8 @@ class Dashboard extends Component {
     const { coin1 } = this.state;
     const { days } = this.state;
     const { fetchData } = this.props;
+    const graphPrice = document.getElementById('graphPricegraph1');
+    graphPrice.classList.add('flash');
     if (curr === 'USD' && coin1 !== 'BTC') {
       this.setState({ curr: 'USD' }, () => {
         this.fetchCryptocurrencyHistory(1, days);
@@ -635,6 +637,8 @@ class Dashboard extends Component {
     const { coin2 } = this.state;
     const { days2 } = this.state;
     const { fetchData } = this.props;
+    const graphPrice = document.getElementById('graphPricegraph2');
+    graphPrice.classList.add('flash');
     if (curr2 === 'USD' && coin2 !== 'BTC') {
       this.setState({ curr2: 'USD' }, () => {
         fetchData(2, 'usd');
@@ -679,72 +683,36 @@ class Dashboard extends Component {
     }
   }
 
-  addToFavorites = () => {
-    const { coin1 } = this.state;
-    const { coin2 } = this.state;
-    const { favorites } = this.state;
-    const { graphFocus } = this.state;
-    if (graphFocus === 1) {
-      if (favorites.indexOf(coin1) === -1) {
-        favorites.push(coin1);
-      }
-      else {
-        this.removeFromFavorites();
-      }
-      const freshFavorites = Array.from(new Set(favorites));
-      this.setState({ favorites: freshFavorites }, () => {
-        localStorage.setItem('savedFavoriteCoins', JSON.stringify(freshFavorites));
-        this.refs.child.getFavorites();
-      });
-    }
-    else if (graphFocus === 2) {
-      if (favorites.indexOf(coin2) === -1) {
-        favorites.push(coin2);
-      }
-      else {
-        this.removeFromFavorites();
-      }
-      localStorage.setItem('savedFavoriteCoins', JSON.stringify(favorites));
-      this.refs.child.getFavorites();
-    }
-  }
-
-  removeFromFavorites = (sidebarCoin) => {
+  toggleFavorites = (sidebarCoin) => {
     const { coin1 } = this.state;
     const { coin2 } = this.state;
     const { favorites } = this.state;
     const { graphFocus } = this.state;
     let wanted;
-    if (graphFocus === 1) {
-      if (sidebarCoin) {
-        wanted = sidebarCoin;
-      }
-      else {
-        wanted = coin1;
-      }
-      for (let i = 0; i < favorites.length; i++) {
-        if (favorites[i] === wanted) {
-          favorites.splice(i, 1);
-          localStorage.setItem('savedFavoriteCoins', JSON.stringify(favorites));
-          this.refs.child.getFavorites();
-        }
-      }
+    if (sidebarCoin) {
+      wanted = sidebarCoin;
+    }
+    else if (graphFocus === 1) {
+      wanted = coin1;
     }
     else if (graphFocus === 2) {
-      if (sidebarCoin) {
-        wanted = sidebarCoin;
-      }
-      else {
-        wanted = coin2;
-      }
+      wanted = coin2;
+    }
+    if (favorites.indexOf(wanted) === -1) {
+      favorites.push(wanted);
+    }
+    else {
       for (let i = 0; i < favorites.length; i++) {
         if (favorites[i] === wanted) {
           favorites.splice(i, 1);
-          localStorage.setItem('savedFavoriteCoins', JSON.stringify(favorites));
-          this.refs.child.getFavorites();
         }
       }
     }
+    const freshFavorites = Array.from(new Set(favorites));
+    this.setState({ favorites: freshFavorites }, () => {
+      localStorage.setItem('savedFavoriteCoins', JSON.stringify(freshFavorites));
+      this.refs.child.getFavorites();
+    });
   }
 
   fadeBackgroundImage1 = () => {
@@ -835,7 +803,7 @@ class Dashboard extends Component {
                 handleSubmit5={this.handleSubmit5}
                 favorites={favorites}
                 graphFocus={graphFocus}
-                removeFromFavorites={this.removeFromFavorites}
+                toggleFavorites={this.toggleFavorites}
                 ref="child"
               />
             </Swipe>
@@ -877,7 +845,7 @@ class Dashboard extends Component {
               inputValue={inputValue}
               graphFocus={graphFocus}
               addGraph={this.addGraph}
-              addToFavorites={this.addToFavorites}
+              toggleFavorites={this.toggleFavorites}
               favorites={favorites}
               setUserInput={this.setUserInput}
               coinInfo={coin1Info}
@@ -922,7 +890,7 @@ class Dashboard extends Component {
                   role="button"
                   tabIndex={0}
                 >
-                  <img alt="" src={plus} />
+                  <img className="plusImage" alt="" src={plus} />
                 </div>
               </div>
             </animations.Reveal3>
@@ -956,7 +924,7 @@ class Dashboard extends Component {
                 inputValue={inputValue2}
                 graphFocus={graphFocus2}
                 addGraph={this.addGraph}
-                addToFavorites={this.addToFavorites}
+                toggleFavorites={this.toggleFavorites}
                 favorites={favorites}
                 setUserInput={this.setUserInput}
                 coinInfo={coin2Info}

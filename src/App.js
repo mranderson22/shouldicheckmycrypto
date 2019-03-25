@@ -119,8 +119,8 @@ class App extends Component {
         const coin = {
           name: x.name,
           symbol: x.symbol,
-          image: x.image,
           price: x.current_price,
+          image: x.image,
           rank: x.market_cap_rank,
           mktCap: parseFloat(x.market_cap).toFixed(2),
           high24: parseFloat(x.high_24h).toFixed(2),
@@ -148,11 +148,21 @@ class App extends Component {
               const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
               const element2 = document.getElementById('NoChartActual graph1');
               const element3 = document.getElementById('coinInfo graph1');
+              const graphPrice = document.getElementById('graphPricegraph1');
+              const spinner = document.getElementById('spinner');
+              const spinner2 = document.getElementById('spinner2');
               setTimeout(() => {
+                graphPrice.classList.remove('flash');
                 bgImageChartInfo.classList.remove('fade');
                 bgImage.classList.remove('fade');
                 element2.classList.remove('flash');
                 element3.classList.remove('flash');
+                if (spinner) {
+                  spinner.classList.add('flash');
+                }
+                if (spinner2) {
+                  spinner2.classList.add('flash');
+                }
               }, 0);
             }
           });
@@ -164,11 +174,21 @@ class App extends Component {
               const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
               const element4 = document.getElementById('NoChartActual graph2');
               const element5 = document.getElementById('coinInfo graph2');
+              const graphPrice2 = document.getElementById('graphPricegraph2');
+              const spinner = document.getElementById('spinner');
+              const spinner2 = document.getElementById('spinner2');
               setTimeout(() => {
+                graphPrice2.classList.remove('flash');
                 bgImageChartInfo2.classList.remove('fade');
                 bgImage2.classList.remove('fade');
                 element4.classList.remove('flash');
                 element5.classList.remove('flash');
+                if (spinner) {
+                  spinner.classList.add('flash');
+                }
+                if (spinner2) {
+                  spinner2.classList.add('flash');
+                }
               }, 0);
             }
           });

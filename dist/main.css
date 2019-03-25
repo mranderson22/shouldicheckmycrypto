@@ -146,6 +146,24 @@
   }
 }
 
+.plusImage {
+  width: 100px;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.plusImage:link {
+  width: 100px;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.plusImage:hover {
+  width: 120px;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 .NoGraphNew {
   position: fixed !important;
   width: 100% !important;
@@ -988,6 +1006,8 @@
 
 .flash {
   opacity: 0;
+  -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .pulse {

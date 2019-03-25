@@ -37,7 +37,9 @@ class Graph extends Component {
     const { coin1 } = this.props;
     const { handleSubmit5 } = this.props;
     const element = document.getElementById(`optionsImage${id}`);
+    const graphPrice = document.getElementById(`graphPrice${id}`);
 
+    graphPrice.classList.add('flash');
     element.classList.toggle('spun');
     handleSubmit5(e, coin1, false);
     loadSpinner(id);
@@ -45,14 +47,14 @@ class Graph extends Component {
 
   onFavorite = () => {
     const { id } = this.props;
-    const { addToFavorites } = this.props;
+    const { toggleFavorites } = this.props;
     const element = document.getElementById(`heartFilled ${id}`);
 
     element.classList.add('pulse');
     setTimeout(() => {
       element.classList.remove('pulse');
     }, 1000);
-    addToFavorites();
+    toggleFavorites();
   }
 
   render() {
@@ -166,18 +168,12 @@ class Graph extends Component {
     }
 
     let processPrice;
-    if (curr === 'USD') {
-      if (coinInfo.price < 0.01) {
-        processPrice = parseFloat(coinInfo.price).toFixed(6);
-      }
-      else {
-        processPrice = parseFloat(coinInfo.price).toFixed(2);
-      }
-    }
-    else {
+    if (coinInfo.price < 0.10) {
       processPrice = parseFloat(coinInfo.price).toFixed(8);
     }
-
+    else {
+      processPrice = parseFloat(coinInfo.price).toFixed(2);
+    }
 
     return (
       <div
@@ -188,17 +184,19 @@ class Graph extends Component {
         <div className="graphName">
           { `${coinInfo.name} / ${curr} `}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <span className="graphPrice">
-            {curr === 'USD' ? '$' : 'Ƀ'}
-            {processPrice}
-          </span>
-          <span className={coinInfo.change24h <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
-            {` ${coinInfo.change24h}%`}
-            {coinInfo.change24h <= 0 ? '↓' : '↑'}
+          <span id={`graphPrice${id}`}>
+            <span className="graphPrice">
+              {curr === 'USD' ? '$' : 'Ƀ'}
+              {processPrice}
+            </span>
+            <span className={coinInfo.change24h <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
+              {` ${coinInfo.change24h}%`}
+              {coinInfo.change24h <= 0 ? '↓' : '↑'}
+            </span>
           </span>
         </div>
         {loading ? (
-          <div className="spinnerContainerGraph">
+          <div id="spinner" className="spinnerContainerGraph">
             <div className="spinner">
               <Loader type="Grid" color="#0d0c0c" height={60} width={60} />
             </div>
@@ -396,7 +394,7 @@ Graph.propTypes = {
   curr: PropTypes.string,
   toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
-  addToFavorites: PropTypes.func,
+  toggleFavorites: PropTypes.func,
   favorites: PropTypes.array,
   addGraph: PropTypes.func,
   setUserInput: PropTypes.func,
@@ -412,7 +410,7 @@ Graph.defaultProps = {
   curr: PropTypes.string,
   toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
-  addToFavorites: PropTypes.func,
+  toggleFavorites: PropTypes.func,
   favorites: PropTypes.array,
   addGraph: PropTypes.func,
   setUserInput: PropTypes.func,

@@ -27,7 +27,7 @@ const ChartInfo = ({
         id={`cryptoImageBackgroundChartInfo${id}`}
       />
       {loading ? (
-        <div className="spinnerContainerChartInfo">
+        <div id="spinner2" className="spinnerContainerChartInfo">
           <div className="spinnerChartInfo">
             <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
           </div>
