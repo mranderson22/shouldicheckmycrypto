@@ -14,12 +14,25 @@ class App extends Component {
     loading: true,
     answer: false,
     isDashboardVisible: false,
-    isAnswerBoxVisible: false
+    isAnswerBoxVisible: false,
+    down: false
   };
 
   // Initial timeOut for loading screen on mount, while fetching crypto data to
   // determine if answer is "yes" or "no", then sets accordingly.
   async componentDidMount() {
+    const { down } = this.state;
+    setTimeout(() => {
+      const { currentBTCPrice } = this.state;
+      if (currentBTCPrice === undefined) {
+        console.log(currentBTCPrice);
+        this.setState(() => ({ text: 'be right back.' }), () => {
+          this.setState(() => ({ loading: false }));
+          this.setState(() => ({ isAnswerBoxVisible: 'true' }));
+          this.setState(() => ({ down: true }));
+        });
+      }
+    }, 5000);
     await this.fetchCryptoData(1);
     await this.fetchCryptoData(2);
     await this.fetchCryptoData(3);
@@ -48,22 +61,25 @@ class App extends Component {
   // change of Bitcoin. (data was gathered on mount with fetchCryptocurrencyData)
   setMood = () => {
     const { coin1Info } = this.state;
+    const { down } = this.state;
     const change7d = parseFloat(coin1Info.change7d);
 
-    if (change7d <= -5) {
-      this.setState(() => ({ text: 'Absolutely not.' }));
-    }
-    else if (change7d >= 5) {
-      this.setState(() => ({ text: 'Absolutely!', answer: true }));
-    }
-    else if (change7d >= 0) {
-      this.setState(() => ({ text: 'Looks good!', answer: true }));
-    }
-    else if (change7d < 0) {
-      this.setState(() => ({ text: 'If you must.' }));
-    }
-    else {
-      this.setState(() => ({ text: 'Try again.' }));
+    if (!down) {
+      if (change7d <= -5) {
+        this.setState(() => ({ text: 'Absolutely not.' }));
+      }
+      else if (change7d >= 5) {
+        this.setState(() => ({ text: 'Absolutely!', answer: true }));
+      }
+      else if (change7d >= 0) {
+        this.setState(() => ({ text: 'Looks good!', answer: true }));
+      }
+      else if (change7d < 0) {
+        this.setState(() => ({ text: 'If you must.' }));
+      }
+      else {
+        this.setState(() => ({ text: 'Try again.' }));
+      }
     }
   }
 
@@ -192,7 +208,7 @@ class App extends Component {
   render() {
     const {
       loading, answer, isAnswerBoxVisible, text, coin1Info, coin2Info, allCoins,
-      isDashboardVisible, currentBTCPrice
+      isDashboardVisible, currentBTCPrice, down
     } = this.state;
 
     return (
@@ -205,6 +221,7 @@ class App extends Component {
             onLockClick={this.onLockClick}
             answer={answer}
             text={text}
+            down={down}
           />
           <div>
             {isDashboardVisible ? (

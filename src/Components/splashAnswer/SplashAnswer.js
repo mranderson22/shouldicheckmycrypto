@@ -5,7 +5,7 @@ import lockbody from '../../../images/lockbody.png';
 import './SplashAnswer.css';
 
 const SplashAnswer = ({
-  loading, isAnswerBoxVisible, onLockClick, answer, text
+  loading, isAnswerBoxVisible, onLockClick, answer, text, down
 }) => (
   <div className="answerWrapper">
     {loading ? (
@@ -17,7 +17,7 @@ const SplashAnswer = ({
       </Reveal>
     </h1>
     {
-  answer === true ? null : (
+  answer === true || down ? null : (
     <div className="lockbody">
       <div
         onClick={onLockClick}
