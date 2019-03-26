@@ -617,8 +617,7 @@ class Dashboard extends Component {
     const { coin1 } = this.state;
     const { days } = this.state;
     const { fetchData } = this.props;
-    const graphPrice = document.getElementById('graphPricegraph1');
-    graphPrice.classList.add('flash');
+
     if (curr === 'USD' && coin1 !== 'BTC') {
       this.setState({ curr: 'USD' }, () => {
         this.fetchCryptocurrencyHistory(1, days);
@@ -637,8 +636,7 @@ class Dashboard extends Component {
     const { coin2 } = this.state;
     const { days2 } = this.state;
     const { fetchData } = this.props;
-    const graphPrice = document.getElementById('graphPricegraph2');
-    graphPrice.classList.add('flash');
+
     if (curr2 === 'USD' && coin2 !== 'BTC') {
       this.setState({ curr2: 'USD' }, () => {
         fetchData(2, 'usd');
@@ -762,9 +760,9 @@ class Dashboard extends Component {
   render() {
     const {
       curr, curr2, isEnabled, isEnabled2, freshReveal, secondGraphVisible,
-      isGraphVisible, graphData, graphData2, cryptoImage, cryptoImage2, toggleCurr,
+      isGraphVisible, graphData, graphData2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
-      pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites, hovered,
+      pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites,
       loading, loading2, coin1, coin2
     } = this.state;
     const {
@@ -772,52 +770,37 @@ class Dashboard extends Component {
     } = this.props;
     return (
       <div className="container-fluid">
-        <div className="row">
-          <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'} className="animations_Reveal4">
-            <div
-              className={answer === true ? 'col-sm-2 bitcoinTrackerWrapper yesBackgroundColor'
-                : 'col-sm-2 bitcoinTrackerWrapper noBackgroundColor'
-              }
-              onClick={(e) => {
-                this.handleSubmit5(e, 'BTC');
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={() => {
-                '';
-              }
-            }
-            >
-              <BitcoinTracker
-                currentBTCPrice={currentBTCPrice}
+        <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'} className="animations_Reveal4">
+          <BitcoinTracker
+            currentBTCPrice={currentBTCPrice}
+            answer={answer}
+            handleSubmit5={this.handleSubmit5}
+          />
+          <Swipe
+            id="sidebarContainer"
+            className="col-sm-2 sidebar"
+            onSwipeLeft={this.addSidebar}
+            tolerance={100}
+          >
+            <Sidebar
+              allCoins={allCoins}
+              handleSubmit5={this.handleSubmit5}
+              favorites={favorites}
+              graphFocus={graphFocus}
+              toggleFavorites={this.toggleFavorites}
+              ref="child"
+            />
+          </Swipe>
+          { sideBarOpener
+            ? (
+              <div
+                onClick={this.addSidebar}
+                className="offClick"
               />
-            </div>
-            <Swipe
-              id="sidebarContainer"
-              className="col-sm-2 sidebar"
-              onSwipeLeft={this.addSidebar}
-              tolerance={100}
-            >
-              <Sidebar
-                allCoins={allCoins}
-                handleSubmit5={this.handleSubmit5}
-                favorites={favorites}
-                graphFocus={graphFocus}
-                toggleFavorites={this.toggleFavorites}
-                ref="child"
-              />
-            </Swipe>
-            { sideBarOpener
-              ? (
-                <div
-                  onClick={this.addSidebar}
-                  className="offClick"
-                />
-              )
-              : null
-            }
-          </animations.Reveal4>
-        </div>
+            )
+            : null
+          }
+        </animations.Reveal4>
         <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
           <animations.Resize
             className={graphFocus === 1 && secondGraphVisible ? ('col-sm-10 NoGraph popup') : ('col-sm-10 NoGraph')}

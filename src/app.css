@@ -1,17 +1,13 @@
+*:focus {outline:none}
+
+.answerBackground {
+  height: 100vh;
+  background-image: url('../images/circles.png');
+  position: static;
+}
+
 body {
   font-family: 'Poppins', sans-serif !important;
-}
-
-.spinner {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.spinnercontainer {
-  height: 100vh;
-  background: #1E2938 !important;
 }
 
 .spinnerChartInfo {
@@ -21,82 +17,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.answerBackground {
-  height: 100vh;
-  background-image: url('../images/circles.png');
-  position: static;
-}
-
-.answerWrapper {
-  background: rgba(30, 41, 56, 0.84);
-  height: inherit;
-  padding: 0;
-  justify-content: stretch;
-  align-items: center;
-  display: flex;
-  z-index: 1;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  flex-direction: column-reverse;
-}
-
-.answerBox {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: calc(4vw + 4vh + 4vmin);
-  color: rgba(223, 226, 230, 0.6);
-  text-shadow: 3px 3px 10px #141414ad;
-  width: 90vw;
-  text-align: center;
-}
-
-.lockbody {
-  margin-bottom: 44vh;
-  filter: invert(58%);
-  margin-left: -16px;
-}
-
-.lockImage {
-  width: 100px;
-  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  cursor: pointer;
-}
-
-.lockImage:hover {
-  width: 120px;
-  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
-}
-
-@media screen and (max-width: 700px) {
-  .lockImage {
-    width: 80px;
-  }
-}
-
-*:focus {outline:none}
-
 /* body {
   overflow: hidden;
 } */
-
-.animations_reveal {
-  opacity: 0;
-}
-
-.animations_reveal2 {
-  opacity: 0;
-}
-
-.shouldIHeader {
-  position: absolute;
-  color: #949494;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 7%;
-  font-size: 25px;
-  width: fit-content;
-}

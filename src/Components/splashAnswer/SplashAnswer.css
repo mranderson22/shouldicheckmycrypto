@@ -1,0 +1,59 @@
+.animations_reveal {
+  opacity: 0;
+}
+
+.animations_reveal2 {
+  opacity: 0;
+}
+
+.answerBox {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: calc(4vw + 4vh + 4vmin);
+  color: rgba(223, 226, 230, 0.6);
+  text-shadow: 3px 3px 10px #141414ad;
+  width: 90vw;
+  text-align: center;
+}
+
+.answerWrapper {
+  background: rgba(30, 41, 56, 0.84);
+  height: inherit;
+  padding: 0;
+  justify-content: stretch;
+  align-items: center;
+  display: flex;
+  z-index: 1;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  flex-direction: column-reverse;
+}
+
+.lockbody {
+  margin-bottom: 44vh;
+  filter: invert(58%);
+  margin-left: -16px;
+}
+
+
+.lockImage {
+  width: 100px;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+}
+
+.lockImage:hover {
+  width: 120px;
+  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
+}
+
+@media screen and (max-width: 700px) {
+  .lockImage {
+    width: 80px;
+  }
+}
+

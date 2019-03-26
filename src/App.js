@@ -1,10 +1,8 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import axios from 'axios';
-import Loader from 'react-loader-spinner';
-import * as animations from './animations';
-import lockbody from '../images/lockbody.png';
-import arrows from '../images/arrows.png';
+import SplashHeader from './Components/splashHeader/SplashHeader';
+import SplashAnswer from './Components/splashAnswer/SplashAnswer';
 import Dashboard from './Components/dashboard/Dashboard';
 import './app.css';
 import 'babel-polyfill';
@@ -32,7 +30,7 @@ class App extends Component {
     }, 2000);
     setInterval(() => {
       this.fetchCryptoData(3);
-    }, 10000);
+    }, 30000);
     await setTimeout(() => {
       this.revealDashboard();
     }, 3300);
@@ -53,38 +51,38 @@ class App extends Component {
     const change7d = parseFloat(coin1Info.change7d);
 
     if (change7d <= -5) {
-      this.setState(() => ({ text: 'absolutely not.' }));
+      this.setState(() => ({ text: 'Absolutely not.' }));
     }
     else if (change7d >= 5) {
-      this.setState(() => ({ text: 'absolutely!', answer: true }));
+      this.setState(() => ({ text: 'Absolutely!', answer: true }));
     }
     else if (change7d >= 0) {
-      this.setState(() => ({ text: 'looks good', answer: true }));
+      this.setState(() => ({ text: 'Looks good!', answer: true }));
     }
     else if (change7d < 0) {
-      this.setState(() => ({ text: 'probably not' }));
+      this.setState(() => ({ text: 'If you must.' }));
     }
     else {
-      this.setState(() => ({ text: 'try again' }));
+      this.setState(() => ({ text: 'Try again.' }));
     }
   }
 
 
   // receiving data from dashboard component and sets the state accordingly in order
   // for the fetchCryptoData function to grab the correct data.
-  updateCoin = (num, updatedCoin, curr) => {
-    if (num === 1) {
+  updateCoin = (graph, updatedCoin, currency) => {
+    if (graph === 1) {
       this.setState(() => ({
         coin1: updatedCoin
       }), () => {
-        this.fetchCryptoData(1, curr);
+        this.fetchCryptoData(1, currency);
       });
     }
-    else if (num === 2) {
+    else if (graph === 2) {
       this.setState(() => ({
         coin2: updatedCoin
       }), () => {
-        this.fetchCryptoData(2, curr);
+        this.fetchCryptoData(2, currency);
       });
     }
   }
@@ -98,11 +96,38 @@ class App extends Component {
     }
   }
 
+  // Stops any loading animations or 0 opacities after setting the state with the updated coin.
+  endTransitionAnimations = () => {
+    const { isDashboardVisible } = this.state;
+
+    if (isDashboardVisible) {
+      const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
+      const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
+      const element2 = document.getElementById('NoChartActual graph1');
+      const element3 = document.getElementById('coinInfo graph1');
+      const graphPrice = document.getElementById('graphPricegraph1');
+      const spinner = document.getElementById('spinner');
+      const spinner2 = document.getElementById('spinner2');
+      setTimeout(() => {
+        graphPrice.classList.remove('flash');
+        bgImageChartInfo.classList.remove('fade');
+        bgImage.classList.remove('fade');
+        element2.classList.remove('flash');
+        element3.classList.remove('flash');
+        if (spinner) {
+          spinner.classList.add('flash');
+        }
+        if (spinner2) {
+          spinner2.classList.add('flash');
+        }
+      }, 0);
+    }
+  }
+
   // Main API call to populate the coinInfo object with the apropriate data
-  fetchCryptoData = async (num, curr = 'usd') => {
+  fetchCryptoData = async (num, currency = 'usd') => {
     const { coin1 } = this.state;
     const { coin2 } = this.state;
-    const { isDashboardVisible } = this.state;
     let wanted;
     if (num !== 3) {
       if (num === 1) {
@@ -112,9 +137,9 @@ class App extends Component {
         wanted = coin2.toLowerCase();
       }
       try {
-        const response = await axios(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${curr.toLowerCase()}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d`);
+        const response = await axios(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.toLowerCase()}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d`);
         const allCoins = response.data;
-        const specificCoin = response.data.filter(currency => currency.symbol === wanted);
+        const specificCoin = response.data.filter(coin => coin.symbol === wanted);
         const x = specificCoin[0];
         const coin = {
           name: x.name,
@@ -143,54 +168,12 @@ class App extends Component {
 
         if (num === 1) {
           this.setState(() => ({ coin1Info: coin, allCoins }), () => {
-            if (isDashboardVisible) {
-              const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
-              const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
-              const element2 = document.getElementById('NoChartActual graph1');
-              const element3 = document.getElementById('coinInfo graph1');
-              const graphPrice = document.getElementById('graphPricegraph1');
-              const spinner = document.getElementById('spinner');
-              const spinner2 = document.getElementById('spinner2');
-              setTimeout(() => {
-                graphPrice.classList.remove('flash');
-                bgImageChartInfo.classList.remove('fade');
-                bgImage.classList.remove('fade');
-                element2.classList.remove('flash');
-                element3.classList.remove('flash');
-                if (spinner) {
-                  spinner.classList.add('flash');
-                }
-                if (spinner2) {
-                  spinner2.classList.add('flash');
-                }
-              }, 0);
-            }
+            this.endTransitionAnimations();
           });
         }
         else if (num === 2) {
           this.setState(() => ({ coin2Info: coin, allCoins }), () => {
-            if (isDashboardVisible) {
-              const bgImage2 = document.getElementById('cryptoImageBackgroundgraph2');
-              const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
-              const element4 = document.getElementById('NoChartActual graph2');
-              const element5 = document.getElementById('coinInfo graph2');
-              const graphPrice2 = document.getElementById('graphPricegraph2');
-              const spinner = document.getElementById('spinner');
-              const spinner2 = document.getElementById('spinner2');
-              setTimeout(() => {
-                graphPrice2.classList.remove('flash');
-                bgImageChartInfo2.classList.remove('fade');
-                bgImage2.classList.remove('fade');
-                element4.classList.remove('flash');
-                element5.classList.remove('flash');
-                if (spinner) {
-                  spinner.classList.add('flash');
-                }
-                if (spinner2) {
-                  spinner2.classList.add('flash');
-                }
-              }, 0);
-            }
+            this.endTransitionAnimations();
           });
         }
       }
@@ -201,6 +184,7 @@ class App extends Component {
     else if (num === 3) {
       const response2 = await axios('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
       const result = response2.data.bitcoin.usd;
+
       this.setState(() => ({ currentBTCPrice: result }));
     }
   };
@@ -213,44 +197,15 @@ class App extends Component {
 
     return (
       <div>
-        <animations.Reveal3
-          className="shouldIHeader"
-          pose={isDashboardVisible ? 'hidden' : 'visible'}
-        >
-          <span>
-            {'Should I check my crypto?'}
-          </span>
-        </animations.Reveal3>
+        <SplashHeader isDashboardVisible={isDashboardVisible} />
         <div className="answerBackground">
-          <div className="answerWrapper">
-            {loading ? (
-              <div className="spinner">
-                <Loader type="Oval" color="#dfe2e680" height={120} width={120} />
-              </div>
-            ) : null}
-            <h1 className="answerBox">
-              <animations.Reveal pose={isAnswerBoxVisible ? 'visible' : 'hidden'} className="animations_reveal">
-                {text}
-              </animations.Reveal>
-            </h1>
-            {
-          answer === true ? null : (
-            <div className="lockbody">
-              <div
-                onClick={this.onLockClick}
-                onKeyDown={this.onLockClick}
-                role="button"
-                tabIndex={0}
-              >
-                <animations.Reveal2 pose={isAnswerBoxVisible ? 'visible' : 'hidden'} className="animations_reveal2">
-                  <div>
-                    {answer ? null : (<img className="lockImage" alt="" src={lockbody} />)}
-                  </div>
-                </animations.Reveal2>
-              </div>
-            </div>)
-        }
-          </div>
+          <SplashAnswer
+            loading={loading}
+            isAnswerBoxVisible={isAnswerBoxVisible}
+            onLockClick={this.onLockClick}
+            answer={answer}
+            text={text}
+          />
           <div>
             {isDashboardVisible ? (
               <Dashboard

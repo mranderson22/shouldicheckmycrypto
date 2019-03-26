@@ -1,0 +1,9 @@
+.shouldIHeader {
+  position: absolute;
+  color: #949494;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 7%;
+  font-size: 25px;
+  width: fit-content;
+}
