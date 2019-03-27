@@ -32,21 +32,23 @@ class App extends Component {
           this.setState(() => ({ down: true }));
         });
       }
-    }, 5000);
+    }, 10000);
     await this.fetchCryptoData(1);
     await this.fetchCryptoData(2);
     await this.fetchCryptoData(3);
-    await setTimeout(() => {
-      this.setState(() => ({ loading: false }));
-      this.setState(() => ({ isAnswerBoxVisible: 'true' }));
-      this.setMood();
-    }, 2000);
-    setInterval(() => {
-      this.fetchCryptoData(3);
-    }, 30000);
-    await setTimeout(() => {
-      this.revealDashboard();
-    }, 3300);
+    if (!down) {
+      await setTimeout(() => {
+        this.setState(() => ({ loading: false }));
+        this.setState(() => ({ isAnswerBoxVisible: 'true' }));
+        this.setMood();
+      }, 2000);
+      setInterval(() => {
+        this.fetchCryptoData(3);
+      }, 30000);
+      await setTimeout(() => {
+        this.revealDashboard();
+      }, 3300);
+    }
   }
 
   // click function for lock on main screen. First loads dashboard component
@@ -203,10 +205,15 @@ class App extends Component {
       }
     }
     else if (num === 3) {
-      const response2 = await axios('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
-      const result = response2.data.bitcoin.usd;
+      try {
+        const response2 = await axios('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+        const result = response2.data.bitcoin.usd;
 
-      this.setState(() => ({ currentBTCPrice: result }));
+        this.setState(() => ({ currentBTCPrice: result }));
+      }
+      catch (error) {
+        console.log('cannot get bitcoin data!');
+      }
     }
   };
 
@@ -229,18 +236,17 @@ class App extends Component {
             down={down}
           />
           <div>
-            {isDashboardVisible ? (
-              <Dashboard
-                sendCoin={this.updateCoin}
-                fetchData={this.fetchCryptoData}
-                answer={answer}
-                currentBTCPrice={currentBTCPrice}
-                coin1Info={coin1Info}
-                coin2Info={coin2Info}
-                allCoins={allCoins}
-              />
+            {isDashboardVisible && (
+            <Dashboard
+              sendCoin={this.updateCoin}
+              fetchData={this.fetchCryptoData}
+              answer={answer}
+              currentBTCPrice={currentBTCPrice}
+              coin1Info={coin1Info}
+              coin2Info={coin2Info}
+              allCoins={allCoins}
+            />
             )
-              : null
             }
           </div>
         </div>

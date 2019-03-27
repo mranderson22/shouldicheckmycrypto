@@ -1,0 +1,45 @@
+.plus {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-47%, -50%);
+  z-index: 0;
+  filter: invert(65%);
+  cursor: pointer;
+}
+
+@media screen and (max-height: 800px) {
+.plus {
+top: 70%
+}
+}
+
+@media screen and (max-height: 650px) {
+.plus {
+top: 66%
+}
+}
+
+@media screen and (max-height: 520px) {
+.plus {
+display: none;
+}
+}
+
+@media screen and (max-width: 1000px) {
+.plus {
+  display: none;
+}
+}
+
+.plusImage {
+width: 100px;
+-webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.plusImage:hover {
+width: 120px;
+-webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}

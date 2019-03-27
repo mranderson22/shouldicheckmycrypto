@@ -7,14 +7,12 @@ import 'react-moment';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import Swipe from 'react-easy-swipe';
 import 'babel-polyfill';
 import * as animations from '../../animations';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
+import { Plus, BurgerMenu, Gecko } from '../iconsUI/IconsUI';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
-import plus from '../../../images/plus-button.png';
-import burgerMenu from '../../../images/burgerMenu.png';
 
 class Dashboard extends Component {
   state = {
@@ -560,7 +558,7 @@ class Dashboard extends Component {
       }
     }
     catch (error) {
-      console.log('Error processing data!')
+      console.log('Error processing data!');
     }
   }
 
@@ -769,45 +767,28 @@ class Dashboard extends Component {
       answer, currentBTCPrice, coin1Info, coin2Info, allCoins
     } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'} className="animations_Reveal4">
           <BitcoinTracker
             currentBTCPrice={currentBTCPrice}
             answer={answer}
             handleSubmit5={this.handleSubmit5}
           />
-          <Swipe
-            id="sidebarContainer"
-            className="col-sm-2 sidebar"
-            onSwipeLeft={this.addSidebar}
-            tolerance={100}
-          >
-            <Sidebar
-              allCoins={allCoins}
-              handleSubmit5={this.handleSubmit5}
-              favorites={favorites}
-              graphFocus={graphFocus}
-              toggleFavorites={this.toggleFavorites}
-              ref="child"
-            />
-          </Swipe>
-          { sideBarOpener
-            ? (
-              <div
-                onClick={this.addSidebar}
-                className="offClick"
-              />
-            )
-            : null
-          }
-        </animations.Reveal4>
-        <animations.Reveal4 pose={isGraphVisible ? 'visible' : 'hidden'} className="animations_Reveal4">
+          <Sidebar
+            allCoins={allCoins}
+            handleSubmit5={this.handleSubmit5}
+            favorites={favorites}
+            graphFocus={graphFocus}
+            toggleFavorites={this.toggleFavorites}
+            addSidebar={this.addSidebar}
+            sideBarOpener={sideBarOpener}
+            ref="child"
+          />
           <animations.Resize
             className={graphFocus === 1 && secondGraphVisible ? ('col-sm-10 NoGraph popup') : ('col-sm-10 NoGraph')}
             pose={pose}
-            onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
-            onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2, hovered: true })}
-            onMouseLeave={() => this.setState({ hovered: false })}
+            onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
+            onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
           >
             <Graph
               secondGraphVisible={secondGraphVisible}
@@ -834,108 +815,61 @@ class Dashboard extends Component {
               coinInfo={coin1Info}
               id="graph1"
             />
-            {/*
-              { freshReveal ? (
-                <div
-                  className="exitButton"
-                  onClick={() => {
-                    this.addGraph(2) }
-                  }
-                  onKeyDown={() => {
-                    this.addGraph(2) }
-                  }
-                  role="button"
-                  tabIndex={0}
-                >
-                  <img className="exitImage" alt="" src={exit} />
-                </div>
-              ) : null}
-              */}
           </animations.Resize>
-          <div className="imageContainer">
-            <animations.Reveal3 pose={(secondGraphVisible && isGraphVisible) || sideBarOpener ? 'hidden' : 'visible'}
-              className="animations_Reveal3"
-            >
-              <div className="plus">
-                <div
-                  onClick={() => {
-                    if (isGraphVisible) {
-                      this.addGraph(1);
-                    }
-                    else {
-                      this.addGraph(2);
-                    }
-                  }
-                  }
-                  onKeyDown={
-                    null
-                  }
-                  role="button"
-                  tabIndex={0}
-                >
-                  <img className="plusImage" alt="" src={plus} />
-                </div>
-              </div>
-            </animations.Reveal3>
-          </div>
         </animations.Reveal4>
-        <div>
-          {freshReveal ? (
-            <animations.Reveal3
-              className={graphFocus === 1 ? ('col-sm-10 NoGraphNew animations_Reveal3') : ('col-sm-10 NoGraphNew animations_Reveal3 popup2')}
-              pose={pose2}
-              onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
-              onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1, hovered: true })}
-              onMouseLeave={() => this.setState({ hovered: false })}
-            >
-              <Graph
-                loading={loading2}
-                loadSpinner={this.loadSpinner}
-                isEnabled={isEnabled2}
-                graphData={graphData2}
-                isGraphVisible={isGraphVisible}
-                secondGraphVisible={secondGraphVisible}
-                onHistoryChange={this.onHistoryChange}
-                handleSubmit5={this.handleSubmit5}
-                handleChange={this.handleChange2}
-                changeCurrency={this.changeCurrency2}
-                coin1={coin2}
-                curr={curr2}
-                toggleCurr={toggleCurr2}
-                days={days2}
-                dateRangeChange={dateRangeChange2}
-                inputValue={inputValue2}
-                graphFocus={graphFocus2}
-                addGraph={this.addGraph}
-                toggleFavorites={this.toggleFavorites}
-                favorites={favorites}
-                setUserInput={this.setUserInput}
-                coinInfo={coin2Info}
-                id="graph2"
-              />
-            </animations.Reveal3>
-          ) : null
-        }
-        </div>
-        <animations.Reveal4 pose={isGraphVisible ? 'visible2' : 'hidden'}>
-          <div
-            className="burgerMenuContainer"
-            onClick={this.addSidebar}
-            onKeyDown={this.addSidebar}
-            role="button"
-            tabIndex={-1}
+        <Plus
+          secondGraphVisible={secondGraphVisible}
+          isGraphVisible={isGraphVisible}
+          addGraph={this.addGraph}
+        />
+        {freshReveal && (
+          <animations.Reveal3
+            className={graphFocus === 1 ? ('col-sm-10 NoGraphNew animations_Reveal3') : ('col-sm-10 NoGraphNew animations_Reveal3 popup2')}
+            pose={pose2}
+            onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
+            onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
           >
-            <img className="burgerMenu" alt="" src={burgerMenu} />
+            <Graph
+              loading={loading2}
+              loadSpinner={this.loadSpinner}
+              isEnabled={isEnabled2}
+              graphData={graphData2}
+              isGraphVisible={isGraphVisible}
+              secondGraphVisible={secondGraphVisible}
+              onHistoryChange={this.onHistoryChange}
+              handleSubmit5={this.handleSubmit5}
+              handleChange={this.handleChange2}
+              changeCurrency={this.changeCurrency2}
+              coin1={coin2}
+              curr={curr2}
+              toggleCurr={toggleCurr2}
+              days={days2}
+              dateRangeChange={dateRangeChange2}
+              inputValue={inputValue2}
+              graphFocus={graphFocus2}
+              addGraph={this.addGraph}
+              toggleFavorites={this.toggleFavorites}
+              favorites={favorites}
+              setUserInput={this.setUserInput}
+              coinInfo={coin2Info}
+              id="graph2"
+            />
+          </animations.Reveal3>
+        )
+      }
+      {/*
+        {(secondGraphVisible) && (
+          <div>
+            <div className={graphFocus === 1 ? 'graphConnector visible2' : 'graphconnector'} />
+            <div className={graphFocus === 2 ? 'graphConnector2 visible2' : 'graphconnector2'} />
           </div>
-        </animations.Reveal4>
-        <div className="geckoWrapper">
-          <span className="gecko">
-            {'powered by'}
-            <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer">
-              {' CoinGecko'}
-            </a>
-          </span>
-        </div>
+        )}
+      */}
+        <BurgerMenu
+          isGraphVisible={isGraphVisible}
+          addSidebar={this.addSidebar}
+        />
+        <Gecko />
       </div>
     );
   }

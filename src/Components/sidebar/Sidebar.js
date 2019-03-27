@@ -1,12 +1,14 @@
+/* eslint-disable max-len */
 import React, { Component } from 'react';
 import './Sidebar.css';
-import Loader from 'react-loader-spinner';
+import Swipe from 'react-easy-swipe';
 import PropTypes from 'prop-types';
 import heartFilled from '../../../images/heartFilled.png';
 import trendingup from '../../../images/trendingup.png';
 import trendingdown from '../../../images/trendingdown.png';
 import exiticon from '../../../images/exiticon.png';
-import list from '../../../images/list.png';
+import listImage from '../../../images/list.png';
+import { GraphSpinner } from '../loadingSpinners/LoadingSpinners';
 
 
 class Sidebar extends Component {
@@ -70,7 +72,7 @@ class Sidebar extends Component {
       <div key={x.id}>
         <button
           type="button"
-          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
+          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
           onClick={(e) => {
             handleSubmit5(e, x.symbol.toUpperCase());
           }
@@ -144,22 +146,23 @@ class Sidebar extends Component {
 
 
   render() {
-    const { newRankingList } = this.state;
-    const { listStatus } = this.state;
-    const { loading } = this.state;
+    const { newRankingList, listStatus, loading } = this.state;
+    const { addSidebar, sideBarOpener } = this.props;
+
     return (
-      <div>
-        {loading ? (
-          <div className="spinnercontainerGraph">
-            <div className="spinner">
-              <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
-            </div>
-          </div>
-        ) : null}
+      <Swipe
+        id="sidebarContainer"
+        className="col-sm-2 sidebar"
+        onSwipeLeft={addSidebar}
+        tolerance={100}
+      >
+        {loading && (
+          <GraphSpinner />
+        )}
         <div className={loading ? 'list-group listAddOn' : 'list-group listAddOn visible'}>
           <nav id="nav" className="nav sticky-top nav-pills nav-fill">
             <span className={listStatus === 'Ranked' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="ranked">
-              <img className="heartSidebar" src={list} alt="ranked" />
+              <img className="heartSidebar" src={listImage} alt="ranked" />
             </span>
             <span className={listStatus === 'Top' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="topPercentage">
               <img className="heartSidebar" src={trendingup} alt="trendingup" />
@@ -175,7 +178,16 @@ class Sidebar extends Component {
             {newRankingList}
           </div>
         </div>
-      </div>
+        { sideBarOpener
+          && (
+            <div
+              role="presentation"
+              onClick={addSidebar}
+              className="offClick"
+            />
+          )
+        }
+      </Swipe>
     );
   }
 }
@@ -183,13 +195,17 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
-  toggleFavorites: PropTypes.func
+  toggleFavorites: PropTypes.func,
+  addSidebar: PropTypes.func,
+  sideBarOpener: PropTypes.bool
 };
 
 Sidebar.defaultProps = {
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
-  toggleFavorites: PropTypes.func
+  toggleFavorites: PropTypes.func,
+  addSidebar: PropTypes.func,
+  sideBarOpener: PropTypes.bool
 };
 
 export default Sidebar;

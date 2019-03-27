@@ -1,7 +1,7 @@
 import React from 'react';
 import './BitcoinTracker.css';
 
-const BitcoinTracker = ({currentBTCPrice, answer, handleSubmit5 }) => {
+const BitcoinTracker = ({ currentBTCPrice, answer, handleSubmit5 }) => {
   const price = parseFloat(currentBTCPrice).toFixed(2);
   return (
     <div

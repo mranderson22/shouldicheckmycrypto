@@ -10,7 +10,7 @@ const CoinSearch = ({ setUserInput, inputValue, handleChange, coin1 }) => (
       <Form inline onSubmit={setUserInput}>
         <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
           <Label for="Name">
-            <Input name="userInput" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. LTC" maxLength="12" />
+            <Input name="userInput" autoComplete="off" className="textField" value={inputValue} type="text" onChange={handleChange} placeholder="ex. LTC" maxLength="12" />
             <div className="coinSearchTooltip">
               <span id={`userInput ${coin1}`} className="tooltipText">
                 {'Coin not found!'}

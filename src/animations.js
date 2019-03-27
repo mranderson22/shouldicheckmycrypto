@@ -51,17 +51,17 @@ export const Reveal3 = posed.div({
   visible: {
     opacity: 1,
     transition: { duration: 800 },
-    delay: 0
+    delay: 600
   },
   secondary: {
     opacity: 1,
     transition: { duration: 800 },
-    delay: 0
+    delay: 5000
   },
   movedOver: {
-    opacity: 1,
+    opacity: 0,
     transition: { duration: 800 },
-    delay: 0
+    delay: 5000
   },
   fullSize: {
   }

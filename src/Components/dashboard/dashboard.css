@@ -30,6 +30,7 @@
   padding-top: 0px;
   padding-bottom: 0px;
   border-radius: 4px;
+  z-index: 1;
   background: #d2d2d2;
   -webkit-transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -75,15 +76,6 @@
   transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
-
-
-
-/* @media screen and (max-width: 1000px) {
-  .Nochartheader {
-    font-size: .7rem;
-  }
-} */
-
 @media screen and (max-width: 1000px) {
   .Nochartheader {
     right: 0%;
@@ -104,58 +96,8 @@
   top: 60%;
 }
 
-.btn-primary {
-    /* background-color: #1d1a1a !important;
-    border-color: #1d1a1a !important; */
-}
-
 .NoChartActual::after {
   padding-top: 40px;
-}
-
-.plus {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-47%, -50%);
-    z-index: 0;
-    filter: invert(65%);
-}
-
-@media screen and (max-height: 800px) {
-  .plus {
-  top: 70%
-  }
-}
-
-@media screen and (max-height: 650px) {
-  .plus {
-  top: 66%
-  }
-}
-
-@media screen and (max-height: 520px) {
-  .plus {
-  display: none;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .plus {
-    display: none;
-  }
-}
-
-.plusImage {
-  width: 100px;
-  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.plusImage:hover {
-  width: 120px;
-  -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .NoGraphNew {
@@ -219,27 +161,6 @@
   background: white;
 }
 
-.fullView {
-  width: 75vw;
-  left: 50%;
-}
-
-.backgroundClick {
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-.cryptoImage2 {
-  position: absolute;
-  right: 80%;
-  width: 45px;
-  top: 7px;
-  border-radius: 50%;
-  background-color: white;
-  border: 2px solid white;
-}
-
 .cryptoImageContainer {
   position: fixed !important;
   bottom: -4vh;
@@ -250,140 +171,40 @@
   bottom: -15px;
 }
 
-/* @media screen and (max-width: 1200px) {
-  .cryptoImageContainer {
-    display: none;
-  }
-} */
-
 .cryptoInput {
   margin-top: 5px;
   margin-left: 75px;
   width: max-content;
 }
 
-.coinButtonBank {
-  position: fixed !important;
-  right: -29%;
-  width: 300px !important;
-  padding: 5px 5px 5px 5px;
-  bottom: -4vh;
-  height: 63px;
-  top: 3%;
-  margin-top: 231px;
-  max-width: 26.666667% !important;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  background: #7b8589;
-  box-shadow: 10px 10px 15px 0px #0f161c85;
-
-
-}
-
-@media screen and (max-height: 650px) {
-  .coinButtonBank {
-    display: none;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .coinButtonBank {
-    right: -58%;
-  }
-}
-
-.sidebar {
-  width: 300px !important;
-  position: fixed !important;
-  left: 1%;
-  top: 0%;
-  height: 82.6%;
-  font-family: 'Poppins', sans-serif;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  margin-top: 98px;
-  overflow-y: scroll;
-   scrollbar-width: none; /* Firefox */
-   -ms-overflow-style: none;  /* IE 10+ */
-  border-radius: 4px;
-  background-color:#879095 !important;
-  box-shadow: 0px 0px 0px 3px #bebebe;
-  -webkit-transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: left 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.sidebar::-webkit-scrollbar { /* WebKit */
-    width: 0px;
-}
-
-@media screen and (max-height: 650px) {
-  .sidebar {
-    height: 65.8%;
-  }
-}
-
-@media screen and (min-height: 800px) {
-  .sidebar {
-    height: 85.9%;
-  }
-}
-
-@media screen and (min-height: 900px) {
-  .sidebar {
-    height: 85.6%;
-  }
-}
-
-@media screen and (min-height: 1050px) {
-  .sidebar {
-    height: 84.2%;
-  }
-}
-
-@media screen and (min-height: 1150px) {
-  .sidebar {
-    height: 83.7%;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .sidebar {
-    left: -25%;
-    z-index: 5;
-    height: 100%;
-    margin-top: 0;
-    box-shadow: 10px 10px 15px 0px #0f161c85;
-  }
-}
-
-@media screen and (min-width: 200px) {
-  .col-sm-2 {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
-  }
-}
-
-@media screen and (min-width: 650px) {
-  .col-sm-2 {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
-  }
-}
-
 .graphConnector {
-  width: 300px;
-  height: 1px;
+  width: 70px;
+  height: 3px;
   position: absolute;
-  top: 50%;
-  left: -15%;
-  background: white;
-  z-index: -1;
+  top: 23%;
+  left: 9%;
+  background: #bebebe;
+  z-index: 0;
+  -webkit-transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.graphConnector2 {
+  width: 70px;
+  height: 3px;
+  position: absolute;
+  top: 70%;
+  left: 9%;
+  background: #bebebe;
+  z-index: 0;
+  -webkit-transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.visible2 {
+  width: 300px;
+  -webkit-transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .graphConnectorSide {
@@ -404,21 +225,6 @@
   opacity: 0;
 }
 
-.offClick {
-  position: fixed !important;
-  width: 100vw;
-  top: 0%;
-  left: 0% !important;
-  height: 100vh;
-  z-index: 1;
-}
-
-@media screen and (min-width: 1000px) {
-  .offClick {
-    display: none;
-  }
-}
-
 .geckoWrapper {
   position: relative;
 }
@@ -430,4 +236,41 @@
   width: 200px;
   color: #bebebe;
   font-size: 15px;
+}
+
+@media screen and (min-width: 200px) {
+  .col-sm-2 {
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .col-sm-2 {
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+}
+
+@media screen and (min-width: 200px) {
+  .col-sm-2 {
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .col-sm-2 {
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }
+}
+
+.fullView {
+  width: 75vw;
+  left: 50%;
 }
