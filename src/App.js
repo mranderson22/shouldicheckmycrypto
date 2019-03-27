@@ -113,30 +113,35 @@ class App extends Component {
   }
 
   // Stops any loading animations or 0 opacities after setting the state with the updated coin.
-  endTransitionAnimations = () => {
+  endTransitionAnimations = (num) => {
     const { isDashboardVisible } = this.state;
-
+    let graph;
     if (isDashboardVisible) {
-      const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
-      const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
-      const element2 = document.getElementById('NoChartActual graph1');
-      const element3 = document.getElementById('coinInfo graph1');
-      const graphPrice = document.getElementById('graphPricegraph1');
+      if (num === 1) {
+        graph = 'graph1';
+      }
+      else if (num === 2) {
+        graph = 'graph2';
+      }
+      const bgImage = document.getElementById(`cryptoImageBackground${graph}`);
+      const bgImageChartInfo = document.getElementById(`cryptoImageBackgroundChartInfo${graph}`);
+      const element2 = document.getElementById(`NoChartActual ${graph}`);
+      const element3 = document.getElementById(`coinInfo ${graph}`);
+      const graphPrice = document.getElementById(`graphPrice${graph}`);
       const spinner = document.getElementById('spinner');
       const spinner2 = document.getElementById('spinner2');
-      setTimeout(() => {
-        graphPrice.classList.remove('flash');
-        bgImageChartInfo.classList.remove('fade');
-        bgImage.classList.remove('fade');
-        element2.classList.remove('flash');
-        element3.classList.remove('flash');
-        if (spinner) {
-          spinner.classList.add('flash');
-        }
-        if (spinner2) {
-          spinner2.classList.add('flash');
-        }
-      }, 0);
+
+      graphPrice.classList.remove('flash');
+      bgImageChartInfo.classList.remove('fade');
+      bgImage.classList.remove('fade');
+      element2.classList.remove('flash');
+      element3.classList.remove('flash');
+      if (spinner) {
+        spinner.classList.add('flash');
+      }
+      if (spinner2) {
+        spinner2.classList.add('flash');
+      }
     }
   }
 
@@ -184,12 +189,12 @@ class App extends Component {
 
         if (num === 1) {
           this.setState(() => ({ coin1Info: coin, allCoins }), () => {
-            this.endTransitionAnimations();
+            this.endTransitionAnimations(1);
           });
         }
         else if (num === 2) {
           this.setState(() => ({ coin2Info: coin, allCoins }), () => {
-            this.endTransitionAnimations();
+            this.endTransitionAnimations(2);
           });
         }
       }
