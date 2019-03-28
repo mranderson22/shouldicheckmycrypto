@@ -61,7 +61,7 @@ class Graph extends Component {
     const {
       handleChange,
       isEnabled, onHistoryChange, graphData, changeCurrency, id, loading,
-      curr, coin1, toggleCurr, setUserInput, inputValue, coinInfo, graphFocus,
+      curr, coin1, setUserInput, inputValue, coinInfo, graphFocus,
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
@@ -76,7 +76,9 @@ class Graph extends Component {
         displayColors: false,
         position: 'nearest',
         mode: 'index',
-        backgroundColor: 'rgb(24, 33, 44)'
+        backgroundColor: 'rgba(135, 144, 149, 0.99)',
+        titleFontColor: 'black',
+        bodyFontColor: 'black'
         // callbacks: {
         //   label: (tooltipItems) => {
         //     if (curr === 'USD') {
@@ -112,44 +114,37 @@ class Graph extends Component {
           ticks: {
             autoSkip: true,
             maxTicksLimit: 15,
-            fontColor: 'black',
-           
+            fontColor: '#879095'
           }
         }]
       }
     };
-    let button;
 
+    const button = (
+      <ButtonGroup>
+        <Button
+          className="currButton"
+          onClick={() => {
+            changeCurrency('USD', id);
+          }
+        }
+          active={rSelected === 1}
+        >
+          <img src={dollarIcon} className="currIcons" alt="dollar" />
+        </Button>
+        <Button
+          className="currButton"
+          onClick={() => {
+            changeCurrency('BTC', id);
+          }
+        }
+          active={rSelected === 2}
+        >
+          <img src={bitcoinIcon} className="currIcons" alt="bitcoin" />
+        </Button>
+      </ButtonGroup>
+    );
 
-    if (coin1 === 'BTC' && toggleCurr === false) {
-      button = null;
-    }
-    else if (toggleCurr === true) {
-      button = (
-        <ButtonGroup>
-          <Button
-            className="currButton"
-            onClick={() => {
-              changeCurrency('USD');
-            }
-         }
-            active={rSelected === 1}
-          >
-            <img src={dollarIcon} className="currIcons" alt="dollar" />
-          </Button>
-          <Button
-            className="currButton"
-            onClick={() => {
-              changeCurrency('BTC');
-            }
-         }
-            active={rSelected === 2}
-          >
-            <img src={bitcoinIcon} className="currIcons" alt="bitcoin" />
-          </Button>
-        </ButtonGroup>
-      );
-    }
     let rSelected2;
     if (days === 31) {
       rSelected2 = 3;
@@ -198,7 +193,7 @@ class Graph extends Component {
         {loading ? (
           <div id="spinner" className="spinnerContainerGraph">
             <div className="spinner">
-              <Loader type="Grid" color="#0d0c0c" height={60} width={60} />
+              <Loader type="Grid" color="#879095" height={60} width={60} />
             </div>
           </div>
         ) : null }
@@ -305,13 +300,16 @@ class Graph extends Component {
             { 'All' }
           </Button>
         </div>
-        <div className="currSelector">
-          <div>
-            {button}
+        {coin1 !== 'BTC' && (
+          <div className="currSelector">
+            <div>
+              {button}
+            </div>
           </div>
-        </div>
+        )
+        }
         <div
-          className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 Nochartheader shadowGraph') : ('col-sm-2 Nochartheader')}
+          className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 chartHeader shadowGraph') : ('col-sm-2 chartHeader')}
         >
           <ChartInfo
             coin1={coin1}
@@ -392,7 +390,6 @@ Graph.propTypes = {
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
-  toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
   toggleFavorites: PropTypes.func,
   favorites: PropTypes.array,
@@ -408,7 +405,6 @@ Graph.defaultProps = {
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
-  toggleCurr: PropTypes.bool,
   handleSubmit5: PropTypes.func,
   toggleFavorites: PropTypes.func,
   favorites: PropTypes.array,

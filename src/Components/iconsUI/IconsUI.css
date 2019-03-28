@@ -43,3 +43,58 @@ width: 120px;
 -webkit-transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
+
+.graphConnector {
+  width: 70px;
+  height: 3px;
+  position: absolute;
+  top: 23%;
+  left: 9%;
+  background: #bebebe;
+  z-index: 0;
+  -webkit-transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@media screen and (max-width: 1000px), screen and (max-height: 520px) {
+  .graphConnector {
+    visibility: hidden;
+  }
+}
+
+.graphConnector2 {
+  width: 70px;
+  height: 3px;
+  position: absolute;
+  top: 70%;
+  left: 9%;
+  background: #bebebe;
+  z-index: 0;
+  -webkit-transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@media screen and (max-width: 1000px), screen and (max-height: 520px) {
+  .graphConnector2 {
+    visibility: hidden;
+  }
+}
+
+.visible2 {
+  width: 300px;
+  -webkit-transition: width .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.geckoWrapper {
+  position: relative;
+}
+
+.gecko {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 200px;
+  color: #bebebe;
+  font-size: 15px;
+}

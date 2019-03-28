@@ -46,3 +46,19 @@
   border-style: solid;
   border-color: #18212c transparent transparent transparent;
 }
+
+.cryptoInputContainer {
+  position: fixed !important;
+  bottom: -4vh;
+  z-index: 20;
+  height: 63px;
+  max-width: 26.666667% !important;
+  left: -60px;
+  bottom: -15px;
+}
+
+.cryptoInput {
+  margin-top: 5px;
+  margin-left: 75px;
+  width: max-content;
+}

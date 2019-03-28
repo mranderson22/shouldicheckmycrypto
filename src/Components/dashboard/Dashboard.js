@@ -29,8 +29,6 @@ class Dashboard extends Component {
     coin2: 'ETH',
     curr: 'USD',
     curr2: 'USD',
-    toggleCurr: false,
-    toggleCurr2: true,
     isEnabled: false,
     isEnabled2: false,
     coinLog: [],
@@ -129,8 +127,8 @@ class Dashboard extends Component {
           label: 'Volume',
           type: 'bar',
           yAxisID: 'y-axis-1',
-          hoverBackgroundColor: '#1E2938',
-          backgroundColor: 'rgba(30, 41, 56, 0.55)'
+          hoverBackgroundColor: 'rgba(135, 144, 149, 0.9)',
+          backgroundColor: 'rgb(135, 144, 149, 0.4)'
         }
       ]
     };
@@ -323,7 +321,7 @@ class Dashboard extends Component {
         this.addToCoinlog(1);
         this.findSymbol(1);
         if (fade) {
-          this.fadeBackgroundImage1();
+          this.fadeBackgroundImage('graph1');
         }
       });
     }
@@ -331,7 +329,7 @@ class Dashboard extends Component {
       this.addToCoinlog(1);
       this.findSymbol(1);
       if (fade) {
-        this.fadeBackgroundImage1();
+        this.fadeBackgroundImage('graph1');
       }
     }
     if (sideBarOpener === true) {
@@ -350,7 +348,7 @@ class Dashboard extends Component {
       this.addToCoinlog(2);
       this.findSymbol(2);
       if (fade) {
-        this.fadeBackgroundImage2();
+        this.fadeBackgroundImage('graph2');
       }
       e.persist();
     }
@@ -361,7 +359,7 @@ class Dashboard extends Component {
         this.addToCoinlog(2);
         this.findSymbol(2);
         if (fade) {
-          this.fadeBackgroundImage2();
+          this.fadeBackgroundImage('graph2');
         }
       });
     }
@@ -371,13 +369,13 @@ class Dashboard extends Component {
         this.findSymbol(2);
         e.persist();
         if (fade) {
-          this.fadeBackgroundImage2();
+          this.fadeBackgroundImage('graph2');
         }
       });
     }
     else {
       if (fade) {
-        this.fadeBackgroundImage2();
+        this.fadeBackgroundImage('graph2');
       }
       this.addToCoinlog(2);
       this.findSymbol(2);
@@ -454,26 +452,14 @@ class Dashboard extends Component {
   }
 
   findSymbol = (num) => {
-    const { curr } = this.state;
-    const { curr2 } = this.state;
-    const { sendCoin } = this.props;
-    const { coin1 } = this.state;
-    const { allCoins } = this.props;
-    const { coin2 } = this.state;
-    const { days } = this.state;
-    const { days2 } = this.state;
-    const { toggleCurr } = this.state;
-    const { toggleCurr2 } = this.state;
+    const {
+      curr, curr2, coin1, coin2, days, days2
+    } = this.state;
+    const { sendCoin, allCoins } = this.props;
 
     if (num === 1) {
       const index = allCoins.findIndex(coin3 => coin3.symbol === coin1.toLowerCase());
       if (index !== -1) {
-        if (coin1 !== 'BTC' && toggleCurr === false) {
-          this.setState({ toggleCurr: true });
-        }
-        else if (coin1 === 'BTC' && toggleCurr === true) {
-          this.setState({ toggleCurr: false });
-        }
         setTimeout(() => {
           sendCoin(1, coin1, curr);
           this.fetchCryptocurrencyHistory(1, days);
@@ -485,12 +471,6 @@ class Dashboard extends Component {
     else if (num === 2) {
       const index = allCoins.findIndex(coins4 => coins4.symbol === coin1.toLowerCase());
       if (index !== -1) {
-        if (coin2 !== 'BTC' && toggleCurr2 === false) {
-          this.setState({ toggleCurr2: true });
-        }
-        else if (coin2 === 'BTC' && toggleCurr2 === true) {
-          this.setState({ toggleCurr2: false });
-        }
         setTimeout(() => {
           sendCoin(2, coin2, curr2);
           this.fetchCryptocurrencyHistory(2, days2);
@@ -501,8 +481,7 @@ class Dashboard extends Component {
   }
 
   toggleTooltip = (num = 1, action = 'add') => {
-    const { coin1 } = this.state;
-    const { coin2 } = this.state;
+    const { coin1, coin2 } = this.state;
 
     if (num === 1) {
       const tooltip = document.getElementById(`userInput ${coin1}`);
@@ -531,10 +510,10 @@ class Dashboard extends Component {
   }
 
   formatDate = (num = 1) => {
-    const { days } = this.state;
-    const { days2 } = this.state;
-    const { history } = this.state;
-    const { history2 } = this.state;
+    const {
+      days, days2, history, history2
+    } = this.state;
+
     try {
       if (num === 1) {
         history.forEach((pos) => {
@@ -562,13 +541,11 @@ class Dashboard extends Component {
     catch (error) {
       console.log('Error processing data!');
     }
-  }
+  };
 
   addGraph = (num) => {
     const pose = this.state;
-    const { freshReveal } = this.state;
-    const { secondGraphVisible } = this.state;
-    const { isGraphVisible } = this.state;
+    const { freshReveal, secondGraphVisible, isGraphVisible } = this.state;
     if (num === 1) {
       // Plus Button from 1st Graph
       this.setState({ freshReveal: !freshReveal }, () => {
@@ -604,11 +581,12 @@ class Dashboard extends Component {
         }
       });
     }
-  }
+  };
 
   addSidebar = () => {
     const { sideBarOpener } = this.state;
     const sidebar = document.getElementById('sidebarContainer');
+
     sidebar.classList.toggle('open');
     if (sideBarOpener === false) {
       this.setState(() => ({ sideBarOpener: true }));
@@ -616,52 +594,50 @@ class Dashboard extends Component {
     else {
       this.setState(() => ({ sideBarOpener: false }));
     }
-  }
+  };
 
-  changeCurrency1 = (curr) => {
-    const { coin1 } = this.state;
-    const { days } = this.state;
+  changeCurrency = (curr, graph) => {
+    const {
+      coin1, coin2, days, days2
+    } = this.state;
     const { fetchData } = this.props;
 
-    if (curr === 'USD' && coin1 !== 'BTC') {
-      this.setState({ curr: 'USD' }, () => {
-        this.fetchCryptocurrencyHistory(1, days);
-        fetchData(1, 'usd');
-      });
+    if (graph === 'graph1') {
+      if (curr === 'USD' && coin1 !== 'BTC') {
+        this.setState({ curr: 'USD' }, () => {
+          this.fetchCryptocurrencyHistory(1, days);
+          fetchData(1, 'usd');
+        });
+      }
+      else if (curr === 'BTC' && coin1 !== 'BTC') {
+        this.setState({ curr: 'BTC' }, () => {
+          this.fetchCryptocurrencyHistory(1, days);
+          fetchData(1, 'btc');
+        });
+      }
     }
-    else if (curr === 'BTC' && coin1 !== 'BTC') {
-      this.setState({ curr: 'BTC' }, () => {
-        this.fetchCryptocurrencyHistory(1, days);
-        fetchData(1, 'btc');
-      });
+    else if (graph === 'graph2') {
+      if (curr === 'USD' && coin2 !== 'BTC') {
+        this.setState({ curr2: 'USD' }, () => {
+          fetchData(2, 'usd');
+          this.fetchCryptocurrencyHistory(2, days2);
+        });
+      }
+      else if (curr === 'BTC' && coin2 !== 'BTC') {
+        this.setState({ curr2: 'BTC' }, () => {
+          this.fetchCryptocurrencyHistory(2, days2);
+          fetchData(2, 'btc');
+        });
+      }
     }
-  }
-
-  changeCurrency2 = (curr2) => {
-    const { coin2 } = this.state;
-    const { days2 } = this.state;
-    const { fetchData } = this.props;
-
-    if (curr2 === 'USD' && coin2 !== 'BTC') {
-      this.setState({ curr2: 'USD' }, () => {
-        fetchData(2, 'usd');
-        this.fetchCryptocurrencyHistory(2, days2);
-      });
-    }
-    else if (curr2 === 'BTC' && coin2 !== 'BTC') {
-      this.setState({ curr2: 'BTC' }, () => {
-        this.fetchCryptocurrencyHistory(2, days2);
-        fetchData(2, 'btc');
-      });
-    }
-  }
+  };
 
   addToCoinlog = (num) => {
-    const { coinLog } = this.state;
-    const { coin1 } = this.state;
+    const {
+      coinLog, coinLog2, coin1, coin2
+    } = this.state;
     const { allCoins } = this.props;
-    const { coinLog2 } = this.state;
-    const { coin2 } = this.state;
+
     if (num === 1) {
       allCoins.forEach((coins) => {
         if (coins.symbol === coin1.toLowerCase()) {
@@ -684,14 +660,14 @@ class Dashboard extends Component {
         }
       });
     }
-  }
+  };
 
   toggleFavorites = (sidebarCoin) => {
-    const { coin1 } = this.state;
-    const { coin2 } = this.state;
-    const { favorites } = this.state;
-    const { graphFocus } = this.state;
+    const {
+      coin1, coin2, favorites, graphFocus
+    } = this.state;
     let wanted;
+
     if (sidebarCoin) {
       wanted = sidebarCoin;
     }
@@ -712,31 +688,26 @@ class Dashboard extends Component {
       }
     }
     const freshFavorites = Array.from(new Set(favorites));
+
     this.setState({ favorites: freshFavorites }, () => {
       localStorage.setItem('savedFavoriteCoins', JSON.stringify(freshFavorites));
       this.refs.child.getFavorites();
     });
-  }
+  };
 
-  fadeBackgroundImage1 = () => {
-    const bgImage = document.getElementById('cryptoImageBackgroundgraph1');
-    const bgImageChartInfo = document.getElementById('cryptoImageBackgroundChartInfograph1');
+  fadeBackgroundImage = (graph) => {
+    const bgImage = document.getElementById(`cryptoImageBackground${graph}`);
+    const bgImageChartInfo = document.getElementById(`cryptoImageBackgroundChartInfo${graph}`);
+
     bgImage.classList.add('fade');
     bgImageChartInfo.classList.add('fade');
-    this.loadSpinner('graph1', false);
-  }
-
-  fadeBackgroundImage2 = () => {
-    const bgImage2 = document.getElementById('cryptoImageBackgroundgraph2');
-    const bgImageChartInfo2 = document.getElementById('cryptoImageBackgroundChartInfograph2');
-    bgImage2.classList.add('fade');
-    bgImageChartInfo2.classList.add('fade');
-    this.loadSpinner('graph2', false);
-  }
+    this.loadSpinner(graph, false);
+  };
 
   loadSpinner = (graph, fade = true) => {
     const element2 = document.getElementById(`NoChartActual ${graph}`);
     const element3 = document.getElementById(`coinInfo ${graph}`);
+
     if (fade) {
       element2.classList.add('flash');
     }
@@ -759,14 +730,14 @@ class Dashboard extends Component {
         this.setState(() => ({ loading2: false }));
       }
     }, 1000);
-  }
+  };
 
 
   render() {
     const {
       curr, curr2, isEnabled, isEnabled2, freshReveal, secondGraphVisible,
-      isGraphVisible, graphData, graphData2, toggleCurr,
-      toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
+      isGraphVisible, graphData, graphData2,
+      days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
       pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites,
       loading, loading2, coin1, coin2, graphConnector
     } = this.state;
@@ -792,7 +763,7 @@ class Dashboard extends Component {
             ref="child"
           />
           <animations.Resize
-            className={graphFocus === 1 && secondGraphVisible ? ('col-sm-10 NoGraph popup') : ('col-sm-10 NoGraph')}
+            className={graphFocus === 1 ? ('col-sm-10 graph1 highlight') : ('col-sm-10 graph1')}
             pose={pose}
             onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
             onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
@@ -807,10 +778,9 @@ class Dashboard extends Component {
               onHistoryChange={this.onHistoryChange}
               handleSubmit5={this.handleSubmit5}
               handleChange={this.handleChange1}
-              changeCurrency={this.changeCurrency1}
+              changeCurrency={this.changeCurrency}
               coin1={coin1}
               curr={curr}
-              toggleCurr={toggleCurr}
               days={days}
               dateRangeChange={dateRangeChange}
               inputValue={inputValue}
@@ -831,7 +801,7 @@ class Dashboard extends Component {
         />
         {freshReveal && (
           <animations.Reveal3
-            className={graphFocus === 1 ? ('col-sm-10 NoGraphNew animations_Reveal3') : ('col-sm-10 NoGraphNew animations_Reveal3 popup2')}
+            className={graphFocus === 1 ? ('col-sm-10 graph2 animations_Reveal3') : ('col-sm-10 graph2 animations_Reveal3 highlight')}
             pose={pose2}
             onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
             onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
@@ -846,10 +816,9 @@ class Dashboard extends Component {
               onHistoryChange={this.onHistoryChange}
               handleSubmit5={this.handleSubmit5}
               handleChange={this.handleChange2}
-              changeCurrency={this.changeCurrency2}
+              changeCurrency={this.changeCurrency}
               coin1={coin2}
               curr={curr2}
-              toggleCurr={toggleCurr2}
               days={days2}
               dateRangeChange={dateRangeChange2}
               inputValue={inputValue2}

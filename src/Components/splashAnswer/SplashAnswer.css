@@ -33,7 +33,7 @@
 
 @media screen and (max-width: 1000px) {
   .answerWrapper {
-    background: rgb(135, 143, 147);
+    background: rgba(29, 41, 55, 0.89);
   }
 }
 

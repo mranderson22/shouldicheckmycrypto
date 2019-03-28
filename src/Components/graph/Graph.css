@@ -1,3 +1,42 @@
+.chartHeader {
+  position: fixed !important;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  color: #1e2938;
+  font-weight: bolder;
+  width: 300px !important;
+  padding: 0px;
+  list-style: none;
+  text-align: left;
+  padding-top: 0px;
+  right: -29%;
+  top: 0%;
+  max-width: 26.666667% !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  overflow: hidden;
+  border-radius: 4px;
+  height: 250px;
+  -webkit-transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
+}
+
+@media screen and (max-width: 1000px) {
+  .chartHeader {
+    right: 0%;
+    max-width: none !important;
+    top: 105%;
+    box-shadow: none;
+    width: 96vw !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .chartHeader {
+    top: 101%;
+  }
+}
 
 .NoChartActual {
   height: 65vh;
@@ -32,7 +71,7 @@
   padding-bottom: 40px;
   padding-left: 2px;
   padding-top: 40px;
-  background: rgba(135, 144, 149, 0.89);
+  /* background: rgba(135, 144, 149, 0.89); */
   border-radius: 4px;
   overflow: hidden;
   -webkit-transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -176,16 +215,17 @@
   top: 45%;
   z-index: -1;
   width: 27vw;
-  filter: grayscale(100%);
+  filter: grayscale(80%);
   min-width: 200px;
   max-width: 400px;
   -webkit-transition: opacity 0.2s, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: opacity 0.2s, filter 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: .1;
 }
 
 @media screen and (max-width: 1000px) {
   .cryptoImageBackground {
-    opacity: .2;
+    opacity: .1;
   }
 }
 
@@ -196,7 +236,14 @@
 }
 
 .saturated {
-  filter: grayscale(50%);
+  filter: grayscale(60%);
+  opacity: .2;
+}
+
+@media screen and (max-width: 1000px) {
+  .saturated {
+    opacity: .2;
+  }
 }
 
 .form-control {
@@ -283,14 +330,21 @@
 .graphName {
   position: absolute;
   top: 1%;
-  left: 2%;
+  left: 1.5%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
-  color: #1e2938;
+  color: #b0b4b6;
   width: fit-content;
   z-index: 1;
   font-weight: bold;
 }
+
+@media screen and (max-width: 1000px) {
+  .graphName {
+    color: #b2b3b4;
+  }
+}
+
 
 @media screen and (max-width: 750px) {
   .graphName {
@@ -389,6 +443,10 @@
 
 }
 
+.graphName .redText {
+  color: #c40000;
+}
+
 .redText {
   color: #801f28;
 }
@@ -414,14 +472,14 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding-top: 5px;
-  padding-right: 5px;
+  padding-top: 10px;
+  padding-right: 10px;
+  filter: invert(85%);
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1000px) {
   .optionsBank {
     top: -10%;
-    filter: invert(85%);
   }
 }
 
@@ -462,6 +520,7 @@
 
 .heartFilled {
   opacity: 1;
+
   -webkit-transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   
