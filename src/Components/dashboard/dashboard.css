@@ -49,6 +49,7 @@
     width: 96% !important;
     top: 5% !important;
     box-shadow: none !important;
+    background: none !important;
   }
 }
 
@@ -185,8 +186,14 @@
   left: 9%;
   background: #bebebe;
   z-index: 0;
-  -webkit-transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@media screen and (max-width: 1000px) {
+  .graphConnector {
+    visibility: hidden;
+  }
 }
 
 .graphConnector2 {
@@ -197,14 +204,20 @@
   left: 9%;
   background: #bebebe;
   z-index: 0;
-  -webkit-transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width .8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@media screen and (max-width: 1000px) {
+  .graphConnector2 {
+    visibility: hidden;
+  }
 }
 
 .visible2 {
   width: 300px;
-  -webkit-transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: width 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transition: width .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: width .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .graphConnectorSide {

@@ -31,6 +31,12 @@
   flex-direction: column-reverse;
 }
 
+@media screen and (max-width: 1000px) {
+  .answerWrapper {
+    background: rgb(135, 143, 147);
+  }
+}
+
 .lockbody {
   margin-bottom: 44vh;
   filter: invert(58%);

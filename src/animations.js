@@ -98,3 +98,16 @@ export const Resize = posed.div({
   }
 
 });
+
+export const GraphConnectorAnimation = posed.div({
+  short: {
+    opacity: 0,
+    transition: { duration: 900 },
+    delay: 1200
+  },
+  long: {
+    opacity: 1,
+    transition: { duration: 900 },
+    delay: 1200
+  }
+});

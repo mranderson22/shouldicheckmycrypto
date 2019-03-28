@@ -10,7 +10,9 @@ import moment from 'moment';
 import 'babel-polyfill';
 import * as animations from '../../animations';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
-import { Plus, BurgerMenu, Gecko } from '../iconsUI/IconsUI';
+import {
+  Plus, BurgerMenu, Gecko, GraphConnector
+} from '../iconsUI/IconsUI';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
 
@@ -571,12 +573,17 @@ class Dashboard extends Component {
       // Plus Button from 1st Graph
       this.setState({ freshReveal: !freshReveal }, () => {
         if (freshReveal === false) {
-          this.setState({ pose: 'resized' }, () => {
-            this.setState({ pose2: 'visible' });
+          this.setState({ pose: 'resized', graphFocus: 2 }, () => {
+            this.setState({ pose2: 'visible' }, () => {
+              setTimeout(() => {
+                this.setState(() => ({ graphConnector: true }));
+              }, 0);
+            });
           });
         }
         // Exit Button for 2nd Graph
         else {
+          this.setState(() => ({ graphConnector: false }));
           this.setState({ pose2: 'hidden' }, () => {
             this.setState({ pose: 'initial' });
           });
@@ -761,7 +768,7 @@ class Dashboard extends Component {
       isGraphVisible, graphData, graphData2, toggleCurr,
       toggleCurr2, days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
       pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites,
-      loading, loading2, coin1, coin2
+      loading, loading2, coin1, coin2, graphConnector
     } = this.state;
     const {
       answer, currentBTCPrice, coin1Info, coin2Info, allCoins
@@ -857,14 +864,12 @@ class Dashboard extends Component {
           </animations.Reveal3>
         )
       }
-      {/*
-        {(secondGraphVisible) && (
-          <div>
-            <div className={graphFocus === 1 ? 'graphConnector visible2' : 'graphconnector'} />
-            <div className={graphFocus === 2 ? 'graphConnector2 visible2' : 'graphconnector2'} />
-          </div>
+        {secondGraphVisible && (
+          <GraphConnector
+            graphFocus={graphFocus}
+            graphConnector={graphConnector}
+          />
         )}
-      */}
         <BurgerMenu
           isGraphVisible={isGraphVisible}
           addSidebar={this.addSidebar}

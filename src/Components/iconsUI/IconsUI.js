@@ -1,5 +1,5 @@
 import React from 'react';
-import { Reveal3, Reveal4 } from '../../animations';
+import { Reveal3, Reveal4, GraphConnectorAnimation } from '../../animations';
 import plus from '../../../images/plus-button.png';
 import burgerMenu from '../../../images/burgerMenu.png';
 import './IconsUI.css';
@@ -50,3 +50,10 @@ export const Gecko = () => (
     </span>
   </div>
 );
+
+export const GraphConnector = ({ graphFocus, graphConnector }) => (
+  <div>
+    <div className={graphFocus === 1 ? 'graphConnector visible2' : 'graphConnector'} />
+    <GraphConnectorAnimation pose={graphConnector ? 'long' : 'short'} className={graphFocus === 2 ? 'graphConnector2 visible2' : 'graphConnector2'} />
+  </div>
+)
