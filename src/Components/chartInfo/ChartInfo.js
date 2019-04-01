@@ -1,16 +1,19 @@
 import React from 'react';
 import './ChartInfo.css';
-import Loader from 'react-loader-spinner';
+import moment from 'moment';
 import home from '../../../images/home_icon.png';
 import reddit from '../../../images/reddit_icon.png';
 import facebook from '../../../images/facebook_icon.png';
 import twitter from '../../../images/twitter_icon.png';
 import github from '../../../images/github_icon.png';
+import { ChartInfoSpinner } from '../loadingSpinners/LoadingSpinners';
 
 const ChartInfo = ({
-  dateRangeChange, days, coin1, coinInfo, loading, id
+  dateRangeChange, days, coin1, coinInfo, loading, id, graphFocus, secondGraphVisible, curr
 }) => (
-  <div>
+  <div
+    className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 chartHeader shadowGraph') : ('col-sm-2 chartHeader')}
+  >
     <nav className="nav nav-pills nav-fill">
       <span className="nav-item nav-link nav-chartInfo">
         <img className="detailsImage" src={coinInfo.image} alt="" />
@@ -26,13 +29,9 @@ const ChartInfo = ({
         src={coinInfo.image}
         id={`cryptoImageBackgroundChartInfo${id}`}
       />
-      {loading ? (
-        <div id="spinner2" className="spinnerContainerChartInfo">
-          <div className="spinnerChartInfo">
-            <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
-          </div>
-        </div>
-      ) : null }
+      {loading && (
+        <ChartInfoSpinner />
+      )}
       <div
         className="coinInfo"
         id={`coinInfo ${id}`}
@@ -84,7 +83,8 @@ const ChartInfo = ({
           ATH
           </span>
           <span className="right black">
-            {`$${coinInfo.ath}`}
+            {curr === 'USD' ? '$' : 'Ƀ'}
+            {coinInfo.ath < 0.10 ? `${parseFloat(coinInfo.ath).toFixed(8)}` : `${parseFloat(coinInfo.ath).toFixed(2)}`}
           </span>
         </li>
         <li>
@@ -95,6 +95,14 @@ const ChartInfo = ({
             {coinInfo.athChange}
           %
             {coinInfo.athChange <= 0 ? '↓' : '↑'}
+          </span>
+        </li>
+        <li>
+          <span>
+          ATH Date
+          </span>
+          <span className="right black">
+            {moment(coinInfo.athDate).format('MM/DD/YYYY')}
           </span>
         </li>
         <div className="iconsContainer">

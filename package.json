@@ -28,6 +28,7 @@
         "react": "^16.4.1",
         "react-animated-css": "^1.0.4",
         "react-chartjs-2": "^2.7.4",
+        "react-custom-scroll": "^4.0.1",
         "react-dom": "^16.4.1",
         "react-easy-swipe": "0.0.17",
         "react-lazy-load": "^3.0.13",

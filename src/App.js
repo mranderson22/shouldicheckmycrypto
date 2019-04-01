@@ -176,7 +176,7 @@ class App extends Component {
           change1h: parseFloat(x.price_change_percentage_1h_in_currency).toFixed(2),
           change24h: parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2),
           change7d: parseFloat(x.price_change_percentage_7d_in_currency).toFixed(2),
-          ath: parseFloat(x.ath).toFixed(2),
+          ath: x.ath,
           athChange: parseFloat(x.ath_change_percentage).toFixed(2),
           athDate: x.ath_date
         };

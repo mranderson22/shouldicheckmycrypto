@@ -5,3 +5,10 @@
   transform: translate(-50%, -50%);
 }
 
+.spinnerChartInfo {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

@@ -1,3 +1,55 @@
+.chartHeader {
+  position: fixed !important;
+  text-align: center;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  color: #1e2938;
+  font-weight: bolder;
+  width: 300px !important;
+  padding: 0px;
+  list-style: none;
+  text-align: left;
+  padding-top: 0px;
+  right: -29%;
+  top: 0%;
+  max-width: 26.666667% !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  overflow: hidden;
+  border-radius: 4px;
+  height: 280px;
+  -webkit-transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
+}
+
+@media screen and (max-width: 1000px) {
+  .chartHeader {
+    right: 0%;
+    max-width: none !important;
+    top: 105%;
+    box-shadow: none;
+    width: 96vw !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .chartHeader {
+    top: 101%;
+  }
+}
+
+@media screen and (max-height: 650px) {
+  .chartHeader {
+    height: 40vh;
+  }
+}
+
+.coinInfo {
+  margin-top: -5px;
+  -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
 .cryptoImageBackgroundChartInfo {
   position: absolute;
   left: 60%;
@@ -20,62 +72,23 @@
   padding-bottom: 75px;
 }
 
-.right {
-  text-align: right;
-  font-size: 16px !important;
-  float: right;
-  color: #d4e6ff;
-  font-weight: 500;
+.detailsImage {
+  width: 30px;
+  margin-left: -7px;
+  position: absolute;
+  margin-top: -4px;
+
 }
 
-@media screen and (max-width: 1200px) {
-  .right {
-    font-size: .9rem !important;
+@media screen and (max-width: 1000px) {
+  .detailsImage {
+    width: 25px;
+    margin-top: -2px;
   }
 }
 
-.black {
-  color: black;
-  font-weight: bold;
-}
-
-li {
-  margin-bottom: 5px;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show .nav-link {
-  color: #d9d9d9 !important;
-  background-color: #7b8589 !important;
-  font-size: 15px;
-  border-radius: 0 !important;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.nav-pills .nav-link {
-border-radius: 0 !important; 
-background-color: #223242;
-color: #d9d9d9 !important;
-}
-
-a {
-  color: #000000 !important;
-}
-
-#nav {
-background: #404040;
-}
-
-.nav-chartInfo {
-  background: rgba(24, 33, 44, 0.53) !important;
-}
-
-.tags {
-  flex-shrink: 5;
-}
-
-.tagIcons {
-  width: 20px;
+.detailsLabel {
+  margin-left: 31px;
 }
 
 .iconsContainer {
@@ -96,29 +109,49 @@ background: #404040;
   color: white;
 }
 
+.nav-pills .nav-link.active, .nav-pills .show .nav-link {
+  color: #d9d9d9 !important;
+  background-color: #7b8589 !important;
+  font-size: 15px;
+  border-radius: 0 !important;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.nav-pills .nav-link {
+border-radius: 0 !important; 
+background-color: #223242;
+color: #d9d9d9 !important;
+}
+
+.nav-chartInfo {
+  background: rgba(24, 33, 44, 0.53) !important;
+}
+
+.right {
+  text-align: right;
+  font-size: 16px !important;
+  float: right;
+  color: #d4e6ff;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 1200px) {
+  .right {
+    font-size: .9rem !important;
+  }
+}
+
+.tags {
+  flex-shrink: 5;
+}
+
+.tagIcons {
+  width: 20px;
+}
+
 .tagIcons:hover {
   filter: invert(90%);
   -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.detailsImage {
-  width: 30px;
-  margin-left: -7px;
-  position: absolute;
-  margin-top: -4px;
-
-}
-
-@media screen and (max-width: 1000px) {
-  .detailsImage {
-    width: 25px;
-    margin-top: -2px;
-  }
-}
-
-
-
-.detailsLabel {
-  margin-left: 31px;
 }

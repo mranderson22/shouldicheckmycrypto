@@ -8,8 +8,20 @@ export const MainSpinner = () => (
   </div>
 );
 
-export const GraphSpinner = () => (
+export const SidebarSpinner = () => (
   <div className="spinner">
+    <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
+  </div>
+);
+
+export const GraphSpinner = () => (
+  <div id="spinner" className="spinner">
+    <Loader type="Grid" color="#879095" height={60} width={60} />
+  </div>
+);
+
+export const ChartInfoSpinner = () => (
+  <div id="spinner2" className="spinnerChartInfo">
     <Loader type="Grid" color="rgb(24, 33, 44)" height={60} width={60} />
   </div>
 );

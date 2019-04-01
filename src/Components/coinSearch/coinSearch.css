@@ -1,10 +1,56 @@
-.form-inline {
-  align-items: unset !important;
+.active {
+  visibility: visible;
 }
 
 .coinSearchTooltip {
   display: inline-block;
   position: relative;
+}
+
+.coinSearchTooltip .tooltipText::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #18212c transparent transparent transparent;
+}
+
+.cryptoInput {
+  margin-top: 5px;
+  margin-left: 75px;
+  width: max-content;
+}
+
+.cryptoInputContainer {
+  position: fixed !important;
+  bottom: -4vh;
+  z-index: 20;
+  height: 63px;
+  max-width: 26.666667% !important;
+  left: -60px;
+  bottom: -15px;
+}
+
+.cryptoSubmit {
+  height: 30px;
+  width: 40px !important;
+  background-color: #1e2938 !important;
+  border-color: #1d1a1a !important;
+  box-shadow: none !important;
+  font-size: .8rem !important;
+}
+
+@media screen and (max-width: 600px) {
+  .cryptoSubmit {
+    visibility: hidden;
+  }
+}
+
+.form-inline {
+  align-items: unset !important;
 }
 
 .tooltipText {
@@ -32,33 +78,21 @@
   }
 }
 
-.active {
-  visibility: visible;
+.textField {
+  text-transform:uppercase;
+  background-color: #bebebe !important;
+  color: black !important;
+  height: 30px !important;
 }
 
-.coinSearchTooltip .tooltipText::after {
-  content: " ";
-  position: absolute;
-  top: 100%; /* At the bottom of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #18212c transparent transparent transparent;
+.textField:focus, .textField:visited, .textField:action {
+  border-color: black !important;
+  outline: 0;
+  box-shadow: none;
 }
 
-.cryptoInputContainer {
-  position: fixed !important;
-  bottom: -4vh;
-  z-index: 20;
-  height: 63px;
-  max-width: 26.666667% !important;
-  left: -60px;
-  bottom: -15px;
-}
-
-.cryptoInput {
-  margin-top: 5px;
-  margin-left: 75px;
-  width: max-content;
+@media screen and (max-width: 1100px) {
+  .textField {
+    width: 75px !important;
+  }
 }

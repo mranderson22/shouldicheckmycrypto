@@ -8,7 +8,7 @@ import trendingup from '../../../images/trendingup.png';
 import trendingdown from '../../../images/trendingdown.png';
 import exiticon from '../../../images/exiticon.png';
 import listImage from '../../../images/list.png';
-import { GraphSpinner } from '../loadingSpinners/LoadingSpinners';
+import { SidebarSpinner } from '../loadingSpinners/LoadingSpinners';
 
 
 class Sidebar extends Component {
@@ -108,40 +108,50 @@ class Sidebar extends Component {
     const { favorites } = this.props;
     const { handleSubmit5 } = this.props;
     const { toggleFavorites } = this.props;
-    const newRankingList = list.map(x => (
-      <div key={x.id} className="sidebarButtonWrapper">
-        <button
-          type="button"
-          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
-          onClick={(e) => {
-            handleSubmit5(e, x.symbol.toUpperCase());
-          }
-                }
-        >
-          <img className="sidebarIcon" src={x.image}/>
-          <span className="sidebarRank">
-            {`${x.market_cap_rank}.`}
-          &nbsp;
-          </span>
-          <span className="sidebarCoin">
-            {x.symbol.toUpperCase()}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </span>
-          <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
-            {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
-          </span>
-        </button>
-        <button
-          className="removeFavorite"
-          type="button"
-          onClick={() => {
-            toggleFavorites(x.symbol.toUpperCase());
-          }}
-        >
-          <img className="exitIcons" src={exiticon} alt="favorite" />
-        </button>
-      </div>));
-    this.setState({ newRankingList });
+    if (favorites.length !== 0) {
+      const newRankingList = list.map(x => (
+        <div key={x.id} className="sidebarButtonWrapper">
+          <button
+            type="button"
+            className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
+            onClick={(e) => {
+              handleSubmit5(e, x.symbol.toUpperCase());
+            }
+                  }
+          >
+            <img className="sidebarIcon" src={x.image}/>
+            <span className="sidebarRank">
+              {`${x.market_cap_rank}.`}
+            &nbsp;
+            </span>
+            <span className="sidebarCoin">
+              {x.symbol.toUpperCase()}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
+              {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
+            </span>
+          </button>
+          <button
+            className="removeFavorite"
+            type="button"
+            onClick={() => {
+              toggleFavorites(x.symbol.toUpperCase());
+            }}
+          >
+            <img className="exitIcons" src={exiticon} alt="favorite" />
+          </button>
+        </div>));
+      this.setState({ newRankingList });
+    }
+    else {
+      const newRankingList = (
+        <span className="empyFavorites">
+          {'Start Adding Favorites!'}
+        </span>
+      );
+      this.setState({ newRankingList });
+    }
   }
 
 
@@ -157,7 +167,7 @@ class Sidebar extends Component {
         tolerance={100}
       >
         {loading && (
-          <GraphSpinner />
+          <SidebarSpinner />
         )}
         <div className={loading ? 'list-group listAddOn' : 'list-group listAddOn visible'}>
           <nav id="nav" className="nav sticky-top nav-pills nav-fill">
