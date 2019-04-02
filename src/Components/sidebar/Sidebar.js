@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
 import './Sidebar.css';
+import { Scrollbars } from 'react-custom-scrollbars';
 import Swipe from 'react-easy-swipe';
 import PropTypes from 'prop-types';
 import heartFilled from '../../../images/heartFilled.png';
@@ -70,8 +71,8 @@ class Sidebar extends Component {
     const { handleSubmit5 } = this.props;
     const newRankingList = await list.map(x => (
       <div key={x.id}>
-        <button
-          type="button"
+        <div
+          type="link"
           className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
           onClick={(e) => {
             handleSubmit5(e, x.symbol.toUpperCase());
@@ -99,7 +100,7 @@ class Sidebar extends Component {
                   alt="heart"
                 />
               </span>)}
-        </button>
+        </div>
       </div>));
     this.setState({ newRankingList });
   }
@@ -111,8 +112,8 @@ class Sidebar extends Component {
     if (favorites.length !== 0) {
       const newRankingList = list.map(x => (
         <div key={x.id} className="sidebarButtonWrapper">
-          <button
-            type="button"
+          <div
+            type="link"
             className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
             onClick={(e) => {
               handleSubmit5(e, x.symbol.toUpperCase());
@@ -131,7 +132,7 @@ class Sidebar extends Component {
             <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
               {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
             </span>
-          </button>
+          </div>
           <button
             className="removeFavorite"
             type="button"
@@ -185,7 +186,12 @@ class Sidebar extends Component {
             </span>
           </nav>
           <div>
-            {newRankingList}
+            <Scrollbars
+              renderThumbVertical={props => <div {...props} className="thumb-vertical" />}
+              renderView={props => <div {...props} className="view" />}
+            >
+              {newRankingList}
+            </Scrollbars>
           </div>
         </div>
         { sideBarOpener

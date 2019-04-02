@@ -1012,7 +1012,7 @@ color: #d9d9d9 !important;
   background: #6a7580 !important;
   color: white;
   outline: 0;
-  z-index: 1;
+  z-index: 0;
 }
 
 .empyFavorites {
@@ -1054,7 +1054,7 @@ color: #d9d9d9 !important;
 }
 
 .iconVisible {
-  z-index: 1;
+  z-index: 0;
 }
 
 .listAddOn .list-group-item {
@@ -1071,6 +1071,7 @@ color: #d9d9d9 !important;
 .listAddOn .list-group-item:hover {
   background-color: #223242 !important;
   color: white !important;
+  z-index: 0 !important;
 }
 
 .listAddOn .list-group-item:focus {
@@ -1141,6 +1142,26 @@ color: #d9d9d9 !important;
   .offClick {
     display: none;
   }
+}
+
+.removeFavorite {
+  background: #879095;
+  border: none;
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+}
+
+.removeFavorite:hover {
+  background: #22324270;
+}
+
+.removeFavorite:focus {
+  outline: 0;
+}
+
+.removeFavorite:active {
+  background: #1d1a1a;
 }
 
 .right {
@@ -1274,24 +1295,28 @@ color: #d9d9d9 !important;
   font-weight: bold;
 }
 
-.removeFavorite {
-  background: #879095;
-  border: none;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+.thumb-vertical {
+  position: relative;
+  display: block;
+  height: 100%;
   cursor: pointer;
+  border-radius: inherit;
+  background-color: rgba(255, 255, 255, 0.47);
 }
 
-.removeFavorite:hover {
-  background: #22324270;
+.view {
+  position: relative !important;
+  overflow: scroll;
+  margin-right: -17px;
+  margin-bottom: -17px;
+  min-height: 17px;
+  max-height: calc(81vh + 17px);
 }
 
-.removeFavorite:focus {
-  outline: 0;
-}
-
-.removeFavorite:active {
-  background: #1d1a1a;
+@media screen and (max-width: 1000px) {
+  .view {
+    max-height: 98vh !important;
+  }
 }
 
 .visible {
