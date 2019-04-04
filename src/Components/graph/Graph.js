@@ -197,7 +197,13 @@ Graph.propTypes = {
   favorites: PropTypes.array,
   addGraph: PropTypes.func,
   setUserInput: PropTypes.func,
-  inputValue: PropTypes.string
+  inputValue: PropTypes.string,
+  loadSpinner: PropTypes.func,
+  id: PropTypes.string,
+  coin1: PropTypes.string,
+  loading: PropTypes.any,
+  coinInfo: PropTypes.object,
+  graphFocus: PropTypes.number
 };
 
 Graph.defaultProps = {
@@ -212,7 +218,13 @@ Graph.defaultProps = {
   favorites: PropTypes.array,
   addGraph: PropTypes.func,
   setUserInput: PropTypes.func,
-  inputValue: PropTypes.string
+  inputValue: PropTypes.string,
+  loadSpinner: PropTypes.func,
+  id: PropTypes.string,
+  coin1: PropTypes.string,
+  loading: PropTypes.any,
+  coinInfo: PropTypes.object,
+  graphFocus: PropTypes.number
 };
 
 

@@ -679,6 +679,7 @@ class Dashboard extends Component {
     }
     if (favorites.indexOf(wanted) === -1) {
       favorites.push(wanted);
+      const item = document.getElementById('liCoin');
     }
     else {
       for (let i = 0; i < favorites.length; i++) {

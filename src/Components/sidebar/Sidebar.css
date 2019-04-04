@@ -84,19 +84,21 @@
 }
 
 .listAddOn .list-group-item:hover {
-  background-color: #223242 !important;
+  background-color: #232c3b !important;
   color: white !important;
   z-index: 0 !important;
 }
 
 .listAddOn .list-group-item:focus {
   background: #18212c !important;
-  color: white;
+  color: black;
   outline: 0;
+  z-index: 0 !important;
 }
 
 .listAddOn .list-group-item:visited {
   background: #18212c !important;
+  z-index: 0 !important;
 }
 
 .list-group {

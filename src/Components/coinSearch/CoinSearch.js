@@ -1,10 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './coinSearch.css';
 import {
   Button, Form, Label, Input, FormGroup
 } from 'reactstrap';
 
-const CoinSearch = ({ setUserInput, inputValue, handleChange, coin1 }) => (
+const CoinSearch = ({
+  setUserInput, inputValue, handleChange, coin1
+}) => (
   <div className="cryptoInputContainer">
     <div className="cryptoInput">
       <Form inline onSubmit={setUserInput}>
@@ -18,10 +21,26 @@ const CoinSearch = ({ setUserInput, inputValue, handleChange, coin1 }) => (
             </div>
           </Label>
         </FormGroup>
-        <Button className="cryptoSubmit" disabled={!inputValue}>GO</Button>
+        <Button className="cryptoSubmit" disabled={!inputValue}>
+          {'GO'}
+        </Button>
       </Form>
     </div>
   </div>
 );
+
+CoinSearch.propTypes = {
+  setUserInput: PropTypes.func,
+  inputValue: PropTypes.string,
+  handleChange: PropTypes.func,
+  coin1: PropTypes.string
+};
+
+CoinSearch.defaultProps = {
+  setUserInput: PropTypes.func,
+  inputValue: PropTypes.string,
+  handleChange: PropTypes.func,
+  coin1: PropTypes.string
+};
 
 export default CoinSearch;

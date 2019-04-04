@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Button, Input, ButtonGroup
 } from 'reactstrap';
@@ -78,9 +79,12 @@ export const GraphConnector = ({ graphFocus, graphConnector }) => (
   </div>
 );
 
-export const OptionsBank = ({ onFavorite, favorites, coin1, onReload, id, addGraph }) => (
+export const OptionsBank = ({
+  onFavorite, favorites, coin1, onReload, id, addGraph
+}) => (
   <div className="optionsBank">
     <div
+      onKeyDown={onFavorite}
       className="favoriteButton"
       role="button"
       tabIndex="0"
@@ -148,13 +152,13 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
 
   return (
     <div>
-    <Button
+      <Button
         className="selectorButtons"
         color="primary"
         onClick={() => {
           onHistoryChange(30);
         }
-      }
+        }
         active={rSelected2 === 3}
       >
         { '1m' }
@@ -238,11 +242,21 @@ export const DaysSelectorDropdown = ({ onHistoryChange }) => (
       }
     }}
   >
-    <option value="1M">1 Month</option>
-    <option value="3M">3 Months</option>
-    <option value="6M">6 Months</option>
-    <option value="YTD">YTD</option>
-    <option value="ALL">All</option>
+    <option value="1M">
+      {'1 Month'}
+    </option>
+    <option value="3M">
+      {'3 Months'}
+    </option>
+    <option value="6M">
+      {'6 Months'}
+    </option>
+    <option value="YTD">
+      {'YTD'}
+    </option>
+    <option value="ALL">
+      {'All'}
+    </option>
   </Input>
 );
 
@@ -274,4 +288,16 @@ export const CurrSelector = ({ changeCurrency, id, curr }) => {
       </ButtonGroup>
     </div>
   );
+};
+
+CurrSelector.propTypes = {
+  changeCurrency: PropTypes.func,
+  id: PropTypes.string,
+  curr: PropTypes.string
+};
+
+CurrSelector.defaultProps = {
+  changeCurrency: PropTypes.func,
+  id: PropTypes.string,
+  curr: PropTypes.string
 };

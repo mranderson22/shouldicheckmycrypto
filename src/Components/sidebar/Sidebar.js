@@ -67,19 +67,27 @@ class Sidebar extends Component {
   }
 
   sidebarTemplate = async (list) => {
-    const { favorites } = this.props;
-    const { handleSubmit5 } = this.props;
+    const {
+      favorites, handleSubmit5
+    } = this.props;
     const newRankingList = await list.map(x => (
       <div key={x.id}>
         <div
+          role="button"
+          tabIndex="-1"
+          id="sidebarButton"
           type="link"
           className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
           onClick={(e) => {
             handleSubmit5(e, x.symbol.toUpperCase());
           }
+        }
+          onKeyPress={(e) => {
+            handleSubmit5(e, x.symbol.toUpperCase());
+          }
                   }
         >
-          <img className="sidebarIcon" src={x.image}/>
+          <img className="sidebarIcon" src={x.image} alt={x} />
           <span className="sidebarRank">
             {`${x.market_cap_rank}.`}
             &nbsp;
@@ -113,14 +121,21 @@ class Sidebar extends Component {
       const newRankingList = list.map(x => (
         <div key={x.id} className="sidebarButtonWrapper">
           <div
+            role="button"
+            tabIndex="-1"
+            id="sidebarButton"
             type="link"
-            className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? "list-group-item list-group-item-action" : "list-group-item list-group-item-action buttonFav"}
+            className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
             onClick={(e) => {
               handleSubmit5(e, x.symbol.toUpperCase());
             }
-                  }
+          }
+            onKeyPress={(e) => {
+              handleSubmit5(e, x.symbol.toUpperCase());
+            }
+                    }
           >
-            <img className="sidebarIcon" src={x.image}/>
+            <img className="sidebarIcon" src={x.image} alt={x} />
             <span className="sidebarRank">
               {`${x.market_cap_rank}.`}
             &nbsp;
@@ -211,6 +226,7 @@ class Sidebar extends Component {
 }
 
 Sidebar.propTypes = {
+  allCoins: PropTypes.array,
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
   toggleFavorites: PropTypes.func,
@@ -219,6 +235,7 @@ Sidebar.propTypes = {
 };
 
 Sidebar.defaultProps = {
+  allCoins: PropTypes.array,
   favorites: PropTypes.array,
   handleSubmit5: PropTypes.func,
   toggleFavorites: PropTypes.func,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './BitcoinTracker.css';
 
 const BitcoinTracker = ({ currentBTCPrice, answer, handleSubmit5 }) => {
@@ -32,3 +33,15 @@ const BitcoinTracker = ({ currentBTCPrice, answer, handleSubmit5 }) => {
 };
 
 export default BitcoinTracker;
+
+BitcoinTracker.propTypes = {
+  currentBTCPrice: PropTypes.number,
+  answer: PropTypes.bool,
+  handleSubmit5: PropTypes.func
+};
+
+BitcoinTracker.defaultProps = {
+  currentBTCPrice: PropTypes.number,
+  answer: PropTypes.bool,
+  handleSubmit5: PropTypes.func
+};
