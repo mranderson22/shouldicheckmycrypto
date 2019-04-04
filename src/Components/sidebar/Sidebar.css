@@ -30,7 +30,7 @@
   z-index: 0;
 }
 
-.empyFavorites {
+.emptyFavorites {
   position: absolute;
   text-align: center;
   padding: 8px;
@@ -259,12 +259,6 @@ color: #d9d9d9 !important;
   color: white;
 }
 
-@media screen and (max-width: 1000px) {
-  .sidebarCoin {
-    font-size: .7rem;
-  }
-}
-
 .sidebarButtonContainer {
   text-align: left;
   font-size: 15px;
@@ -324,7 +318,7 @@ color: #d9d9d9 !important;
   overflow: scroll;
   margin-right: -17px;
   margin-bottom: -17px;
-  min-height: 17px;
+  min-height: 100px;
   max-height: calc(81vh + 17px);
 }
 

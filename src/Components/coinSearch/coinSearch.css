@@ -1,5 +1,5 @@
 .active {
-  visibility: visible;
+  visibility: visible !important;
 }
 
 .coinSearchTooltip {
@@ -37,7 +37,7 @@
 .cryptoSubmit {
   height: 30px;
   width: 40px !important;
-  background-color: #1e2938 !important;
+  background-color: #4a545e !important;
   border-color: #1d1a1a !important;
   box-shadow: none !important;
   font-size: .8rem !important;

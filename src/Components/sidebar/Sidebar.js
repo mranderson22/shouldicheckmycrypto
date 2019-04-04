@@ -147,9 +147,9 @@ class Sidebar extends Component {
     }
     else {
       const newRankingList = (
-        <span className="empyFavorites">
+        <div className="emptyFavorites">
           {'Start Adding Favorites!'}
-        </span>
+        </div>
       );
       this.setState({ newRankingList });
     }
@@ -189,6 +189,8 @@ class Sidebar extends Component {
             <Scrollbars
               renderThumbVertical={props => <div {...props} className="thumb-vertical" />}
               renderView={props => <div {...props} className="view" />}
+              autoHide
+              autoHideTimeout={2000}
             >
               {newRankingList}
             </Scrollbars>

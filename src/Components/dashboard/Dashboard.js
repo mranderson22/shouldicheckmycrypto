@@ -11,7 +11,7 @@ import 'babel-polyfill';
 import * as animations from '../../animations';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import {
-  Plus, BurgerMenu, Gecko, GraphConnector
+  Plus, BurgerMenu, Gecko, GraphConnector, Eric
 } from '../iconsUI/IconsUI';
 import Graph from '../graph/Graph';
 import Sidebar from '../sidebar/Sidebar';
@@ -843,6 +843,7 @@ class Dashboard extends Component {
           isGraphVisible={isGraphVisible}
           addSidebar={this.addSidebar}
         />
+        <Eric />
         <Gecko />
       </div>
     );

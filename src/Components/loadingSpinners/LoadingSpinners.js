@@ -16,7 +16,7 @@ export const SidebarSpinner = () => (
 
 export const GraphSpinner = () => (
   <div id="spinner" className="spinner">
-    <Loader type="Grid" color="#879095" height={60} width={60} />
+    <Loader type="Grid" color="#879095" height={80} width={80} />
   </div>
 );
 

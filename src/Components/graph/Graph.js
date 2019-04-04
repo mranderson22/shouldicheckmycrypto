@@ -26,7 +26,7 @@ class Graph extends Component {
    */
   onReload = (e) => {
     const {
-      loadSpinner, id, coin1, handleSubmit5 
+      loadSpinner, id, coin1, handleSubmit5
     } = this.props;
     const element = document.getElementById(`optionsImage${id}`);
     const graphPrice = document.getElementById(`graphPrice${id}`);

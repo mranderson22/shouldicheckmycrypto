@@ -60,6 +60,17 @@ export const Gecko = () => (
   </div>
 );
 
+export const Eric = () => (
+  <div className="geckoWrapper">
+    <span className="eric">
+      {'built by'}
+      <span className="black2">
+        {' Eric Anderson'}
+      </span>
+    </span>
+  </div>
+);
+
 export const GraphConnector = ({ graphFocus, graphConnector }) => (
   <div>
     <div className={graphFocus === 1 ? 'graphConnector visible2' : 'graphConnector'} />
