@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { MainSpinner } from '../loadingSpinners/LoadingSpinners';
 import { Reveal, Reveal2 } from '../../animations';

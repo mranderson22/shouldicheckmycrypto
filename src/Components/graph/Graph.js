@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
+import * as zoom from 'chartjs-plugin-zoom';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 import * as animations from '../../animations';
@@ -35,6 +36,7 @@ class Graph extends Component {
     element.classList.toggle('spun');
     handleSubmit5(e, coin1, false);
     loadSpinner(id);
+    this.resetZoom();
   }
 
   onFavorite = () => {
@@ -48,6 +50,10 @@ class Graph extends Component {
     toggleFavorites();
   }
 
+  resetZoom = () => {
+    this.chartReference.chartInstance.resetZoom();
+  }
+
   render() {
     const {
       handleChange,
@@ -56,6 +62,18 @@ class Graph extends Component {
       // eslint-disable-next-line react/prop-types
       secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
+
+    let yAxisType;
+    let showYAxis;
+    if (curr === 'BTC' && coinInfo.price < 0.00001) {
+      yAxisType = 'logarithmic';
+      showYAxis = false;
+    }
+    else {
+      yAxisType = 'linear';
+      showYAxis = true;
+    }
+
     const options = {
       maintainAspectRatio: false,
       responsive: true,
@@ -65,10 +83,19 @@ class Graph extends Component {
       tooltips: {
         displayColors: false,
         position: 'nearest',
-        mode: 'index',
+        mode: 'label',
         backgroundColor: 'rgba(135, 144, 149, 0.99)',
         titleFontColor: 'black',
         bodyFontColor: 'black'
+      },
+      pan: {
+        enabled: true,
+        mode: 'x'
+      },
+      zoom: {
+        enabled: true,
+        mode: 'x',
+        sensitivity: 0.1
       },
       scales: {
         yAxes: [{
@@ -79,12 +106,11 @@ class Graph extends Component {
             fontColor: 'black'
           }
         }, {
-          type: 'logarithmic',
-          display: false,
+          type: yAxisType,
+          display: showYAxis,
           id: 'y-axis-2',
           ticks: {
-            fontColor: 'black',
-            min: 0
+            fontColor: 'rgba(175, 188, 194, 0.5)'
           }
         }
         ],
@@ -96,7 +122,7 @@ class Graph extends Component {
           ticks: {
             autoSkip: true,
             maxTicksLimit: 15,
-            fontColor: '#879095'
+            fontColor: 'rgba(175, 188, 194, 0.5)'
           }
         }]
       }
@@ -142,11 +168,12 @@ class Graph extends Component {
           <Bar
             data={graphData}
             options={options}
+            ref={(reference) => this.chartReference = reference }
           />
         </animations.ResizeNoChartActual>
         <div className="daysselector">
           <DaysSelectorDropdown onHistoryChange={onHistoryChange} />
-          <DaysSelectorSpread onHistoryChange={onHistoryChange} days={days} />
+          <DaysSelectorSpread onHistoryChange={onHistoryChange} days={days} resetZoom={this.resetZoom} />
         </div>
         {coin1 !== 'BTC'
           && <CurrSelector changeCurrency={changeCurrency} id={id} curr={curr} />
@@ -203,7 +230,7 @@ Graph.propTypes = {
   coin1: PropTypes.string,
   loading: PropTypes.any,
   coinInfo: PropTypes.object,
-  graphFocus: PropTypes.number
+  graphFocus: PropTypes.any
 };
 
 Graph.defaultProps = {
@@ -224,7 +251,7 @@ Graph.defaultProps = {
   coin1: PropTypes.string,
   loading: PropTypes.any,
   coinInfo: PropTypes.object,
-  graphFocus: PropTypes.number
+  graphFocus: PropTypes.any
 };
 
 

@@ -593,7 +593,7 @@ transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 
 .graphName {
   position: absolute;
-  top: 1%;
+  top: 0%;
   left: 1.5%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
@@ -658,7 +658,7 @@ transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .NoChartActual {
-  height: 65vh;
+  height: 63vh;
   width: 60vw;
   min-height: 162px !important;
   -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -742,8 +742,10 @@ transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 }
 
-.active {
-  visibility: visible !important;
+.activeTooltip {
+  opacity: 1 !important;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .coinSearchTooltip {
@@ -787,7 +789,7 @@ transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
   font-size: .8rem !important;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .cryptoSubmit {
     visibility: hidden;
   }
@@ -798,7 +800,7 @@ transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .tooltipText {
-  visibility: hidden;
+  opacity: 0;
   width: 120px;
   background-color: #18212c;
   color: #f7f7f8;
@@ -813,6 +815,8 @@ transition: all .2s cubic-bezier(0.165, 0.84, 0.44, 1);
   margin-top: -56px;
   width: 150px;
   font-size: 15px;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @media screen and (max-width: 600px) {

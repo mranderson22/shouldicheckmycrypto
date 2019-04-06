@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   Button, Input, ButtonGroup
 } from 'reactstrap';
@@ -132,7 +132,7 @@ export const OptionsBank = ({
   </div>
 );
 
-export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
+export const DaysSelectorSpread = ({ onHistoryChange, days, resetZoom }) => {
   let rSelected2;
   if (days === 31) {
     rSelected2 = 3;
@@ -157,6 +157,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
         color="primary"
         onClick={() => {
           onHistoryChange(30);
+          resetZoom();
         }
         }
         active={rSelected2 === 3}
@@ -170,6 +171,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
         color="primary"
         onClick={() => {
           onHistoryChange(60);
+          resetZoom();
         }
       }
         active={rSelected2 === 4}
@@ -183,6 +185,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
         color="primary"
         onClick={() => {
           onHistoryChange(180);
+          resetZoom();
         }
       }
         active={rSelected2 === 5}
@@ -196,6 +199,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
         color="primary"
         onClick={() => {
           onHistoryChange(365);
+          resetZoom();
         }
       }
         active={rSelected2 === 6}
@@ -209,6 +213,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
         color="primary"
         onClick={() => {
           onHistoryChange(1000);
+          resetZoom();
         }
       }
         active={rSelected2 === 7}
@@ -219,7 +224,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days }) => {
   );
 };
 
-export const DaysSelectorDropdown = ({ onHistoryChange }) => (
+export const DaysSelectorDropdown = ({ onHistoryChange, resetZoom }) => (
   <Input
     defaultValue="6M"
     type="select"
@@ -227,18 +232,23 @@ export const DaysSelectorDropdown = ({ onHistoryChange }) => (
     onChange={(e) => {
       if (e.target.value === '1M') {
         onHistoryChange(30);
+        resetZoom();
       }
       else if (e.target.value === '3M') {
         onHistoryChange(60);
+        resetZoom();
       }
       else if (e.target.value === '6M') {
         onHistoryChange(180);
+        resetZoom();
       }
       else if (e.target.value === 'YTD') {
         onHistoryChange(365);
+        resetZoom();
       }
       else if (e.target.value === 'ALL') {
         onHistoryChange(1000);
+        resetZoom();
       }
     }}
   >
@@ -288,16 +298,4 @@ export const CurrSelector = ({ changeCurrency, id, curr }) => {
       </ButtonGroup>
     </div>
   );
-};
-
-CurrSelector.propTypes = {
-  changeCurrency: PropTypes.func,
-  id: PropTypes.string,
-  curr: PropTypes.string
-};
-
-CurrSelector.defaultProps = {
-  changeCurrency: PropTypes.func,
-  id: PropTypes.string,
-  curr: PropTypes.string
 };

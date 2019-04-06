@@ -52,7 +52,7 @@
 
 .graphName {
   position: absolute;
-  top: 1%;
+  top: 0%;
   left: 1.5%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
@@ -117,7 +117,7 @@
 }
 
 .NoChartActual {
-  height: 65vh;
+  height: 63vh;
   width: 60vw;
   min-height: 162px !important;
   -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);

@@ -486,25 +486,25 @@ class Dashboard extends Component {
     if (num === 1) {
       const tooltip = document.getElementById(`userInput ${coin1}`);
       if (action === 'add') {
-        tooltip.classList.add('active');
+        tooltip.classList.add('activeTooltip');
         setTimeout(() => {
-          tooltip.classList.remove('active');
+          tooltip.classList.remove('activeTooltip');
         }, 2000);
       }
       else if (action === 'remove') {
-        tooltip.classList.remove('active');
+        tooltip.classList.remove('activeTooltip');
       }
     }
     else if (num === 2) {
       const tooltip = document.getElementById(`userInput ${coin2}`);
       if (action === 'add') {
-        tooltip.classList.add('active');
+        tooltip.classList.add('activeTooltip');
         setTimeout(() => {
-          tooltip.classList.remove('active');
+          tooltip.classList.remove('activeTooltip');
         }, 2000);
       }
       else if (action === 'remove') {
-        tooltip.classList.remove('active');
+        tooltip.classList.remove('activeTooltip');
       }
     }
   }
@@ -519,7 +519,7 @@ class Dashboard extends Component {
         history.forEach((pos) => {
           const { time } = pos;
           if (days > 360) {
-            (pos).time = moment.unix(time).format('MMM DD YYYY');
+            (pos).time = moment.unix(time).format('MM/DD/YY');
           }
           else {
             (pos).time = moment.unix(time).format('MMM DD');
@@ -530,7 +530,7 @@ class Dashboard extends Component {
         history2.forEach((pos) => {
           const { time } = pos;
           if (days2 > 360) {
-            (pos).time = moment.unix(time).format('MMM DD YYYY');
+            (pos).time = moment.unix(time).format('MM/DD/YY');
           }
           else {
             (pos).time = moment.unix(time).format('MMM DD');
@@ -679,7 +679,6 @@ class Dashboard extends Component {
     }
     if (favorites.indexOf(wanted) === -1) {
       favorites.push(wanted);
-      const item = document.getElementById('liCoin');
     }
     else {
       for (let i = 0; i < favorites.length; i++) {
