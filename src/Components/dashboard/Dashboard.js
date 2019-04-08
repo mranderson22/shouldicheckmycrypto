@@ -57,7 +57,6 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
-    const { isGraphVisible } = this.state;
     const { coinLog } = this.state;
     const { coinLog2 } = this.state;
     const { coin1 } = this.state;
@@ -66,103 +65,32 @@ class Dashboard extends Component {
     coinLog2.unshift(coin2);
     await this.fetchCryptocurrencyHistory(1);
     await this.fetchCryptocurrencyHistory(2);
-    await this.getPoints(1);
-    await this.getPoints(2);
-    this.setState({ isGraphVisible: !isGraphVisible });
+    await this.populateChartData(1);
+    await this.populateChartData(2);
+    this.setState({ isGraphVisible: true });
     this.getLocalStorageData();
   }
 
-  onHistoryChange = (num = 30) => {
+  onHistoryChange = (num = 31) => {
     const { graphFocus } = this.state;
 
-    if (num === 30) {
-      this.fetchCryptocurrencyHistory(graphFocus, 31);
+    if (num === 31) {
+      this.fetchCryptocurrencyHistory(graphFocus, num);
     }
-    else if (num === 60) {
-      this.fetchCryptocurrencyHistory(graphFocus, 90);
+    else if (num === 90) {
+      this.fetchCryptocurrencyHistory(graphFocus, num);
     }
     else if (num === 180) {
-      this.fetchCryptocurrencyHistory(graphFocus, 180);
+      this.fetchCryptocurrencyHistory(graphFocus, num);
     }
     else if (num === 365) {
-      this.fetchCryptocurrencyHistory(graphFocus, 365);
+      this.fetchCryptocurrencyHistory(graphFocus, num);
     }
-    else if (num === 1000) {
-      this.fetchCryptocurrencyHistory(graphFocus, 1500);
-    }
-  }
-
-  getPoints = (num = 1) => {
-    const graphCats = {
-      history: [],
-      labels: [],
-      datasets: [
-        {
-          type: 'line',
-          data: [],
-          label: 'Closing Price',
-          responsive: true,
-          fill: false,
-          lineTension: 0,
-          backgroundColor: '#dad7d7',
-          borderColor: '#dad7d7',
-          borderWidth: 2.5,
-          borderCapStyle: 'butt',
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: 'miter',
-          pointBorderColor: '#dad7d7',
-          pointBackgroundColor: '#dad7d7',
-          pointBorderWidth: 0,
-          pointHoverRadius: 2,
-          pointHoverBackgroundColor: '#1E2938',
-          pointHoverBorderColor: '#1E2938',
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          pointHitRadius: 10,
-          yAxisID: 'y-axis-2'
-        },
-        {
-          data: [],
-          label: 'Volume',
-          type: 'bar',
-          yAxisID: 'y-axis-1',
-          hoverBackgroundColor: 'rgba(135, 144, 149, 0.9)',
-          backgroundColor: 'rgb(135, 144, 149, 0.4)'
-        }
-      ]
-    };
-    if (num === 1) {
-      const newGraphData = graphCats;
-      const { history } = this.state;
-
-      for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
-        const label = history[historyIndex].time;
-        const labeldata = history[historyIndex].close;
-        const volumedata = history[historyIndex].volumeto;
-
-        newGraphData.labels.push(label);
-        newGraphData.datasets[0].data.push(labeldata);
-        newGraphData.datasets[1].data.push(volumedata);
-      }
-      this.setState({ graphData: newGraphData });
-    }
-    else if (num === 2) {
-      const newGraphData2 = graphCats;
-      const { history2 } = this.state;
-
-      for (let historyIndex = 0; historyIndex < history2.length; historyIndex++) {
-        const label = history2[historyIndex].time;
-        const labeldata = history2[historyIndex].close;
-        const volumedata = history2[historyIndex].volumeto;
-
-        newGraphData2.labels.push(label);
-        newGraphData2.datasets[0].data.push(labeldata);
-        newGraphData2.datasets[1].data.push(volumedata);
-      }
-      this.setState({ graphData2: newGraphData2 });
+    else if (num === 1500) {
+      this.fetchCryptocurrencyHistory(graphFocus, num);
     }
   }
+
 
   getLocalStorageData = () => {
     const retrievedFavoriteCoins = localStorage.getItem('savedFavoriteCoins');
@@ -219,12 +147,12 @@ class Dashboard extends Component {
     }, () => {
       if (graphFocus === 1) {
         if (index !== -1 || index2 !== -1) {
-          this.handleSubmit1(e);
+          this.handleSubmitGraph1(e);
         }
       }
       else if (graphFocus === 2) {
         if (index !== -1 || index2 !== -1) {
-          this.handleSubmit2(e);
+          this.handleSubmitGraph2(e);
         }
       }
     });
@@ -247,6 +175,78 @@ class Dashboard extends Component {
     }
     else {
       this.setState({ dateRangeChange2: dateRangeChange });
+    }
+  }
+
+  populateChartData = (num = 1) => {
+    const graphCats = {
+      history: [],
+      labels: [],
+      datasets: [
+        {
+          type: 'line',
+          data: [],
+          label: 'Closing Price',
+          responsive: true,
+          fill: false,
+          lineTension: 0,
+          backgroundColor: '#dad7d7',
+          borderColor: '#dad7d7',
+          borderWidth: 2.5,
+          borderCapStyle: 'butt',
+          borderDash: [],
+          borderDashOffset: 0.0,
+          borderJoinStyle: 'miter',
+          pointBorderColor: '#dad7d7',
+          pointBackgroundColor: '#dad7d7',
+          pointBorderWidth: 0,
+          pointHoverRadius: 0,
+          pointHoverBackgroundColor: '#1E2938',
+          pointHoverBorderColor: '#1E2938',
+          pointHoverBorderWidth: 0,
+          pointRadius: 1,
+          pointHitRadius: 10,
+          yAxisID: 'y-axis-2'
+        },
+        {
+          data: [],
+          label: 'Volume',
+          type: 'bar',
+          yAxisID: 'y-axis-1',
+          hoverBackgroundColor: 'rgba(135, 144, 149, 0.9)',
+          backgroundColor: 'rgb(135, 144, 149, 0.4)'
+        }
+      ]
+    };
+    if (num === 1) {
+      const newGraphData = graphCats;
+      const { history } = this.state;
+
+      for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
+        const label = history[historyIndex].time;
+        const labeldata = history[historyIndex].close;
+        const volumedata = history[historyIndex].volumeto;
+
+        newGraphData.labels.push(label);
+        newGraphData.datasets[0].data.push(labeldata);
+        newGraphData.datasets[1].data.push(volumedata);
+      }
+      this.setState({ graphData: newGraphData });
+    }
+    else if (num === 2) {
+      const newGraphData2 = graphCats;
+      const { history2 } = this.state;
+
+      for (let historyIndex = 0; historyIndex < history2.length; historyIndex++) {
+        const label = history2[historyIndex].time;
+        const labeldata = history2[historyIndex].close;
+        const volumedata = history2[historyIndex].volumeto;
+
+        newGraphData2.labels.push(label);
+        newGraphData2.datasets[0].data.push(labeldata);
+        newGraphData2.datasets[1].data.push(volumedata);
+      }
+      this.setState({ graphData2: newGraphData2 });
     }
   }
 
@@ -278,8 +278,8 @@ class Dashboard extends Component {
         const historyNew = response.data.Data;
         this.setState({ days: dayNum });
         this.setState({ history: historyNew }, async () => {
-          await this.formatDate(1);
-          await this.getPoints(1);
+          await this.formatGraphDates(1);
+          await this.populateChartData(1);
           await this.getHistoryChange(1);
         });
       }
@@ -287,8 +287,8 @@ class Dashboard extends Component {
         const historyNew2 = response.data.Data;
         this.setState({ days2: dayNum });
         this.setState({ history2: historyNew2 }, async () => {
-          await this.formatDate(2);
-          await this.getPoints(2);
+          await this.formatGraphDates(2);
+          await this.populateChartData(2);
           await this.getHistoryChange(2);
         });
       }
@@ -298,28 +298,28 @@ class Dashboard extends Component {
     }
   }
 
-  handleChange1 = (event) => {
-    this.setState({ inputValue: event.target.value });
-    if (event.target.value) {
-      this.toggleTooltip(1, 'remove');
+  handleInputChange = (graphName, event) => {
+    if (graphName === 'graph1') {
+      this.setState({ inputValue: event.target.value });
+      if (event.target.value) {
+        this.toggleTooltip(1, 'remove');
+      }
+    }
+    else if (graphName === 'graph2') {
+      this.setState({ inputValue2: event.target.value });
+      if (event.target.value) {
+        this.toggleTooltip(2, 'remove');
+      }
     }
   }
 
-  handleChange2 = (event) => {
-    this.setState({ inputValue2: event.target.value });
-    if (event.target.value) {
-      this.toggleTooltip(2, 'remove');
-    }
-  }
-
-  handleSubmit1 = (e, fade = true) => {
-    const { sideBarOpener } = this.state;
+  handleSubmitGraph1 = (e, fade = true) => {
     const { coin1 } = this.state;
     e.persist();
     if (coin1 === 'BTC' || 'btc') {
       this.setState({ curr: 'USD' }, () => {
         this.addToCoinlog(1);
-        this.findSymbol(1);
+        this.checkIfCoinExists(1);
         if (fade) {
           this.fadeBackgroundImage('graph1');
         }
@@ -327,46 +327,42 @@ class Dashboard extends Component {
     }
     else {
       this.addToCoinlog(1);
-      this.findSymbol(1);
+      this.checkIfCoinExists(1);
       if (fade) {
         this.fadeBackgroundImage('graph1');
       }
     }
-    if (sideBarOpener === true) {
-      // this.addSidebar();
-    }
     // this.scrollSidebarToTop();
   }
 
-  handleSubmit2 = (e, fade = true) => {
-    const { sideBarOpener } = this.state;
+  handleSubmitGraph2 = (e, fade = true) => {
     const { toggleCurr2 } = this.state;
-    const { value2 } = this.state;
+    const { coin2 } = this.state;
     const { curr2 } = this.state;
-    if (value2 !== 'BTC' && toggleCurr2 === false) {
+    if (coin2 !== 'BTC' && toggleCurr2 === false) {
       this.setState({ toggleCurr2: true });
       this.addToCoinlog(2);
-      this.findSymbol(2);
+      this.checkIfCoinExists(2);
       if (fade) {
         this.fadeBackgroundImage('graph2');
       }
       e.persist();
     }
-    else if (value2 === 'BTC' && toggleCurr2 === true) {
+    else if (coin2 === 'BTC' && toggleCurr2 === true) {
       this.setState({ toggleCurr2: false });
       e.persist();
       this.setState({ curr2: 'USD' }, () => {
         this.addToCoinlog(2);
-        this.findSymbol(2);
+        this.checkIfCoinExists(2);
         if (fade) {
           this.fadeBackgroundImage('graph2');
         }
       });
     }
-    else if ((curr2 === 'BTC' || 'btc') && (value2 === 'BTC' || 'btc')) {
+    else if ((curr2 === 'BTC' || 'btc') && (coin2 === 'BTC' || 'btc')) {
       this.setState({ curr2: 'USD' }, () => {
         this.addToCoinlog(2);
-        this.findSymbol(2);
+        this.checkIfCoinExists(2);
         e.persist();
         if (fade) {
           this.fadeBackgroundImage('graph2');
@@ -378,60 +374,33 @@ class Dashboard extends Component {
         this.fadeBackgroundImage('graph2');
       }
       this.addToCoinlog(2);
-      this.findSymbol(2);
+      this.checkIfCoinExists(2);
       e.persist();
-    }
-    if (sideBarOpener === true) {
-      // this.addSidebar();
     }
     // this.scrollSidebarToTop();
   }
 
-  handleSubmit3 = (e, pos) => {
-    const { coinLog } = this.state;
-    e.persist();
-    if (coinLog[pos] === 'BTC') {
-      this.setState({ curr: 'USD' });
-      this.scrollSidebarToTop();
-    }
-    this.setState({ coin1: coinLog[pos] }, () => {
-      this.handleSubmit1(e);
-    });
-  }
-
-  handleSubmit4 = (e, pos) => {
-    const { coinLog2 } = this.state;
-    e.persist();
-    if (coinLog2[pos] === 'BTC') {
-      this.setState({ curr2: 'USD' });
-      this.scrollSidebarToTop();
-    }
-    this.setState({ value2: coinLog2[pos], coin2: coinLog2[pos] }, () => {
-      this.handleSubmit2(e);
-    });
-  }
-
-  handleSubmit5 = (e, sym, fade = true) => {
+  handleExternalComponentSubmit = (e, sym, fade = true) => {
     const { graphFocus } = this.state;
     const { sideBarOpener } = this.state;
     e.persist();
     if (graphFocus === 1) {
       this.setState({ coin1: sym }, () => {
         if (!fade) {
-          this.handleSubmit1(e, false);
+          this.handleSubmitGraph1(e, false);
         }
         else if (fade) {
-          this.handleSubmit1(e);
+          this.handleSubmitGraph1(e);
         }
       });
     }
     else if (graphFocus === 2) {
-      this.setState({ value2: sym, coin2: sym }, () => {
+      this.setState({ coin2: sym }, () => {
         if (!fade) {
-          this.handleSubmit2(e, false);
+          this.handleSubmitGraph2(e, false);
         }
         else if (fade) {
-          this.handleSubmit2(e);
+          this.handleSubmitGraph2(e);
         }
       });
     }
@@ -451,7 +420,7 @@ class Dashboard extends Component {
     }, 800);
   }
 
-  findSymbol = (num) => {
+  checkIfCoinExists = (num) => {
     const {
       curr, curr2, coin1, coin2, days, days2
     } = this.state;
@@ -463,7 +432,7 @@ class Dashboard extends Component {
         setTimeout(() => {
           sendCoin(1, coin1, curr);
           this.fetchCryptocurrencyHistory(1, days);
-          this.getPoints(1);
+          this.populateChartData(1);
         }, 500);
       }
     }
@@ -474,7 +443,7 @@ class Dashboard extends Component {
         setTimeout(() => {
           sendCoin(2, coin2, curr2);
           this.fetchCryptocurrencyHistory(2, days2);
-          this.getPoints(2);
+          this.populateChartData(2);
         }, 500);
       }
     }
@@ -509,7 +478,7 @@ class Dashboard extends Component {
     }
   }
 
-  formatDate = (num = 1) => {
+  formatGraphDates = (num = 1) => {
     const {
       days, days2, history, history2
     } = this.state;
@@ -543,7 +512,7 @@ class Dashboard extends Component {
     }
   };
 
-  addGraph = (num) => {
+  addSecondGraph = (num) => {
     const pose = this.state;
     const { freshReveal, secondGraphVisible, isGraphVisible } = this.state;
     if (num === 1) {
@@ -596,13 +565,14 @@ class Dashboard extends Component {
     }
   };
 
-  changeCurrency = (curr, graph) => {
+  changeCurrency = (curr, graphID) => {
+    console.log(graphID)
     const {
       coin1, coin2, days, days2
     } = this.state;
     const { fetchData } = this.props;
 
-    if (graph === 'graph1') {
+    if (graphID === 'graph1') {
       if (curr === 'USD' && coin1 !== 'BTC') {
         this.setState({ curr: 'USD' }, () => {
           this.fetchCryptocurrencyHistory(1, days);
@@ -616,7 +586,7 @@ class Dashboard extends Component {
         });
       }
     }
-    else if (graph === 'graph2') {
+    else if (graphID === 'graph2') {
       if (curr === 'USD' && coin2 !== 'BTC') {
         this.setState({ curr2: 'USD' }, () => {
           fetchData(2, 'usd');
@@ -750,11 +720,11 @@ class Dashboard extends Component {
           <BitcoinTracker
             currentBTCPrice={currentBTCPrice}
             answer={answer}
-            handleSubmit5={this.handleSubmit5}
+            handleExternalComponentSubmit={this.handleExternalComponentSubmit}
           />
           <Sidebar
             allCoins={allCoins}
-            handleSubmit5={this.handleSubmit5}
+            handleExternalComponentSubmit={this.handleExternalComponentSubmit}
             favorites={favorites}
             graphFocus={graphFocus}
             toggleFavorites={this.toggleFavorites}
@@ -776,8 +746,8 @@ class Dashboard extends Component {
               isGraphVisible={isGraphVisible}
               isEnabled={isEnabled}
               onHistoryChange={this.onHistoryChange}
-              handleSubmit5={this.handleSubmit5}
-              handleChange={this.handleChange1}
+              handleExternalComponentSubmit={this.handleExternalComponentSubmit}
+              handleInputChange={this.handleInputChange}
               changeCurrency={this.changeCurrency}
               coin1={coin1}
               curr={curr}
@@ -785,19 +755,19 @@ class Dashboard extends Component {
               dateRangeChange={dateRangeChange}
               inputValue={inputValue}
               graphFocus={graphFocus}
-              addGraph={this.addGraph}
+              addSecondGraph={this.addSecondGraph}
               toggleFavorites={this.toggleFavorites}
               favorites={favorites}
               setUserInput={this.setUserInput}
               coinInfo={coin1Info}
-              id="graph1"
+              graphID="graph1"
             />
           </animations.Resize>
         </animations.Reveal4>
         <Plus
           secondGraphVisible={secondGraphVisible}
           isGraphVisible={isGraphVisible}
-          addGraph={this.addGraph}
+          addSecondGraph={this.addSecondGraph}
         />
         {freshReveal && (
           <animations.Reveal3
@@ -814,8 +784,8 @@ class Dashboard extends Component {
               isGraphVisible={isGraphVisible}
               secondGraphVisible={secondGraphVisible}
               onHistoryChange={this.onHistoryChange}
-              handleSubmit5={this.handleSubmit5}
-              handleChange={this.handleChange2}
+              handleExternalComponentSubmit={this.handleExternalComponentSubmit}
+              handleInputChange={this.handleInputChange}
               changeCurrency={this.changeCurrency}
               coin1={coin2}
               curr={curr2}
@@ -823,12 +793,12 @@ class Dashboard extends Component {
               dateRangeChange={dateRangeChange2}
               inputValue={inputValue2}
               graphFocus={graphFocus2}
-              addGraph={this.addGraph}
+              addSecondGraph={this.addSecondGraph}
               toggleFavorites={this.toggleFavorites}
               favorites={favorites}
               setUserInput={this.setUserInput}
               coinInfo={coin2Info}
-              id="graph2"
+              graphID="graph2"
             />
           </animations.Reveal3>
         )

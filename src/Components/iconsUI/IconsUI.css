@@ -47,15 +47,15 @@
 .eric {
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 190px;
   width: 200px;
-  color: #bebebe;
+  color: black;
   font-size: 15px;
   padding-left: 20px;
 }
 
-.eric .black2 {
-  color: black;
+.highlightColor {
+  color: #bebebe !important;
 }
 
 .exitButton {
@@ -73,7 +73,7 @@
   bottom: 0;
   right: 0;
   width: 200px;
-  color: #bebebe;
+  color: black;
   font-size: 15px;
 }
 

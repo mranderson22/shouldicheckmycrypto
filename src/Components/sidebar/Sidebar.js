@@ -68,7 +68,7 @@ class Sidebar extends Component {
 
   sidebarTemplate = async (list) => {
     const {
-      favorites, handleSubmit5
+      favorites, handleExternalComponentSubmit
     } = this.props;
     const newRankingList = await list.map(x => (
       <div key={x.id}>
@@ -79,11 +79,11 @@ class Sidebar extends Component {
           type="link"
           className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
           onClick={(e) => {
-            handleSubmit5(e, x.symbol.toUpperCase());
+            handleExternalComponentSubmit(e, x.symbol.toUpperCase());
           }
         }
           onKeyPress={(e) => {
-            handleSubmit5(e, x.symbol.toUpperCase());
+            handleExternalComponentSubmit(e, x.symbol.toUpperCase());
           }
                   }
         >
@@ -115,7 +115,7 @@ class Sidebar extends Component {
 
   sidebarTemplateFavorites = (list) => {
     const { favorites } = this.props;
-    const { handleSubmit5 } = this.props;
+    const { handleExternalComponentSubmit } = this.props;
     const { toggleFavorites } = this.props;
     if (favorites.length !== 0) {
       const newRankingList = list.map(x => (
@@ -127,11 +127,11 @@ class Sidebar extends Component {
             type="link"
             className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
             onClick={(e) => {
-              handleSubmit5(e, x.symbol.toUpperCase());
+              handleExternalComponentSubmit(e, x.symbol.toUpperCase());
             }
           }
             onKeyPress={(e) => {
-              handleSubmit5(e, x.symbol.toUpperCase());
+              handleExternalComponentSubmit(e, x.symbol.toUpperCase());
             }
                     }
           >
@@ -228,7 +228,7 @@ class Sidebar extends Component {
 Sidebar.propTypes = {
   allCoins: PropTypes.array,
   favorites: PropTypes.array,
-  handleSubmit5: PropTypes.func,
+  handleExternalComponentSubmit: PropTypes.func,
   toggleFavorites: PropTypes.func,
   addSidebar: PropTypes.func,
   sideBarOpener: PropTypes.bool
@@ -237,7 +237,7 @@ Sidebar.propTypes = {
 Sidebar.defaultProps = {
   allCoins: PropTypes.array,
   favorites: PropTypes.array,
-  handleSubmit5: PropTypes.func,
+  handleExternalComponentSubmit: PropTypes.func,
   toggleFavorites: PropTypes.func,
   addSidebar: PropTypes.func,
   sideBarOpener: PropTypes.bool

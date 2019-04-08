@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './BitcoinTracker.css';
 
-const BitcoinTracker = ({ currentBTCPrice, answer, handleSubmit5 }) => {
+const BitcoinTracker = ({ currentBTCPrice, answer, handleExternalComponentSubmit }) => {
   const price = parseFloat(currentBTCPrice).toFixed(2);
   return (
     <div
@@ -10,7 +10,7 @@ const BitcoinTracker = ({ currentBTCPrice, answer, handleSubmit5 }) => {
         : 'col-sm-2 bitcoinTrackerWrapper noBackgroundColor'
       }
       onClick={(e) => {
-        handleSubmit5(e, 'BTC');
+        handleExternalComponentSubmit(e, 'BTC');
       }}
       role="button"
       tabIndex={0}
@@ -37,11 +37,11 @@ export default BitcoinTracker;
 BitcoinTracker.propTypes = {
   currentBTCPrice: PropTypes.number,
   answer: PropTypes.bool,
-  handleSubmit5: PropTypes.func
+  handleExternalComponentSubmit: PropTypes.func
 };
 
 BitcoinTracker.defaultProps = {
   currentBTCPrice: PropTypes.number,
   answer: PropTypes.bool,
-  handleSubmit5: PropTypes.func
+  handleExternalComponentSubmit: PropTypes.func
 };

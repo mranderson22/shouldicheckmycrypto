@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import './Graph.css';
 import 'react-moment';
-import * as zoom from 'chartjs-plugin-zoom';
+import 'chartjs-plugin-zoom';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
 import * as animations from '../../animations';
@@ -17,8 +17,8 @@ import {
 class Graph extends Component {
   componentDidMount() {
     const { loadSpinner } = this.props;
-    const { id } = this.props;
-    loadSpinner(id);
+    const { graphID } = this.props;
+    loadSpinner(graphID);
   }
 
   /**
@@ -27,21 +27,21 @@ class Graph extends Component {
    */
   onReload = (e) => {
     const {
-      loadSpinner, id, coin1, handleSubmit5
+      loadSpinner, graphID, coin1, handleExternalComponentSubmit
     } = this.props;
-    const element = document.getElementById(`optionsImage${id}`);
-    const graphPrice = document.getElementById(`graphPrice${id}`);
+    const element = document.getElementById(`optionsImage${graphID}`);
+    const graphPrice = document.getElementById(`graphPrice${graphID}`);
 
     graphPrice.classList.add('flash');
     element.classList.toggle('spun');
-    handleSubmit5(e, coin1, false);
-    loadSpinner(id);
+    handleExternalComponentSubmit(e, coin1, false);
+    loadSpinner(graphID);
     this.resetZoom();
   }
 
   onFavorite = () => {
-    const { id, toggleFavorites } = this.props;
-    const element = document.getElementById(`heartFilled ${id}`);
+    const { graphID, toggleFavorites } = this.props;
+    const element = document.getElementById(`heartFilled ${graphID}`);
 
     element.classList.add('pulse');
     setTimeout(() => {
@@ -56,11 +56,11 @@ class Graph extends Component {
 
   render() {
     const {
-      handleChange,
-      isEnabled, onHistoryChange, graphData, changeCurrency, id, loading,
+      handleInputChange,
+      isEnabled, onHistoryChange, graphData, changeCurrency, graphID, loading,
       curr, coin1, setUserInput, inputValue, coinInfo, graphFocus,
       // eslint-disable-next-line react/prop-types
-      secondGraphVisible, addGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
+      secondGraphVisible, addSecondGraph, favorites, days, days2, dateRangeChange, dateRangeChange2
     } = this.props;
 
     let yAxisType;
@@ -84,6 +84,7 @@ class Graph extends Component {
         displayColors: false,
         position: 'nearest',
         mode: 'label',
+        intersect: 'false',
         backgroundColor: 'rgba(135, 144, 149, 0.99)',
         titleFontColor: 'black',
         bodyFontColor: 'black'
@@ -95,7 +96,8 @@ class Graph extends Component {
       zoom: {
         enabled: true,
         mode: 'x',
-        sensitivity: 0.1
+        sensitivity: 0.00005,
+        speed: 0.00005
       },
       scales: {
         yAxes: [{
@@ -121,7 +123,7 @@ class Graph extends Component {
           barThickness: 'flex',
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 15,
+            maxTicksLimit: 10,
             fontColor: 'rgba(175, 188, 194, 0.5)'
           }
         }]
@@ -139,14 +141,14 @@ class Graph extends Component {
     return (
       <div className="NoGraphChild">
         <img
-          id={`cryptoImageBackground${id}`}
+          id={`cryptoImageBackground${graphID}`}
           alt=""
           className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'}
           src={coinInfo.image}
         />
         <div className="graphName">
           { `${coinInfo.name} / ${curr} `}
-          <span id={`graphPrice${id}`}>
+          <span id={`graphPrice${graphID}`}>
             <span className="graphPrice">
               {curr === 'USD' ? '$' : 'Ƀ'}
               {processPrice}
@@ -163,20 +165,21 @@ class Graph extends Component {
         <animations.ResizeNoChartActual
           className="NoChartActual"
           pose="resized"
-          id={`NoChartActual ${id}`}
+          id={`NoChartActual ${graphID}`}
         >
           <Bar
             data={graphData}
             options={options}
-            ref={(reference) => this.chartReference = reference }
+            // eslint-disable-next-line no-return-assign
+            ref={reference => this.chartReference = reference}
           />
         </animations.ResizeNoChartActual>
         <div className="daysselector">
-          <DaysSelectorDropdown onHistoryChange={onHistoryChange} />
+          <DaysSelectorDropdown onHistoryChange={onHistoryChange} resetZoom={this.resetZoom} />
           <DaysSelectorSpread onHistoryChange={onHistoryChange} days={days} resetZoom={this.resetZoom} />
         </div>
         {coin1 !== 'BTC'
-          && <CurrSelector changeCurrency={changeCurrency} id={id} curr={curr} />
+          && <CurrSelector changeCurrency={changeCurrency} graphID={graphID} curr={curr} />
         }
         <ChartInfo
           coin1={coin1}
@@ -187,24 +190,26 @@ class Graph extends Component {
           days2={days2}
           coinInfo={coinInfo}
           loading={loading}
-          id={id}
+          graphID={graphID}
           graphFocus={graphFocus}
           secondGraphVisible={secondGraphVisible}
         />
         <CoinSearch
+          graphFocus={graphFocus}
           setUserInput={setUserInput}
           inputValue={inputValue}
-          handleChange={handleChange}
+          handleInputChange={handleInputChange}
           isEnabled={isEnabled}
           coin1={coin1}
+          graphID={graphID}
         />
         <OptionsBank
           onFavorite={this.onFavorite}
           favorites={favorites}
           coin1={coin1}
           onReload={this.onReload}
-          id={id}
-          addGraph={addGraph}
+          graphID={graphID}
+          addSecondGraph={addSecondGraph}
         />
       </div>
     );
@@ -215,18 +220,18 @@ class Graph extends Component {
 Graph.propTypes = {
   onHistoryChange: PropTypes.func,
   graphData: PropTypes.object,
-  handleChange: PropTypes.func,
+  handleInputChange: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
-  handleSubmit5: PropTypes.func,
+  handleExternalComponentSubmit: PropTypes.func,
   toggleFavorites: PropTypes.func,
   favorites: PropTypes.array,
-  addGraph: PropTypes.func,
+  addSecondGraph: PropTypes.func,
   setUserInput: PropTypes.func,
   inputValue: PropTypes.string,
   loadSpinner: PropTypes.func,
-  id: PropTypes.string,
+  graphID: PropTypes.string,
   coin1: PropTypes.string,
   loading: PropTypes.any,
   coinInfo: PropTypes.object,
@@ -236,18 +241,18 @@ Graph.propTypes = {
 Graph.defaultProps = {
   onHistoryChange: PropTypes.func,
   graphData: PropTypes.object,
-  handleChange: PropTypes.func,
+  handleInputChange: PropTypes.func,
   isEnabled: PropTypes.bool,
   changeCurrency: PropTypes.func,
   curr: PropTypes.string,
-  handleSubmit5: PropTypes.func,
+  handleExternalComponentSubmit: PropTypes.func,
   toggleFavorites: PropTypes.func,
   favorites: PropTypes.array,
-  addGraph: PropTypes.func,
+  addSecondGraph: PropTypes.func,
   setUserInput: PropTypes.func,
   inputValue: PropTypes.string,
   loadSpinner: PropTypes.func,
-  id: PropTypes.string,
+  graphID: PropTypes.string,
   coin1: PropTypes.string,
   loading: PropTypes.any,
   coinInfo: PropTypes.object,

@@ -14,16 +14,16 @@ import dollarIcon from '../../../images/dollar-symbol.png';
 import bitcoinIcon from '../../../images/bitcoin-logo.png';
 import './IconsUI.css';
 
-export const Plus = ({ secondGraphVisible, isGraphVisible, addGraph }) => (
+export const Plus = ({ secondGraphVisible, isGraphVisible, addSecondGraph }) => (
   <Reveal3
     pose={!secondGraphVisible && isGraphVisible ? 'visible' : 'hidden'}
     className="animations_Reveal3 plus"
     onClick={() => {
       if (isGraphVisible) {
-        addGraph(1);
+        addSecondGraph(1);
       }
       else {
-        addGraph(2);
+        addSecondGraph(2);
       }
     }
     }
@@ -54,7 +54,7 @@ export const Gecko = () => (
   <div className="geckoWrapper">
     <span className="gecko">
       {'powered by'}
-      <a href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer">
+      <a className="highlightColor" href="https://www.coingecko.com" target="_blank" rel="noopener noreferrer">
         {' CoinGecko'}
       </a>
     </span>
@@ -65,7 +65,7 @@ export const Eric = () => (
   <div className="geckoWrapper">
     <span className="eric">
       {'built by'}
-      <span className="black2">
+      <span className="highlightColor">
         {' Eric Anderson'}
       </span>
     </span>
@@ -80,7 +80,7 @@ export const GraphConnector = ({ graphFocus, graphConnector }) => (
 );
 
 export const OptionsBank = ({
-  onFavorite, favorites, coin1, onReload, id, addGraph
+  onFavorite, favorites, coin1, onReload, graphID, addSecondGraph
 }) => (
   <div className="optionsBank">
     <div
@@ -91,7 +91,7 @@ export const OptionsBank = ({
       onClick={onFavorite}
     >
       <img
-        id={`heartFilled ${id}`}
+        id={`heartFilled ${graphID}`}
         className="optionsImage large"
         alt=""
         src={
@@ -111,13 +111,13 @@ export const OptionsBank = ({
       role="button"
       tabIndex={0}
     >
-      <img className="optionsImage" id={`optionsImage${id}`} alt="" src={reload} />
+      <img className="optionsImage" id={`optionsImage${graphID}`} alt="" src={reload} />
     </div>
-    {id === 'graph2' ? (
+    {graphID === 'graph2' ? (
       <div
         className="exitButton"
         onClick={() => {
-          addGraph(1);
+          addSecondGraph(1);
         }
         }
         onKeyDown={() => {
@@ -156,7 +156,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days, resetZoom }) => {
         className="selectorButtons"
         color="primary"
         onClick={() => {
-          onHistoryChange(30);
+          onHistoryChange(31);
           resetZoom();
         }
         }
@@ -170,7 +170,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days, resetZoom }) => {
         className="selectorButtons"
         color="primary"
         onClick={() => {
-          onHistoryChange(60);
+          onHistoryChange(90);
           resetZoom();
         }
       }
@@ -212,7 +212,7 @@ export const DaysSelectorSpread = ({ onHistoryChange, days, resetZoom }) => {
         className="selectorButtons"
         color="primary"
         onClick={() => {
-          onHistoryChange(1000);
+          onHistoryChange(1500);
           resetZoom();
         }
       }
@@ -270,7 +270,7 @@ export const DaysSelectorDropdown = ({ onHistoryChange, resetZoom }) => (
   </Input>
 );
 
-export const CurrSelector = ({ changeCurrency, id, curr }) => {
+export const CurrSelector = ({ changeCurrency, graphID, curr }) => {
   const rSelected = curr === 'USD' ? 1 : 2;
   return (
     <div className="currSelector">
@@ -278,7 +278,7 @@ export const CurrSelector = ({ changeCurrency, id, curr }) => {
         <Button
           className="currButton"
           onClick={() => {
-            changeCurrency('USD', id);
+            changeCurrency('USD', graphID);
           }
         }
           active={rSelected === 1}
@@ -288,7 +288,7 @@ export const CurrSelector = ({ changeCurrency, id, curr }) => {
         <Button
           className="currButton"
           onClick={() => {
-            changeCurrency('BTC', id);
+            changeCurrency('BTC', graphID);
           }
         }
           active={rSelected === 2}

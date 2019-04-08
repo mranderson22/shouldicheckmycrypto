@@ -12,7 +12,7 @@ import github from '../../../images/github_icon.png';
 import { ChartInfoSpinner } from '../loadingSpinners/LoadingSpinners';
 
 const ChartInfo = ({
-  dateRangeChange, days, coin1, coinInfo, loading, id, graphFocus, secondGraphVisible, curr
+  dateRangeChange, days, coin1, coinInfo, loading, graphID, graphFocus, secondGraphVisible, curr
 }) => (
   <div
     className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 chartHeader shadowGraph') : ('col-sm-2 chartHeader')}
@@ -30,14 +30,14 @@ const ChartInfo = ({
         alt=""
         className="cryptoImageBackgroundChartInfo"
         src={coinInfo.image}
-        id={`cryptoImageBackgroundChartInfo${id}`}
+        id={`cryptoImageBackgroundChartInfo${graphID}`}
       />
       {loading && (
         <ChartInfoSpinner />
       )}
       <div
         className="coinInfo"
-        id={`coinInfo ${id}`}
+        id={`coinInfo ${graphID}`}
       >
         <Scrollbars
           renderThumbVertical={props => <div {...props} className="thumb-vertical2" />}
@@ -219,7 +219,7 @@ ChartInfo.propTypes = {
   coin1: PropTypes.string,
   coinInfo: PropTypes.object,
   loading: PropTypes.any,
-  id: PropTypes.string,
+  graphID: PropTypes.string,
   graphFocus: PropTypes.any,
   secondGraphVisible: PropTypes.bool,
   curr: PropTypes.string
@@ -231,7 +231,7 @@ ChartInfo.defaultProps = {
   coin1: PropTypes.string,
   coinInfo: PropTypes.object,
   loading: PropTypes.any,
-  id: PropTypes.string,
+  graphID: PropTypes.string,
   graphFocus: PropTypes.any,
   secondGraphVisible: PropTypes.bool,
   curr: PropTypes.string
