@@ -231,11 +231,11 @@ export const DaysSelectorDropdown = ({ onHistoryChange, resetZoom }) => (
     className="daysselectorDropdown"
     onChange={(e) => {
       if (e.target.value === '1M') {
-        onHistoryChange(30);
+        onHistoryChange(31);
         resetZoom();
       }
       else if (e.target.value === '3M') {
-        onHistoryChange(60);
+        onHistoryChange(90);
         resetZoom();
       }
       else if (e.target.value === '6M') {
@@ -247,7 +247,7 @@ export const DaysSelectorDropdown = ({ onHistoryChange, resetZoom }) => (
         resetZoom();
       }
       else if (e.target.value === 'ALL') {
-        onHistoryChange(1000);
+        onHistoryChange(1500);
         resetZoom();
       }
     }}
