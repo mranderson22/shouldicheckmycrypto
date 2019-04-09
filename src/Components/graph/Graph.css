@@ -53,7 +53,7 @@
 .graphName {
   position: absolute;
   top: 0%;
-  left: 1.5%;
+  left: 3%;
   font-size: 30px;
   font-family: 'Poppins', sans-serif;
   color: #b0b4b6;
@@ -118,7 +118,7 @@
 
 .NoChartActual {
   height: 63vh;
-  width: 60vw;
+  width: 61vw;
   min-height: 162px !important;
   -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -190,7 +190,7 @@
 }
 
 .shadowGraph {
-  box-shadow: 0px 0px 0px 3px #bebebe;
+  box-shadow: 0px 0px 0px 2px #bebebe;
   -webkit-transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }

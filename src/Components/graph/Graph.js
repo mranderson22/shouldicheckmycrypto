@@ -111,8 +111,11 @@ class Graph extends Component {
           type: yAxisType,
           display: showYAxis,
           id: 'y-axis-2',
+          gridLines: {
+            color: 'rgba(175, 188, 194, 0.07)'
+          },
           ticks: {
-            fontColor: 'rgba(175, 188, 194, 0.5)'
+            fontColor: 'rgba(175, 188, 194, 0.8)'
           }
         }
         ],
@@ -122,10 +125,13 @@ class Graph extends Component {
           maxBarThickness: 10,
           barThickness: 'flex',
           minBarLength: 1,
+          gridLines: {
+            color: 'rgba(175, 188, 194, 0.07)'
+          },
           ticks: {
             autoSkip: true,
-            maxTicksLimit: 10,
-            fontColor: 'rgba(175, 188, 194, 0.5)'
+            maxTicksLimit: 8,
+            fontColor: 'rgba(175, 188, 194, 0.8)'
           }
         }]
       }
