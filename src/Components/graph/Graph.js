@@ -85,7 +85,7 @@ class Graph extends Component {
         position: 'nearest',
         mode: 'label',
         intersect: 'false',
-        backgroundColor: 'rgba(135, 144, 149, 0.99)',
+        backgroundColor: 'rgba(135, 144, 149, 0.9)',
         titleFontColor: 'black',
         bodyFontColor: 'black'
       },
@@ -175,8 +175,15 @@ class Graph extends Component {
           />
         </animations.ResizeNoChartActual>
         <div className="daysselector">
-          <DaysSelectorDropdown onHistoryChange={onHistoryChange} resetZoom={this.resetZoom} />
-          <DaysSelectorSpread onHistoryChange={onHistoryChange} days={days} resetZoom={this.resetZoom} />
+          <DaysSelectorDropdown
+            onHistoryChange={onHistoryChange}
+            resetZoom={this.resetZoom}
+          />
+          <DaysSelectorSpread
+            onHistoryChange={onHistoryChange}
+            days={days}
+            resetZoom={this.resetZoom}
+          />
         </div>
         {coin1 !== 'BTC'
           && <CurrSelector changeCurrency={changeCurrency} graphID={graphID} curr={curr} />

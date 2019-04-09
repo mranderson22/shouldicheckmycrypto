@@ -179,6 +179,26 @@ class Dashboard extends Component {
   }
 
   populateChartData = (num = 1) => {
+    const { history } = this.state;
+    const { history2 } = this.state;
+    let wanted;
+    if (num === 1) {
+      wanted = history;
+    }
+    else if (num === 2) {
+      wanted = history2;
+    }
+    const graphBackgroundColor = [];
+    for (let i = 0; i < wanted.length; i++) {
+      const { close } = wanted[i];
+      const { open } = wanted[i];
+      if (close >= open) {
+        graphBackgroundColor.push('rgba(0, 225, 0, 0.15)');
+      }
+      else if (close < open) {
+        graphBackgroundColor.push('rgba(255, 20, 42, 0.15)');
+      }
+    }
     const graphCats = {
       history: [],
       labels: [],
@@ -200,12 +220,12 @@ class Dashboard extends Component {
           pointBorderColor: '#dad7d7',
           pointBackgroundColor: '#dad7d7',
           pointBorderWidth: 0,
-          pointHoverRadius: 0,
+          pointHoverRadius: 4,
           pointHoverBackgroundColor: '#1E2938',
-          pointHoverBorderColor: '#1E2938',
+          pointHoverBorderColor: '#dad7d7',
           pointHoverBorderWidth: 0,
           pointRadius: 1,
-          pointHitRadius: 10,
+          pointHitRadius: 2,
           yAxisID: 'y-axis-2'
         },
         {
@@ -213,14 +233,13 @@ class Dashboard extends Component {
           label: 'Volume',
           type: 'bar',
           yAxisID: 'y-axis-1',
-          hoverBackgroundColor: 'rgba(135, 144, 149, 0.9)',
-          backgroundColor: 'rgb(135, 144, 149, 0.4)'
+          hoverBackgroundColor: 'rgba(255, 255, 255, 0.3)',
+          backgroundColor: graphBackgroundColor
         }
       ]
     };
     if (num === 1) {
       const newGraphData = graphCats;
-      const { history } = this.state;
 
       for (let historyIndex = 0; historyIndex < history.length; historyIndex++) {
         const label = history[historyIndex].time;
@@ -235,7 +254,6 @@ class Dashboard extends Component {
     }
     else if (num === 2) {
       const newGraphData2 = graphCats;
-      const { history2 } = this.state;
 
       for (let historyIndex = 0; historyIndex < history2.length; historyIndex++) {
         const label = history2[historyIndex].time;
@@ -566,7 +584,6 @@ class Dashboard extends Component {
   };
 
   changeCurrency = (curr, graphID) => {
-    console.log(graphID)
     const {
       coin1, coin2, days, days2
     } = this.state;
