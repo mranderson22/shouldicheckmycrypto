@@ -193,7 +193,7 @@ class Dashboard extends Component {
       const { close } = wanted[i];
       const { open } = wanted[i];
       if (close >= open) {
-        graphBackgroundColor.push('rgba(0, 225, 0, 0.15)');
+        graphBackgroundColor.push('rgba(39, 151, 39, 0.15)');
       }
       else if (close < open) {
         graphBackgroundColor.push('rgba(255, 20, 42, 0.15)');
@@ -233,7 +233,7 @@ class Dashboard extends Component {
           label: 'Volume',
           type: 'bar',
           yAxisID: 'y-axis-1',
-          hoverBackgroundColor: 'rgba(255, 255, 255, 0.3)',
+          hoverBackgroundColor: 'rgba(135, 144, 149, 0.7)',
           backgroundColor: graphBackgroundColor
         }
       ]

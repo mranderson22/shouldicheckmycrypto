@@ -121,6 +121,7 @@ class Graph extends Component {
           categoryPercentage: 1.0,
           maxBarThickness: 10,
           barThickness: 'flex',
+          minBarLength: 1,
           ticks: {
             autoSkip: true,
             maxTicksLimit: 10,
