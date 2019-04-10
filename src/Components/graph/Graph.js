@@ -74,6 +74,8 @@ class Graph extends Component {
       showYAxis = true;
     }
 
+    const maxTicksForChart = Math.max(...graphData.maxTicks) * 3;
+
     const options = {
       maintainAspectRatio: false,
       responsive: true,
@@ -99,13 +101,22 @@ class Graph extends Component {
         sensitivity: 0.00005,
         speed: 0.00005
       },
+      layout: {
+        padding: {
+          left: 0,
+          right: 0,
+          top: 10,
+          bottom: 0
+        }
+      },
       scales: {
         yAxes: [{
           display: false,
           type: 'linear',
           id: 'y-axis-1',
           ticks: {
-            fontColor: 'black'
+            fontColor: 'black',
+            suggestedMax: maxTicksForChart
           }
         }, {
           type: yAxisType,
@@ -120,8 +131,8 @@ class Graph extends Component {
         }
         ],
         xAxes: [{
-          barPercentage: 1.0,
-          categoryPercentage: 1.0,
+          barPercentage: 0.9,
+          categoryPercentage: 0.9,
           maxBarThickness: 10,
           barThickness: 'flex',
           minBarLength: 1,

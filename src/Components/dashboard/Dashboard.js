@@ -39,6 +39,7 @@ class Dashboard extends Component {
     history: [],
     history2: [],
     graphData: {
+      maxTicks: [],
       labels: [],
       datasets: [
         {
@@ -200,6 +201,7 @@ class Dashboard extends Component {
       }
     }
     const graphCats = {
+      maxTicks: [],
       history: [],
       labels: [],
       datasets: [
@@ -249,6 +251,7 @@ class Dashboard extends Component {
         newGraphData.labels.push(label);
         newGraphData.datasets[0].data.push(labeldata);
         newGraphData.datasets[1].data.push(volumedata);
+        newGraphData.maxTicks.push(volumedata);
       }
       this.setState({ graphData: newGraphData });
     }
@@ -263,6 +266,7 @@ class Dashboard extends Component {
         newGraphData2.labels.push(label);
         newGraphData2.datasets[0].data.push(labeldata);
         newGraphData2.datasets[1].data.push(volumedata);
+        newGraphData2.maxTicks.push(volumedata);
       }
       this.setState({ graphData2: newGraphData2 });
     }
