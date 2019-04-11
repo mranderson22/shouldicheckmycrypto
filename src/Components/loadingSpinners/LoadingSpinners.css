@@ -1,3 +1,11 @@
+.graph1Modal {
+  top: 7vh;
+}
+
+.graph2Modal {
+  top: 55vh;
+}
+
 .spinner {
   position: absolute;
   top: 45%;
@@ -12,3 +20,11 @@
   transform: translate(-50%, -50%);
 }
 
+.modal-content {
+  background-color: #bebebe !important;
+}
+
+.btn-secondary {
+  background-color: #223242 !important;
+  padding: 2px !important;
+}

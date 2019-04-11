@@ -8,6 +8,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
+import { NoChartInfoModal } from '../loadingSpinners/LoadingSpinners';
 import * as animations from '../../animations';
 import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
 import {
@@ -18,6 +19,7 @@ import Sidebar from '../sidebar/Sidebar';
 
 class Dashboard extends Component {
   state = {
+    modal: false,
     graphFocus: 1,
     favorites: [],
     inputValue: '',
@@ -302,8 +304,13 @@ class Dashboard extends Component {
         this.setState({ history: historyNew }, async () => {
           await this.formatGraphDates(1);
           await this.populateChartData(1);
-          await this.getHistoryChange(1);
         });
+        if (historyNew.length === undefined) {
+          this.toggleModal();
+        }
+        else {
+          await this.getHistoryChange(1);
+        }
       }
       else if (num === 2) {
         const historyNew2 = response.data.Data;
@@ -311,8 +318,13 @@ class Dashboard extends Component {
         this.setState({ history2: historyNew2 }, async () => {
           await this.formatGraphDates(2);
           await this.populateChartData(2);
-          await this.getHistoryChange(2);
         });
+        if (historyNew2.length === undefined) {
+          this.toggleModal();
+        }
+        else {
+          await this.getHistoryChange(2);
+        }
       }
     }
     catch (error) {
@@ -440,6 +452,12 @@ class Dashboard extends Component {
         behavior: 'smooth'
       });
     }, 800);
+  }
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
   }
 
   checkIfCoinExists = (num) => {
@@ -730,7 +748,7 @@ class Dashboard extends Component {
       isGraphVisible, graphData, graphData2,
       days, days2, dateRangeChange, dateRangeChange2, sideBarOpener,
       pose, inputValue, inputValue2, pose2, graphFocus, graphFocus2, favorites,
-      loading, loading2, coin1, coin2, graphConnector
+      loading, loading2, coin1, coin2, graphConnector, modal
     } = this.state;
     const {
       answer, currentBTCPrice, coin1Info, coin2Info, allCoins
@@ -753,6 +771,14 @@ class Dashboard extends Component {
             sideBarOpener={sideBarOpener}
             ref="child"
           />
+          <NoChartInfoModal
+            coin1={coin1}
+            coin2={coin2}
+            graphFocus={graphFocus}
+            modal={modal}
+            toggleModal={this.toggleModal}
+            handleExternalComponentSubmit={this.handleExternalComponentSubmit}
+          />
           <animations.Resize
             className={graphFocus === 1 ? ('col-sm-10 graph1 highlight') : ('col-sm-10 graph1')}
             pose={pose}
@@ -760,6 +786,8 @@ class Dashboard extends Component {
             onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
           >
             <Graph
+              modal={modal}
+              toggleModal={this.toggleModal}
               secondGraphVisible={secondGraphVisible}
               loading={loading}
               loadSpinner={this.loadSpinner}
@@ -798,6 +826,8 @@ class Dashboard extends Component {
             onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
           >
             <Graph
+              modal={modal}
+              toggleModal={this.toggleModal}
               loading={loading2}
               loadSpinner={this.loadSpinner}
               isEnabled={isEnabled2}
