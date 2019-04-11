@@ -87,6 +87,7 @@
   background-color: #bebebe !important;
   color: black !important;
   height: 30px !important;
+  width: 100px !important;
 }
 
 .textField:focus, .textField:visited, .textField:action {
