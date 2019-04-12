@@ -196,10 +196,10 @@ class Dashboard extends Component {
       const { close } = wanted[i];
       const { open } = wanted[i];
       if (close >= open) {
-        graphBackgroundColor.push('rgba(39, 151, 39, 0.15)');
+        graphBackgroundColor.push('rgba(39, 151, 39, 0.2)');
       }
       else if (close < open) {
-        graphBackgroundColor.push('rgba(255, 20, 42, 0.15)');
+        graphBackgroundColor.push('rgba(255, 20, 42, 0.2)');
       }
     }
     const graphCats = {
