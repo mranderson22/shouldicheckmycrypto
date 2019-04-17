@@ -8,45 +8,12 @@
   flex-direction: column;
 }
 
-@media screen and (max-width: 1000px) {
-  .bitcoinCurrentPrice {
-    font-size: 1.3rem;
-    margin-left: -3px;
-    padding-top: 2px;
-  }
-}
-
 .bitcoinCurrentPriceActual {
   margin-top: -8px;
 }
 
-@media screen and (max-width: 1000px) {
-  .bitcoinCurrentPriceActual {
-    margin-top: -5px;
-  }
-}
-
-@media screen and (max-height: 850px) and (max-width: 1000px) {
-  .bitcoinCurrentPriceActual {
-    margin-top: -1px;
-  }
-}
-
-@media screen and (max-height: 700px) and (max-width: 1000px) {
-  .bitcoinCurrentPriceActual {
-    font-size: 16px;
-  }
-}
-
 .bitcoinCurrentPriceLabel {
   font-size: 10px;
-  margin-top: -2px;
-}
-
-@media screen and (max-height: 850px) and (max-width: 1000px) {
-  .bitcoinCurrentPriceLabel {
-    display: none;
-  }
 }
 
 .bitcoinTrackerWrapper {
@@ -59,17 +26,6 @@
   border-radius: 4px;
   overflow: hidden;
   cursor: pointer;
-}
-
-@media screen and (max-width: 1000px) {
-  .bitcoinTrackerWrapper {
-    left: 22%;
-    height: 4vh;
-    max-width: none !important;
-    width: 130px !important;
-    box-shadow: none;
-    top: -0.3%;
-  }
 }
 
 .currentBTCImage {
@@ -89,4 +45,48 @@
 
 .yesBackgroundColor {
   background: rgba(0, 179, 41, 0.6196078431372549);
+}
+
+@media screen and (max-width: 1000px) {
+  .bitcoinCurrentPrice {
+    font-size: 1.4rem;
+    margin-left: 25px;
+    padding-top: 6px;
+  }
+  .bitcoinCurrentPriceLabel {
+    font-size: 10px;
+    margin-top: 4px;
+    position: absolute;
+    left: 7px;
+  }
+  .bitcoinCurrentPriceActual {
+    margin-top: -3px;
+  }
+  .bitcoinTrackerWrapper {
+    left: 22%;
+    height: 34px;
+    max-width: none !important;
+    width: 150px !important;
+    box-shadow: none;
+    top: -0.3%;
+  }
+}
+
+@media screen and (max-height: 850px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    margin-top: -5px;
+  }
+}
+
+@media screen and (max-height: 700px) and (max-width: 1000px) {
+  .bitcoinCurrentPriceActual {
+    font-size: 20px;
+  }
+  .bitcoinCurrentPriceLabel {
+    margin-top: -1px;
+  }
+  .bitcoinTrackerWrapper {
+    height: 28px;
+    top: -1%;
+  }
 }

@@ -570,6 +570,7 @@ class Dashboard extends Component {
         // Exit Button for 2nd Graph
         else {
           this.setState(() => ({ graphConnector: false }));
+          this.setState(() => ({ graphFocus: 1 }));
           this.setState({ pose2: 'hidden' }, () => {
             this.setState({ pose: 'initial' });
           });
