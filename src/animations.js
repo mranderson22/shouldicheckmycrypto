@@ -38,7 +38,7 @@ export const ResizeNoChartActual = posed.div({
     height: '55vh'
   },
   resized: {
-    height: '37.5vh'
+    height: '35vh'
   }
 });
 

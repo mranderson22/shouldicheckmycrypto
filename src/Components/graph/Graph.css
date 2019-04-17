@@ -111,7 +111,7 @@
 }
 
 .NoChartActual {
-  height: 63vh;
+  height: 35vh;
   width: 61vw;
   min-height: 162px !important;
   -webkit-transition: opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
