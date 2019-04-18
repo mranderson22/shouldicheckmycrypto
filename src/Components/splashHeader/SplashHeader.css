@@ -1,4 +1,5 @@
 .shouldIHeader {
+  opacity: 1;
   position: absolute;
   color: rgb(148, 148, 148);
   transform: translate(-50%, -50%);
