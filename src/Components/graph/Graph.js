@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
@@ -171,10 +172,12 @@ class Graph extends Component {
               {curr === 'USD' ? '$' : 'Ƀ'}
               {processPrice}
             </span>
-            <span className={coinInfo.change24h <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
-              {` ${coinInfo.change24h}%`}
-              {coinInfo.change24h <= 0 ? '↓' : '↑'}
-            </span>
+            {isFinite(dateRangeChange) && (
+              <span className={dateRangeChange <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
+                {` ${dateRangeChange}%`}
+                {dateRangeChange <= 0 ? '↓' : '↑'}
+              </span>
+            )}
           </span>
         </div>
         {loading && (
