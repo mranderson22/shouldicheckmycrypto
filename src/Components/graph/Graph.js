@@ -86,8 +86,8 @@ class Graph extends Component {
       tooltips: {
         displayColors: false,
         position: 'nearest',
-        mode: 'label',
-        intersect: 'false',
+        mode: 'index',
+        intersect: false,
         backgroundColor: 'rgba(135, 144, 149, 0.9)',
         titleFontColor: 'black',
         bodyFontColor: 'black'
