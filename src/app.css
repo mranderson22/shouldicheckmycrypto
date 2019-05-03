@@ -11,6 +11,10 @@ a {
   position: static;
 }
 
+.appWrapper {
+  position: relative;
+}
+
 html, body {
   font-family: 'Poppins', sans-serif !important;
   width: 100%;

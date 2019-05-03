@@ -65,12 +65,13 @@ class App extends Component {
     const { coin1Info } = this.state;
     const { down } = this.state;
     const change7d = parseFloat(coin1Info.change7d);
+    const { change30d } = coin1Info.change30d;
 
     if (!down) {
-      if (change7d <= -5) {
+      if ((change30d || change7d) <= -10) {
         this.setState(() => ({ text: 'Absolutely not.' }));
       }
-      else if (change7d >= 5) {
+      else if ((change7d || change30d) >= 10) {
         this.setState(() => ({ text: 'Absolutely!', answer: true }));
       }
       else if (change7d >= 0) {
@@ -188,6 +189,7 @@ class App extends Component {
         coin.facebook_username = response2.data.links.facebook_username;
         coin.subreddit = response2.data.links.subreddit_url;
         [coin.github] = response2.data.links.repos_url.github;
+        coin.change30d = parseFloat(response2.data.market_data.price_change_percentage_30d).toFixed(2);
 
         if (num === 1) {
           this.setState(() => ({ coin1Info: coin, allCoins }), () => {
@@ -224,7 +226,7 @@ class App extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className="appWrapper">
         <SplashHeader isDashboardVisible={isDashboardVisible} />
         <div className="answerBackground">
           <SplashAnswer
