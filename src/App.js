@@ -78,7 +78,7 @@ class App extends Component {
         this.setState(() => ({ text: 'Looks good!', answer: true }));
       }
       else if (change7d < 0) {
-        this.setState(() => ({ text: 'If you must.' }));
+        this.setState(() => ({ text: 'maybe later...' }));
       }
       else {
         this.setState(() => ({ text: 'Try again.' }));
