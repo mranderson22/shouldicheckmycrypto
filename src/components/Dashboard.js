@@ -2,20 +2,20 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable consistent-return */
 import React, { Component } from 'react';
-import './dashboard.css';
+import '../styles/components/_iconsUI.scss';
 import 'react-moment';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
-import { NoChartInfoModal } from '../loadingSpinners/LoadingSpinners';
-import * as animations from '../../animations';
-import BitcoinTracker from '../bitcoinTracker/BitcoinTracker';
+import { NoChartInfoModal } from './LoadingSpinners';
+import * as animations from '../animations';
+import BitcoinTracker from './BitcoinTracker';
 import {
   Plus, BurgerMenu, Gecko, GraphConnector, Eric
-} from '../iconsUI/IconsUI';
-import Graph from '../graph/Graph';
-import Sidebar from '../sidebar/Sidebar';
+} from './IconsUI';
+import Graph from './Graph';
+import Sidebar from './Sidebar';
 
 class Dashboard extends Component {
   state = {

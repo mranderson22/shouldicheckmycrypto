@@ -2,18 +2,18 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
-import './Graph.css';
+import '../styles/components/_graph.scss';
 import 'react-moment';
 import 'chartjs-plugin-zoom';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
-import * as animations from '../../animations';
-import CoinSearch from '../coinSearch/CoinSearch';
-import ChartInfo from '../chartInfo/ChartInfo';
-import { GraphSpinner } from '../loadingSpinners/LoadingSpinners';
+import * as animations from '../animations';
+import CoinSearch from './CoinSearch';
+import ChartInfo from './ChartInfo';
+import { GraphSpinner } from './LoadingSpinners';
 import {
   OptionsBank, DaysSelectorDropdown, DaysSelectorSpread, CurrSelector
-} from '../iconsUI/IconsUI';
+} from './IconsUI';
 
 class Graph extends Component {
   componentDidMount() {

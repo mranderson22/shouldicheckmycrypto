@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import axios from 'axios';
-import SplashHeader from './Components/splashHeader/SplashHeader';
-import SplashAnswer from './Components/splashAnswer/SplashAnswer';
-import Dashboard from './Components/dashboard/Dashboard';
-import './app.css';
+import SplashHeader from './components/SplashHeader';
+import SplashAnswer from './components/SplashAnswer';
+import Dashboard from './components/Dashboard';
+import './styles/base/_base.scss';
 import 'babel-polyfill';
 
 class App extends Component {

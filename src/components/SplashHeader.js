@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import * as animations from '../../animations';
-import './SplashHeader.css';
+import * as animations from '../animations';
+import '../styles/components/_splashHeader.scss';
 
 const SplashHeader = ({ isDashboardVisible }) => (
   <animations.Reveal3

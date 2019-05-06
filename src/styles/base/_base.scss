@@ -1,13 +1,15 @@
+@import "../abstracts/variables";
+
 *:focus {outline:none}
 
 a {
-  color: #000000 !important;
+  color: $color-black !important;
   font-size: 15px;
 }
 
 .answerBackground {
   height: 100vh;
-  background-image: url('../images/circles.png');
+  background-image: url('/images/circles.png');
   position: static;
 }
 
@@ -25,7 +27,7 @@ html, body {
 }
 
 .black {
-  color: black;
+  color: $color-black;
   font-weight: bold;
 }
 
@@ -44,7 +46,7 @@ html, body {
 }
 
 .greenText {
-  color: #00e100;
+  color: $color-green-text;
   font-weight: 500;
 }
 
@@ -58,12 +60,12 @@ li {
 }
 
 #nav {
-  background: #223242;
-  border-bottom: 2px solid #bebebe;
+  background: $color-blue-dark;
+  border-bottom: 2px solid $color-grey-primary;
   cursor: pointer;
   }
 
 .redText {
-  color: #801f28;
+  color: $color-red-text;
   font-weight: bold;
 }

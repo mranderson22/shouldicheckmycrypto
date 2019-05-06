@@ -3,16 +3,16 @@ import React from 'react';
 import {
   Button, Input, ButtonGroup
 } from 'reactstrap';
-import { Reveal3, Reveal4, GraphConnectorAnimation } from '../../animations';
-import plus from '../../../images/plus-button.png';
-import burgerMenu from '../../../images/burgerMenu.png';
-import heart from '../../../images/heart.png';
-import heartFilled from '../../../images/heartFilled.png';
-import reload from '../../../images/reload.png';
-import exit from '../../../images/exiticon.png';
-import dollarIcon from '../../../images/dollar-symbol.png';
-import bitcoinIcon from '../../../images/bitcoin-logo.png';
-import './IconsUI.css';
+import { Reveal3, Reveal4, GraphConnectorAnimation } from '../animations';
+import plus from '../../images/plus-button.png';
+import burgerMenu from '../../images/burgerMenu.png';
+import heart from '../../images/heart.png';
+import heartFilled from '../../images/heartFilled.png';
+import reload from '../../images/reload.png';
+import exit from '../../images/exiticon.png';
+import dollarIcon from '../../images/dollar-symbol.png';
+import bitcoinIcon from '../../images/bitcoin-logo.png';
+import '../styles/components/_iconsUI.scss';
 
 export const Plus = ({ secondGraphVisible, isGraphVisible, addSecondGraph }) => (
   <Reveal3

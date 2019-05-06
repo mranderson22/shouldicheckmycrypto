@@ -1,15 +1,15 @@
 /* eslint-disable no-restricted-globals */
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ChartInfo.css';
+import '../styles/components/_chartInfo.scss';
 import moment from 'moment';
 import Scrollbars from 'react-custom-scrollbars';
-import home from '../../../images/home_icon.png';
-import reddit from '../../../images/reddit_icon.png';
-import facebook from '../../../images/facebook_icon.png';
-import twitter from '../../../images/twitter_icon.png';
-import github from '../../../images/github_icon.png';
-import { ChartInfoSpinner } from '../loadingSpinners/LoadingSpinners';
+import home from '../../images/home_icon.png';
+import reddit from '../../images/reddit_icon.png';
+import facebook from '../../images/facebook_icon.png';
+import twitter from '../../images/twitter_icon.png';
+import github from '../../images/github_icon.png';
+import { ChartInfoSpinner } from './LoadingSpinners';
 
 const ChartInfo = ({
   dateRangeChange, days, coin1, coinInfo, loading, graphID, graphFocus, secondGraphVisible, curr

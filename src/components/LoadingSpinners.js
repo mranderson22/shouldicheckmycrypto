@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoadingSpinners.css';
+import '../styles/components/_loadingSpinners.scss';
 import Loader from 'react-loader-spinner';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter
@@ -29,7 +29,9 @@ export const ChartInfoSpinner = () => (
   </div>
 );
 
-export const NoChartInfoModal = ({ toggleModal, modal, handleExternalComponentSubmit, graphFocus, coin1, coin2 }) => (
+export const NoChartInfoModal = ({
+  toggleModal, modal, handleExternalComponentSubmit, graphFocus, coin1, coin2
+}) => (
   <div>
     <Modal isOpen={modal} toggle={toggleModal} className={graphFocus === 1 ? 'graph1Modal' : 'graph2Modal'}>
       <ModalHeader toggle={toggleModal}>

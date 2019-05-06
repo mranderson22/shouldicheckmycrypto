@@ -6,6 +6,7 @@
     "target": "web",
     "scripts": {
         "start": "webpack-dev-server --mode development --open --hot  --config webpack.config.js",
+        "compile:sass": "node-sass src/styles/main.scss src/styles/utils/style.css -w",
         "build": "webpack -p --env production --config prod.config.js",
         "deploy": "node server.js",
         "heroku-postbuild": "npm run build"
@@ -29,6 +30,7 @@
         "html-webpack-plugin": "^3.2.0",
         "mini-css-extract-plugin": "^0.4.1",
         "moment": "^2.22.2",
+        "node-sass": "^4.12.0",
         "popmotion-pose": "^3.4.6",
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
@@ -42,6 +44,7 @@
         "react-moment": "^0.7.9",
         "react-pose": "^4.0.8",
         "reactstrap": "^6.2.0",
+        "sass-loader": "^7.1.0",
         "webpack": "^4.14.0"
     },
     "devDependencies": {

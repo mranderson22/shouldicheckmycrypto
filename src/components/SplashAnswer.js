@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { MainSpinner } from '../loadingSpinners/LoadingSpinners';
-import { Reveal, Reveal2 } from '../../animations';
-import lockbody from '../../../images/lockbody.png';
-import './SplashAnswer.css';
+import { MainSpinner } from './LoadingSpinners';
+import { Reveal, Reveal2 } from '../animations';
+import lockbody from '../../images/lockbody.png';
+import '../styles/components/_splashAnswer.scss';
 
 const SplashAnswer = ({
   loading, isAnswerBoxVisible, onLockClick, answer, text, down

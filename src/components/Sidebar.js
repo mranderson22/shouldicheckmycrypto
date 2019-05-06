@@ -1,15 +1,15 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import './Sidebar.css';
+import '../styles/components/_sidebar.scss';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Swipe from 'react-easy-swipe';
 import PropTypes from 'prop-types';
-import heartFilled from '../../../images/heartFilled.png';
-import trendingup from '../../../images/trendingup.png';
-import trendingdown from '../../../images/trendingdown.png';
-import exiticon from '../../../images/exiticon.png';
-import listImage from '../../../images/list.png';
-import { SidebarSpinner } from '../loadingSpinners/LoadingSpinners';
+import heartFilled from '../../images/heartFilled.png';
+import trendingup from '../../images/trendingup.png';
+import trendingdown from '../../images/trendingdown.png';
+import exiticon from '../../images/exiticon.png';
+import listImage from '../../images/list.png';
+import { SidebarSpinner } from './LoadingSpinners';
 
 
 class Sidebar extends Component {

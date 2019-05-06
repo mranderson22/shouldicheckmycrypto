@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './coinSearch.css';
+import '../styles/components/_coinSearch.scss';
 import {
   Button, Form, Label, Input, FormGroup
 } from 'reactstrap';

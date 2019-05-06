@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './BitcoinTracker.css';
+import '../styles/components/_bitcoinTracker.scss';
 
 const BitcoinTracker = ({ currentBTCPrice, answer, handleExternalComponentSubmit }) => {
   const price = parseFloat(currentBTCPrice).toFixed(2);
