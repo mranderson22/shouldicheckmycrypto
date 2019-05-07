@@ -17,9 +17,11 @@ module.exports = (env) => {
       rules: [
         {
           test: /\.(jpg|png|svg|ico)$/,
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
-            limit: 2500000000
+            name: '[path][name]-[hash].[ext]',
+        outputPath: '../',
+        publicPath: '/dist'
           }
         },
         {
