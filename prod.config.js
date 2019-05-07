@@ -38,10 +38,10 @@ module.exports = (env) => {
             loader: 'css-loader'
           },
           {
-            loader: 'resolve-url-loader'
+            loader: 'sass-loader'
           },
           {
-            loader: 'sass-loader'
+            loader: 'resolve-url-loader'
           }]
         }
       ]
