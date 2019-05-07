@@ -13,7 +13,6 @@ module.exports = {
     rules: [
       {
         test: /\.(jpg|png|svg|ico)$/,
-        include: path.join(__dirname, 'images'),
         loader: 'url-loader'
       },
       {
@@ -25,6 +24,7 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
+        
         use: [{
           loader: 'style-loader'
         },
