@@ -13,10 +13,8 @@ module.exports = {
     rules: [
       {
         test: /\.(jpg|png|svg|ico)$/,
-        loader: 'url-loader',
-        options: {
-          limit: 2500000000
-        }
+        include: path.join(__dirname, 'images'),
+        loader: 'url-loader'
       },
       {
         test: /\.js$/,
@@ -34,10 +32,10 @@ module.exports = {
           loader: 'css-loader'
         },
         {
-          loader: 'sass-loader'
+          loader: 'resolve-url-loader'
         },
         {
-          loader: 'resolve-url-loader'
+          loader: 'sass-loader'
         }]
       }
     ]
