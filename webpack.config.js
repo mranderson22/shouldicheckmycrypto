@@ -27,11 +27,18 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        use: [{
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'resolve-url-loader'
+        },
+        {
+          loader: 'sass-loader'
+        }]
       }
     ]
   },
