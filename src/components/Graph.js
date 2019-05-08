@@ -7,7 +7,7 @@ import 'react-moment';
 import 'chartjs-plugin-zoom';
 import { Bar } from 'react-chartjs-2';
 import PropTypes from 'prop-types';
-import * as animations from '../animations';
+import * as animations from '../utilities/animations';
 import CoinSearch from './CoinSearch';
 import ChartInfo from './ChartInfo';
 import { GraphSpinner } from './LoadingSpinners';

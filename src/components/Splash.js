@@ -1,13 +1,12 @@
 /* eslint-disable no-console */
 import React, { Component } from 'react';
 import axios from 'axios';
-import SplashHeader from './components/SplashHeader';
-import SplashAnswer from './components/SplashAnswer';
-import Dashboard from './components/Dashboard';
-import './styles/base/_base.scss';
+import SplashHeader from './SplashHeader';
+import SplashAnswer from './SplashAnswer';
+import Dashboard from './Dashboard';
 import 'babel-polyfill';
 
-class App extends Component {
+class Splash extends Component {
   state = {
     coin1: 'BTC',
     coin2: 'ETH',
@@ -226,7 +225,7 @@ class App extends Component {
     } = this.state;
 
     return (
-      <div className="appWrapper">
+      <div>
         <SplashHeader isDashboardVisible={isDashboardVisible} />
         <div className="answerBackground">
           <SplashAnswer
@@ -258,4 +257,4 @@ class App extends Component {
 }
 
 
-export default App;
+export default Splash;

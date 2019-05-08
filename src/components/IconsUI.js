@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Button, Input, ButtonGroup
 } from 'reactstrap';
-import { Reveal3, Reveal4, GraphConnectorAnimation } from '../animations';
+import { Reveal3, Reveal4, GraphConnectorAnimation } from '../utilities/animations';
 import plus from '../../images/plus-button.png';
 import burgerMenu from '../../images/burgerMenu.png';
 import heart from '../../images/heart.png';

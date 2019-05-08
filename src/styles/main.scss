@@ -1,6 +1,7 @@
 @import "abstracts/variables";
 
 @import "base/base";
+@import "base/typography";
 
 @import "components/bitcoinTracker";
 @import "components/chartInfo";
@@ -10,6 +11,7 @@
 @import "components/iconsUI";
 @import "components/loadingSpinners";
 @import "components/sidebar";
+@import "components/splash";
 @import "components/splashAnswer";
 @import "components/splashHeader";
 

@@ -2,14 +2,13 @@
 /* eslint-disable react/no-string-refs */
 /* eslint-disable consistent-return */
 import React, { Component } from 'react';
-import '../styles/components/_iconsUI.scss';
 import 'react-moment';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'babel-polyfill';
 import { NoChartInfoModal } from './LoadingSpinners';
-import * as animations from '../animations';
+import * as animations from '../utilities/animations';
 import BitcoinTracker from './BitcoinTracker';
 import {
   Plus, BurgerMenu, Gecko, GraphConnector, Eric
