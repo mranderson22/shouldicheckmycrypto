@@ -4,55 +4,32 @@
   opacity: 0;
 }
 
-.graph1 {
-  position: fixed !important;
-  width: 100% !important;
-  top: 0%;
+.graph1,
+.graph2 {
+  position: fixed;
   left: 19%;
-  padding: 1px;
-  max-width: 62% !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+  padding: 0;
+  max-width: 62%;
   transform: translate(0%, 0%);
-  margin-top: 15px;
-  padding-top: 0px;
-  padding-bottom: 0px;
   border-radius: 4px;
   z-index: 1;
-  background: #222b3a;
+  background: $color-blue-primary;
   -webkit-transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
 
-@media screen and (max-width: 1000px) {
-  .graph1 {
-    left: 2% !important;
-    max-width: none !important;
-    width: 96% !important;
-    top: 5% !important;
-    box-shadow: none !important;
-    background: none !important;
+  &-highlight {
+    box-shadow: $box-shadow-highlight;
   }
 }
 
+.graph1 {
+  top: 0%;
+  margin-top: 15px;
+}
+
 .graph2 {
-  position: fixed !important;
-  width: 100% !important;
   top: 41.3%;
-  left: 19%;
-  padding: 1px;
-  max-width: 62% !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  transform: translate(0%, 0%);
   margin-top: 79px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  border-radius: 4px;
-  z-index: 1;
-  background: #222b3a;
-  -webkit-transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: box-shadow .2s, background .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
 }
 
 @media screen and (max-height: 800px) {
@@ -63,7 +40,7 @@
 
 @media screen and (max-height: 650px) {
   .graph2 {
-    top: 8.5% !important;
+    top: 8.5%;
     margin-top: 225px;
   }
 }
@@ -72,16 +49,6 @@
   .graph2 {
     display: none;
   }
-}
-
-@media screen and (max-width: 1000px) {
-  .graph2 {
-    display: none;
-  }
-}
-
-.highlight {
-  box-shadow: 0px 0px 0px 2px #bebebe;
 }
 
 @media screen and (min-width: 650px) {
@@ -97,5 +64,20 @@
     -ms-flex: 0 0 16.666667%;
     flex: 0 0 16.666667%;
     max-width: 16.666667%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .graph1 {
+    left: 2%;
+    max-width: none;
+    width: 96%;
+    top: 5%;
+    box-shadow: none;
+    background: none;
+  }
+
+  .graph2 {
+    display: none;
   }
 }
