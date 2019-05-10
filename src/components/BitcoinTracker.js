@@ -6,8 +6,8 @@ const BitcoinTracker = ({ currentBTCPrice, answer, handleExternalComponentSubmit
   const price = parseFloat(currentBTCPrice).toFixed(2);
   return (
     <div
-      className={answer === true ? 'col-sm-2 bitcoinTrackerWrapper yesBackgroundColor'
-        : 'col-sm-2 bitcoinTrackerWrapper noBackgroundColor'
+      className={answer === true ? 'col-sm-2 bitcoinTracker yesBackgroundColor'
+        : 'col-sm-2 bitcoinTracker noBackgroundColor'
       }
       onClick={(e) => {
         handleExternalComponentSubmit(e, 'BTC');
@@ -19,12 +19,12 @@ const BitcoinTracker = ({ currentBTCPrice, answer, handleExternalComponentSubmit
       }
     }
     >
-      <div className="bitcoinCurrentPrice">
-        <span className="bitcoinCurrentPriceLabel">
+      <div className="bitcoinTracker__Info">
+        <span className="bitcoinTracker__Info-Legend">
           {'1 BTC = '}
         </span>
-        <img alt="" className="currentBTCImage" src="https://www.cryptocompare.com//media/19633/btc.png" />
-        <span className="bitcoinCurrentPriceActual">
+        <img alt="" className="bitcoinTracker__Info-Image" src="https://www.cryptocompare.com//media/19633/btc.png" />
+        <span className="bitcoinTracker__Info-Price">
           {`$${price}`}
         </span>
       </div>

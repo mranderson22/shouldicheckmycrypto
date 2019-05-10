@@ -1,11 +1,13 @@
+@import "../abstracts/variables";
+
 .shouldIHeader {
   opacity: 1;
   position: absolute;
-  color: rgb(148, 148, 148);
+  color: $color-grey-primary;
   transform: translate(-50%, -50%);
   left: 50%;
   top: 7%;
-  font-size: 25px;
+  font-size: 2.5rem;
   width: fit-content;
   z-index: 2;
 }
