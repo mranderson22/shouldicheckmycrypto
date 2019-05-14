@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../styles/components/_chartInfo.scss';
 import moment from 'moment';
 import Scrollbars from 'react-custom-scrollbars';
 import home from '../../images/home_icon.png';

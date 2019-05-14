@@ -1,13 +1,10 @@
-@import "../abstracts/variables";
-
 .shouldIHeader {
   opacity: 1;
-  position: absolute;
-  color: $color-grey-primary;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  top: 7%;
-  font-size: 2.5rem;
+  margin-top: 6rem;
+  color: rgba($color-grey-primary, 0.5);
+  font-size: calc(1vw + 1vh + 1vmin);
   width: fit-content;
   z-index: 2;
+
+  animation: moveInTop .5s ease-out;
 }

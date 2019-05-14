@@ -2,8 +2,7 @@
 import React from 'react';
 import { MainSpinner } from './LoadingSpinners';
 import { Reveal, Reveal2 } from '../utilities/animations';
-import lockbody from '../../images/lockbody.png';
-import '../styles/components/_splashAnswer.scss';
+import hand from '../../images/hand.svg';
 
 const SplashAnswer = ({
   loading, isAnswerBoxVisible, onLockClick, answer, text, down
@@ -12,27 +11,21 @@ const SplashAnswer = ({
     {loading ? (
       <MainSpinner />
     ) : null}
-    <h1 className="answerBox">
-      <Reveal pose={isAnswerBoxVisible ? 'visible' : 'hidden'} className="animations_reveal">
-        {text}
-      </Reveal>
-    </h1>
+    <Reveal className="answerBox" pose={isAnswerBoxVisible ? 'visible' : 'hidden'}>
+      {text}
+    </Reveal>
     {
   answer === true || down ? null : (
-    <div className="lockbody">
-      <div
-        onClick={onLockClick}
-        onKeyDown={onLockClick}
-        role="button"
-        tabIndex={0}
-      >
-        <Reveal2 pose={isAnswerBoxVisible ? 'visible' : 'hidden'} className="animations_reveal2">
-          <div>
-            <img className="lockImage" alt="" src={lockbody} />
-          </div>
-        </Reveal2>
-      </div>
-    </div>)
+    <Reveal2
+      className="lockbody"
+      onClick={onLockClick}
+      onKeyDown={onLockClick}
+      role="button"
+      tabIndex={0}
+      pose={isAnswerBoxVisible ? 'visible' : 'hidden'}
+    >
+      <img className="lockImage" alt="" src={hand} />
+    </Reveal2>)
 }
   </div>
 );

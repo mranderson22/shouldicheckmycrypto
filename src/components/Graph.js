@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
-import '../styles/components/_graph.scss';
 import 'react-moment';
 import 'chartjs-plugin-zoom';
 import { Bar } from 'react-chartjs-2';

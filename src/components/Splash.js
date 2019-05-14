@@ -71,10 +71,10 @@ class Splash extends Component {
         this.setState(() => ({ text: 'Absolutely not.' }));
       }
       else if ((change7d || change30d) >= 10) {
-        this.setState(() => ({ text: 'Absolutely!', answer: true }));
+        this.setState(() => ({ text: 'Absolutely!' }));
       }
       else if (change7d >= 0) {
-        this.setState(() => ({ text: 'Looks good!', answer: true }));
+        this.setState(() => ({ text: 'Looks good!' }));
       }
       else if (change7d < 0) {
         this.setState(() => ({ text: 'maybe later...' }));
@@ -225,31 +225,29 @@ class Splash extends Component {
     } = this.state;
 
     return (
-      <div>
+      <div className="answerBackground">
         <SplashHeader isDashboardVisible={isDashboardVisible} />
-        <div className="answerBackground">
-          <SplashAnswer
-            loading={loading}
-            isAnswerBoxVisible={isAnswerBoxVisible}
-            onLockClick={this.onLockClick}
+        <SplashAnswer
+          loading={loading}
+          isAnswerBoxVisible={isAnswerBoxVisible}
+          onLockClick={this.onLockClick}
+          answer={answer}
+          text={text}
+          down={down}
+        />
+        <div>
+          {isDashboardVisible && (
+          <Dashboard
+            sendCoin={this.updateCoin}
+            fetchData={this.fetchCryptoData}
             answer={answer}
-            text={text}
-            down={down}
+            currentBTCPrice={currentBTCPrice}
+            coin1Info={coin1Info}
+            coin2Info={coin2Info}
+            allCoins={allCoins}
           />
-          <div>
-            {isDashboardVisible && (
-            <Dashboard
-              sendCoin={this.updateCoin}
-              fetchData={this.fetchCryptoData}
-              answer={answer}
-              currentBTCPrice={currentBTCPrice}
-              coin1Info={coin1Info}
-              coin2Info={coin2Info}
-              allCoins={allCoins}
-            />
-            )
-            }
-          </div>
+          )
+          }
         </div>
       </div>
     );

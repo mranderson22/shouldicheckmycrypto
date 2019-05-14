@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/components/_loadingSpinners.scss';
 import Loader from 'react-loader-spinner';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter

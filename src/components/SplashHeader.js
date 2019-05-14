@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Reveal3 } from '../utilities/animations';
-import '../styles/components/_splashHeader.scss';
 
 const SplashHeader = ({ isDashboardVisible }) => (
   <Reveal3

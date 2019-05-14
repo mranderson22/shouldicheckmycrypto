@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 import React, { Component } from 'react';
-import '../styles/components/_sidebar.scss';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Swipe from 'react-easy-swipe';
 import PropTypes from 'prop-types';

@@ -12,7 +12,6 @@ import reload from '../../images/reload.png';
 import exit from '../../images/exiticon.png';
 import dollarIcon from '../../images/dollar-symbol.png';
 import bitcoinIcon from '../../images/bitcoin-logo.png';
-import '../styles/components/_iconsUI.scss';
 
 export const Plus = ({ secondGraphVisible, isGraphVisible, addSecondGraph }) => (
   <Reveal3
