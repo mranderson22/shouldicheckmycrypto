@@ -71,10 +71,10 @@ class Splash extends Component {
         this.setState(() => ({ text: 'Absolutely not.' }));
       }
       else if ((change7d || change30d) >= 10) {
-        this.setState(() => ({ text: 'Absolutely!' }));
+        this.setState(() => ({ text: 'Absolutely!', answer: true }));
       }
       else if (change7d >= 0) {
-        this.setState(() => ({ text: 'Looks good!' }));
+        this.setState(() => ({ text: 'Looks good!', answer: true }));
       }
       else if (change7d < 0) {
         this.setState(() => ({ text: 'maybe later...' }));
