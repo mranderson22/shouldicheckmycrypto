@@ -6,6 +6,7 @@
 $color-red-text: #801f28;
 $color-green-text: #00e100;
 
+$color-grey-dark: #6a7580;
 $color-grey-primary: #bebebe;
 $color-grey-light: #d7d7d7;
 
@@ -21,3 +22,8 @@ $color-green-background: #00b329;
 /////////BOX SHADOWS
 
 $box-shadow-highlight: 0px 0px 0px 2px #bebebe;
+
+//////////////////////////////////////////////////////////////
+/////////TRANSITIONS
+
+$cubic-primary: cubic-bezier(0.165, 0.84, 0.44, 1);

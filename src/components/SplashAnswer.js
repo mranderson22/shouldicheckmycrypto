@@ -17,14 +17,14 @@ const SplashAnswer = ({
     {
   answer === true || down ? null : (
     <Reveal2
-      className="lockbody"
+      className="hand"
       onClick={onLockClick}
       onKeyDown={onLockClick}
       role="button"
       tabIndex={0}
       pose={isAnswerBoxVisible ? 'visible' : 'hidden'}
     >
-      <img className="lockImage" alt="" src={hand} />
+      <img className="hand-Image" alt="" src={hand} />
     </Reveal2>)
 }
   </div>

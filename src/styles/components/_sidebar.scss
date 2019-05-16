@@ -1,5 +1,5 @@
 #bottomPercentage {
-  color: #800000 !important;
+  color: $color-red-text;
   font-weight: bold;
 }
 
@@ -8,7 +8,7 @@
 }
 
 .burgerMenuContainer {
-  width: 40px;
+  width: 4rem;
   position: absolute;
   left: 2%;
   top: 1%;
@@ -17,14 +17,8 @@
   filter: invert(80%);
 }
 
-@media screen and (min-width: 1000px) {
-  .burgerMenuContainer {
-    display: none;
-  }
-}
-
 .buttonFav {
-  background: #6a7580 !important;
+  background: $color-grey-dark !important;
   color: white;
   outline: 0;
   z-index: 0;
@@ -269,7 +263,7 @@ padding: 1rem;
 
 }
 
-.sidebarButtonWrapper {
+.sidebarButton-Wrapper {
   display: flex;
   opacity: 1;
   z-index: 5;
@@ -336,4 +330,10 @@ padding: 1rem;
 
 .visible {
   opacity: 1;
+}
+
+@media screen and (min-width: 1000px) {
+  .burgerMenuContainer {
+    display: none;
+  }
 }
