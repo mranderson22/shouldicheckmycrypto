@@ -596,7 +596,7 @@ class Dashboard extends Component {
     const { sideBarOpener } = this.state;
     const sidebar = document.getElementById('sidebarContainer');
 
-    sidebar.classList.toggle('open');
+    sidebar.classList.toggle('sidebarSlide');
     if (sideBarOpener === false) {
       this.setState(() => ({ sideBarOpener: true }));
     }

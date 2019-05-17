@@ -118,7 +118,7 @@ class Sidebar extends Component {
     const { toggleFavorites } = this.props;
     if (favorites.length !== 0) {
       const newRankingList = list.map(x => (
-        <div key={x.id} className="sidebarButtonWrapper">
+        <div key={x.id} className="sidebarButton-Wrapper">
           <div
             role="button"
             tabIndex="-1"
@@ -161,7 +161,7 @@ class Sidebar extends Component {
     }
     else {
       const newRankingList = (
-        <div className="emptyFavorites">
+        <div className="emptyFavorites list-group-item list-group-item-action">
           {'Start Adding Favorites!'}
         </div>
       );
@@ -184,18 +184,18 @@ class Sidebar extends Component {
         {loading && (
           <SidebarSpinner />
         )}
-        <div className={loading ? 'list-group listAddOn' : 'list-group listAddOn visible'}>
-          <nav id="nav" className="nav sticky-top nav-pills nav-fill">
-            <span className={listStatus === 'Ranked' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="ranked">
+        <div className={loading ? 'list-group' : 'list-group visible'}>
+          <nav id="nav" className="nav nav-pills nav-fill">
+            <span className={listStatus === 'Ranked' ? 'flex-item nav-link active' : 'flex-item nav-link'} id="ranked">
               <img className="heartSidebar" src={listImage} alt="ranked" />
             </span>
-            <span className={listStatus === 'Top' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="topPercentage">
+            <span className={listStatus === 'Top' ? 'flex-item nav-link active' : 'flex-item nav-link'} id="topPercentage">
               <img className="heartSidebar" src={trendingup} alt="trendingup" />
             </span>
-            <span className={listStatus === 'Bottom' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="bottomPercentage">
+            <span className={listStatus === 'Bottom' ? 'flex-item nav-link active' : 'flex-item nav-link'} id="bottomPercentage">
               <img className="heartSidebar" src={trendingdown} alt="trendingdown" />
             </span>
-            <span className={listStatus === 'Favorites' ? 'flex-item nav-item nav-link active' : 'flex-item nav-item nav-link'} id="favorites">
+            <span className={listStatus === 'Favorites' ? 'flex-item nav-link active' : 'flex-item nav-link'} id="favorites">
               <img className="heartSidebar" src={heartFilled} alt="favorited" />
             </span>
           </nav>
