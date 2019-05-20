@@ -14,20 +14,18 @@ const ChartInfo = ({
   dateRangeChange, days, coin1, coinInfo, loading, graphID, graphFocus, secondGraphVisible, curr
 }) => (
   <div
-    className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 chartHeader shadowGraph') : ('col-sm-2 chartHeader')}
+    className={graphFocus === 1 && secondGraphVisible ? ('col-sm-2 chartInfo shadowGraph') : ('col-sm-2 chartInfo')}
   >
-    <div className="chartInfoChild">
-      <nav className="nav nav-pills nav-fill">
-        <span className="nav-item nav-link nav-chartInfo">
-          <img className="detailsImage" src={coinInfo.image} alt="" />
-          <span className="detailsLabel">
-            {`${coin1} Details`}
-          </span>
+    <div className="chartInfo__overlay">
+      <div className="chartInfo__header">
+        <img className="chartInfo__header--image" src={coinInfo.image} alt="" />
+        <span className="chartInfo__header--label">
+          {`${coin1} Details`}
         </span>
-      </nav>
+      </div>
       <img
-        alt=""
-        className="cryptoImageBackgroundChartInfo"
+        alt="coin icon"
+        className="chartInfo__Bg-Image"
         src={coinInfo.image}
         id={`cryptoImageBackgroundChartInfo${graphID}`}
       />
@@ -35,7 +33,7 @@ const ChartInfo = ({
         <ChartInfoSpinner />
       )}
       <div
-        className="coinInfo"
+        className="chartInfo__coinData"
         id={`coinInfo ${graphID}`}
       >
         <Scrollbars
@@ -161,50 +159,40 @@ const ChartInfo = ({
           </li>
         </Scrollbars>
       </div>
-      <div className="iconsContainer">
+      <div className="chartInfo__linkHub">
         {coinInfo.homepage
           && (
-            <span className="tags flex-item">
-              <a href={coinInfo.homepage} target="_blank" rel="noopener noreferrer">
-                <img className="tagIcons" src={home} alt="home" />
-              </a>
-            </span>
+            <a href={coinInfo.homepage} target="_blank" rel="noopener noreferrer">
+              <img src={home} alt="home" />
+            </a>
           )
         }
         {coinInfo.twitter_handle
           && (
-            <span className="tags flex-item">
-              <a href={`https://www.twitter.com/${coinInfo.twitter_handle}`} target="_blank" rel="noopener noreferrer">
-                <img className="tagIcons" src={twitter} alt="home" />
-              </a>
-            </span>
+            <a href={`https://www.twitter.com/${coinInfo.twitter_handle}`} target="_blank" rel="noopener noreferrer">
+              <img src={twitter} alt="home" />
+            </a>
           )
         }
         {coinInfo.facebook_username
           && (
-            <span className="tags flex-item">
-              <a href={`https://www.facebook.com/${coinInfo.facebook_username}`} target="_blank" rel="noopener noreferrer">
-                <img className="tagIcons" src={facebook} alt="home" />
-              </a>
-            </span>
+            <a href={`https://www.facebook.com/${coinInfo.facebook_username}`} target="_blank" rel="noopener noreferrer">
+              <img src={facebook} alt="home" />
+            </a>
           )
         }
         {coinInfo.subreddit
           && (
-            <span className="tags flex-item">
-              <a href={coinInfo.subreddit} target="_blank" rel="noopener noreferrer">
-                <img className="tagIcons" src={reddit} alt="home" />
-              </a>
-            </span>
+            <a href={coinInfo.subreddit} target="_blank" rel="noopener noreferrer">
+              <img src={reddit} alt="home" />
+            </a>
           )
         }
         {coinInfo.github
           && (
-            <span className="tags flex-item">
-              <a href={coinInfo.github} target="_blank" rel="noopener noreferrer">
-                <img className="tagIcons" src={github} alt="home" />
-              </a>
-            </span>
+            <a href={coinInfo.github} target="_blank" rel="noopener noreferrer">
+              <img src={github} alt="home" />
+            </a>
           )
         }
       </div>

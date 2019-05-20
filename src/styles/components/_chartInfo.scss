@@ -1,97 +1,88 @@
-.chartHeader {
-  position: fixed !important;
+.chartInfo {
+  position: fixed;
   text-align: center;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
-  color: #1e2938;
+  font-size: 1.4rem;
+  color: $color-blue-dark;
   font-weight: bolder;
-  width: 300px !important;
-  padding: 0px;
+  width: 300px;
   list-style: none;
   text-align: left;
-  padding-top: 0px;
   right: -29%;
   top: 0%;
   max-width: 26.666667% !important;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+  padding: 0;
   overflow: hidden;
   border-radius: 4px;
-  height: 268px;
-  min-height: 244px;
-  -webkit-transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1); 
-}
+  height: 29rem;
+  transition: box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 
-@media screen and (max-width: 1000px) {
-  .chartHeader {
-    right: 0%;
-    max-width: none !important;
-    top: 105%;
-    box-shadow: none;
-    width: 96vw !important;
+  &__overlay {
+    background: rgba(135, 144, 149, 0.9);
+    height: inherit;
+  }
+
+  @media (max-width: 1000px) {
+      right: 0%;
+      max-width: none !important;
+      top: 105%;
+      box-shadow: none;
+      width: 96vw !important;
+  }
+  
+  @media (max-width: 600px) and (max-height: 900px) {
+      top: 101%;
+  }
+  
+  @media (max-height: 650px) {
+      height: 245px;
+      min-height: 0px !important;
+  }
+  
+  @media (max-height: 800px) and (max-width: 1000px) {
+      height: 212px;
+      min-height: 0px !important;
+  }
+  
+  @media (max-height: 700px) and (max-width: 1000px) {
+      height: 183px;
+      min-height: 0px !important;
   }
 }
 
-@media screen and (max-width: 600px) and (max-height: 900px) {
-  .chartHeader {
-    top: 101%;
-  }
-}
-
-@media screen and (max-height: 650px) {
-  .chartHeader {
-    height: 245px;
-    min-height: 0px !important;
-  }
-}
-
-@media screen and (max-height: 800px) and (max-width: 1000px) {
-  .chartHeader {
-    height: 212px;
-    min-height: 0px !important;
-  }
-}
-
-@media screen and (max-height: 700px) and (max-width: 1000px) {
-  .chartHeader {
-    height: 183px;
-    min-height: 0px !important;
-  }
-}
-
-.coinInfo {
-  padding-left: 10px;
+.chartInfo__coinData {
   z-index: 1;
   padding-top: 5px;
   -webkit-transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  height: 193px;
+  height: 20.5rem;
   overflow: hidden;
-}
 
-@media screen and (max-height: 650px) {
-  .coinInfo {
-    height: 166px;
-    min-height: 0px !important;
+  li {
+    padding-left: .8rem;
+    
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid #757e83;
+    }
+  }
+
+  @media (max-height: 650px) {
+      height: 161px;
+      min-height: 0px !important;
+  }
+  
+  @media (max-height: 800px) and (max-width: 1000px) {
+      height: 136px;
+      min-height: 0px !important;
+  }
+  
+  @media (max-height: 700px) and (max-width: 1000px) {
+      height: 107px;
+      min-height: 0px !important;
   }
 }
 
-@media screen and (max-height: 800px) and (max-width: 1000px) {
-  .coinInfo {
-    height: 136px;
-    min-height: 0px !important;
-  }
-}
-
-@media screen and (max-height: 700px) and (max-width: 1000px) {
-  .coinInfo {
-    height: 107px;
-    min-height: 0px !important;
-  }
-}
-
-.cryptoImageBackgroundChartInfo {
+.chartInfo__Bg-Image {
   position: absolute;
   left: 60%;
   transform: translate(-20%, -50%);
@@ -103,10 +94,28 @@
   transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.chartInfoChild {
-  background: rgba(135, 144, 149, 0.9);
-  height: inherit;
-  min-height: 244px;
+.chartInfo__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lighten(#879095, 2%);;
+  color: $color-black;
+  padding: .5rem 0;
+  border-bottom: 1px solid #757e83;
+
+  &--image {
+    width: 30px;
+    margin-right: .4rem;
+  
+    @media screen and (max-width: 1000px) {
+      width: 25px;
+      margin-top: -2px;
+    }
+  }
+  
+  &--label {
+    font-weight: 700;
+  }
 }
 
 .chartInfoRight {
@@ -116,73 +125,27 @@
   padding-right: 11px;
 }
 
-.detailsImage {
-  width: 30px;
-  margin-left: -7px;
-  position: absolute;
-  margin-top: -4px;
-
-}
-
-@media screen and (max-width: 1000px) {
-  .detailsImage {
-    width: 25px;
-    margin-top: -2px;
-  }
-}
-
-.detailsLabel {
-  margin-left: 31px;
-}
-
-.iconsContainer {
+.chartInfo__linkHub {
   display: flex;
+  justify-content: space-around;
   text-align: center;
   margin: 8px -4px 0px;
   border: 1px solid #6a7580;
   padding: 5px;
   margin: 5px;
   border-radius: 4px;
-}
+  background: #222b3a;
 
-.linksHeader {
-  text-align: center;
-  margin-bottom: 5px;
-  font-size: 12px;
-  color: white;
-}
+  img {
+      width: 20px;
+      filter: invert(60%);
 
-.nav-pills .nav-link .active, .nav-pills .show .nav-link {
-  color: #d9d9d9;
-  background-color: #7b8589;
-  font-size: 15px;
-  border-radius: 0;
-  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.nav-pills .nav-link {
-border-radius: 0; 
-background-color: #223242;
-color: #d9d9d9;
-}
-
-.nav-chartInfo {
-  background: rgb(24, 33, 44) !important;
-}
-
-.tags {
-  flex-shrink: 5;
-}
-
-.tagIcons {
-  width: 20px;
-}
-
-.tagIcons:hover {
-  filter: invert(90%);
-  -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
-  transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      &:hover {
+        filter: invert(90%);
+        -webkit-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      }
+  }
 }
 
 .thumb-vertical2 {
