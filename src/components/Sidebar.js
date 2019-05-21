@@ -76,7 +76,7 @@ class Sidebar extends Component {
           tabIndex="-1"
           id="sidebarButton"
           type="link"
-          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
+          className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'sidebar__list-item' : 'sidebar__list-item buttonFav'}
           onClick={(e) => {
             handleExternalComponentSubmit(e, x.symbol.toUpperCase());
           }
@@ -87,26 +87,27 @@ class Sidebar extends Component {
                   }
         >
           <img className="sidebarIcon" src={x.image} alt={x} />
-          <span className="sidebarRank">
-            {`${x.market_cap_rank}.`}
-            &nbsp;
-          </span>
-          <span className="sidebarCoin">
-            {x.symbol.toUpperCase()}
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          </span>
-          <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
+          <div>
+            <span className="sidebarRank">
+              {`${x.market_cap_rank}.`}
+              &nbsp;
+            </span>
+            <span className="sidebarCoin">
+              {x.symbol.toUpperCase()}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+          </div>
+          <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText' : 'redText'}>
             {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
           </span>
           {favorites.indexOf(x.symbol.toUpperCase()) === -1
             ? null : (
-              <span>
-                <img
-                  className="heartSidebarListed"
-                  src={heartFilled}
-                  alt="heart"
-                />
-              </span>)}
+              <img
+                className="heartSidebarListed"
+                src={heartFilled}
+                alt="heart"
+              />
+            )}
         </div>
       </div>));
     this.setState({ newRankingList });
@@ -124,7 +125,7 @@ class Sidebar extends Component {
             tabIndex="-1"
             id="sidebarButton"
             type="link"
-            className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'list-group-item list-group-item-action' : 'list-group-item list-group-item-action buttonFav'}
+            className={favorites.indexOf(x.symbol.toUpperCase()) === -1 ? 'sidebar__list-item' : 'sidebar__list-item buttonFav'}
             onClick={(e) => {
               handleExternalComponentSubmit(e, x.symbol.toUpperCase());
             }
@@ -135,15 +136,17 @@ class Sidebar extends Component {
                     }
           >
             <img className="sidebarIcon" src={x.image} alt={x} />
-            <span className="sidebarRank">
-              {`${x.market_cap_rank}.`}
-            &nbsp;
-            </span>
-            <span className="sidebarCoin">
-              {x.symbol.toUpperCase()}
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </span>
-            <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText right' : 'redText right'}>
+            <div>
+              <span className="sidebarRank">
+                {`${x.market_cap_rank}.`}
+              &nbsp;
+              </span>
+              <span className="sidebarCoin">
+                {x.symbol.toUpperCase()}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+            </div>
+            <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText' : 'redText'}>
               {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
             </span>
           </div>
@@ -161,7 +164,7 @@ class Sidebar extends Component {
     }
     else {
       const newRankingList = (
-        <div className="emptyFavorites list-group-item list-group-item-action">
+        <div className="emptyFavorites sidebar__list-item">
           {'Start Adding Favorites!'}
         </div>
       );
@@ -184,7 +187,7 @@ class Sidebar extends Component {
         {loading && (
           <SidebarSpinner />
         )}
-        <div className={loading ? 'list-group' : 'list-group visible'}>
+        <div className={loading ? 'sidebar__list' : 'sidebar__list visible'}>
           <nav id="nav" className="nav nav-pills nav-fill">
             <span className={listStatus === 'Ranked' ? 'flex-item nav-link active' : 'flex-item nav-link'} id="ranked">
               <img className="heartSidebar" src={listImage} alt="ranked" />

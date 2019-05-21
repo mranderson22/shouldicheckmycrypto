@@ -44,7 +44,7 @@ const ChartInfo = ({
             <span>
               {'Rank'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {coinInfo.rank}
             </span>
           </li>
@@ -52,7 +52,7 @@ const ChartInfo = ({
             <span>
               {'Price'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {curr === 'USD' ? '$' : 'Ƀ'}
               {coinInfo.price < 0.10 ? `${parseFloat(coinInfo.price).toFixed(8)}` : `${parseFloat(coinInfo.price).toFixed(2)}`}
             </span>
@@ -61,7 +61,7 @@ const ChartInfo = ({
             <span>
               {'1 Hour'}
             </span>
-            <span className={coinInfo.change1h <= 0 ? 'redText chartInfoRight' : 'greenText chartInfoRight'}>
+            <span className={coinInfo.change1h <= 0 ? 'redText' : 'greenText'}>
               {coinInfo.change1h}
               {'%'}
               {coinInfo.change1h <= 0 ? '↓' : '↑'}
@@ -71,7 +71,7 @@ const ChartInfo = ({
             <span>
               {'1 Day'}
             </span>
-            <span className={coinInfo.change24h <= 0 ? 'redText chartInfoRight' : 'greenText chartInfoRight'}>
+            <span className={coinInfo.change24h <= 0 ? 'redText' : 'greenText'}>
               {coinInfo.change24h}
               {'%'}
               {coinInfo.change24h <= 0 ? '↓' : '↑'}
@@ -81,7 +81,7 @@ const ChartInfo = ({
             <span>
               {'7 Day'}
             </span>
-            <span className={coinInfo.change7d <= 0 ? 'redText chartInfoRight' : 'greenText chartInfoRight'}>
+            <span className={coinInfo.change7d <= 0 ? 'redText' : 'greenText'}>
               {coinInfo.change7d}
               {'%'}
               {coinInfo.change7d <= 0 ? '↓' : '↑'}
@@ -92,13 +92,13 @@ const ChartInfo = ({
               {`${days} Day`}
             </span>
             {isFinite(dateRangeChange) ? (
-              <span className={dateRangeChange <= 0 ? 'redText chartInfoRight' : 'greenText chartInfoRight'}>
+              <span className={dateRangeChange <= 0 ? 'redText' : 'greenText'}>
                 {dateRangeChange}
                 {'%'}
                 {dateRangeChange <= 0 ? '↓' : '↑'}
               </span>
             ) : (
-              <span className="chartInfoRight black">
+              <span>
                 {'N/A'}
               </span>
             )}
@@ -107,7 +107,7 @@ const ChartInfo = ({
             <span>
               {'24 High'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {curr === 'USD' ? '$' : 'Ƀ'}
               {coinInfo.high24 < 0.10 ? `${parseFloat(coinInfo.high24).toFixed(8)}` : `${parseFloat(coinInfo.high24).toFixed(2)}`}
             </span>
@@ -116,7 +116,7 @@ const ChartInfo = ({
             <span>
               {'24 Low'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {curr === 'USD' ? '$' : 'Ƀ'}
               {coinInfo.low24 < 0.10 ? `${parseFloat(coinInfo.low24).toFixed(8)}` : `${parseFloat(coinInfo.low24).toFixed(2)}`}
             </span>
@@ -125,7 +125,7 @@ const ChartInfo = ({
             <span>
               {'ATH'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {curr === 'USD' ? '$' : 'Ƀ'}
               {coinInfo.ath < 0.10 ? `${parseFloat(coinInfo.ath).toFixed(8)}` : `${parseFloat(coinInfo.ath).toFixed(2)}`}
             </span>
@@ -144,7 +144,7 @@ const ChartInfo = ({
             <span>
               {'ATH Date'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {moment(coinInfo.athDate).format('MM/DD/YYYY')}
             </span>
           </li>
@@ -152,7 +152,7 @@ const ChartInfo = ({
             <span>
               {'Mkt Cap'}
             </span>
-            <span className="chartInfoRight black">
+            <span>
               {curr === 'USD' ? '$' : 'Ƀ'}
               {coinInfo.mktCap}
             </span>

@@ -61,27 +61,41 @@
   z-index: 0;
 }
 
-.list-group {
+.sidebar__list {
   opacity: 0;
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     &-item {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: space-between;
+      font-size: 1.4rem;
       color: $color-grey-light;
       padding: 1rem;
       cursor: pointer;
       background-color: $color-grey-medium;
       visibility: visible;
-      transition: background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: background-color 0.2s, box-shadow .2s cubic-bezier(0.165, 0.84, 0.44, 1);
       overflow: hidden;
-
+      border-radius: 0 !important;
+      border-bottom: 1px solid $color-grey-dark;
+      position: relative;
+      width: 100%;
+      
       &:hover {
         background-color: lighten($color-blue-primary, 5%);
         color: $color-white;
-        z-index: 0;
+        z-index: 1;
+        box-shadow: 0px 0rem 1rem 3px rgba($color-black, 0.439);
+        padding: 1rem;
+        outline: none;
+        border: none;
       }
       
       &:focus {
         background: $color-blue-primary;
+        box-shadow: 0px 0rem .5rem 1px rgba($color-black, 0.439);
         color: $color-black;
         outline: 0;
         z-index: 0;
@@ -142,7 +156,7 @@ justify-content: center;
   border: none;
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
-  padding: .6rem;
+  padding: 1.5rem 0.6rem;
 }
 
 .removeFavorite:hover {
@@ -243,6 +257,8 @@ justify-content: center;
   display: flex;
   opacity: 1;
   z-index: 5;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sidebarContainer {
@@ -286,6 +302,7 @@ justify-content: center;
   cursor: pointer;
   border-radius: inherit;
   background-color: rgba($color-grey-light, 0.47);
+  z-index: 1;
 }
 
 .view {
