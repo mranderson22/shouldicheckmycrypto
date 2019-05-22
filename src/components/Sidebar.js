@@ -146,26 +146,28 @@ class Sidebar extends Component {
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </span>
             </div>
-            <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText' : 'redText'}>
+            <span className={x.price_change_percentage_24h_in_currency > 0 ? 'greenText padding-right' : 'redText padding-right'}>
               {`${parseFloat(x.price_change_percentage_24h_in_currency).toFixed(2)} %`}
             </span>
+            <button
+              className="removeFavorite"
+              type="button"
+              onClick={() => {
+                toggleFavorites(x.symbol.toUpperCase());
+              }}
+            >
+              <img className="exitIcons" src={exiticon} alt="favorite" />
+            </button>
           </div>
-          <button
-            className="removeFavorite"
-            type="button"
-            onClick={() => {
-              toggleFavorites(x.symbol.toUpperCase());
-            }}
-          >
-            <img className="exitIcons" src={exiticon} alt="favorite" />
-          </button>
         </div>));
       this.setState({ newRankingList });
     }
     else {
       const newRankingList = (
-        <div className="emptyFavorites sidebar__list-item">
-          {'Start Adding Favorites!'}
+        <div className="emptyFavorites">
+          <span>
+            {'Start Adding Favorites!'}
+          </span>
         </div>
       );
       this.setState({ newRankingList });

@@ -157,22 +157,24 @@ class Graph extends Component {
     }
 
     return (
-      <div className="NoGraphChild">
+      <div className="graph__wrapper">
         <img
           id={`cryptoImageBackground${graphID}`}
           alt=""
-          className={graphFocus === 1 ? 'cryptoImageBackground saturated' : 'cryptoImageBackground'}
+          className={graphFocus === 1 ? 'graph__bg-image saturated' : 'graph__bg-image'}
           src={coinInfo.image}
         />
-        <div className="graphName">
-          { `${coinInfo.name} / ${curr} `}
+        <div className="graph__header">
+          <span className="graph__header-name">
+            { `${coinInfo.name} / ${curr} `}
+          </span>
           <span id={`graphPrice${graphID}`}>
-            <span className="graphPrice">
+            <span className="graph__header-price">
               {curr === 'USD' ? '$' : 'Ƀ'}
               {processPrice}
             </span>
             {isFinite(dateRangeChange) && (
-              <span className={dateRangeChange <= 0 ? 'redText graphPercentage' : 'greenText graphPercentage'}>
+              <span className={dateRangeChange <= 0 ? 'redText graph__header-percentage' : 'greenText graph__header-percentage'}>
                 {` ${dateRangeChange}%`}
                 {dateRangeChange <= 0 ? '↓' : '↑'}
               </span>

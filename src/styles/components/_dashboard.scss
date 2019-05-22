@@ -3,8 +3,7 @@
   opacity: 0;
 }
 
-.graph1,
-.graph2 {
+.graph {
   position: fixed;
   left: 19%;
   padding: 0;
@@ -19,64 +18,40 @@
   &-highlight {
     box-shadow: $box-shadow-highlight;
   }
-}
 
-.graph1 {
-  top: 0%;
-  margin-top: 1.5rem;
-}
+  &__position-1 {
+    top: 0%;
+    margin-top: 1.5rem;
 
-.graph2 {
-  top: 41.3%;
-  margin-top: 7.9rem;
-}
-
-@media screen and (max-height: 800px) {
-  .graph2 {
-    top: 39.5%;
+    @media (max-width: 1000px) {
+        left: 2%;
+        max-width: none;
+        width: 96%;
+        top: 5%;
+        box-shadow: none;
+        background: none;
+    }
   }
-}
+  
+  &__position-2 {
+    top: 41.3%;
+    margin-top: 7.9rem;
 
-@media screen and (max-height: 650px) {
-  .graph2 {
-    top: 8.5%;
-    margin-top: 22.5rem;
-  }
-}
+    @media (max-height: 800px) {
+      top: 39.5%;
+    }
+    
+    @media (max-height: 650px) {
+      top: 8.5%;
+      margin-top: 22.5rem;
+    }
+    
+    @media (max-height: 520px) {
+      display: none;
+    }
 
-@media screen and (max-height: 520px) {
-  .graph2 {
-    display: none;
-  }
-}
-
-@media screen and (min-width: 650px) {
-  .col-sm-2 {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
-  }
-}
-
-@media screen and (min-width: 200px) {
-  .col-sm-2 {
-    -ms-flex: 0 0 16.666667%;
-    flex: 0 0 16.666667%;
-    max-width: 16.666667%;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .graph1 {
-    left: 2%;
-    max-width: none;
-    width: 96%;
-    top: 5%;
-    box-shadow: none;
-    background: none;
-  }
-
-  .graph2 {
-    display: none;
+    @media (max-width: 1000px) {
+      display: none;
+    }
   }
 }
