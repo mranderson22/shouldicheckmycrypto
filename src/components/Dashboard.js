@@ -780,7 +780,7 @@ class Dashboard extends Component {
             handleExternalComponentSubmit={this.handleExternalComponentSubmit}
           />
           <animations.Resize
-            className={graphFocus === 1 ? ('col-sm-10 graph graph__position-1 graph1-highlight') : ('col-sm-10 graph graph__position-1')}
+            className={graphFocus === 1 ? ('col-sm-10 graph graph__position-1 graph-highlight') : ('col-sm-10 graph graph__position-1')}
             pose={pose}
             onFocus={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
             onMouseOver={() => this.setState({ graphFocus: 1, graphFocus2: 2 })}
@@ -820,7 +820,7 @@ class Dashboard extends Component {
         />
         {freshReveal && (
           <animations.Reveal3
-            className={graphFocus === 1 ? ('col-sm-10 graph graph__position-2 animations_Reveal3') : ('col-sm-10 graph graph__position-2 animations_Reveal3 graph2-highlight')}
+            className={graphFocus === 1 ? ('col-sm-10 graph graph__position-2 animations_Reveal3') : ('col-sm-10 graph graph__position-2 animations_Reveal3 graph-highlight')}
             pose={pose2}
             onFocus={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
             onMouseOver={() => this.setState({ graphFocus: 2, graphFocus2: 1 })}
