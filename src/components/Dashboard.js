@@ -278,6 +278,7 @@ class Dashboard extends Component {
     let { coin2 } = this.state;
     const { curr } = this.state;
     const { curr2 } = this.state;
+    document.title = `Should I Check My ${coin1}?`;
     if (coin1 === 'MIOTA') {
       coin1 = 'IOTA';
     }
