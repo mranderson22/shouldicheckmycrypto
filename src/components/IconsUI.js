@@ -64,9 +64,9 @@ export const Eric = () => (
   <div className="geckoWrapper">
     <span className="eric">
       {'built by'}
-      <span className="highlightColor">
+      <a className="highlightColor" href="https://eric-anderson.io" target="_blank" rel="noopener noreferrer">
         {' Eric Anderson'}
-      </span>
+      </a>
     </span>
   </div>
 );
